@@ -1,7 +1,7 @@
 {% load static %}
 <html>
   <head>
-    <title>Django Builder - rfmvp</title>
+    <title>Ração do Futuro</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
@@ -35,7 +35,7 @@
       socket.send(new Blob(["Bytes from Javascript"]));
     };
 
-    socket.onmessage = function (evt) { 
+    socket.onmessage = function (evt) {
       console.log(evt)
       var received_msg = evt.data;
       console.log("Message received...", received_msg);

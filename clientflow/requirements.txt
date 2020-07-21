@@ -1,5 +1,0 @@
-Django>=2
-django-extensions
-djangorestframework
-channels
-channels_redis
