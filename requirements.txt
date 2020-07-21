@@ -9,7 +9,7 @@ gunicorn
 asgiref
 psycopg2
 pytz
-six
+six==1.12.0
 sqlparse
 channels
 channels_redis

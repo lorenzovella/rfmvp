@@ -46,7 +46,7 @@ class Pedido(models.Model):
     idClient = models.ForeignKey("clientflow.Cliente", on_delete=models.CASCADE)
     idPlano = models.ForeignKey("clientflow.Planos", on_delete=models.CASCADE)
     idEntrega = models.OneToOneField("clientflow.Entrega", on_delete=models.CASCADE)
-    refDog = models.ManyToManyField("clientflow.Cachorro", on_delete=models.CASCADE)
+    refDog = models.ManyToManyField(cachorro)
 
     # Fields
     last_updated = models.DateTimeField(auto_now=True, editable=False)
