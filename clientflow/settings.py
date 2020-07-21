@@ -118,6 +118,6 @@ CHANNEL_LAYERS = {
         # "BACKEND": "channels.layers.InMemoryChannelLayer"
         # Use a redis instance
          "BACKEND": "channels_redis.core.RedisChannelLayer",
-         "CONFIG": {"hosts": [("redis://h:p45927345d4d20620199f2e5adee94af53a635d30e425b14bf60d5f9d8f99d4d3@ec2-52-6-139-154.compute-1.amazonaws.com", 19039)],},
+         "CONFIG": {"hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')]},
     },
 }
