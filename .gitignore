@@ -1,5 +1,4 @@
 
 _env
-staticfiles
 __pycache__
 db.sqlite3
