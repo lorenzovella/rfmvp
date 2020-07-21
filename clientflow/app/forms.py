@@ -7,13 +7,28 @@ class CachorroEspecialForm(forms.ModelForm):
         model = models.CachorroEspecial
         fields = []
 
+class PlanosForm(forms.ModelForm):
+    class Meta:
+        model = models.Planos
+        fields = []
 
+class ClienteForm(forms.ModelForm):
+    class Meta:
+        model = models.Cliente
+        fields = []
 
 class EntregaForm(forms.ModelForm):
     class Meta:
         model = models.Entrega
         fields = []
 
+class CachorroForm(forms.ModelForm):
+    class Meta:
+        model = models.Cachorro
+        fields = [
+            "idCliente",
+            "dogEspecial",
+        ]
 
 
 class PedidoForm(forms.ModelForm):
@@ -27,24 +42,7 @@ class PedidoForm(forms.ModelForm):
         ]
 
 
-class PlanosForm(forms.ModelForm):
+class LeadForm(forms.ModelForm):
     class Meta:
-        model = models.Planos
+        model = models.Lead
         fields = []
-
-
-
-class CachorroForm(forms.ModelForm):
-    class Meta:
-        model = models.Cachorro
-        fields = [
-            "idCliente",
-            "dogEspecial",
-        ]
-
-
-class ClienteForm(forms.ModelForm):
-    class Meta:
-        model = models.Cliente
-        fields = []
-
