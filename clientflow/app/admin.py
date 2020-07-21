@@ -46,17 +46,16 @@ class ClienteAdminForm(forms.ModelForm):
         model = models.Cliente
         fields = "__all__"
 
-
-        class ClienteAdmin(admin.ModelAdmin):
-            form = ClienteAdminForm
-            list_display = [
-            "created",
-            "last_updated",
-            ]
-            readonly_fields = [
-            "created",
-            "last_updated",
-            ]
+class ClienteAdmin(admin.ModelAdmin):
+    form = ClienteAdminForm
+    list_display = [
+    "created",
+    "last_updated",
+    ]
+    readonly_fields = [
+    "created",
+    "last_updated",
+    ]
 
 class EntregaAdminForm(forms.ModelForm):
 
