@@ -15,7 +15,7 @@ channels
 channels_redis
 django-import-export
 django-bootstrap-modal-forms
-django-multipleselectfield
+django-multiselectfield
 django-wordpress-api
 django-crispy-forms
 django-formtools

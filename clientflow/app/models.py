@@ -45,8 +45,8 @@ class Pedido(models.Model):
     # Relationships
     idClient = models.ForeignKey("clientflow.Cliente", on_delete=models.CASCADE)
     idPlano = models.ForeignKey("clientflow.Planos", on_delete=models.CASCADE)
-    idEntrega = models.OneToOneField("clientflow.Entrega")
-    refDog = models.ManyToManyField("clientflow.Cachorro")
+    idEntrega = models.OneToOneField("clientflow.Entrega", on_delete=models.CASCADE)
+    refDog = models.ManyToManyField("clientflow.Cachorro", on_delete=models.CASCADE)
 
     # Fields
     last_updated = models.DateTimeField(auto_now=True, editable=False)
@@ -88,7 +88,7 @@ class Cachorro(models.Model):
 
     # Relationships
     idCliente = models.ForeignKey("clientflow.Cliente", on_delete=models.CASCADE)
-    dogEspecial = models.OneToOneField("clientflow.CachorroEspecial")
+    dogEspecial = models.OneToOneField("clientflow.CachorroEspecial", on_delete=models.CASCADE)
 
     # Fields
     last_updated = models.DateTimeField(auto_now=True, editable=False)
