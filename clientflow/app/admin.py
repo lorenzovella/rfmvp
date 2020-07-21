@@ -3,48 +3,31 @@ from django import forms
 
 from . import models
 
+class ClienteAdminForm(forms.ModelForm):
+    class Meta:
+        model = models.Cliente
+        fields = "__all__"
+class CachorroAdminForm(forms.ModelForm):
+    class Meta:
+        model = models.Cachorro
+        fields = "__all__"
 
 class CachorroEspecialAdminForm(forms.ModelForm):
-
     class Meta:
         model = models.CachorroEspecial
         fields = "__all__"
-
-
-class CachorroEspecialAdmin(admin.ModelAdmin):
-    form = CachorroEspecialAdminForm
-    list_display = [
-        "created",
-        "last_updated",
-    ]
-    readonly_fields = [
-        "created",
-        "last_updated",
-    ]
-
+        
 class PlanosAdminForm(forms.ModelForm):
-
     class Meta:
         model = models.Planos
         fields = "__all__"
 
-
-class PlanosAdmin(admin.ModelAdmin):
-    form = PlanosAdminForm
-    list_display = [
-        "last_updated",
-        "created",
-    ]
-    readonly_fields = [
-        "last_updated",
-        "created",
-    ]
-
-class ClienteAdminForm(forms.ModelForm):
-
+class EntregaAdminForm(forms.ModelForm):
     class Meta:
-        model = models.Cliente
+        model = models.Entrega
         fields = "__all__"
+
+
 
 class ClienteAdmin(admin.ModelAdmin):
     form = ClienteAdminForm
@@ -57,12 +40,16 @@ class ClienteAdmin(admin.ModelAdmin):
     "last_updated",
     ]
 
-class EntregaAdminForm(forms.ModelForm):
-
-    class Meta:
-        model = models.Entrega
-        fields = "__all__"
-
+class PlanosAdmin(admin.ModelAdmin):
+    form = PlanosAdminForm
+    list_display = [
+        "last_updated",
+        "created",
+    ]
+    readonly_fields = [
+        "last_updated",
+        "created",
+    ]
 
 class EntregaAdmin(admin.ModelAdmin):
     form = EntregaAdminForm
@@ -75,11 +62,18 @@ class EntregaAdmin(admin.ModelAdmin):
         "created",
     ]
 
-class CachorroAdminForm(forms.ModelForm):
+class CachorroEspecialAdmin(admin.ModelAdmin):
+    form = CachorroEspecialAdminForm
+    list_display = [
+        "created",
+        "last_updated",
+    ]
+    readonly_fields = [
+        "created",
+        "last_updated",
+    ]
 
-    class Meta:
-        model = models.Cachorro
-        fields = "__all__"
+
 
 
 class CachorroAdmin(admin.ModelAdmin):
@@ -95,7 +89,6 @@ class CachorroAdmin(admin.ModelAdmin):
 
 
 class PedidoAdminForm(forms.ModelForm):
-
     class Meta:
         model = models.Pedido
         fields = "__all__"
@@ -116,9 +109,9 @@ class PedidoAdmin(admin.ModelAdmin):
 
 
 
-admin.site.register(models.CachorroEspecial, CachorroEspecialAdmin)
-admin.site.register(models.Planos, PlanosAdmin)
 admin.site.register(models.Cliente, ClienteAdmin)
+admin.site.register(models.Planos, PlanosAdmin)
 admin.site.register(models.Entrega, EntregaAdmin)
+admin.site.register(models.CachorroEspecial, CachorroEspecialAdmin)
 admin.site.register(models.Cachorro, CachorroAdmin)
 admin.site.register(models.Pedido, PedidoAdmin)

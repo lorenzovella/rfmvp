@@ -1,13 +1,43 @@
 from django.db import models
 from django.urls import reverse
+from multiselectfield import MultiSelectField
 
 
-class CachorroEspecial(models.Model):
-
+class Cliente(models.Model):
     # Fields
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
 
+    class Meta:
+        pass
+
+    def __str__(self):
+        return str(self.pk)
+
+    def get_absolute_url(self):
+        return reverse("clientflow_Cliente_detail", args=(self.pk,))
+
+    def get_update_url(self):
+        return reverse("clientflow_Cliente_update", args=(self.pk,))
+
+
+class CachorroEspecial(models.Model):
+
+    condicao_choices = (('alergia', 'Alegia'),
+    ('cardiaco', 'Cardiaco'),
+    ('diabetes', 'Diabetes'),
+    ('renal', 'Renal'),
+    ('obesidade', 'Obesidade'),
+    ('intestinal', 'Instestinal'),
+    ('outro', 'Outro'))
+
+    # Fields
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    last_updated = models.DateTimeField(auto_now=True, editable=False)
+    condicao = MultiSelectField('Qual o problema de saúde?', max_length=200, choices=condicao_choices)
+    medicamento = models.BooleanField('Ele toma algum medicamento?', default=False)
+    descricao   = models.TextField('Breve descrição sobre o problema', help_text='Escreva aqui')
+    anexo = models.FileField('Algum exame ou receita?', help_text='Clique ou arraste os arquivos nessa área para anexá-los', upload_to='uploads/anexos/%Y/%m/')
     class Meta:
         pass
 
@@ -39,27 +69,6 @@ class Planos(models.Model):
         return reverse("clientflow_Planos_update", args=(self.pk,))
 
 
-
-class Cliente(models.Model):
-
-    # Fields
-    created = models.DateTimeField(auto_now_add=True, editable=False)
-    last_updated = models.DateTimeField(auto_now=True, editable=False)
-
-    class Meta:
-        pass
-
-    def __str__(self):
-        return str(self.pk)
-
-    def get_absolute_url(self):
-        return reverse("clientflow_Cliente_detail", args=(self.pk,))
-
-    def get_update_url(self):
-        return reverse("clientflow_Cliente_update", args=(self.pk,))
-
-
-
 class Entrega(models.Model):
 
     # Fields
@@ -81,8 +90,8 @@ class Entrega(models.Model):
 class Cachorro(models.Model):
 
     # Relationships
-    idCliente = models.ForeignKey("clientflow.Cliente", on_delete=models.CASCADE)
-    dogEspecial = models.OneToOneField("clientflow.CachorroEspecial", on_delete=models.CASCADE)
+    idCliente = models.ForeignKey("app.Cliente", on_delete=models.CASCADE)
+    dogEspecial = models.OneToOneField("app.CachorroEspecial", on_delete=models.CASCADE)
 
     # Fields
     last_updated = models.DateTimeField(auto_now=True, editable=False)
@@ -104,10 +113,10 @@ class Cachorro(models.Model):
 class Pedido(models.Model):
 
     # Relationships
-    idClient = models.ForeignKey("clientflow.Cliente", on_delete=models.CASCADE)
-    idPlano = models.ForeignKey("clientflow.Planos", on_delete=models.CASCADE)
-    idEntrega = models.OneToOneField("clientflow.Entrega", on_delete=models.CASCADE)
-    refDog = models.ManyToManyField(Cachorro)
+    idClient = models.ForeignKey("app.Cliente", on_delete=models.CASCADE)
+    idPlano = models.ForeignKey("app.Planos", on_delete=models.CASCADE)
+    idEntrega = models.OneToOneField("app.Entrega", on_delete=models.CASCADE)
+    refDog = models.ManyToManyField("app.Cachorro")
 
     # Fields
     last_updated = models.DateTimeField(auto_now=True, editable=False)
