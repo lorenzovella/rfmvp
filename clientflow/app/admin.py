@@ -82,16 +82,16 @@ class CachorroAdminForm(forms.ModelForm):
         fields = "__all__"
 
 
-        class CachorroAdmin(admin.ModelAdmin):
-            form = CachorroAdminForm
-            list_display = [
-            "last_updated",
-            "created",
-            ]
-            readonly_fields = [
-            "last_updated",
-            "created",
-            ]
+class CachorroAdmin(admin.ModelAdmin):
+    form = CachorroAdminForm
+    list_display = [
+    "last_updated",
+    "created",
+    ]
+    readonly_fields = [
+    "last_updated",
+    "created",
+    ]
 
 
 class PedidoAdminForm(forms.ModelForm):
