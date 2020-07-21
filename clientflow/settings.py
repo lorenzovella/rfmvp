@@ -115,9 +115,9 @@ USE_TZ = True
 ASGI_APPLICATION = "clientflow.routing.application"
 CHANNEL_LAYERS = {
     "default": {
-        "BACKEND": "channels.layers.InMemoryChannelLayer"
+        # "BACKEND": "channels.layers.InMemoryChannelLayer"
         # Use a redis instance
-        # "BACKEND": "channels_redis.core.RedisChannelLayer",
-        # "CONFIG": {"hosts": [("127.0.0.1", 6379)],},
+         "BACKEND": "channels_redis.core.RedisChannelLayer",
+         "CONFIG": {"hosts": [("redis://h:p45927345d4d20620199f2e5adee94af53a635d30e425b14bf60d5f9d8f99d4d3@ec2-52-6-139-154.compute-1.amazonaws.com", 19039)],},
     },
 }
