@@ -1,6 +1,27 @@
 from django.db import models
 from django.urls import reverse
 
+class Cachorro(models.Model):
+
+    # Relationships
+    idCliente = models.ForeignKey("clientflow.Cliente", on_delete=models.CASCADE)
+    dogEspecial = models.OneToOneField("clientflow.CachorroEspecial", on_delete=models.CASCADE)
+
+    # Fields
+    last_updated = models.DateTimeField(auto_now=True, editable=False)
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+
+    class Meta:
+        pass
+
+        def __str__(self):
+            return str(self.pk)
+
+            def get_absolute_url(self):
+                return reverse("clientflow_Cachorro_detail", args=(self.pk,))
+
+                def get_update_url(self):
+                    return reverse("clientflow_Cachorro_update", args=(self.pk,))
 
 class CachorroEspecial(models.Model):
 
@@ -84,27 +105,6 @@ class Planos(models.Model):
         return reverse("clientflow_Planos_update", args=(self.pk,))
 
 
-class Cachorro(models.Model):
-
-    # Relationships
-    idCliente = models.ForeignKey("clientflow.Cliente", on_delete=models.CASCADE)
-    dogEspecial = models.OneToOneField("clientflow.CachorroEspecial", on_delete=models.CASCADE)
-
-    # Fields
-    last_updated = models.DateTimeField(auto_now=True, editable=False)
-    created = models.DateTimeField(auto_now_add=True, editable=False)
-
-    class Meta:
-        pass
-
-    def __str__(self):
-        return str(self.pk)
-
-    def get_absolute_url(self):
-        return reverse("clientflow_Cachorro_detail", args=(self.pk,))
-
-    def get_update_url(self):
-        return reverse("clientflow_Cachorro_update", args=(self.pk,))
 
 
 class Cliente(models.Model):
