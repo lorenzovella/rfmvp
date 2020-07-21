@@ -22,7 +22,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = os.environ.get('DEBUG') == True
 DEBUG_PROPAGATE_EXCEPTIONS = True
 
-ALLOWED_HOSTS = ['rfmvp.herokuapp.com']
+ALLOWED_HOSTS = ['rfmvp.herokuapp.com','127.0.0.1']
 
 # Application definition
 INSTALLED_APPS = [
@@ -112,7 +112,7 @@ USE_TZ = True
 
 
 # Django Channels
-ASGI_APPLICATION = "rfmvp.routing.application"
+ASGI_APPLICATION = "clientflow.routing.application"
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels.layers.InMemoryChannelLayer"
