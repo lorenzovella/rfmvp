@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'channels',
     'formtools',
+    'crispy_forms',
     'multiselectfield',
     'clientflow.app',
 ]
