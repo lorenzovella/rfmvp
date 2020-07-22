@@ -47,7 +47,7 @@ class CachorroEspecial(models.Model):
     condicao = MultiSelectField('Qual o problema de saúde?', max_length=200, choices=condicao_choices)
     medicamento = models.BooleanField('Ele toma algum medicamento?', default=False)
     descricao   = models.TextField('Breve descrição sobre o problema', help_text='Escreva aqui', default="")
-    anexo = models.FileField('Algum exame ou receita?', help_text='Clique ou arraste os arquivos nessa área para anexá-los', upload_to='uploads/anexos/%Y/%m/', blank=True, null=True)
+    anexo = models.URLField('Algum exame ou receita?', help_text='Clique ou arraste os arquivos nessa área para anexá-los', blank=True, null=True)
     class Meta:
         pass
 
@@ -110,7 +110,7 @@ class Entrega(models.Model):
 class Cachorro(models.Model):
 
     # Relationships
-    idCliente = models.ForeignKey("app.Cliente", on_delete=models.CASCADE)
+    idCliente = models.ForeignKey("app.Cliente", on_delete=models.CASCADE, null=True, blank=True)
     dogEspecial = models.OneToOneField("app.CachorroEspecial", on_delete=models.CASCADE, null=True, blank=True)
 
     sexo_choices = (('Macho','Macho'),('Femea','Femea'),('Indefinido','Indefinido'))
@@ -135,14 +135,14 @@ class Cachorro(models.Model):
     class Meta:
         pass
 
-        def __str__(self):
-            return str(self.pk)
+    def __str__(self):
+        return str(self.pk)
 
-            def get_absolute_url(self):
-                return reverse("clientflow_Cachorro_detail", args=(self.pk,))
+    def get_absolute_url(self):
+        return reverse("clientflow_Cachorro_detail", args=(self.pk,))
 
-                def get_update_url(self):
-                    return reverse("clientflow_Cachorro_update", args=(self.pk,))
+    def get_update_url(self):
+        return reverse("clientflow_Cachorro_update", args=(self.pk,))
 
 
 class Pedido(models.Model):

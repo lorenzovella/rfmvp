@@ -1,7 +1,10 @@
 from django.views import generic
 from . import models
 from . import forms
-
+from django.shortcuts import redirect, render
+from django.forms.models import construct_instance
+from formtools.wizard.views import SessionWizardView
+from django.core.files.storage import FileSystemStorage
 
 class CachorroEspecialListView(generic.ListView):
     model = models.CachorroEspecial
@@ -106,6 +109,53 @@ class CachorroUpdateView(generic.UpdateView):
     model = models.Cachorro
     form_class = forms.CachorroForm
     pk_url_kwarg = "pk"
+
+
+FORMS_CACHORRO = [
+    ("CachorroForm", forms.CachorroForm),
+    ("CachorroForm2", forms.CachorroForm2),
+    ("CachorroForm3", forms.CachorroForm3),
+    ("CachorroForm4", forms.CachorroForm4),
+    ("CachorroForm5", forms.CachorroForm5),
+    ("CachorroEspecialForm", forms.CachorroEspecialForm),
+    ]
+TEMPLATES_CACHORRO = {
+    "CachorroForm": "app/cachorro_multipageform.html",
+    "CachorroForm2": "app/cachorro_multipageform.html",
+    "CachorroForm3": "app/cachorro_multipageform.html",
+    "CachorroForm4": "app/cachorro_multipageform.html",
+    "CachorroForm5": "app/cachorro_multipageform.html",
+    "CachorroEspecialForm": "app/cachorro_multipageform.html",
+    }
+# INSTANCE_DICT = {
+#     }
+
+class cachorroWizard(SessionWizardView):
+    def get_template_names(self):
+        return [TEMPLATES_CACHORRO[self.steps.current]]
+    # def get_context_data(self, form, **kwargs):
+    #     context = super().get_context_data(form=form, **kwargs)
+    #     if self.steps.current == "1":
+    #         context.update({'step_subheading': "", "step_label": "Class details",})
+    #     return context
+
+    def done(self, form_list, form_dict, **kwargs):
+        cachorroInstance = models.Cachorro()
+        cachorroFormArray = [
+            form_dict['CachorroForm'].cleaned_data,
+            form_dict['CachorroForm2'].cleaned_data,
+            form_dict['CachorroForm3'].cleaned_data,
+            form_dict['CachorroForm4'].cleaned_data,
+            form_dict['CachorroForm5'].cleaned_data,
+            ]
+        for parsedForms in cachorroFormArray:
+            for key, value in parsedForms.items():
+                 setattr(cachorroInstance, key, value)
+        savedCachorro = cachorroInstance.save()
+        tempReq = cachorroInstance
+        # self.instance_dict = None
+        # self.storage.reset()
+        return redirect('clientflow_Cachorro_detail', tempReq)
 
 
 class ClienteListView(generic.ListView):

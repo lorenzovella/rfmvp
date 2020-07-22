@@ -4,6 +4,7 @@ from rest_framework import routers
 from . import api
 from . import views
 
+from clientflow.app.views import FORMS_CACHORRO
 
 router = routers.DefaultRouter()
 router.register("CachorroEspecial", api.CachorroEspecialViewSet)
@@ -39,4 +40,6 @@ urlpatterns = (
     path("clientflow/Cliente/create/", views.ClienteCreateView.as_view(), name="clientflow_Cliente_create"),
     path("clientflow/Cliente/detail/<int:pk>/", views.ClienteDetailView.as_view(), name="clientflow_Cliente_detail"),
     path("clientflow/Cliente/update/<int:pk>/", views.ClienteUpdateView.as_view(), name="clientflow_Cliente_update"),
+    path("DogFlow/", views.cachorroWizard.as_view(FORMS_CACHORRO), name="clientflow_dogflow"),
+
 )
