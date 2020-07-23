@@ -4,19 +4,54 @@
 {% load i18n %}
 {% load crispy_forms_tags %}
 {% block head %}
-
 <style>
 
-</style>
 
-<script src="{% static 'js/extra.js' %}"></script>
+.btn-back:focus{
+  outline:0;
+}
+.btn-back{
+  margin-top: -2.3em;
+  outline: 0;
+  box-shadow: none;
+  border: 0px;
+  box-sizing: none;
+  background-color: transparent;
+}
+.btn-next{
+  width:50%;
+  height:120px;
+  outline: 0;
+  box-shadow: none;
+  border: 0px;
+  box-sizing: none;
+  background-color: transparent;
+  color: #9fb2c8;
+  font-family: Roboto;
+  font-size: 34px;
+  font-weight: 900;
+  text-align: center;
+  letter-spacing: 2px;
+  margin-left: auto;
+  margin-right:auto;
+}
+.footer{
+  background: #18447b;
+  position: fixed;
+  display: flex;
+  width:100%;
+  bottom: 0;
+  margin-left: -15px;
+}
+
+</style>
 {{ wizard.form.media }}
 {% endblock %}
 {% block content %}
 
 <div class='row'>
-  <div class='col-12'>
-    <p>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
+  <div class='col-10 info-bar-text'>
+    <p>Informações sobre o seu cão  {{ wizard.steps.step1 }} </p>
   </div>
 </div>
 <div class='row middle'>
