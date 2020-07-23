@@ -10,7 +10,8 @@
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'js/extra.js' %}"></script>
 
-    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/jquery-ui.theme.css' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
@@ -31,7 +32,6 @@
     body {
       font-family: "Poppins",sans-serif;
       padding-top: 150px;
-
     }
     .header-text {
       font-size: 0.825em;
@@ -39,31 +39,54 @@
       letter-spacing: 1px;
       text-transform: initial;
     }
+    .progress {
+      height: 60px;
+    }
     .progress-bar {
       height: 4px;
       background-color: #00FB5C;
+      overflow: visible;
+      margin-top: 26px;
     }
-    .barimage {
-      content: '';
-      background: url({% static 'ico/Dog-Symbol.png' %});
+    .disabled-bar {
+      background-color: #395F8D !important;
     }
-    .one, .two, .three{
+    .progress-bar.icon-bar::after{
+    position: relative;
+    content: url({% static 'ico/Dog-Symbol.png' %});
+    display: block;
+    align-self: flex-end;
+    margin-right: -2em;
+    z-index:2;
+    }
+    .one, .two, .three, .four{
     background-color: #00FB5C;
     position:absolute;
-  	margin-top:-10px;
   	z-index:1;
-  	height:40px;
-  	width:40px;
-  	border-radius:25px;
+  	height:14px;
+  	width:14px;
+  	border-radius: 7px;
+    margin-top: 21px;
+    }
+    .progress-bar-text {
+      font-family: 'Roboto', sans-serif;
+      color: #00FB5C;
+      position: fixed;
+      padding-top: 2em;
+      margin-left: -1.7em;
+
     }
     .one{
-    	left:25%;
+    	left: 1%;
     }
     .two{
-    	left:50%;
+    	left:33%;
     }
     .three{
-    	left:75%;
+      right:33%
+    }
+    .four{
+      right:1%
     }
     </style>
   </head>
@@ -72,12 +95,16 @@
   <body>
     <div id="content" class="container">
       <nav class="navbar navbar-expand-lg fixed-top popoverbar d-flex">
-            <strong class="mx-auto header-text">Entrega disponível apenas para a <span style="font-weight: 900 !important;">Grande Florianópolis</span></strong>
+            <span class="mx-auto header-text">Entrega disponível apenas para a <b>Grande Florianópolis</b></span>
       </nav>
       <nav class="navbar navbar-expand-lg fixed-top topbar">
-        <div class="col-12 float-none bg-transparent progress">
-          <div class="one"></div><div class="two"></div><div class="three"></div>
-          <div class="progress-bar mx-auto" style="width: 75%;"></div>
+        <div class="col-10 float-none bg-transparent progress mx-auto">
+          <div class="one">          <b class="progress-bar-text">SEU CÃO</b></div>
+          <div class="two">          <b class="progress-bar-text">REFEIÇÕES</b></div>
+          <div class="three disabled-bar">          <b class="progress-bar-text">PLANOS</b></div>
+          <div class="four disabled-bar">          <b class="progress-bar-text">CHECKOUT</b></div>
+          <div class="progress-bar icon-bar" style="width: 50%;"></div>
+          <div class="progress-bar disabled-bar" style="width: 50%;"></div>
         </div>
       </nav>
       <div class="row">
