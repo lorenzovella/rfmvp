@@ -4,22 +4,27 @@
 {% load i18n %}
 {% load crispy_forms_tags %}
 {% block head %}
+
+<style>
+
+</style>
+
 <script src="{% static 'js/extra.js' %}"></script>
 {{ wizard.form.media }}
 {% endblock %}
 {% block content %}
 
-<div class="row">
-  <h2 class="heading"></h2>
+<div class='row'>
+  <div class='col-12'>
+    <p>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
+  </div>
 </div>
-<div>
-  <h5 class="subheading"></h5>
-</div>
-<p>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
-<div>
-  <form action="" method="post">
-    {{ wizard.management_form }}
-    {% crispy wizard.form %}
-  </form>
+<div class='row middle'>
+  <div class='col mx-auto'>
+    <form action="" method="post">
+      {{ wizard.management_form }}
+      {% crispy wizard.form %}
+    </form>
+  </div>
 </div>
 {% endblock %}
