@@ -39,14 +39,31 @@
       letter-spacing: 1px;
       text-transform: initial;
     }
-    .progress-dog {
+    .progress-bar {
       height: 4px;
-      width:80em;
       background-color: #00FB5C;
     }
     .barimage {
       content: '';
       background: url({% static 'ico/Dog-Symbol.png' %});
+    }
+    .one, .two, .three{
+    background-color: #00FB5C;
+    position:absolute;
+  	margin-top:-10px;
+  	z-index:1;
+  	height:40px;
+  	width:40px;
+  	border-radius:25px;
+    }
+    .one{
+    	left:25%;
+    }
+    .two{
+    	left:50%;
+    }
+    .three{
+    	left:75%;
     }
     </style>
   </head>
@@ -59,10 +76,8 @@
       </nav>
       <nav class="navbar navbar-expand-lg fixed-top topbar">
         <div class="col-12 float-none bg-transparent progress">
-          <div class="d-inline progress-bar progress-dog w-75" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" role="progressbar">
-          </div>
-          <div class="d-inline mr-3 barimage">
-          </div>
+          <div class="one"></div><div class="two"></div><div class="three"></div>
+          <div class="progress-bar mx-auto" style="width: 75%;"></div>
         </div>
       </nav>
       <div class="row">
