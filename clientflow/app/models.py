@@ -5,6 +5,7 @@ from multiselectfield import MultiSelectField
 
 class Cliente(models.Model):
     # Fields
+    # user = models.OneToOneField(User, related_name='profile', on_delete=models.CASCADE)
     nome = models.CharField('Nome', max_length=150, default="")
     sobrenome = models.CharField('Sobrenome', max_length=150, default="")
     email = models.EmailField('E-mail', default="")
@@ -44,9 +45,9 @@ class CachorroEspecial(models.Model):
     # Fields
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
-    condicao = MultiSelectField('Qual o problema de saúde?', max_length=200, choices=condicao_choices)
-    medicamento = models.BooleanField('Ele toma algum medicamento?', default=False)
-    descricao   = models.TextField('Breve descrição sobre o problema', help_text='Escreva aqui', default="")
+    condicao = MultiSelectField('Qual o problema de saúde?', max_length=200, choices=condicao_choices,blank=True, null=True)
+    medicamento = models.BooleanField('Ele toma algum medicamento?', default=False,blank=True, null=True)
+    descricao   = models.TextField('Breve descrição sobre o problema', help_text='Escreva aqui', default="",blank=True, null=True)
     anexo = models.URLField('Algum exame ou receita?', help_text='Clique ou arraste os arquivos nessa área para anexá-los', blank=True, null=True)
     class Meta:
         pass
