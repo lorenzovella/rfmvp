@@ -193,8 +193,11 @@ margin-top: 21px;
   color: #18447b;
   border: solid 4px #d5e8f4;
   background: #ffffff;
+  margin-top: 0.7em;
+  margin-right: 0.3em;
+  margin-left: 0.3em;
 }
-.card:last-of-type{
+.endofcontent{
   margin-bottom: 150px;
 }
 .card-title {

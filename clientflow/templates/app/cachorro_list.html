@@ -12,7 +12,7 @@
   {% for object in object_list %}
   {% if forloop.first %}<div class="row">{% endif %}
   {% if forloop.counter0|divisibleby:2 %}</div><div class="row">{% endif %}
-    <div class="card col-sm m-1">
+    <div class="card col-sm">
       <div class="card-body">
         <span class="card-title">
           Nome do Cão: <br><span class='card-heading'>{{object.nome}}</span>
@@ -31,12 +31,12 @@
         </div>
         <div class='col-6 card-text'>
           Quantidade de ração diária para o cão:<br>
-          <span class='card-subheading'>{{object.calculodia}} gramas/dia</span>
+          <span class='card-subheading'>{{object.calculodia}} g/dia</span>
         </div>
         </div>
       </div>
     </div>
-    {% if forloop.last %}</div>{% endif %}
+    {% if forloop.last %}</div><div class='endofcontent'></div>{% endif %}
     {% endfor %}
   </div>
 </div>
