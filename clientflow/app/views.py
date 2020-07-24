@@ -6,6 +6,12 @@ from django.forms.models import construct_instance
 from formtools.wizard.views import SessionWizardView
 from django.core.files.storage import FileSystemStorage
 
+
+def handler404(request,exception):
+    return render(request,exception, '404.html', status=404)
+def handler500(request):
+    return render(request,exception, '500.html', status=500)
+
 class CachorroEspecialListView(generic.ListView):
     model = models.CachorroEspecial
     form_class = forms.CachorroEspecialForm

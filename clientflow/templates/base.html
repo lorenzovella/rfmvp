@@ -1,41 +1,49 @@
 {% load static %}
 <html>
 
-  <head>
+<head>
 
-    <title>Ração do Futuro</title>
+  <title>Ração do Futuro</title>
 
-    <script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
-    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
-    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-    <script src="{% static 'js/extra.js' %}"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/jquery-ui.theme.css' %}">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/extra.css' %}">
-    {% block head %}{% endblock %}
-  </head>
+  <script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+  <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'js/extra.js' %}"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/jquery-ui.theme.css' %}">
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/extra.css' %}">
+  {% block head %}{% endblock %}
+</head>
 
 
-  <body>
-    <div id="content" class="container-fluid">
-      <nav class="navbar navbar-expand-lg fixed-top popoverbar d-flex">
-            <span class="mx-auto header-text">Entrega disponível apenas para a <b>Grande Florianópolis</b></span>
-      </nav>
-      <nav class="navbar navbar-expand-lg fixed-top topbar">
-        <div class="col-10 float-none bg-transparent progress mx-auto">
-          <div class="one">          <b class="progress-bar-text">SEU CÃO</b></div>
-          <div class="two">          <b class="progress-bar-text">REFEIÇÕES</b></div>
-          <div class="three disabled-bar">          <b class="progress-bar-text">PLANOS</b></div>
-          <div class="four disabled-bar">          <b class="progress-bar-text">CHECKOUT</b></div>
-          <div class="progress-bar icon-bar" style="width: 50%;"></div>
-          <div class="progress-bar disabled-bar" style="width: 50%;"></div>
+<body>
+  <div id="content" class="container-fluid">
+    <nav class="navbar navbar-expand-lg fixed-top popoverbar d-flex">
+      <span class="mx-auto header-text">Entrega disponível apenas para a <b>Grande Florianópolis</b></span>
+    </nav>
+    <nav class="navbar navbar-expand-lg fixed-top topbar">
+      <div class="col-10 float-none bg-transparent progress mx-auto">
+        <div class="one">
+          <b class="progress-bar-text">SEU CÃO</b>
         </div>
-      </nav>
-      {% block content %}{% endblock %}
-    </div>
-  </body>
+        <div class="two">
+          <b class="progress-bar-text">REFEIÇÕES</b>
+        </div>
+        <div class="three disabled-bar">
+          <b class="progress-bar-text">PLANOS</b>
+        </div>
+        <div class="four disabled-bar">
+          <b class="progress-bar-text">CHECKOUT</b>
+        </div>
+        <div class="progress-bar icon-bar" style="width: 50%;"></div>
+        <div class="progress-bar disabled-bar" style="width: 50%;"></div>
+      </div>
+    </nav>
+    {% block content %}{% endblock %}
+  </div>
+</body>
 </html>
