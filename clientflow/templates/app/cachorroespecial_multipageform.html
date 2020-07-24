@@ -1,0 +1,49 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% block head %}
+{{ wizard.form.media }}
+<script>
+$("#optionalText").click(function (){
+  $("#optionalForm").show();
+  $("#optionalText").hide();
+  $("#nextStep").hide();
+})
+$("#nextStep").click(function (){
+  $("form").submit();
+})
+</script>
+{% endblock %}
+{% block content %}
+
+<div class='row info-bg'>
+  <div class='col-10 info-bar-text'>
+    <p>Informações sobre o seu cão  {{ wizard.steps.step1 }} </p>
+  </div>
+</div>
+<div class='row middle'>
+  <div id="optionalForm" style="display:none;">
+    <form action="" method="post">
+      {{ wizard.management_form }}
+      {% crispy wizard.form %}
+    </form>
+  </div>
+  <div class="col-12 d-flex my-3">
+      <span class="control-label mx-auto">Algum problema de Saúde</span>
+  </div>
+  <div class="col-12 d-flex mx-auto my-3">
+    <div id="optionalText" class="col-5 d-flex btn textinput">
+    <span class="m-auto">Sim</span>
+    </div>
+    <div id="nextStep" class="col-5 d-flex btn textinput">
+    <span class="m-auto">Não</span>
+    </div>
+  </div>
+</div>
+
+
+  </div>
+</div>
+{% endblock %}

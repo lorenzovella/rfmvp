@@ -23,6 +23,7 @@ body {
 }
 .progress {
   height: 60px;
+  overflow: visible !important;
 }
 .progress-bar {
   height: 4px;

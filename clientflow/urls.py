@@ -16,7 +16,10 @@ Including another URLconf
 from django.contrib import admin, auth
 from django.urls import path, include
 from django.views.generic import TemplateView
+# from clientflow.app.views import handler404, handler500
 
+handler404 = 'clientflow.app.views.handler404'
+handler500 = 'clientflow.app.views.handler500'
 urlpatterns = [
     path('', TemplateView.as_view(template_name='index.html'), name='index'),
     path('', include('clientflow.app.urls')),

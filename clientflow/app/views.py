@@ -8,9 +8,15 @@ from django.core.files.storage import FileSystemStorage
 
 
 def handler404(request,exception):
-    return render(request,exception, '404.html', status=404)
+    context = {}
+    response = render(request, "404.html", context=context)
+    response.status_code = 404
+    return response
 def handler500(request):
-    return render(request,exception, '500.html', status=500)
+    context = {}
+    response = render(request, "500.html", context=context)
+    response.status_code = 500
+    return response
 
 class CachorroEspecialListView(generic.ListView):
     model = models.CachorroEspecial
@@ -141,7 +147,7 @@ TEMPLATES_CACHORRO = {
     "CachorroForm3": "app/cachorro_multipageform.html",
     "CachorroForm4": "app/cachorro_multipageform.html",
     "CachorroForm5": "app/cachorro_multipageform.html",
-    "CachorroEspecialForm": "app/cachorro_multipageform.html",
+    "CachorroEspecialForm": "app/cachorroespecial_multipageform.html",
     }
 # INSTANCE_DICT = {
 #     }

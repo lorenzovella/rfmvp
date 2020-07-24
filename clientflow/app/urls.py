@@ -4,7 +4,7 @@ from rest_framework import routers
 from . import api
 from . import views
 
-from clientflow.app.views import FORMS_CACHORRO, handler500, handler404
+from clientflow.app.views import FORMS_CACHORRO
 
 router = routers.DefaultRouter()
 router.register("CachorroEspecial", api.CachorroEspecialViewSet)
@@ -14,8 +14,6 @@ router.register("Planos", api.PlanosViewSet)
 router.register("Cachorro", api.CachorroViewSet)
 router.register("Cliente", api.ClienteViewSet)
 
-handler404 = handler404
-handler500 = handler500
 
 urlpatterns = (
     path("api/v1/", include(router.urls)),
