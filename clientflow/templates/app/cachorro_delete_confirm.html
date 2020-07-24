@@ -1,0 +1,20 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class='row info-bg'>
+  <div class='col-10 info-bar-text'>
+    <p>Deletar um Dog</p>
+  </div>
+</div>
+<div class='row middle'>
+  <div class='col-10 mx-auto mt-1'>
+    <h3>Você que mesmo remover o dog {{obj.Name}}?</h3>
+    <a href="{% url 'clientflow_Cachorro_delete' pk=obj %}" class="btn-next btn">Sim</a> 
+  </div>
+</div>
+<div class="footer">
+  <p class="footer-text ">
+  </p>
+</div>
+{% endblock %}

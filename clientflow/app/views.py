@@ -110,6 +110,10 @@ class CachorroUpdateView(generic.UpdateView):
     form_class = forms.CachorroForm
     pk_url_kwarg = "pk"
 
+def CachorroDeleteConfirmView(request, pk):
+    instance = models.Cachorro.objects.get(pk=pk)
+    return render(request,'app/cachorro_delete_confirm.html',{'obj':instance })
+
 def CachorroDeleteView(request, pk):
     instance = models.Cachorro.objects.get(pk=pk)
     # if(instance.Name == request.user):
