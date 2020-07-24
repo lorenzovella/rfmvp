@@ -110,6 +110,12 @@ class CachorroUpdateView(generic.UpdateView):
     form_class = forms.CachorroForm
     pk_url_kwarg = "pk"
 
+def CachorroDeleteView(request, pk):
+    instance = models.Cachorro.objects.get(pk=pk)
+    # if(instance.Name == request.user):
+    info = instance.delete()
+    return render(request,'app/cachorro_delete.html',{'inf':info })
+
 
 FORMS_CACHORRO = [
     ("CachorroForm", forms.CachorroForm),
@@ -155,7 +161,7 @@ class cachorroWizard(SessionWizardView):
         tempReq = cachorroInstance
         # self.instance_dict = None
         # self.storage.reset()
-        return redirect('clientflow_Cachorro_detail', tempReq)
+        return redirect('clientflow_Cachorro_list')
 
 
 class ClienteListView(generic.ListView):

@@ -73,7 +73,7 @@ margin-top: 21px;
 .info-bg{
   background: white;
   margin-top: -18px;
-  padding-top: 28px;
+  padding-top: 15px;
 }
 
 .info-bar-text{
@@ -87,7 +87,6 @@ margin-top: 21px;
   margin-right: auto;
   display: flex;
   justify-content: center;
-  margin-bottom: 6px;
 }
 
 .control-label{
@@ -177,4 +176,59 @@ margin-top: 21px;
   width:100%;
   bottom: 0;
   margin-left: -15px;
+}
+.footer-text{
+  height: 120px;
+  text-align: center;
+  letter-spacing: 2px;
+  margin-left: auto;
+  margin-right:auto;
+  color: #9fb2c8;
+  font-family: Roboto;
+  font-size: 34px;
+  padding-top: 20px;
+}
+.card {
+  border-radius: 10px;
+  color: #18447b;
+  border: solid 4px #d5e8f4;
+  background: #ffffff;
+}
+.card:last-of-type{
+  margin-bottom: 150px;
+}
+.card-title {
+  font-family: Roboto;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: 0.5px;
+}
+.card-heading {
+  font-family: Roboto;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 34px;
+}
+.card-text {
+  margin-top: 1em;
+  font-family: Roboto;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: 0.5px;
+}
+.card-subheading {
+  margin-top: 0.7em;
+  color: #18447b;
+  font-family: Roboto;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.5em;
+  letter-spacing: 0.5px;
+}
+
+.delete-icon{
+  float: right;
+  margin-top: -1em;
 }
