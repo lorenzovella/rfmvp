@@ -35,7 +35,7 @@ body {
 }
 .progress-bar.icon-bar::after{
 position: relative;
-content: url('/static/ico/Dog-Symbol.png');
+content: url("/static/ico/Dog-Symbol.4ab696b3695a.png");
 display: block;
 align-self: flex-end;
 margin-right: -2em;
@@ -70,11 +70,6 @@ margin-top: 21px;
 .four{
   right:1%
 }
-.info-bg{
-  background: white;
-  margin-top: -18px;
-  padding-top: 15px;
-}
 
 .info-bar-text{
   color: #17437a;
@@ -87,6 +82,9 @@ margin-top: 21px;
   margin-right: auto;
   display: flex;
   justify-content: center;
+  margin-top: -18px;
+  padding-top: 28px;
+  margin-bottom: 12px;
 }
 
 .control-label{

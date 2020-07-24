@@ -70,6 +70,11 @@ margin-top: 21px;
 .four{
   right:1%
 }
+.info-bg{
+  background: white;
+  margin-top: -18px;
+  padding-top: 15px;
+}
 
 .info-bar-text{
   color: #17437a;
