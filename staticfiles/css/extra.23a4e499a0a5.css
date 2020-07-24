@@ -35,7 +35,7 @@ body {
 }
 .progress-bar.icon-bar::after{
 position: relative;
-content: url('/static/ico/Dog-Symbol.png');
+content: url("/static/ico/Dog-Symbol.4ab696b3695a.png");
 display: block;
 align-self: flex-end;
 margin-right: -2em;
@@ -169,7 +169,6 @@ margin-top: 21px;
   margin-left: auto;
   margin-right:auto;
 }
-
 .footer{
   background: #18447b;
   position: fixed;
@@ -231,18 +230,4 @@ margin-top: 21px;
 .delete-icon{
   float: right;
   margin-top: -1em;
-}
-.round-btn{
-  border-radius: 14px;
-  border: solid 4px rgba(24,68,123,0.85);
-  background: #18447b;
-  box-shadow: 0px 0px 25px rgba(5,39,83,0.25);
-  color: #f4f7f9;
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 1.5em;
-  text-align: center;
-  letter-spacing: 0.5px;
-  padding-left: 2em;
-  padding-right: 2em;
 }

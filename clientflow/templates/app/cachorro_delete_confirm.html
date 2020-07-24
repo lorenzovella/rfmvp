@@ -1,16 +1,26 @@
 
 {% extends "base.html" %}
 {% load static %}
+{% block head %}
+
+<style>
+
+</style>
+{% endblock %}
+
 {% block content %}
 <div class='row info-bg'>
   <div class='col-10 info-bar-text'>
     <p>Deletar um Dog</p>
   </div>
 </div>
-<div class='row middle'>
-  <div class='col-10 mx-auto mt-1'>
-    <h3>Você que mesmo remover o dog {{obj.Name}}?</h3>
-    <a href="{% url 'clientflow_Cachorro_delete' pk=obj %}" class="btn-next btn">Sim</a> 
+<div class='row middle d-flex'>
+  <div class='col-10 mx-auto mt-3'>
+    <span class='control-label'>Você quer mesmo remover o dog {{obj.nome}}?</h3>
+  </div>
+  <div class='col-10 d-flex mx-auto mt-3'>
+    <a href="{% url 'clientflow_Cachorro_delete' pk=obj %}" class="mx-auto btn-dark round-btn">Sim</a>
+    <a href="{% url 'clientflow_Cachorro_list' %}" class="mx-auto btn-dark round-btn">Não</a>
   </div>
 </div>
 <div class="footer">

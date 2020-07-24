@@ -118,7 +118,7 @@ def CachorroDeleteView(request, pk):
     instance = models.Cachorro.objects.get(pk=pk)
     # if(instance.Name == request.user):
     info = instance.delete()
-    return render(request,'app/cachorro_delete.html',{'inf':info })
+    return render(request,'app/cachorro_delete.html',{'info':info })
 
 
 FORMS_CACHORRO = [
