@@ -4,6 +4,7 @@
  margin-top: 40px;
  box-shadow: 3px 3px 30px #2b2b2b;
  flex-wrap: wrap;
+ z-index:10;
 }
 .popoverbar {
   min-height: 40px;
@@ -35,21 +36,13 @@ body {
 }
 .progress-bar.icon-bar::after{
 position: relative;
-content: url('/static/ico/Dog-Symbol.png');
+content: url("/static/ico/Dog-Symbol.4ab696b3695a.png");
 display: block;
 align-self: flex-end;
 margin-right: -2em;
 margin-bottom: 1.3em;
 z-index:2;
 }
-
-.logo-header{
-  content: url(/static/ico/logo.png);
-  position: relative;
-  display: flex;
-  align-self: center;
-}
-
 .one, .two, .three, .four{
 background-color: #00FB5C;
 position:absolute;

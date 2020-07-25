@@ -1,17 +1,57 @@
 
-{% extends "base.html" %}
+{% extends "base_flow.html" %}
 {% load static %}
 {% load i18n %}
 {% load crispy_forms_tags %}
 {% block head %}
-
 {{ wizard.form.media }}
+<script>
+$(document).ready(function () {
+
+  if($('#id_cachorro_wizard-current_step').val() == "CachorroForm2"){
+    // Dog bar animation
+    $('.progress-bar.icon-bar').css("width","7%");
+    $('.progress-bar.disabled-bar').css("width","93%");
+
+    // Field autocomplete
+    var arr = [];
+    $.getJSON("/static/racas.json", function(data) {
+        $.each(data, function(key, value) {
+            if ($.inArray(value.name, arr) === -1) {
+                arr.push(value.name)
+            }
+        })
+    });
+    $('#id_CachorroForm2-raca').autocomplete({
+     source: arr,
+     minLength: 2,
+    })
+  }
+  // Dog bar animation
+  if($('#id_cachorro_wizard-current_step').val() == "CachorroForm"){
+    $('.progress-bar.icon-bar').css("width","0%");
+    $('.progress-bar.disabled-bar').css("width","100%");
+  }
+  if($('#id_cachorro_wizard-current_step').val() == "CachorroForm3"){
+    $('.progress-bar.icon-bar').css("width","13%");
+    $('.progress-bar.disabled-bar').css("width","87%");
+  }
+  if($('#id_cachorro_wizard-current_step').val() == "CachorroForm4"){
+    $('.progress-bar.icon-bar').css("width","20%");
+    $('.progress-bar.disabled-bar').css("width","80%");
+  }
+  if($('#id_cachorro_wizard-current_step').val() == "CachorroForm5"){
+    $('.progress-bar.icon-bar').css("width","26%");
+    $('.progress-bar.disabled-bar').css("width","74%");
+  }
+})
+</script>
 {% endblock %}
 {% block content %}
 
 <div class='row info-bg'>
   <div class='col-10 info-bar-text'>
-    <p>Informações sobre o seu cão  {{ wizard.steps.step1 }} </p>
+    <p>    <p>Dados do seu cão - {{ wizard.steps.step1 }} </p>
   </div>
 </div>
 <div class='row middle'>

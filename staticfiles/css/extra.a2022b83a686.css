@@ -43,6 +43,14 @@ margin-right: -2em;
 margin-bottom: 1.3em;
 z-index:2;
 }
+
+.logo-header{
+  content: url("/static/ico/logo.7862bb2be824.png");
+  position: relative;
+  display: flex;
+  align-self: center;
+}
+
 .one, .two, .three, .four{
 background-color: #00FB5C;
 position:absolute;
@@ -249,4 +257,7 @@ margin-top: 21px;
   letter-spacing: 0.5px;
   padding-left: 2em;
   padding-right: 2em;
+}
+.active {
+  border: solid 4px #03FB5C;
 }
