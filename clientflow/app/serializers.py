@@ -30,10 +30,10 @@ class PedidoSerializer(serializers.ModelSerializer):
             "created",
         ]
 
-class PlanosSerializer(serializers.ModelSerializer):
+class PlanoSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = models.Planos
+        model = models.Plano
         fields = [
             "last_updated",
             "created",

@@ -16,10 +16,10 @@ class CachorroEspecialAdminForm(forms.ModelForm):
     class Meta:
         model = models.CachorroEspecial
         fields = "__all__"
-        
-class PlanosAdminForm(forms.ModelForm):
+
+class PlanoAdminForm(forms.ModelForm):
     class Meta:
-        model = models.Planos
+        model = models.Plano
         fields = "__all__"
 
 class EntregaAdminForm(forms.ModelForm):
@@ -40,8 +40,8 @@ class ClienteAdmin(admin.ModelAdmin):
     "last_updated",
     ]
 
-class PlanosAdmin(admin.ModelAdmin):
-    form = PlanosAdminForm
+class PlanoAdmin(admin.ModelAdmin):
+    form = PlanoAdminForm
     list_display = [
         "last_updated",
         "created",
@@ -110,7 +110,7 @@ class PedidoAdmin(admin.ModelAdmin):
 
 
 admin.site.register(models.Cliente, ClienteAdmin)
-admin.site.register(models.Planos, PlanosAdmin)
+admin.site.register(models.Plano, PlanoAdmin)
 admin.site.register(models.Entrega, EntregaAdmin)
 admin.site.register(models.CachorroEspecial, CachorroEspecialAdmin)
 admin.site.register(models.Cachorro, CachorroAdmin)

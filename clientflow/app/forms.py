@@ -27,9 +27,9 @@ class PedidoForm(forms.ModelForm):
         ]
 
 
-class PlanosForm(forms.ModelForm):
+class PlanoForm(forms.ModelForm):
     class Meta:
-        model = models.Planos
+        model = models.Plano
         fields = []
 
 

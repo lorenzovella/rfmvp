@@ -61,7 +61,7 @@ class CachorroEspecial(models.Model):
     def get_update_url(self):
         return reverse("clientflow_CachorroEspecial_update", args=(self.pk,))
 
-class Planos(models.Model):
+class Plano(models.Model):
     nome = models.CharField('Nome do Plano', max_length=150, default="")
     refeicoes = models.IntegerField('Quantidade de refeições', default=0)
     descricao = models.CharField('Descrição', max_length=300, default="")
@@ -77,10 +77,10 @@ class Planos(models.Model):
         return str(self.pk)
 
     def get_absolute_url(self):
-        return reverse("clientflow_Planos_detail", args=(self.pk,))
+        return reverse("clientflow_Plano_detail", args=(self.pk,))
 
     def get_update_url(self):
-        return reverse("clientflow_Planos_update", args=(self.pk,))
+        return reverse("clientflow_Plano_update", args=(self.pk,))
 
 
 class Entrega(models.Model):
@@ -150,7 +150,7 @@ class Pedido(models.Model):
 
     # Relationships
     idClient = models.ForeignKey("app.Cliente", on_delete=models.CASCADE)
-    idPlano = models.ForeignKey("app.Planos", on_delete=models.CASCADE)
+    idPlano = models.ForeignKey("app.Plano", on_delete=models.CASCADE)
     idEntrega = models.OneToOneField("app.Entrega", on_delete=models.CASCADE)
     refDog = models.ManyToManyField("app.Cachorro")
 

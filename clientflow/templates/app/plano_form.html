@@ -2,13 +2,13 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-    
+
 <p>
-    <a class="btn btn-light" href="{% url 'clientflow_Planos_list' %}">
-    Planos Listing
+    <a class="btn btn-light" href="{% url 'clientflow_Plano_list' %}">
+    Plano Listing
     </a>
 </p>
-    
+
 <form method="post">
   {% csrf_token %}
   {{form.errors}}

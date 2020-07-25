@@ -28,11 +28,11 @@ class PedidoViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
 
-class PlanosViewSet(viewsets.ModelViewSet):
-    """ViewSet for the Planos class"""
+class PlanoViewSet(viewsets.ModelViewSet):
+    """ViewSet for the Plano class"""
 
-    queryset = models.Planos.objects.all()
-    serializer_class = serializers.PlanosSerializer
+    queryset = models.Plano.objects.all()
+    serializer_class = serializers.PlanoSerializer
     permission_classes = [permissions.IsAuthenticated]
 
 

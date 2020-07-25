@@ -2,13 +2,13 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-    
+
 <p>
-    <a class="btn btn-light" href="{% url 'clientflow_Planos_list' %}">
+    <a class="btn btn-light" href="{% url 'clientflow_Plano_list' %}">
     Planos Listing
     </a>
 </p>
-    
+
 <table class="table">
     <tr><td>last_updated</td><td>{{ object.last_updated }}</td></tr>
     <tr><td>created</td><td>{{ object.created }}</td></tr>

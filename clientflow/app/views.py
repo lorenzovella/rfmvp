@@ -81,24 +81,24 @@ class PedidoUpdateView(generic.UpdateView):
     pk_url_kwarg = "pk"
 
 
-class PlanosListView(generic.ListView):
-    model = models.Planos
-    form_class = forms.PlanosForm
+class PlanoListView(generic.ListView):
+    model = models.Plano
+    form_class = forms.PlanoForm
 
 
-class PlanosCreateView(generic.CreateView):
-    model = models.Planos
-    form_class = forms.PlanosForm
+class PlanoCreateView(generic.CreateView):
+    model = models.Plano
+    form_class = forms.PlanoForm
 
 
-class PlanosDetailView(generic.DetailView):
-    model = models.Planos
-    form_class = forms.PlanosForm
+class PlanoDetailView(generic.DetailView):
+    model = models.Plano
+    form_class = forms.PlanoForm
 
 
-class PlanosUpdateView(generic.UpdateView):
-    model = models.Planos
-    form_class = forms.PlanosForm
+class PlanoUpdateView(generic.UpdateView):
+    model = models.Plano
+    form_class = forms.PlanoForm
     pk_url_kwarg = "pk"
 
 
@@ -172,7 +172,7 @@ class cachorroWizard(SessionWizardView):
             dogEspecialInstance = models.CachorroEspecial()
             for key, value in dogEspecial.items():
                 setattr(dogEspecialInstance,key,value)
-            savedDogEspecial = dogEspecialInstance.save()          
+            savedDogEspecial = dogEspecialInstance.save()
         savedCachorro = cachorroInstance.save()
         tempReq = cachorroInstance
         # self.instance_dict = None

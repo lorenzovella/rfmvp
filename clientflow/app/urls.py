@@ -10,7 +10,7 @@ router = routers.DefaultRouter()
 router.register("CachorroEspecial", api.CachorroEspecialViewSet)
 router.register("Entrega", api.EntregaViewSet)
 router.register("Pedido", api.PedidoViewSet)
-router.register("Planos", api.PlanosViewSet)
+router.register("Plano", api.PlanoViewSet)
 router.register("Cachorro", api.CachorroViewSet)
 router.register("Cliente", api.ClienteViewSet)
 
@@ -32,10 +32,10 @@ urlpatterns = (
     path("Pedido/detail/<int:pk>/", views.PedidoDetailView.as_view(), name="clientflow_Pedido_detail"),
     path("Pedido/update/<int:pk>/", views.PedidoUpdateView.as_view(), name="clientflow_Pedido_update"),
 
-    path("Planos/", views.PlanosListView.as_view(), name="clientflow_Planos_list"),
-    path("Planos/create/", views.PlanosCreateView.as_view(), name="clientflow_Planos_create"),
-    path("Planos/detail/<int:pk>/", views.PlanosDetailView.as_view(), name="clientflow_Planos_detail"),
-    path("Planos/update/<int:pk>/", views.PlanosUpdateView.as_view(), name="clientflow_Planos_update"),
+    path("Plano/", views.PlanoListView.as_view(), name="clientflow_Plano_list"),
+    path("Plano/create/", views.PlanoCreateView.as_view(), name="clientflow_Plano_create"),
+    path("Plano/detail/<int:pk>/", views.PlanoDetailView.as_view(), name="clientflow_Plano_detail"),
+    path("Plano/update/<int:pk>/", views.PlanoUpdateView.as_view(), name="clientflow_Plano_update"),
 
     path("Cachorro/", views.CachorroListView.as_view(), name="clientflow_Cachorro_list"),
     # path("Cachorro/create/", views.CachorroCreateView.as_view(), name="clientflow_Cachorro_create"),
