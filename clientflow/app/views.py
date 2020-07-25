@@ -167,6 +167,12 @@ class cachorroWizard(SessionWizardView):
         for parsedForms in cachorroFormArray:
             for key, value in parsedForms.items():
                  setattr(cachorroInstance, key, value)
+        dogEspecial = form_dict['CachorroEspecialForm'].cleaned_data
+        if(dogEspecial):
+            dogEspecialInstance = models.CachorroEspecial()
+            for key, value in dogEspecial.items():
+                setattr(dogEspecialInstance,key,value)
+            savedDogEspecial = dogEspecialInstance.save()          
         savedCachorro = cachorroInstance.save()
         tempReq = cachorroInstance
         # self.instance_dict = None

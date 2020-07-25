@@ -19,6 +19,7 @@ body {
   color: #19437a;
   letter-spacing: 1px;
   text-transform: initial;
+  font-size: min(2.8vw, 0.825em);
 }
 .progress {
   height: 60px;
