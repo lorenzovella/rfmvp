@@ -80,6 +80,8 @@ class PedidoUpdateView(generic.UpdateView):
     form_class = forms.PedidoForm
     pk_url_kwarg = "pk"
 
+def PlanoFlow(request, pk):
+    instance = models.Cachorro.objects.get(pk=pk)
 
 class PlanoListView(generic.ListView):
     model = models.Plano
@@ -123,13 +125,18 @@ class CachorroUpdateView(generic.UpdateView):
     pk_url_kwarg = "pk"
 
 def CachorroDeleteConfirmView(request, pk):
-    instance = models.Cachorro.objects.get(pk=pk)
+    try:
+        instance = models.Cachorro.objects.get(pk=pk)
+    except models.Cachorro.DoesNotExist:
+        return handler500(request)
     return render(request,'app/cachorro_delete_confirm.html',{'obj':instance })
 
 def CachorroDeleteView(request, pk):
-    instance = models.Cachorro.objects.get(pk=pk)
-    # if(instance.Name == request.user):
-    info = instance.delete()
+    try:
+        instance = models.Cachorro.objects.get(pk=pk)
+        info = instance.delete()
+    except models.Cachorro.DoesNotExist:
+        return handler500(request)
     return render(request,'app/cachorro_delete.html',{'info':info })
 
 

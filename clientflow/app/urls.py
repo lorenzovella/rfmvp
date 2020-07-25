@@ -34,7 +34,7 @@ urlpatterns = (
 
     path("Plano/", views.PlanoListView.as_view(), name="clientflow_Plano_list"),
     path("Plano/create/", views.PlanoCreateView.as_view(), name="clientflow_Plano_create"),
-    path("Plano/detail/<int:pk>/", views.PlanoDetailView.as_view(), name="clientflow_Plano_detail"),
+    path("PlanoFlow/<int:pk>/", views.PlanoFlow, name="clientflow_PlanoFlow"),
     path("Plano/update/<int:pk>/", views.PlanoUpdateView.as_view(), name="clientflow_Plano_update"),
 
     path("Cachorro/", views.CachorroListView.as_view(), name="clientflow_Cachorro_list"),
