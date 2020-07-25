@@ -155,12 +155,6 @@ TEMPLATES_CACHORRO = {
 class cachorroWizard(SessionWizardView):
     def get_template_names(self):
         return [TEMPLATES_CACHORRO[self.steps.current]]
-    # def get_context_data(self, form, **kwargs):
-    #     context = super().get_context_data(form=form, **kwargs)
-    #     if self.steps.current == "1":
-    #         context.update({'step_subheading': "", "step_label": "Class details",})
-    #     return context
-
     def done(self, form_list, form_dict, **kwargs):
         cachorroInstance = models.Cachorro()
         cachorroFormArray = [

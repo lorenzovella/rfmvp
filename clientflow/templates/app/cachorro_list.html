@@ -11,19 +11,18 @@
 <script>
 $(document).ready(function () {
   $('.middle .card').click(function () {
-   if ($(this).hasClass('active')) {
+   if ($(this).hasClass('active') && !$('.active').length) {
      $(this).removeClass('active');
    }
    else
    {
      $('.active').removeClass('active');
      $(this).addClass('active');
+     $('.active').trigger('cssClassChanged');
    }
+   $('.footer-text').text("Continuar");
+   $('.footer-text').attr("href", "/PlanosFlow/"+$(".active").attr('name'));
   });
-
-  if ($('active').length > 0){
-    $('.footer-text').text("Continuar")
-  }
 });
 </script>
 
@@ -41,7 +40,7 @@ $(document).ready(function () {
   {% for object in object_list %}
   {% if forloop.first %}<div class="row">{% endif %}
   {% if forloop.counter0|divisibleby:2 %}</div><div class="row">{% endif %}
-    <div class="card col-sm">
+    <div class="card col-sm" name="{{object}}">
       <div class="card-body">
         <span class="card-title">
           Nome do Cão: <br><span class='card-heading'>{{object.nome}}</span>
@@ -70,8 +69,8 @@ $(document).ready(function () {
   </div>
 </div>
 <div class="footer">
-  <p class="footer-text ">
-    Para qual Dog você deseja começar um pedido?
-  </p>
+    <a class="footer-text">
+      Para qual Dog você deseja começar um pedido?
+    </a>
 </div>
 {% endblock %}

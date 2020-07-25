@@ -35,7 +35,7 @@ body {
 }
 .progress-bar.icon-bar::after{
 position: relative;
-content: url('/static/ico/Dog-Symbol.png');
+content: url("/static/ico/Dog-Symbol.4ab696b3695a.png");
 display: block;
 align-self: flex-end;
 margin-right: -2em;
@@ -44,7 +44,7 @@ z-index:2;
 }
 
 .logo-header{
-  content: url(/static/ico/logo.png);
+  content: url("/static/ico/logo.7862bb2be824.png");
   position: relative;
   display: flex;
   align-self: center;
@@ -192,11 +192,10 @@ margin-top: 21px;
   letter-spacing: 2px;
   margin-left: auto;
   margin-right:auto;
-  color: #9fb2c8 !important;
+  color: #9fb2c8;
   font-family: Roboto;
   font-size: 34px;
   padding-top: 20px;
-  padding-bottom: 20px;
   text-decoration: none !important;
 }
 .card {
