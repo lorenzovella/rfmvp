@@ -81,7 +81,16 @@ class PedidoUpdateView(generic.UpdateView):
     pk_url_kwarg = "pk"
 
 def PlanoFlow(request, pk):
-    instance = models.Cachorro.objects.get(pk=pk)
+    try:
+        instance = models.Cachorro.objects.get(pk=pk)
+    except models.Cachorro.DoesNotExist:
+        return handler500(request)
+    planos = models.Plano.objects.all
+    valorMes = instance.calculomes
+    valorDia = instance.calculodia
+    return render(request,'app/plano_list.html',{'planos':planos })
+
+
 
 class PlanoListView(generic.ListView):
     model = models.Plano

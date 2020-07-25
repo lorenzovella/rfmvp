@@ -46,7 +46,7 @@ z-index:2;
 }
 
 .logo-header{
-  content: url(/static/ico/logo.png);
+  content: url('/static/ico/logo.png');
   position: relative;
   display: flex;
   align-self: center;
@@ -55,7 +55,7 @@ z-index:2;
 
 .dog-card-img{
   position: relative;
-  content: url(/static/ico/new-dog.png);
+  content: url('/static/ico/new-dog.png');
   margin-top: -47px;
   object-fit: scale-down;
 }
