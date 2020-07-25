@@ -53,6 +53,14 @@ z-index:2;
   margin-bottom: 1em;
 }
 
+.dog-card-img{
+  position: absolute;
+  content: url(/static/ico/new-dog.png);
+  padding-top: 110px;
+  padding-left: 18px;
+  z-index: 1;
+}
+
 .one, .two, .three, .four{
 background-color: #00FB5C;
 position:absolute;
@@ -211,7 +219,7 @@ margin-top: 21px;
   margin-left: 0.3em;
 }
 .endofcontent{
-  margin-bottom: 150px;
+  margin-bottom: 200px;
 }
 .card-title {
   font-family: Roboto;
@@ -243,7 +251,16 @@ margin-top: 21px;
   line-height: 1.5em;
   letter-spacing: 0.5px;
 }
-
+.card-new{
+  border-radius: 10px;
+  color: #18447b;
+  border: dashed 4px #d5e8f4;
+  background: #ffffff;
+  margin-top: 0.7em;
+  margin-right: 0.3em;
+  margin-left: 0.3em;
+  font-size:3em;
+}
 .delete-icon{
   float: right;
   margin-top: -1em;
@@ -264,4 +281,8 @@ margin-top: 21px;
 }
 .active {
   border: solid 4px #03FB5C;
+}
+.link-no-decoration {
+  text-decoration: none !important;
+  color: #18447b !important;
 }
