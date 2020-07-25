@@ -58,7 +58,6 @@ z-index:2;
   content: url("/static/ico/new-dog.5fb865ce1b8c.png");
   padding-top: 110px;
   padding-left: 18px;
-  z-index: 1;
 }
 
 .one, .two, .three, .four{
@@ -195,6 +194,8 @@ margin-top: 21px;
   display: flex;
   width:100%;
   bottom: 0;
+}
+.margin-footer{
   margin-left: -15px;
 }
 .footer-text{

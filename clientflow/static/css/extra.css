@@ -194,6 +194,8 @@ margin-top: 21px;
   display: flex;
   width:100%;
   bottom: 0;
+}
+.margin-footer{
   margin-left: -15px;
 }
 .footer-text{
