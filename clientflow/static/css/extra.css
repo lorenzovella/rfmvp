@@ -54,10 +54,11 @@ z-index:2;
 }
 
 .dog-card-img{
-  position: absolute;
+  position: relative;
   content: url(/static/ico/new-dog.png);
-  padding-top: 110px;
-  padding-left: 18px;
+  padding-left: 14px;
+  margin-top: -47px;
+  object-fit: scale-down;
 }
 
 .one, .two, .three, .four{
