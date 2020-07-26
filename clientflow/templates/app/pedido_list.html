@@ -1,8 +1,36 @@
 
 {% extends "base.html" %}
 {% block content %}
-{% for object in object_list %}
-  <div class="m-2"><a href="{{object.get_absolute_url}}">{{object}}</a></div>
-{% endfor %}
-<div><a class="btn btn-primary" href="{% url 'clientflow_Pedido_create' %}">Create a new Pedido</a></div>
+<div class='row info-bg'>
+  <div class='col-10 info-bar-text'>
+    <p>Meus pedidos</p>
+  </div>
+</div>
+<div class="row d-flex justify-content-center middle">
+  {% for obj in object_list|dictsort:"status" %}
+      {% ifchanged %}
+      <div class="col-12 text-center control-label mx-auto m-2 p-2">
+      <span>{{obj.get_status_display}}</span>
+      </div>
+      {% endifchanged %}
+      <div class="card m-1">
+        <div class="card-header">
+          <div class="d-flex flex-column justify-content-start" id="card-{{obj}}">
+            <div class="d-flex align-items-start flex-column">
+              <h5> <span class="badge badge-dark m-2"><h4>nº{{obj}}</h4></span> Pedido feito às: {{obj.created|date:"j/n H:i"}}</h5>
+              <p class="lead"><span class="font-weight-bold">Entregas na</span> {{obj.idEntrega.dia}}</p>
+              <p class="lead"><span class="font-weight-bold">no período </span> {{obj.idEntrega.periodo}}</p>
+              <p class="lead"><span class="font-weight-bold">Iremos enviar os sabores</span> {{obj.sabores}}</p>
+            </div>
+            <h4 class="m-2">Total do pedido: R${{obj.valor}}</h4>
+          </div>
+        </div>
+      </div>
+  {% endfor %}
+</div>
+<div class="endofcontent"></div>
+<div class="footer margin-footer">
+  <p class="footer-text ">
+  </p>
+</div>
 {% endblock %}

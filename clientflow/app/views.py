@@ -63,6 +63,9 @@ class EntregaUpdateView(generic.UpdateView):
 
 
 class PedidoListView(generic.ListView):
+    # def get_queryset(self):
+    #     return self.model.objects.filter(status ='Pedido em aberto')
+        # return self.model.objects.filter(idClient = self.request.user)
     model = models.Pedido
     form_class = forms.PedidoForm
 
@@ -110,6 +113,14 @@ TEMPLATES_PEDIDO = {
 class pedidoWizard(SessionWizardView):
     def get_template_names(self):
         return [TEMPLATES_PEDIDO[self.steps.current]]
+    def get_context_data(self, form, **kwargs):
+        context = super(pedidoWizard, self).get_context_data(form=form, **kwargs)
+        if self.steps.current == "Entrega - 3":
+            data_from_step_1 = self.get_cleaned_data_for_step('0') # zero indexed
+            data_from_step_2 = self.get_cleaned_data_for_step('1') # zero indexed
+            context.update({'data_from_step_1':data_from_step_1,
+                            'data_from_step_2':data_from_step_2})
+        return context
     def done(self, form_list, form_dict, **kwargs):
         pedidoInstance = models.Pedido.objects.get(pk=self.kwargs['pedido'])
         # salva entrega
@@ -117,6 +128,7 @@ class pedidoWizard(SessionWizardView):
         entregaFormArray = [
             form_dict['Entrega'].cleaned_data,
             form_dict['Entrega - 2'].cleaned_data,
+            form_dict['Entrega - 3'].cleaned_data,
             ]
         for parsedForms in entregaFormArray:
             for key, value in parsedForms.items():

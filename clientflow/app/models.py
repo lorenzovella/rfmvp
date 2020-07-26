@@ -86,7 +86,7 @@ class Plano(models.Model):
 class Entrega(models.Model):
     diadasemana_choices = (('Segunda','Segunda'),('Terça','Terça'),('Quarta','Quarta'),('Quinta','Quinta'),('Sexta','Sexta'),('Sábado','Sábado'),('Domingo','Domingo'))
     periodo_choices = (('Matutino','Matutino'),('Vespertino','Vespertino'),('Noturno','Noturno'))
-    preferencia_choices=(('Em mãos', 'Sempre em mãos'),('Portaria','Pode deixar na portaria.'))
+    preferencia_choices=(('Portaria','Pode deixar na portaria.'),('Em mãos', 'Sempre em mãos'))
     frequencia_choices=((1, ' 1 Entrega no mês (Grátis)'),(2,'2 Entregas no mês (R$9,90)'))
 
     dia = MultiSelectField('Quais dias da semana você pode receber a Ração Do Futuro?', choices=diadasemana_choices, default="")
@@ -158,7 +158,7 @@ class Pedido(models.Model):
     sabores_choices = ( ('Carne de panela', 'Carne de panela'), ('Frango Xadrez', 'Frango Xadrez'), ('Risoto Suíno','Risoto Suíno')  )
     # Fields
     valor = models.DecimalField('Valor do pedido', default=0,  decimal_places=2, max_digits=6,)
-    status = models.CharField('Status do pedido', max_length=100, default="", choices=status_choices)
+    status = models.CharField('Status do pedido', max_length=100, default="Pedido em aberto", choices=status_choices)
     observacoes = models.TextField('Observações', default="")
     linkpagseguro = models.URLField('URL do Pagamento', default="")
     sabores = MultiSelectField('Escolha os sabores do futuro', default="", choices=sabores_choices)
