@@ -7,13 +7,14 @@
   </div>
 </div>
 <div class="row d-flex justify-content-center middle">
+  <div class="col-10">
   {% for obj in object_list|dictsort:"status" %}
       {% ifchanged %}
-      <div class="col-12 text-center control-label mx-auto m-2 p-2">
+      <div class="text-center control-label mx-auto m-2 p-2">
       <span>{{obj.get_status_display}}</span>
       </div>
       {% endifchanged %}
-      <div class="card col-5 m-1">
+      <div class="card col m-2">
         <div class="text-center card-subheading">
           Pedido para seu dog {{obj.idDog.nome}} feito às: {{obj.created|date:"j/n H:i"}}</h5>
         </div>
@@ -32,6 +33,7 @@
         </div>
       </div>
   {% endfor %}
+  </div>
 </div>
 <div class="endofcontent"></div>
 <div class="footer margin-footer">
