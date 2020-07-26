@@ -96,17 +96,28 @@ def PedidoFlow(request, plano, dog):
         return errorView(request, e)
 
 FORMS_PEDIDO = [
+    ("Sabores", forms.SaboresForm),
     ("Entrega", forms.EntregaForm),
+    ("Entrega - 2", forms.EntregaForm2),
     ]
 TEMPLATES_PEDIDO = {
+    "Sabores": "app/pedido_multipageform.html",
     "Entrega": "app/pedido_multipageform.html",
+    "Entrega - 2": "app/pedido_multipageform.html",
     }
 class pedidoWizard(SessionWizardView):
     def get_template_names(self):
         return [TEMPLATES_PEDIDO[self.steps.current]]
     def done(self, form_list, form_dict, **kwargs):
-        pedidoInstance = models.Pedido.objects.get(self.pedido)
-        return redirect('clientflow_Pedido_detail', pk = pedidoInstance)
+        print(self.kwargs)
+        formArray = [
+            form_dict['Sabores'].cleaned_data,
+            form_dict['Entrega'].cleaned_data,
+            form_dict['Entrega - 2'].cleaned_data,
+            ]
+        # pedidoInstance = models.Pedido.objects.get(self.pedido)
+        return redirect('clientflow_Pedido_list')
+        # return redirect('clientflow_Pedido_detail', pk = pedidoInstance)
 
 
 def PlanoFlow(request, pk):
