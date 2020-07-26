@@ -99,26 +99,50 @@ FORMS_PEDIDO = [
     ("Sabores", forms.SaboresForm),
     ("Entrega", forms.EntregaForm),
     ("Entrega - 2", forms.EntregaForm2),
+    ("Entrega - 3", forms.EntregaForm3),
     ]
 TEMPLATES_PEDIDO = {
     "Sabores": "app/pedido_multipageform.html",
     "Entrega": "app/pedido_multipageform.html",
     "Entrega - 2": "app/pedido_multipageform.html",
+    "Entrega - 3": "app/pedido_multipageform.html",
     }
 class pedidoWizard(SessionWizardView):
     def get_template_names(self):
         return [TEMPLATES_PEDIDO[self.steps.current]]
     def done(self, form_list, form_dict, **kwargs):
-        print(self.kwargs)
-        formArray = [
-            form_dict['Sabores'].cleaned_data,
+        pedidoInstance = models.Pedido.objects.get(pk=self.kwargs['pedido'])
+        # salva entrega
+        entregaInstance = models.Entrega()
+        entregaFormArray = [
             form_dict['Entrega'].cleaned_data,
             form_dict['Entrega - 2'].cleaned_data,
             ]
-        # pedidoInstance = models.Pedido.objects.get(self.pedido)
+        for parsedForms in entregaFormArray:
+            for key, value in parsedForms.items():
+                setattr(entregaInstance, key, value)
+        savedEntrega = entregaInstance.save()
+        pedidoInstance.idEntrega = entregaInstance
+        # salva sabores
+        saboresForm = form_dict['Sabores'].cleaned_data
+        pedidoInstance.sabores = saboresForm['sabores']
+        # salva pedidoWizard
+        savedPedido = pedidoInstance.save()
+
         return redirect('clientflow_Pedido_list')
         # return redirect('clientflow_Pedido_detail', pk = pedidoInstance)
-
+        dogEspecial = form_dict['CachorroEspecialForm'].cleaned_data
+        if(dogEspecial):
+            dogEspecialInstance = models.CachorroEspecial()
+            for key, value in dogEspecial.items():
+                setattr(dogEspecialInstance,key,value)
+            savedDogEspecial = dogEspecialInstance.save()
+            cachorroInstance.dogEspecial = dogEspecialInstance
+        savedCachorro = cachorroInstance.save()
+        tempReq = cachorroInstance
+        # self.instance_dict = None
+        # self.storage.reset()
+        return redirect('clientflow_CachorroFlow_list')
 
 def PlanoFlow(request, pk):
     try:
