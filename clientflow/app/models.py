@@ -152,7 +152,7 @@ class Pedido(models.Model):
     idClient = models.ForeignKey("app.Cliente", on_delete=models.CASCADE,null=True,blank=True)
     idPlano = models.ForeignKey("app.Plano", on_delete=models.CASCADE)
     idEntrega = models.OneToOneField("app.Entrega", on_delete=models.CASCADE,null=True, blank=True)
-    refDog = models.ManyToManyField("app.Cachorro")
+    idDog = models.ForeignKey("app.Cachorro", on_delete=models.CASCADE,null=True,blank=True)
 
     status_choices= ( ('Pedido em aberto','Pedido em aberto'), ('Pedido finalizado pelo cliente','Pedido finalizado pelo cliente'), ('Aguardando confirmação','Aguardando confirmação'), ('Pedido em preparo','Pedido em preparo'), ('Pedido em trânsito','Pedido em trânsito'), ('Pedido concluído','Pedido concluído') )
     sabores_choices = ( ('Carne de panela', 'Carne de panela'), ('Frango Xadrez', 'Frango Xadrez'), ('Risoto Suíno','Risoto Suíno')  )

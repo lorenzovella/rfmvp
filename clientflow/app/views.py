@@ -88,7 +88,7 @@ def PedidoFlow(request, plano, dog):
         plano = models.Plano.objects.get(pk=plano)
         dog = models.Cachorro.objects.get(pk=dog)
         instance.idPlano = plano
-        instance.dog = dog
+        instance.idDog = dog
         instance.valor = dog.calculodia * plano.refeicoes
         savedInstance = instance.save()
         return redirect('clientflow_EntregaFlow', pedido = instance)

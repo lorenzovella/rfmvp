@@ -23,7 +23,7 @@ class PedidoForm(forms.ModelForm):
             "idClient",
             "idPlano",
             "idEntrega",
-            "refDog",
+            "idDog",
         ]
 
 
