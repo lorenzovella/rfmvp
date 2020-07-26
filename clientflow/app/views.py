@@ -126,23 +126,9 @@ class pedidoWizard(SessionWizardView):
         # salva sabores
         saboresForm = form_dict['Sabores'].cleaned_data
         pedidoInstance.sabores = saboresForm['sabores']
-        # salva pedidoWizard
+        # salva pedido
         savedPedido = pedidoInstance.save()
-
         return redirect('clientflow_Pedido_list')
-        # return redirect('clientflow_Pedido_detail', pk = pedidoInstance)
-        dogEspecial = form_dict['CachorroEspecialForm'].cleaned_data
-        if(dogEspecial):
-            dogEspecialInstance = models.CachorroEspecial()
-            for key, value in dogEspecial.items():
-                setattr(dogEspecialInstance,key,value)
-            savedDogEspecial = dogEspecialInstance.save()
-            cachorroInstance.dogEspecial = dogEspecialInstance
-        savedCachorro = cachorroInstance.save()
-        tempReq = cachorroInstance
-        # self.instance_dict = None
-        # self.storage.reset()
-        return redirect('clientflow_CachorroFlow_list')
 
 def PlanoFlow(request, pk):
     try:
