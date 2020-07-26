@@ -17,6 +17,8 @@ def handler500(request):
     response = render(request, "500.html", context=context)
     response.status_code = 500
     return response
+def errorView(request,e):
+    return render(request,"error.html",{'erro':e})
 
 class CachorroEspecialListView(generic.ListView):
     model = models.CachorroEspecial
@@ -80,6 +82,20 @@ class PedidoUpdateView(generic.UpdateView):
     form_class = forms.PedidoForm
     pk_url_kwarg = "pk"
 
+def PedidoFlow(request, plano, dog):
+    try:
+        instance = models.Pedido()
+        plano = models.Plano.objects.get(pk=plano)
+        dog = models.Cachorro.objects.get(pk=dog)
+        instance.idPlano = plano
+        instance.dog = dog
+        instance.valor = dog.calculodia * plano.refeicoes
+        print(instance.valor)
+        savedInstance = instance.save()
+        return redirect('clientflow_Entrega_create')
+    except Exception as e:
+        return errorView(request, e)
+
 def PlanoFlow(request, pk):
     try:
         instance = models.Cachorro.objects.get(pk=pk)
@@ -88,7 +104,7 @@ def PlanoFlow(request, pk):
     planos = models.Plano.objects.all
     valorMes = instance.calculomes
     valorDia = instance.calculodia
-    return render(request,'app/plano_list.html',{'planos':planos })
+    return render(request,'app/plano_list.html',{'planos':planos,'dog':instance})
 
 
 

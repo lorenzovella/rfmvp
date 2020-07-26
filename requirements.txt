@@ -20,3 +20,4 @@ django-wordpress-api
 django-crispy-forms
 django-formtools
 asgi_redis
+requests

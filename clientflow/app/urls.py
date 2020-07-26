@@ -27,20 +27,22 @@ urlpatterns = (
     path("Entrega/detail/<int:pk>/", views.EntregaDetailView.as_view(), name="clientflow_Entrega_detail"),
     path("Entrega/update/<int:pk>/", views.EntregaUpdateView.as_view(), name="clientflow_Entrega_update"),
 
+    path("PedidoFlow/<int:plano>/<int:dog>", views.PedidoFlow, name="clientflow_PedidoFlow"),
     path("Pedido/", views.PedidoListView.as_view(), name="clientflow_Pedido_list"),
     path("Pedido/create/", views.PedidoCreateView.as_view(), name="clientflow_Pedido_create"),
     path("Pedido/detail/<int:pk>/", views.PedidoDetailView.as_view(), name="clientflow_Pedido_detail"),
     path("Pedido/update/<int:pk>/", views.PedidoUpdateView.as_view(), name="clientflow_Pedido_update"),
 
+    path("PlanoFlow/<int:pk>/", views.PlanoFlow, name="clientflow_PlanoFlow"),
     path("Plano/", views.PlanoListView.as_view(), name="clientflow_Plano_list"),
     path("Plano/create/", views.PlanoCreateView.as_view(), name="clientflow_Plano_create"),
-    path("PlanoFlow/<int:pk>/", views.PlanoFlow, name="clientflow_PlanoFlow"),
     path("Plano/update/<int:pk>/", views.PlanoUpdateView.as_view(), name="clientflow_Plano_update"),
 
+    path("DogFlow/", views.cachorroWizard.as_view(FORMS_CACHORRO), name="clientflow_dogflow"),
     path("Cachorro/", views.CachorroListView.as_view(), name="clientflow_Cachorro_list"),
-    # path("Cachorro/create/", views.CachorroCreateView.as_view(), name="clientflow_Cachorro_create"),
     path("Cachorro/delete/confirm/<int:pk>", views.CachorroDeleteConfirmView, name="clientflow_Cachorro_delete_confirm"),
     path("Cachorro/delete/<int:pk>", views.CachorroDeleteView, name="clientflow_Cachorro_delete"),
+    # path("Cachorro/create/", views.CachorroCreateView.as_view(), name="clientflow_Cachorro_create"),
     path("Cachorro/detail/<int:pk>/", views.CachorroDetailView.as_view(), name="clientflow_Cachorro_detail"),
     path("Cachorro/update/<int:pk>/", views.CachorroUpdateView.as_view(), name="clientflow_Cachorro_update"),
 
@@ -49,6 +51,5 @@ urlpatterns = (
     path("Cliente/detail/<int:pk>/", views.ClienteDetailView.as_view(), name="clientflow_Cliente_detail"),
     path("Cliente/update/<int:pk>/", views.ClienteUpdateView.as_view(), name="clientflow_Cliente_update"),
 
-    path("DogFlow/", views.cachorroWizard.as_view(FORMS_CACHORRO), name="clientflow_dogflow"),
 
 )
