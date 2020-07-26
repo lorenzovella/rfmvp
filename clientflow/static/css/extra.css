@@ -205,7 +205,7 @@ margin-top: 21px;
   margin-right:auto;
   color: #9fb2c8 !important;
   font-family: Roboto;
-  font-size: 34px;
+  font-size: 28px;
   padding-top: 20px;
   padding-bottom: 20px;
   text-decoration: none !important;
@@ -259,6 +259,10 @@ margin-top: 21px;
   background: #ffffff;
   margin-top: 0.7em;
   font-size:3em;
+}
+.card-bottom{
+  bottom: 1em;
+  position:absolute;
 }
 .delete-icon{
   float: right;

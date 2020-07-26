@@ -13,16 +13,21 @@
       <span>{{obj.get_status_display}}</span>
       </div>
       {% endifchanged %}
-      <div class="card m-1">
-        <div class="card-header">
+      <div class="card col-5 m-1">
+        <div class="text-center card-subheading">
+          Pedido para seu dog {{obj.idDog.nome}} feito às: {{obj.created|date:"j/n H:i"}}</h5>
+        </div>
+        <div class="card-body">
           <div class="d-flex flex-column justify-content-start" id="card-{{obj}}">
-            <div class="d-flex align-items-start flex-column">
-              <h5> <span class="badge badge-dark m-2"><h4>nº{{obj}}</h4></span> Pedido feito às: {{obj.created|date:"j/n H:i"}}</h5>
+            <div class="d-flex align-items-start flex-column pb-4">
+              <p class="control-label">Você escolheu o plano {{obj.idPlano.nome}}, com
+                {{obj.idPlano.refeicoes}} refeições e {{obj.idPlano.condicaofrete}}
+              </p>
               <p class="lead"><span class="font-weight-bold">Entregas na</span> {{obj.idEntrega.dia}}</p>
               <p class="lead"><span class="font-weight-bold">no período </span> {{obj.idEntrega.periodo}}</p>
               <p class="lead"><span class="font-weight-bold">Iremos enviar os sabores</span> {{obj.sabores}}</p>
             </div>
-            <h4 class="m-2">Total do pedido: R${{obj.valor}}</h4>
+            <h4 class="card-bottom">Total do pedido: R${{obj.valor}}</h4>
           </div>
         </div>
       </div>
