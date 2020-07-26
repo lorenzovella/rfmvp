@@ -4,7 +4,7 @@ from rest_framework import routers
 from . import api
 from . import views
 
-from clientflow.app.views import FORMS_CACHORRO
+from clientflow.app.views import FORMS_CACHORRO, FORMS_PEDIDO
 
 router = routers.DefaultRouter()
 router.register("CachorroEspecial", api.CachorroEspecialViewSet)
@@ -22,7 +22,7 @@ urlpatterns = (
     path("CachorroEspecial/detail/<int:pk>/", views.CachorroEspecialDetailView.as_view(), name="clientflow_CachorroEspecial_detail"),
     path("CachorroEspecial/update/<int:pk>/", views.CachorroEspecialUpdateView.as_view(), name="clientflow_CachorroEspecial_update"),
 
-    path("Entrega/", views.EntregaListView.as_view(), name="clientflow_Entrega_list"),
+    path("EntregaFlow/<int:pedido>", views.pedidoWizard.as_view(FORMS_PEDIDO), name="clientflow_EntregaFlow"),
     path("Entrega/create/", views.EntregaCreateView.as_view(), name="clientflow_Entrega_create"),
     path("Entrega/detail/<int:pk>/", views.EntregaDetailView.as_view(), name="clientflow_Entrega_detail"),
     path("Entrega/update/<int:pk>/", views.EntregaUpdateView.as_view(), name="clientflow_Entrega_update"),
@@ -40,6 +40,7 @@ urlpatterns = (
 
     path("DogFlow/", views.cachorroWizard.as_view(FORMS_CACHORRO), name="clientflow_dogflow"),
     path("Cachorro/", views.CachorroListView.as_view(), name="clientflow_Cachorro_list"),
+    path("Cachorro/inFlow", views.CachorroListFlowView.as_view(), name="clientflow_CachorroFlow_list"),
     path("Cachorro/delete/confirm/<int:pk>", views.CachorroDeleteConfirmView, name="clientflow_Cachorro_delete_confirm"),
     path("Cachorro/delete/<int:pk>", views.CachorroDeleteView, name="clientflow_Cachorro_delete"),
     # path("Cachorro/create/", views.CachorroCreateView.as_view(), name="clientflow_Cachorro_create"),

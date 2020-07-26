@@ -1,5 +1,5 @@
 
-{% extends flow|yesno:"base_flow.html,base.html" %}
+{% extends "base_flow.html" %}
 {% load static %}
 
 {% block head %}
@@ -10,6 +10,8 @@
 </style>
 <script>
 $(document).ready(function () {
+  $('.progress-bar.icon-bar').css("width","33%");
+  $('.progress-bar.disabled-bar').css("width","67%");
   $('.middle .card').click(function () {
    if ($(this).hasClass('active') && !$('.active').length) {
      $(this).removeClass('active');

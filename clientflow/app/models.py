@@ -128,8 +128,8 @@ class Cachorro(models.Model):
     pesoideal = models.DecimalField('Peso Ideal',  decimal_places=1, max_digits=3, help_text='Segundo o conselho veterinario, caso seu cão tenha até 12 meses é obrigatorio você informar o peso ideal dele quando adulto. Fique tranquilo, você pode informar o peso aproximado.', default=0, null=True, blank=True)
     atividade = models.CharField('Nivel de atividade Diária', max_length=100, default="", choices=atividade_choices)
     fisico = models.CharField('Físico do cão', help_text='Não sabe o estado físico do seu cão? Não tem problema, clique aqui e descubra.', max_length=100, default="", choices=fisico_choices)
-    calculomes = models.DecimalField('Quantidade de ração a receber (kg/mês)',  decimal_places=1, max_digits=3, default=0)
-    calculodia = models.DecimalField('Quantidade de ração diária para o cão (g/dia)', decimal_places=1, max_digits=3, default=0)
+    calculomes = models.DecimalField('Quantidade de ração a receber (kg/mês)',  decimal_places=1, max_digits=4, default=0)
+    calculodia = models.DecimalField('Quantidade de ração diária para o cão (g/dia)', decimal_places=1, max_digits=4, default=0)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
     created = models.DateTimeField(auto_now_add=True, editable=False)
 
@@ -149,9 +149,9 @@ class Cachorro(models.Model):
 class Pedido(models.Model):
 
     # Relationships
-    idClient = models.ForeignKey("app.Cliente", on_delete=models.CASCADE)
+    idClient = models.ForeignKey("app.Cliente", on_delete=models.CASCADE,null=True,blank=True)
     idPlano = models.ForeignKey("app.Plano", on_delete=models.CASCADE)
-    idEntrega = models.OneToOneField("app.Entrega", on_delete=models.CASCADE)
+    idEntrega = models.OneToOneField("app.Entrega", on_delete=models.CASCADE,null=True, blank=True)
     refDog = models.ManyToManyField("app.Cachorro")
 
     status_choices= ( ('Pedido em aberto','Pedido em aberto'), ('Pedido finalizado pelo cliente','Pedido finalizado pelo cliente'), ('Aguardando confirmação','Aguardando confirmação'), ('Pedido em preparo','Pedido em preparo'), ('Pedido em trânsito','Pedido em trânsito'), ('Pedido concluído','Pedido concluído') )

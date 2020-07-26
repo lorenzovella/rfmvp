@@ -1,0 +1,31 @@
+
+{% extends "base_flow.html" %}
+{% load static %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% block head %}
+{{ wizard.form.media }}
+<script>
+$(document).ready(function () {
+  $('.progress-bar.icon-bar').css("width","41%");
+  $('.progress-bar.disabled-bar').css("width","59%");
+  $('.two').removeClass('disabled-bar');
+})
+</script>
+{% endblock %}
+{% block content %}
+
+<div class='row info-bg'>
+  <div class='col-10 info-bar-text'>
+    <p>    <p>Dados da {{wizard.steps.current}} </p>
+  </div>
+</div>
+<div class='row middle'>
+  <div class='col mx-auto'>
+    <form action="" method="post">
+      {{ wizard.management_form }}
+      {% crispy wizard.form %}
+    </form>
+  </div>
+</div>
+{% endblock %}

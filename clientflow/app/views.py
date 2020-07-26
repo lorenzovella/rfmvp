@@ -90,11 +90,24 @@ def PedidoFlow(request, plano, dog):
         instance.idPlano = plano
         instance.dog = dog
         instance.valor = dog.calculodia * plano.refeicoes
-        print(instance.valor)
         savedInstance = instance.save()
-        return redirect('clientflow_Entrega_create')
+        return redirect('clientflow_EntregaFlow', pedido = instance)
     except Exception as e:
         return errorView(request, e)
+
+FORMS_PEDIDO = [
+    ("Entrega", forms.EntregaForm),
+    ]
+TEMPLATES_PEDIDO = {
+    "Entrega": "app/pedido_multipageform.html",
+    }
+class pedidoWizard(SessionWizardView):
+    def get_template_names(self):
+        return [TEMPLATES_PEDIDO[self.steps.current]]
+    def done(self, form_list, form_dict, **kwargs):
+        pedidoInstance = models.Pedido.objects.get(self.pedido)
+        return redirect('clientflow_Pedido_detail', pk = pedidoInstance)
+
 
 def PlanoFlow(request, pk):
     try:
@@ -130,6 +143,11 @@ class PlanoUpdateView(generic.UpdateView):
 
 
 class CachorroListView(generic.ListView):
+    model = models.Cachorro
+    form_class = forms.CachorroForm
+
+class CachorroListFlowView(generic.ListView):
+    template_name = "app/cachorroflow_list.html"
     model = models.Cachorro
     form_class = forms.CachorroForm
 
@@ -205,11 +223,12 @@ class cachorroWizard(SessionWizardView):
             for key, value in dogEspecial.items():
                 setattr(dogEspecialInstance,key,value)
             savedDogEspecial = dogEspecialInstance.save()
+            cachorroInstance.dogEspecial = dogEspecialInstance
         savedCachorro = cachorroInstance.save()
         tempReq = cachorroInstance
         # self.instance_dict = None
         # self.storage.reset()
-        return redirect('clientflow_Cachorro_list')
+        return redirect('clientflow_CachorroFlow_list')
 
 
 class ClienteListView(generic.ListView):

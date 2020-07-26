@@ -1,5 +1,5 @@
 
-{% extends "base.html" %}
+{% extends "base_flow.html" %}
 {% load static %}
 
 {% block head %}
@@ -20,6 +20,9 @@
 </style>
 <script>
 $(document).ready(function () {
+  $('.progress-bar.icon-bar').css("width","36%");
+  $('.progress-bar.disabled-bar').css("width","64%");
+  $('.two').removeClass('disabled-bar');
   $('.middle .card').click(function () {
    if ($(this).hasClass('active') && !$('.active').length) {
      $(this).removeClass('active');
