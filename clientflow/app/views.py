@@ -5,7 +5,7 @@ from django.shortcuts import redirect, render
 from django.forms.models import construct_instance
 from formtools.wizard.views import SessionWizardView
 from django.core.files.storage import FileSystemStorage
-
+from clientflow.app.calculadora import calculoFator
 
 def handler404(request,exception):
     context = {}
@@ -153,7 +153,7 @@ def PlanoFlow(request, pk):
     planos = models.Plano.objects.all
     valorMes = instance.calculomes
     valorDia = instance.calculodia
-    return render(request,'app/plano_list.html',{'planos':planos,'dog':instance})
+    return render(request,'app/plano_list.html',{'planos':planos,'dog':instance, 'fator':calculoFator()})
 
 
 

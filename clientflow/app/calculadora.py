@@ -1,0 +1,2 @@
+def calculoFator():
+    return "aa"
