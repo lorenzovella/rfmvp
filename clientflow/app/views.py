@@ -20,6 +20,9 @@ def handler500(request):
 def errorView(request,e):
     return render(request,"error.html",{'erro':e})
 
+def checkout(request):
+    return render(request,"app/checkout_cartao.html")
+
 class CachorroEspecialListView(generic.ListView):
     model = models.CachorroEspecial
     form_class = forms.CachorroEspecialForm
@@ -110,16 +113,16 @@ TEMPLATES_PEDIDO = {
     "Entrega - 2": "app/pedido_multipageform.html",
     "Entrega - 3": "app/pedido_multipageform.html",
     }
+
 class pedidoWizard(SessionWizardView):
     def get_template_names(self):
         return [TEMPLATES_PEDIDO[self.steps.current]]
     def get_context_data(self, form, **kwargs):
         context = super(pedidoWizard, self).get_context_data(form=form, **kwargs)
         if self.steps.current == "Entrega - 3":
-            data_from_step_1 = self.get_cleaned_data_for_step('0') # zero indexed
-            data_from_step_2 = self.get_cleaned_data_for_step('1') # zero indexed
-            context.update({'data_from_step_1':data_from_step_1,
-                            'data_from_step_2':data_from_step_2})
+            data_entrega = self.get_cleaned_data_for_step('Entrega') # zero indexed
+            data_entrega2 = self.get_cleaned_data_for_step('Entrega - 2') # zero indexed
+            context.update( { 'dia': data_entrega['dia'], 'periodo' : data_entrega2['periodo'] })
         return context
     def done(self, form_list, form_dict, **kwargs):
         pedidoInstance = models.Pedido.objects.get(pk=self.kwargs['pedido'])
@@ -232,8 +235,6 @@ TEMPLATES_CACHORRO = {
     "CachorroForm5": "app/cachorro_multipageform.html",
     "CachorroEspecialForm": "app/cachorroespecial_multipageform.html",
     }
-# INSTANCE_DICT = {
-#     }
 
 class cachorroWizard(SessionWizardView):
     def get_template_names(self):
@@ -257,6 +258,7 @@ class cachorroWizard(SessionWizardView):
                 setattr(dogEspecialInstance,key,value)
             savedDogEspecial = dogEspecialInstance.save()
             cachorroInstance.dogEspecial = dogEspecialInstance
+        cachorroInstance.calculodia
         savedCachorro = cachorroInstance.save()
         tempReq = cachorroInstance
         # self.instance_dict = None

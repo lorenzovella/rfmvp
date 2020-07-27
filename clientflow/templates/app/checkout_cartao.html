@@ -1,0 +1,104 @@
+{% extends "base_flow.html" %}
+{% load static %}
+{% block head %}
+  <style>
+  .rounded-lg {
+  border-radius: 1rem;
+  }
+
+  .nav-pills .nav-link {
+  color: #555;
+  }
+
+  .nav-pills .nav-link.active {
+  color: #fff;
+  }
+</style>
+<script>
+    $(function() {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
+
+    function testarCC(nr) {
+      var cartoes = {
+        Visa: /^4|2/,
+        Mastercard: /^5/,
+        Amex: /^3/,
+      };
+      for (var cartao in cartoes) if (nr.match(cartoes[cartao])) return cartao;
+      return false;
+    }
+    $('[name="cardNumber"]').change(function() {
+      let bandeira = testarCC( $(this).val() );
+      if ( bandeira ){
+        changeBandeira(bandeira)
+      }
+    });
+var valido = '4444555566667777';
+var invalido = '1234567890';
+
+
+</script>
+{%endblock%}
+{% block content %}
+<div class='row info-bg'>
+  <div class='col-10 info-bar-text'>
+    <p>Checkout</p>
+  </div>
+</div>
+<div class="row d-flex middle">
+  <div class="col-12 text-center control-label mx-auto m-4 p-4">
+    <h3>Insira os dados do seu cartão</h3>
+  </div>
+  <div class="col-md-8 mx-auto">
+    <!-- credit card info-->
+    <div class="">
+      <form role="form">
+        <div class="form-group">
+          <label for="username">Full name (on the card)</label>
+          <input type="text" name="username" placeholder="Boris Adamastor" required class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="cardNumber">Card number</label>
+          <div class="input-group">
+            <input type="text" name="cardNumber" placeholder="Número do seu cartão" class="form-control" required>
+            <div class="input-group-append">
+              <span class="input-group-text text-muted">
+                <i class="fa fa-cc-visa mx-1"></i>
+                <i class="fa fa-cc-amex mx-1"></i>
+                <i class="fa fa-cc-mastercard mx-1"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-8">
+            <div class="form-group">
+              <label><span class="hidden-xs">Expiration</span></label>
+              <div class="input-group">
+                <input type="number" placeholder="MM" name="" class="form-control" required>
+                <input type="number" placeholder="YY" name="" class="form-control" required>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group mb-4">
+              <label data-toggle="tooltip" title="Últimos 3 números no verso do seu cartão">Código de Segurança
+                <i class="fa fa-question-circle"></i>
+              </label>
+              <input type="text" required class="form-control">
+            </div>
+          </div>
+        </div>
+        <button type="button" class="subscribe btn btn-primary btn-block rounded-pill shadow-sm"> Confirmar  </button>
+      </form>
+    </div>
+    <!-- End -->
+  </div>
+</div>
+<div class="footer margin-footer">
+  <p class="footer-text ">
+  </p>
+</div>
+{% endblock %}
+<script src="{% static 'js/jquery.card.js' %}"

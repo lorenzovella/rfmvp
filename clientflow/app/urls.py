@@ -17,7 +17,10 @@ router.register("Cliente", api.ClienteViewSet)
 
 urlpatterns = (
     path("api/v1/", include(router.urls)),
-    path("CachorroEspecial/", views.CachorroEspecialListView.as_view(), name="clientflow_CachorroEspecial_list"),
+
+    path("CheckOut/", views.checkout, name="clientflow_checkout"),
+
+    path("CachorroEspecial/", views.checkout, name="clientflow_CachorroEspecial_list"),
     path("CachorroEspecial/create/", views.CachorroEspecialCreateView.as_view(), name="clientflow_CachorroEspecial_create"),
     path("CachorroEspecial/detail/<int:pk>/", views.CachorroEspecialDetailView.as_view(), name="clientflow_CachorroEspecial_detail"),
     path("CachorroEspecial/update/<int:pk>/", views.CachorroEspecialUpdateView.as_view(), name="clientflow_CachorroEspecial_update"),
