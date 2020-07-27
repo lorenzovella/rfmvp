@@ -5,7 +5,9 @@ from django.shortcuts import redirect, render
 from django.forms.models import construct_instance
 from formtools.wizard.views import SessionWizardView
 from django.core.files.storage import FileSystemStorage
-from clientflow.app.calculadora import calculoFator
+from clientflow.app.calculadora import calcularFator
+from decimal import Decimal
+from math import ceil
 
 def handler404(request,exception):
     context = {}
@@ -151,9 +153,7 @@ def PlanoFlow(request, pk):
     except models.Cachorro.DoesNotExist:
         return handler500(request)
     planos = models.Plano.objects.all
-    valorMes = instance.calculomes
-    valorDia = instance.calculodia
-    return render(request,'app/plano_list.html',{'planos':planos,'dog':instance, 'fator':calculoFator()})
+    return render(request,'app/plano_list.html',{'planos':planos,'dog':instance})
 
 
 
@@ -258,7 +258,12 @@ class cachorroWizard(SessionWizardView):
                 setattr(dogEspecialInstance,key,value)
             savedDogEspecial = dogEspecialInstance.save()
             cachorroInstance.dogEspecial = dogEspecialInstance
-        cachorroInstance.calculodia
+        fator = calcularFator(cachorroInstance.atividade, cachorroInstance.nascimento, cachorroInstance.fisico, cachorroInstance.castrado)
+        gramaspordia = round(fator * 0.63 * (float(cachorroInstance.peso) ** 0.75  ) )
+        kgpormes = ceil( gramaspordia * 0.028)
+        print(kgpormes)
+        cachorroInstance.calculodia = Decimal.from_float(gramaspordia)
+        cachorroInstance.calculomes = Decimal(kgpormes)
         savedCachorro = cachorroInstance.save()
         tempReq = cachorroInstance
         # self.instance_dict = None
