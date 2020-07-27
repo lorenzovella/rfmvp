@@ -14,11 +14,19 @@
   color: #fff;
   }
 </style>
+<script src="{% static 'js/jquery.card.js' %}"></script>
 <script>
-    $(function() {
-      $('[data-toggle="tooltip"]').tooltip()
-    })
+  $(document).ready(function () {
+    $('.progress-bar.icon-bar').css("width","100%");
+    $('.two').removeClass('disabled-bar');
+    $('.three').removeClass('disabled-bar');
 
+    $('form').card({
+    container: '#card-container',
+    placeholders: {
+      name: 'NOME COMPLETO',
+    }
+    });
     function testarCC(nr) {
       var cartoes = {
         Visa: /^4|2/,
@@ -28,16 +36,7 @@
       for (var cartao in cartoes) if (nr.match(cartoes[cartao])) return cartao;
       return false;
     }
-    $('[name="cardNumber"]').change(function() {
-      let bandeira = testarCC( $(this).val() );
-      if ( bandeira ){
-        changeBandeira(bandeira)
-      }
-    });
-var valido = '4444555566667777';
-var invalido = '1234567890';
-
-
+  });
 </script>
 {%endblock%}
 {% block content %}
@@ -47,58 +46,58 @@ var invalido = '1234567890';
   </div>
 </div>
 <div class="row d-flex middle">
-  <div class="col-12 text-center control-label mx-auto m-4 p-4">
+  <div class="col-12 text-center control-label mx-auto m-2">
     <h3>Insira os dados do seu cartão</h3>
   </div>
   <div class="col-md-8 mx-auto">
     <!-- credit card info-->
-    <div class="">
-      <form role="form">
-        <div class="form-group">
-          <label for="username">Full name (on the card)</label>
-          <input type="text" name="username" placeholder="Boris Adamastor" required class="form-control">
-        </div>
-        <div class="form-group">
-          <label for="cardNumber">Card number</label>
-          <div class="input-group">
-            <input type="text" name="cardNumber" placeholder="Número do seu cartão" class="form-control" required>
-            <div class="input-group-append">
-              <span class="input-group-text text-muted">
-                <i class="fa fa-cc-visa mx-1"></i>
-                <i class="fa fa-cc-amex mx-1"></i>
-                <i class="fa fa-cc-mastercard mx-1"></i>
-              </span>
-            </div>
+    <div class="card">
+      <div class="card-body mb-2" id="card-container">
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <form role="form">
+          <div class="form-group">
+            <label for="username">Nome Completo</label>
+            <input type="text" name="name" placeholder="Boris Adamastor" required class="form-control">
           </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-8">
-            <div class="form-group">
-              <label><span class="hidden-xs">Expiration</span></label>
-              <div class="input-group">
-                <input type="number" placeholder="MM" name="" class="form-control" required>
-                <input type="number" placeholder="YY" name="" class="form-control" required>
+          <div class="form-group">
+            <label for="cardNumber">Número do cartão</label>
+            <div class="input-group">
+              <input type="text" name="number" placeholder="•••• •••• •••• ••••" class="form-control" required>
+              <div class="input-group-append">
               </div>
             </div>
           </div>
-          <div class="col-sm-4">
-            <div class="form-group mb-4">
-              <label data-toggle="tooltip" title="Últimos 3 números no verso do seu cartão">Código de Segurança
-                <i class="fa fa-question-circle"></i>
-              </label>
-              <input type="text" required class="form-control">
+          <div class="row">
+            <div class="col-sm-8">
+              <div class="form-group">
+                <label><span class="hidden-xs">Data de vencimento</span></label>
+                <div class="input-group">
+                  <input type="text" placeholder="MM/YYYY" name="expiry" class="form-control" required>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group mb-4">
+                <label data-toggle="tooltip" title="Últimos 3 números no verso do seu cartão">Código de Segurança
+                  <i class="fa fa-question-circle"></i>
+                </label>
+                <input type="text" name="cvc" required class="form-control">
+              </div>
             </div>
           </div>
-        </div>
-        <button type="button" class="subscribe btn btn-primary btn-block rounded-pill shadow-sm"> Confirmar  </button>
-      </form>
+          <button type="button" class="subscribe btn btn-primary btn-block rounded-pill shadow-sm"> Confirmar  </button>
+        </form>
+      </div>
     </div>
     <!-- End -->
   </div>
 </div>
+<div class="endofcontent"></div>
 <div class="footer margin-footer">
   <p class="footer-text ">
   </p>
 </div>
 {% endblock %}
-<script src="{% static 'js/jquery.card.js' %}"
