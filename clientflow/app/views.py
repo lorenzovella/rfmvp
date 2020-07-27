@@ -7,6 +7,7 @@ from formtools.wizard.views import SessionWizardView
 from django.core.files.storage import FileSystemStorage
 from clientflow.app.calculadora import calcularFator
 from decimal import Decimal
+from datetime import date
 from math import ceil
 
 def handler404(request,exception):
@@ -236,6 +237,10 @@ TEMPLATES_CACHORRO = {
     "CachorroEspecialForm": "app/cachorroespecial_multipageform.html",
     }
 
+def calculate_age(born):
+    today = date.today()
+    return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
+
 class cachorroWizard(SessionWizardView):
     def get_template_names(self):
         return [TEMPLATES_CACHORRO[self.steps.current]]
@@ -258,14 +263,19 @@ class cachorroWizard(SessionWizardView):
                 setattr(dogEspecialInstance,key,value)
             savedDogEspecial = dogEspecialInstance.save()
             cachorroInstance.dogEspecial = dogEspecialInstance
-        fator = calcularFator(cachorroInstance.atividade, cachorroInstance.nascimento, cachorroInstance.fisico, cachorroInstance.castrado)
-        gramaspordia = round(fator * 0.63 * (float(cachorroInstance.peso) ** 0.75  ) )
-        kgpormes = ceil( gramaspordia * 0.028)
-        print(kgpormes)
+        # calculo filhote
+        if(calculate_age(cachorroInstance.nascimento) < 1):
+            gramaspordia = round( 416*(float(cachorroInstance.peso)**0.75)*(2.718**(-0.87*float(cachorroInstance.peso/cachorroInstance.pesoideal))-0.1) )
+            kgpormes = ceil( gramaspordia * 0.028 )
+        # calculo dog adulto
+        else:
+            fator = calcularFator(cachorroInstance.atividade, cachorroInstance.nascimento, cachorroInstance.fisico, cachorroInstance.castrado)
+            gramaspordia = round(fator * 0.63 * (float(cachorroInstance.peso) ** 0.75  ) )
+            kgpormes = ceil( gramaspordia * 0.028 )
         cachorroInstance.calculodia = Decimal.from_float(gramaspordia)
         cachorroInstance.calculomes = Decimal(kgpormes)
         savedCachorro = cachorroInstance.save()
-        tempReq = cachorroInstance
+        # tempReq = cachorroInstance
         # self.instance_dict = None
         # self.storage.reset()
         return redirect('clientflow_CachorroFlow_list')
