@@ -5,6 +5,22 @@
 {% load crispy_forms_tags %}
 {% block head %}
 {{ wizard.form.media }}
+<style>
+.ui-datepicker-calendar {
+  display: none;
+  }
+#ui-datepicker-div{
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  z-index: 9999 !important;
+
+  -webkit-transform   : translateX(-50%) translateY(-50%) !important;
+  -moz-transform      : translateX(-50%) translateY(-50%) !important;
+  -ms-transform       : translateX(-50%) translateY(-50%) !important;
+  transform           : translateX(-50%) translateY(-50%) !important;
+}
+</style>
 <script>
 $(document).ready(function () {
 
@@ -33,8 +49,52 @@ $(document).ready(function () {
     $('.progress-bar.disabled-bar').css("width","100%");
   }
   if($('#id_cachorro_wizard-current_step').val() == "CachorroForm3"){
+    $("#div_id_CachorroForm3-pesoideal").hide();
+
     $('.progress-bar.icon-bar').css("width","13%");
     $('.progress-bar.disabled-bar').css("width","87%");
+
+    $('#id_CachorroForm3-nascimento').change(function(){
+      var years = moment().diff( moment( $('#id_CachorroForm3-nascimento').val(), "MM-YYYY" ), 'years' )
+      if( years < 2 ) {
+        $("#div_id_CachorroForm3-pesoideal").show()
+      }
+    });
+
+    $('#id_CachorroForm3-nascimento').datepicker(
+      {
+        dateFormat: "mm/yy",
+        yearRange: "-20:+0",
+        monthNamesShort: [ "Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez" ],
+        changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
+        onClose: function(dateText, inst) {
+          function isDonePressed(){
+              return ($('#ui-datepicker-div').html().indexOf('ui-datepicker-close ui-state-default ui-priority-primary ui-corner-all ui-state-hover') > -1);
+          }
+
+          if (isDonePressed()){
+              var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+              var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+              $(this).datepicker('setDate', new Date(year, month, 1)).trigger('change');
+
+               $('.date-picker').focusout()//Added to remove focus from datepicker input box on selecting date
+          }
+        },
+        beforeShow : function(input, inst) {
+          inst.dpDiv.addClass('month_year_datepicker')
+
+          if ((datestr = $(this).val()).length > 0) {
+              year = datestr.substring(datestr.length-4, datestr.length);
+              month = datestr.substring(0, 2);
+              $(this).datepicker('option', 'defaultDate', new Date(year, month-1, 1));
+              $(this).datepicker('setDate', new Date(year, month-1, 1));
+              $(".ui-datepicker-calendar").hide();
+          }
+        }
+      })
+
   }
   if($('#id_cachorro_wizard-current_step').val() == "CachorroForm4"){
     $('.progress-bar.icon-bar').css("width","19%");
