@@ -6,6 +6,7 @@ from django.forms.models import construct_instance
 from formtools.wizard.views import SessionWizardView
 from django.core.files.storage import FileSystemStorage
 from clientflow.app.calculadora import calcularFator
+from clientflow.app import pagseguro
 from decimal import Decimal
 from datetime import date
 from math import ceil
@@ -98,7 +99,14 @@ def PedidoFlow(request, plano, dog):
         dog = models.Cachorro.objects.get(pk=dog)
         instance.idPlano = plano
         instance.idDog = dog
-        instance.valor = dog.calculodia * plano.refeicoes
+        # cria plano no pagseguro
+        # pgPreApprovalRequest = pagseguro.criarPlano("planjo1","pjlanoref","200.00")
+        # if "erro" in pgPreApprovalRequest:
+        #     return errorView(request, "não foi possível se comunicar com o PagSeguro")
+        #
+        # pgSession = pagseguro.criarSession()
+        # pgHash = pagseguro.criarHash()
+        # instance.valor = dog.calculodia * plano.refeicoes
         savedInstance = instance.save()
         return redirect('clientflow_EntregaFlow', pedido = instance)
     except Exception as e:
