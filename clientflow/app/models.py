@@ -2,6 +2,30 @@ from django.db import models
 from django.urls import reverse
 from multiselectfield import MultiSelectField
 
+class Carrinho(models.Model):
+    # Fields
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    last_updated = models.DateTimeField(auto_now=True, editable=False)
+    plano = models.CharField(max_length=200, blank=True, default="")
+    status_adesao = models.CharField(max_length=200, blank=True, default="")
+
+    class Meta:
+        pass
+
+    def __str__(self):
+        return str(self.pk)
+    def get_valor_carrinho(self):
+        sum = 0
+        for i in self.item.all():
+            sum += i.valor
+        return sum
+
+    def get_absolute_url(self):
+        return reverse("pedidos_carrinho_detail", args=(self.pk,))
+
+    def get_update_url(self):
+        return reverse("pedidos_carrinho_update", args=(self.pk,))
+
 
 class Cliente(models.Model):
     # Fields
@@ -10,8 +34,11 @@ class Cliente(models.Model):
     sobrenome = models.CharField('Sobrenome', max_length=150, default="")
     email = models.EmailField('E-mail', default="")
     telefone = models.BigIntegerField('Telefone', default=0)
+    areatelefone = models.BigIntegerField('Telefone', default=0)
     cep = models.BigIntegerField('CEP', default=0)
+    cpf = models.BigIntegerField('CPF', default=0)
     rua = models.CharField('Endereço', max_length=300, default="")
+    nascimento = models.DateField('Data de nascimento', null= True)    
     numero = models.IntegerField('Número', default=0)
     complemento = models.CharField('Complemento (opcional)', max_length=200, blank=True)
     cidade = models.CharField('Cidade', max_length=150, default="")
@@ -153,7 +180,7 @@ class Pedido(models.Model):
     idPlano = models.ForeignKey("app.Plano", on_delete=models.CASCADE)
     idEntrega = models.OneToOneField("app.Entrega", on_delete=models.CASCADE,null=True, blank=True)
     idDog = models.ForeignKey("app.Cachorro", on_delete=models.CASCADE,null=True,blank=True)
-
+    idCarrinho = models.ForeignKey("app.Carrinho", on_delete=models.CASCADE,null=True,blank=True, related_name='item')
     status_choices= ( ('Pedido em aberto','Pedido em aberto'), ('Pedido finalizado pelo cliente','Pedido finalizado pelo cliente'), ('Aguardando confirmação','Aguardando confirmação'), ('Pedido em preparo','Pedido em preparo'), ('Pedido em trânsito','Pedido em trânsito'), ('Pedido concluído','Pedido concluído') )
     sabores_choices = ( ('Carne de panela', 'Carne de panela'), ('Frango Xadrez', 'Frango Xadrez'), ('Risoto Suíno','Risoto Suíno')  )
     # Fields

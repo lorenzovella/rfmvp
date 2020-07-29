@@ -27,6 +27,28 @@ def errorView(request,e):
 def checkout(request):
     return render(request,"app/checkout_cartao.html")
 
+def adicionarAoCarrinho(request, pk):
+    # if request.session.has_key('carrinho') == False:
+        # return redirect('pedidos_carrinho_create')
+    # if request.method == "POST":
+    #     obj = request.POST;
+    #     fooInstance = models.itemDoCarrinho()
+    #     setattr(fooInstance,'referenciaCarrinho',models.carrinho.objects.get(pk=request.session['carrinho']));
+    #     setattr(fooInstance,'referenciaCardapio',models.cardapio.objects.get(pk=obj['referenciaCardapio']));
+    #     fooinstance = fooInstance.save()
+    #     if 'referenciaOpcionais' in obj:
+    #         for item in obj.getlist('referenciaOpcionais'):
+    #             fooInstance.referenciaOpcionais.add(item)
+    #     return redirect('pedidos_cardapio_list')
+
+    plano = models.Plano.objects.get(pk=pk)
+    context = {}
+
+
+    return render(request, 'app/adicionar-ao-carrinho.html', {'context':context})
+
+
+
 class CachorroEspecialListView(generic.ListView):
     model = models.CachorroEspecial
     form_class = forms.CachorroEspecialForm

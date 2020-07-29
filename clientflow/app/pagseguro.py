@@ -1,8 +1,8 @@
 import xml.etree.ElementTree as ET
 import requests
 
-# token = 
-# email =
+token = '0E09DA92901245D895156260C19B1B8B'
+email = 'lo2828@hotmail.com'
 
 def criarPlano(name,reference,valor):
     url = "https://ws.sandbox.pagseguro.uol.com.br/pre-approvals/request/?email="+email+"&token="+token
@@ -38,58 +38,58 @@ def criarHash(cn,cb,cvv,cem,cey):
     hash = ET.fromstring(response.text)[0].text
     return hash
 
-def aderirPlano(plano,referencia,user):
+def aderirPlano(plano,referencia,user,hash):
     url = "https://ws.sandbox.pagseguro.uol.com.br/pre-approvals?email="+email+"&token="+token
     payload = {
     	"plan": plano,
     	"reference": referencia,
     	"sender": {
-    		"name":  "usuario1",
-    		"email": "nandbox@pagseguro.com.br",
-    		"hash": "88775b5906cfba47886c0883a9b761097cb3d1f8455837c1eea4b9f7f1544b28",
+    		"name":  user.nome,
+    		"email": user.email,
+    		"hash": hash,
     		"phone": {
-    			"areaCode": "11",
-    			"number": "20516250"
+    			"areaCode": user.areatelefone,
+    			"number": user.telefone
     		},
     		"address": {
-    			"street": "Rua Vi Jose De Castro",
-    			"number": "99",
-    			"complement": "",
+    			"street": entrega,
+    			"number": user.numero,
+    			"complement": user.complemento,
     			"district": "It",
-    			"city": "Sao Paulo",
-    			"state": "SP",
+    			"city": user.cidade,
+    			"state": user.estado,
     			"country": "BRA",
-    			"postalCode": "06240300"
+    			"postalCode": user.cep
     		},
     		"documents": [{
     			"type": "CPF",
-    			"value": "68951723003"
+    			"value": user.cpf
     		}]
     	},
     	"paymentMethod": {
     		"type": "CREDITCARD",
     		"creditCard": {
-    			"token": "dba59d6fb57d4f28906cc918bb9ee1e6",
+    			"token": hash,
     			"holder": {
-    				"name": "Julian Teste",
-    				"birthDate": "04/12/1991",
+    				"name": user.name,
+    				"birthDate": user.nasimento,
     				"documents": [{
     					"type": "CPF",
-    					"value": "19333575090"
+    					"value": user.cpf
     				}],
     				"phone": {
-    					"areaCode": "11",
-    					"number": "20516250"
+    					"areaCode": user.telefone,
+    					"number": user.areatelefone
     				},
     				"billingAddress": {
-    					"street": "Rua Vi Jose De Castro",
-    					"number": "99",
-    					"complement": "",
-    					"district": "It",
-    					"city": "Sao Paulo",
-    					"state": "SP",
-    					"country": "BRA",
-    					"postalCode": "06240300"
+            			"street": user.rua,
+            			"number": user.numero,
+            			"complement": user.complemento,
+            			"district": "It",
+            			"city": user.cidade,
+            			"state": user.estado,
+            			"country": "BRA",
+            			"postalCode": user.cep
     				}
     			}
     		}
@@ -101,9 +101,9 @@ def aderirPlano(plano,referencia,user):
     }
     response = requests.request("POST", url, headers=headers, data = payload)
 
-def cobrarPlano():
-    url = "https://ws.sandbox.pagseguro.uol.com.br/pre-approvals/payment?email={{ADICIONE_SEU_EMAIL}}&token={{ADICIONE_SEU_TOKEN}}"
-    payload = "<payment>\r\n\t<items>\r\n\t\t<item>\r\n\t\t\t<id>0001</id>\r\n\t\t\t<description>AUUUU</description>\r\n\t\t\t<amount>100.00</amount>\r\n\t\t\t<quantity>2</quantity>\r\n\t\t</item>\r\n\t</items>\r\n\t<reference>REF1234-1</reference>\r\n\t<preApprovalCode>6C4CF76F9D9DADF554F72FB77CF0417F</preApprovalCode>\r\n</payment>"
+def cobrarPlano(planoid,descricaoplano,valorplano,quantidadeplano,referencia,preaprovacao):
+    url = "https://ws.sandbox.pagseguro.uol.com.br/pre-approvals/payment?email="+email+"&token="+token
+    payload = {"<payment><items><item><id>"+planoid+"</id><description>"+descricaoplano+"</description><amount>"+valorplano+"</amount><quantity>"+quantidadeplano+"</quantity></item></items>reference>"+referencia+"</reference><preApprovalCode>"+preaprovacao+"</preApprovalCode></payment>"}
     headers = {
       'Content-Type': 'application/xml',
       'Accept': 'application/vnd.pagseguro.com.br.v3+json;charset=ISO-8859-1'

@@ -27,6 +27,15 @@ class EntregaAdminForm(forms.ModelForm):
         model = models.Entrega
         fields = "__all__"
 
+class CarrinhoAdminForm(forms.ModelForm):
+    class Meta:
+        model = models.Carrinho
+        fields = "__all__"
+
+class PedidoAdminForm(forms.ModelForm):
+    class Meta:
+        model = models.Pedido
+        fields = "__all__"
 
 
 class ClienteAdmin(admin.ModelAdmin):
@@ -87,11 +96,16 @@ class CachorroAdmin(admin.ModelAdmin):
     "created",
     ]
 
-
-class PedidoAdminForm(forms.ModelForm):
-    class Meta:
-        model = models.Pedido
-        fields = "__all__"
+class CarrinhoAdmin(admin.ModelAdmin):
+    form = CarrinhoAdminForm
+    list_display = [
+    "last_updated",
+    "created",
+    ]
+    readonly_fields = [
+    "last_updated",
+    "created",
+    ]
 
 
 class PedidoAdmin(admin.ModelAdmin):
@@ -115,3 +129,4 @@ admin.site.register(models.Entrega, EntregaAdmin)
 admin.site.register(models.CachorroEspecial, CachorroEspecialAdmin)
 admin.site.register(models.Cachorro, CachorroAdmin)
 admin.site.register(models.Pedido, PedidoAdmin)
+admin.site.register(models.Carrinho, CarrinhoAdmin)
