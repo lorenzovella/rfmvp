@@ -55,9 +55,10 @@ $(document).ready(function () {
     $('.progress-bar.disabled-bar').css("width","87%");
 
     $('#id_CachorroForm3-nascimento').change(function(){
-      var years = moment().diff( moment( $('#id_CachorroForm3-nascimento').val(), "MM-YYYY" ), 'years' )
-      if( years < 2 ) {
-        $("#div_id_CachorroForm3-pesoideal").show()
+      var years = moment().diff( moment( $('#id_CachorroForm3-nascimento').val(), "MM-YYYY" ), 'years' );
+      if( years < 1 ) {
+        $("#div_id_CachorroForm3-pesoideal").show();
+        $("#div_id_CachorroForm3-pesoideal input").prop('required',true);
       }
     });
 
