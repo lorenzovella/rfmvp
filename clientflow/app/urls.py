@@ -33,10 +33,13 @@ urlpatterns = (
     path("Entrega/update/<int:pk>/", views.EntregaUpdateView.as_view(), name="clientflow_Entrega_update"),
 
     path("PedidoFlow/<int:plano>/<int:dog>", views.PedidoFlow, name="clientflow_PedidoFlow"),
-    path("Pedido/", views.PedidoListView.as_view(), name="clientflow_Pedido_list"),
+    path("Pedido/", login_required(views.PedidoListView.as_view()), name="clientflow_Pedido_list"),
     path("Pedido/create/", views.PedidoCreateView.as_view(), name="clientflow_Pedido_create"),
     path("Pedido/detail/<int:pk>/", views.PedidoDetailView.as_view(), name="clientflow_Pedido_detail"),
     path("Pedido/update/<int:pk>/", views.PedidoUpdateView.as_view(), name="clientflow_Pedido_update"),
+    path("Pedido/delete/confirm/<int:pk>", views.PedidoDeleteConfirmView, name="clientflow_Pedido_delete_confirm"),
+    path("Pedido/delete/<int:pk>", views.PedidoDeleteView, name="clientflow_Pedido_delete"),
+
 
     path("PlanoFlow/<int:pk>/", views.PlanoFlow, name="clientflow_PlanoFlow"),
     path("Plano/", login_required(views.PlanoListView.as_view()), name="clientflow_Plano_list"),
@@ -51,6 +54,8 @@ urlpatterns = (
     # path("Cachorro/create/", views.CachorroCreateView.as_view(), name="clientflow_Cachorro_create"),
     path("Cachorro/detail/<int:pk>/", views.CachorroDetailView.as_view(), name="clientflow_Cachorro_detail"),
     path("Cachorro/update/<int:pk>/", views.CachorroUpdateView.as_view(), name="clientflow_Cachorro_update"),
+
+
 
     path("Cliente/", views.ClienteListView.as_view(), name="clientflow_Cliente_list"),
     path("Cliente/create/", views.ClienteCreateView.as_view(), name="clientflow_Cliente_create"),

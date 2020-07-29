@@ -325,6 +325,22 @@ def CachorroDeleteView(request, pk):
         return handler500(request)
     return render(request,'app/cachorro_delete.html',{'info':info })
 
+def PedidoDeleteConfirmView(request, pk):
+    try:
+        instance = models.Pedido.objects.get(pk=pk)
+    except models.Pedido.DoesNotExist:
+        return handler500(request)
+    return render(request,'app/pedido_delete_confirm.html',{'obj':instance })
+
+def PedidoDeleteView(request, pk):
+    try:
+        instance = models.Pedido.objects.get(pk=pk)
+        info = instance.delete()
+    except models.Pedido.DoesNotExist:
+        return handler500(request)
+    return render(request,'app/pedido_delete.html',{'info':info })
+
+
 
 FORMS_CACHORRO = [
     ("CachorroForm", forms.CachorroForm),
@@ -389,7 +405,6 @@ class cachorroWizard(SessionWizardView):
         return redirect('user-profile-simple', dog = cachorroInstance)
         # self.instance_dict = None
         # self.storage.reset()
-
 
 class ClienteListView(generic.ListView):
     model = models.Cliente

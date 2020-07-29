@@ -53,8 +53,7 @@ class Cliente(models.Model):
 
     class Meta:
         pass
-    def get_fields(self):
-        return [(field.verbose_name, field.value_from_object(self)) for field in self.__class__._meta.fields]
+
     def __str__(self):
         return str(self.pk)
 
