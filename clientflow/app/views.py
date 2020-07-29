@@ -1,16 +1,18 @@
-from django.views import generic
-from . import models
 from . import forms
+from . import models
+from django.views import generic
 from django.shortcuts import redirect, render
 from django.forms.models import construct_instance
-from formtools.wizard.views import SessionWizardView
 from django.core.files.storage import FileSystemStorage
-from clientflow.app.calculadora import calcularFator
+from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
+from clientflow.app.calculadora import calcularFator
 from clientflow.app import pagseguro
+from formtools.wizard.views import SessionWizardView
 from decimal import Decimal
 from datetime import date
 from math import ceil
+import uuid
 
 def handler404(request,exception):
     context = {}
@@ -25,33 +27,60 @@ def handler500(request):
 def errorView(request,e):
     return render(request,"error.html",{'erro':e})
 
-def signup_view(request):
-    form = forms.SignUpForm(request.POST)
-    if form.is_valid():
-        user = form.save()
-        user.refresh_from_db()
-        user.cliente.nome = form.cleaned_data.get('username')
-        user.cliente.email = form.cleaned_data.get('email')
-        user.save()
-        username = form.cleaned_data.get('username')
-        password = form.cleaned_data.get('password1')
-        user = authenticate(username=username, password=password)
-        login(request, user)
-        return redirect('user-profile')
-    return render(request, 'registration/sign_up.html', {'form': form})
-
+# def signup_view(request):
+#     if request.method == "POST":
+#         form = forms.SignUpForm(request.POST)
+#     else:
+#         form = forms.SignUpForm()
+#     if form.is_valid():
+#         user = form.save()
+#         user.refresh_from_db()
+#         user.cliente.nome = form.cleaned_data.get('username')
+#         user.cliente.email = form.cleaned_data.get('email')
+#         user.save()
+#         username = form.cleaned_data.get('username')
+#         password = form.cleaned_data.get('password1')
+#         user = authenticate(username=username, password=password)
+#         login(request, user)
+#         return redirect('clientflow_Cachorro_list')
+#     return render(request, 'registration/sign_up.html', {'form': form})
+#
 
 def profile_view(request):
     username = None
     if request.user.is_authenticated == True:
-        username = request.user
-    return render(request, 'registration/profile.html', {'user':username})
+        cliente = request.user.cliente
+    return render(request, 'registration/profile.html', {'user':cliente})
 
-class profile_update_view(generic.UpdateView):
-    def get_object(self):
-        return models.Cliente.objects.get(user=self.request.user)
-    model = models.Cliente
-    form_class = forms.ClienteForm
+def profile_update_view(request):
+    clienteInstance = models.User.objects.get(pk=request.user.id).cliente
+    if request.method == "POST":
+        form = forms.ClienteForm(request.POST, instance=clienteInstance)
+        if form.is_valid():
+            form.save()
+            return redirect('user-profile')
+    else:
+        form = forms.ClienteForm(instance=clienteInstance)
+    return render(request, 'registration/edit_profile.html',{'form':form} )
+
+def profile_simple_view(request, dog):
+    if request.method == "POST":
+        form = forms.ClienteNovoForm(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data)
+            user = form.save()
+            dogInstance = models.Cachorro.objects.get(pk = dog)
+            dogInstance.idCliente = user.cliente
+            dogInstance.save()
+            user = authenticate(username=form.cleaned_data.get('username'), password=form.cleaned_data.get('password1'))
+            login(request, user)
+            return redirect('clientflow_Cachorro_list')
+    elif request.user.is_authenticated == False:
+        form = forms.ClienteNovoForm()
+    elif request.user.is_authenticated == True:
+        return redirect('clientflow_Cachorro_list')
+    return render(request,'registration/sign_up.html',{'form':form,'dog':dog})
+
 
 
 def checkout(request):
@@ -240,10 +269,14 @@ class PlanoUpdateView(generic.UpdateView):
 
 
 class CachorroListView(generic.ListView):
+    def get_queryset(self):
+        return self.model.objects.filter(idCliente = self.request.user.cliente)
     model = models.Cachorro
     form_class = forms.CachorroForm
 
 class CachorroListFlowView(generic.ListView):
+    def get_queryset(self):
+        return self.model.objects.filter(idCliente = self.request.user.cliente)
     template_name = "app/cachorroflow_list.html"
     model = models.Cachorro
     form_class = forms.CachorroForm
@@ -334,11 +367,15 @@ class cachorroWizard(SessionWizardView):
             kgpormes = ceil( gramaspordia * 0.028 )
         cachorroInstance.calculodia = Decimal.from_float(gramaspordia)
         cachorroInstance.calculomes = Decimal(kgpormes)
+
+        if self.request.user.is_authenticated:
+            cachorroInstance.idCliente = self.request.user.cliente
+            savedCachorro = cachorroInstance.save()
+            return redirect('clientflow_CachorroFlow_list')
         savedCachorro = cachorroInstance.save()
-        # tempReq = cachorroInstance
+        return redirect('user-profile-simple', dog = cachorroInstance)
         # self.instance_dict = None
         # self.storage.reset()
-        return redirect('clientflow_CachorroFlow_list')
 
 
 class ClienteListView(generic.ListView):

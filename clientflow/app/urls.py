@@ -1,5 +1,6 @@
 from django.urls import path, include
 from rest_framework import routers
+from django.contrib.auth.decorators import login_required
 
 from . import api
 from . import views
@@ -37,7 +38,7 @@ urlpatterns = (
     path("Pedido/update/<int:pk>/", views.PedidoUpdateView.as_view(), name="clientflow_Pedido_update"),
 
     path("PlanoFlow/<int:pk>/", views.PlanoFlow, name="clientflow_PlanoFlow"),
-    path("Plano/", views.PlanoListView.as_view(), name="clientflow_Plano_list"),
+    path("Plano/", login_required(views.PlanoListView.as_view()), name="clientflow_Plano_list"),
     path("Plano/create/", views.PlanoCreateView.as_view(), name="clientflow_Plano_create"),
     path("Plano/update/<int:pk>/", views.PlanoUpdateView.as_view(), name="clientflow_Plano_update"),
 
@@ -45,8 +46,8 @@ urlpatterns = (
 
 
     path("DogFlow/", views.cachorroWizard.as_view(FORMS_CACHORRO), name="clientflow_dogflow"),
-    path("Cachorro/inFlow", views.CachorroListFlowView.as_view(), name="clientflow_CachorroFlow_list"),
-    path("Cachorro/", views.CachorroListView.as_view(), name="clientflow_Cachorro_list"),
+    path("Cachorro/inFlow", login_required(views.CachorroListFlowView.as_view()), name="clientflow_CachorroFlow_list"),
+    path("Cachorro/", login_required(views.CachorroListView.as_view()), name="clientflow_Cachorro_list"),
     path("Cachorro/delete/confirm/<int:pk>", views.CachorroDeleteConfirmView, name="clientflow_Cachorro_delete_confirm"),
     path("Cachorro/delete/<int:pk>", views.CachorroDeleteView, name="clientflow_Cachorro_delete"),
     # path("Cachorro/create/", views.CachorroCreateView.as_view(), name="clientflow_Cachorro_create"),
@@ -57,8 +58,9 @@ urlpatterns = (
     path("Cliente/create/", views.ClienteCreateView.as_view(), name="clientflow_Cliente_create"),
     path("Cliente/detail/<int:pk>/", views.ClienteDetailView.as_view(), name="clientflow_Cliente_detail"),
     path("Cliente/update/<int:pk>/", views.ClienteUpdateView.as_view(), name="clientflow_Cliente_update"),
-    path("Cadastro/", views.signup_view, name="sign-up"),
+    # path("Cadastro/", views.signup_view, name="sign-up"),
     path("MinhaConta/", views.profile_view, name="user-profile"),
-    path("MinhaConta/update/", views.profile_update_view.as_view(), name="user-profile-update"),
+    path("MinhaConta/update/", views.profile_update_view, name="user-profile-update"),
+    path("MinhaConta/Novo/<int:dog>", views.profile_simple_view, name="user-profile-simple",),
 
 )

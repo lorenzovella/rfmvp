@@ -5,7 +5,7 @@ from crispy_forms.bootstrap import *
 from crispy_forms.layout import *
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-
+import uuid
 
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(max_length=200)
@@ -17,6 +17,21 @@ class ClienteForm(forms.ModelForm):
     class Meta:
         model = models.Cliente
         fields = ["nome","sobrenome","email","telefone","areatelefone","cep","cpf","rua","nascimento","numero","complemento","cidade","estado",]
+    def __init__(self, *args, **kwargs):
+        super(ClienteForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.add_input(Submit('submit', 'Submit', css_class='round-btn text-white text-decoration-none mx-auto'))
+
+
+class ClienteNovoForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ["username","email",]
+    def __init__(self, *args, **kwargs):
+        super(ClienteNovoForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.add_input(Submit('submit', 'Submit', css_class='round-btn text-white text-decoration-none mx-auto'))
+
 
 class EntregaForm(forms.ModelForm):
     class Meta:

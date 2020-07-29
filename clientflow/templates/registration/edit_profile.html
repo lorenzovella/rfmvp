@@ -1,0 +1,28 @@
+
+{% extends "base_flow.html" %}
+{% load static %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% block head %}
+{{ wizard.form.media }}
+{% endblock %}
+{% block content %}
+
+<div class='row info-bg'>
+  <div class='col-10 info-bar-text'>
+    <p>Editar seu perfil</p>
+  </div>
+</div>
+<div class='row middle'>
+    <div class='col mx-auto'>
+      <form action="" method="post">
+        {% crispy form %}
+      </form>
+    </div>
+  </div>
+</div>
+
+
+  </div>
+</div>
+{% endblock %}

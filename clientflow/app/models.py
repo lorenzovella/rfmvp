@@ -39,7 +39,7 @@ class Cliente(models.Model):
     sobrenome = models.CharField('Sobrenome', max_length=150, default="")
     email = models.EmailField('E-mail', default="")
     telefone = models.BigIntegerField('Telefone', default=0)
-    areatelefone = models.BigIntegerField('Telefone', default=0)
+    areatelefone = models.BigIntegerField('Código de área', default=0)
     cep = models.BigIntegerField('CEP', default=0)
     cpf = models.BigIntegerField('CPF', default=0)
     rua = models.CharField('Endereço', max_length=300, default="")
@@ -53,7 +53,8 @@ class Cliente(models.Model):
 
     class Meta:
         pass
-
+    def get_fields(self):
+        return [(field.verbose_name, field.value_from_object(self)) for field in self.__class__._meta.fields]
     def __str__(self):
         return str(self.pk)
 

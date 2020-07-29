@@ -109,7 +109,7 @@ USE_L10N = False
 
 USE_TZ = True
 
-LOGIN_REDIRECT_URL = 'clientflow_CachorroFlow_list'
+LOGIN_REDIRECT_URL = 'index'
 
 DATE_INPUT_FORMATS = [
     '%Y-%m-%d', '%m/%d/%Y', '%m/%d/%y', # '2006-10-25', '10/25/2006', '10/25/06'
