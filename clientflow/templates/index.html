@@ -6,7 +6,7 @@
   </div>
 </div>
 <div class="row d-flex middle">
-  <div class="col-12 text-center control-label mx-auto p-4">
+  <div class="col-12 text-center control-label mx-auto mt-4">
     <p>Conheça o que a <br>Ração do Futuro pode<br> oferecer para o seu Cão.</p>
   </div>
     <a
@@ -16,14 +16,20 @@
     </a>
 
   {% if user.is_authenticated %}
-  <div class="col-12 text-center control-label mx-auto p-4">
-    <p>Bem vindo!<p>
-  </div>
-  <a
+  <div class="col-12 text-center control-label flex-column mx-auto mt-4">
+    <p>Bem vindo!</p>
+    <a
     class="round-btn p-4 text-white text-decoration-none mx-auto"
     href="{% url 'clientflow_Cachorro_list' %}">
-    Meus cachorros
-  </a>
+      Meus cachorros
+    </a>
+
+    <a
+    class="round-btn p-4 text-white text-decoration-none mx-auto mt-2"
+    href="{% url 'user-profile' %}">
+      Minha conta
+    </a>
+  </div>
   {% endif %}
 
 </div>
