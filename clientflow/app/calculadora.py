@@ -17,7 +17,7 @@ def calcularFator(atividade, nascimento, fisico, castrado):
 def switchHandlerCastradoTrue(atividade, idade, fisico):
     if fisico == 'Magro':
         return switchHandlerCastradoTrueFisicoBaixoPeso(atividade, idade)
-    elif fisico == 'Na Medida':
+    elif fisico == 'Na Medida' or fisico == 'Gordinho':
         return switchHandlerCastradoTrueFisicoIdeal(atividade, idade)
     elif fisico == 'Obeso':
         return switchHandlerCastradoTrueFisicoSobrepeso(atividade, idade)
@@ -40,10 +40,10 @@ def switchHandlerCastradoTrueFisicoBaixoPeso(atividade, idade):
 ### peso ideal
 def switchHandlerCastradoTrueFisicoIdeal(atividade, idade):
     if idade < 1:
-        return 171
+        return 0
     elif idade < 7:
         return switchHandlerCastradoTrueFisicoIdealAdulto(atividade)
-    elif idade > 7:
+    elif idade >= 7:
         return switchHandlerCastradoTrueFisicoIdealIdoso(atividade)
 
 ### sobrepeso
@@ -58,10 +58,10 @@ def switchHandlerCastradoFalseFisicoBaixoPeso(atividade, idade):
 ### peso ideal
 def switchHandlerCastradoFalseFisicoIdeal(atividade, idade):
     if idade < 1:
-        return 171
+        return 0
     elif idade < 7:
         return switchHandlerCastradoFalseFisicoIdealAdulto(atividade)
-    elif idade > 7:
+    elif idade >= 7:
         return switchHandlerCastradoFalseFisicoIdealIdoso(atividade)
 
 ### sobrepeso
