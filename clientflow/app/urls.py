@@ -20,6 +20,7 @@ urlpatterns = (
     path("api/v1/", include(router.urls)),
 
     path("CheckOut/", views.checkout, name="clientflow_checkout"),
+    path("Carrinho/add/<int:plano>/", views.adicionarAoCarrinho, name="adicionar_ao_carrinho"),
 
     path("CachorroEspecial/", views.checkout, name="clientflow_CachorroEspecial_list"),
     path("CachorroEspecial/create/", views.CachorroEspecialCreateView.as_view(), name="clientflow_CachorroEspecial_create"),
@@ -42,9 +43,6 @@ urlpatterns = (
     path("Plano/create/", views.PlanoCreateView.as_view(), name="clientflow_Plano_create"),
     path("Plano/update/<int:pk>/", views.PlanoUpdateView.as_view(), name="clientflow_Plano_update"),
 
-    path("Carrinho/add/<int:pk>/", views.adicionarAoCarrinho, name="adicionar_ao_carrinho"),
-
-
     path("DogFlow/", views.cachorroWizard.as_view(FORMS_CACHORRO), name="clientflow_dogflow"),
     path("Cachorro/inFlow", login_required(views.CachorroListFlowView.as_view()), name="clientflow_CachorroFlow_list"),
     path("Cachorro/", login_required(views.CachorroListView.as_view()), name="clientflow_Cachorro_list"),
@@ -58,6 +56,7 @@ urlpatterns = (
     path("Cliente/create/", views.ClienteCreateView.as_view(), name="clientflow_Cliente_create"),
     path("Cliente/detail/<int:pk>/", views.ClienteDetailView.as_view(), name="clientflow_Cliente_detail"),
     path("Cliente/update/<int:pk>/", views.ClienteUpdateView.as_view(), name="clientflow_Cliente_update"),
+
     # path("Cadastro/", views.signup_view, name="sign-up"),
     path("MinhaConta/", views.profile_view, name="user-profile"),
     path("MinhaConta/update/", views.profile_update_view, name="user-profile-update"),

@@ -14,6 +14,8 @@ from datetime import date
 from math import ceil
 import uuid
 
+precoKgRacao = 50
+
 def handler404(request,exception):
     context = {}
     response = render(request, "404.html", context=context)
@@ -67,12 +69,17 @@ def profile_simple_view(request, dog):
     if request.method == "POST":
         form = forms.ClienteNovoForm(request.POST)
         if form.is_valid():
-            print(form.cleaned_data)
+            formData = form.cleaned_data
             user = form.save()
+            user.refresh_from_db()
             dogInstance = models.Cachorro.objects.get(pk = dog)
             dogInstance.idCliente = user.cliente
             dogInstance.save()
-            user = authenticate(username=form.cleaned_data.get('username'), password=form.cleaned_data.get('password1'))
+            user.cliente.nome = formData.get('username')
+            user.cliente.email = formData.get('email')
+            user.save()
+
+            user = authenticate(username=formData.get('username'), password=formData.get('password1'))
             login(request, user)
             return redirect('clientflow_Cachorro_list')
     elif request.user.is_authenticated == False:
@@ -151,9 +158,8 @@ class EntregaUpdateView(generic.UpdateView):
 
 
 class PedidoListView(generic.ListView):
-    # def get_queryset(self):
-    #     return self.model.objects.filter(status ='Pedido em aberto')
-        # return self.model.objects.filter(idClient = self.request.user)
+    def get_queryset(self):
+        return self.model.objects.filter(status ='Pedido em aberto', idClient = self.request.user.cliente)
     model = models.Pedido
     form_class = forms.PedidoForm
 
@@ -180,6 +186,7 @@ def PedidoFlow(request, plano, dog):
         dog = models.Cachorro.objects.get(pk=dog)
         instance.idPlano = plano
         instance.idDog = dog
+        instance.valor = precoKgRacao * plano.refeicoes * dog.calculodia / 1000
         # cria plano no pagseguro
         # pgPreApprovalRequest = pagseguro.criarPlano("planjo1","pjlanoref","200.00")
         # if "erro" in pgPreApprovalRequest:
@@ -233,6 +240,8 @@ class pedidoWizard(SessionWizardView):
         # salva sabores
         saboresForm = form_dict['Sabores'].cleaned_data
         pedidoInstance.sabores = saboresForm['sabores']
+        # relaciona usuario ao pedido
+        pedidoInstance.idClient = self.request.user.cliente
         # salva pedido
         savedPedido = pedidoInstance.save()
         return redirect('clientflow_Pedido_list')
@@ -242,7 +251,11 @@ def PlanoFlow(request, pk):
         instance = models.Cachorro.objects.get(pk=pk)
     except models.Cachorro.DoesNotExist:
         return handler500(request)
-    planos = models.Plano.objects.all
+    planos = models.Plano.objects.all()
+    for obj in planos:
+        setattr(obj, "valor", "{:.2f}".format( precoKgRacao/1000 * obj.refeicoes * float(instance.calculodia)  )  )
+        setattr(obj, "valordia", "{:.2f}".format( float(obj.valor)/float(30) ) )
+
     return render(request,'app/plano_list.html',{'planos':planos,'dog':instance})
 
 

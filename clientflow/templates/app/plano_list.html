@@ -49,7 +49,7 @@ $(document).ready(function () {
   </div>
 </div>
 <div class='row middle'>
-  <div class='col-10 mx-auto mt-1'>
+  <div class='col-11 mx-auto mt-1'>
     {% for object in planos %}
     <div class="row">
       <div class="card flex-row col-12 plano" name="{{object}}">
@@ -65,10 +65,15 @@ $(document).ready(function () {
           </div>
         </div>
         <div class="col-3">
-          <span class="delete-icon plano-{{forloop.counter}} img-fluid pl-4 mt-3" style="min-width: 97px;"></span>
-          <span class="justify-content-end position-absolute" style="bottom: 1.3em;">
-            {{fator}}
-          </span>
+          <div class="d-flex flex-row-reverse">
+            <span class="delete-icon plano-{{forloop.counter}} img-fluid pl-4 mt-3" style="min-width: 97px;"></span>
+          </div>
+          <div class="d-flex flex-row-reverse">
+            <span style="bottom: 1.3em;">
+              <p class="col text-center pt-3">R${{ object.valor }}<br>por mês</p>
+              <p class="col text-center control-label">R${{ object.valordia }}<br> por dia!</p>
+            </span>
+          </div>
         </div>
       </div>
     </div>
