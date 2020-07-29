@@ -19,8 +19,8 @@ router.register("Cliente", api.ClienteViewSet)
 urlpatterns = (
     path("api/v1/", include(router.urls)),
 
-    path("CheckOut/", views.checkout, name="clientflow_checkout"),
-    path("Carrinho/add/<int:plano>/", views.adicionarAoCarrinho, name="adicionar_ao_carrinho"),
+    path("CheckOut/<int:carrinho>", views.checkout, name="clientflow_checkout"),
+    path("NewCarrinho/", views.adicionarAoCarrinho, name="adicionar_ao_carrinho"),
 
     path("CachorroEspecial/", views.checkout, name="clientflow_CachorroEspecial_list"),
     path("CachorroEspecial/create/", views.CachorroEspecialCreateView.as_view(), name="clientflow_CachorroEspecial_create"),
@@ -65,6 +65,7 @@ urlpatterns = (
     # path("Cadastro/", views.signup_view, name="sign-up"),
     path("MinhaConta/", views.profile_view, name="user-profile"),
     path("MinhaConta/update/", views.profile_update_view, name="user-profile-update"),
+    path("MinhaConta/update/<int:carrinho>", views.profile_update_view, name="user-profile-update"),
     path("MinhaConta/Novo/<int:dog>", views.profile_simple_view, name="user-profile-simple",),
 
 )

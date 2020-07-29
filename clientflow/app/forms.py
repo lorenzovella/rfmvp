@@ -20,7 +20,6 @@ class ClienteForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ClienteForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper(self)
-        self.helper.add_input(Submit('submit', 'Submit', css_class='round-btn text-white text-decoration-none mx-auto'))
 
 
 class ClienteNovoForm(UserCreationForm):
@@ -30,7 +29,6 @@ class ClienteNovoForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super(ClienteNovoForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper(self)
-        self.helper.add_input(Submit('submit', 'Submit', css_class='round-btn text-white text-decoration-none mx-auto'))
 
 
 class EntregaForm(forms.ModelForm):

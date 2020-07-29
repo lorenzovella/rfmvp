@@ -56,6 +56,8 @@ class Cliente(models.Model):
 
     def __str__(self):
         return str(self.pk)
+    def get_fields(self):
+        return [(field.verbose_name, field.value_from_object(self)) for field in self.__class__._meta.fields]
 
     def get_absolute_url(self):
         return reverse("clientflow_Cliente_detail", args=(self.pk,))

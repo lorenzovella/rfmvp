@@ -54,12 +54,14 @@ def profile_view(request):
         cliente = request.user.cliente
     return render(request, 'registration/profile.html', {'user':cliente})
 
-def profile_update_view(request):
+def profile_update_view(request,carrinho=0):
     clienteInstance = models.User.objects.get(pk=request.user.id).cliente
     if request.method == "POST":
         form = forms.ClienteForm(request.POST, instance=clienteInstance)
         if form.is_valid():
             form.save()
+            if carrinho is not 0:
+                return redirect('clientflow_checkout', carrinho)
             return redirect('user-profile')
     else:
         form = forms.ClienteForm(instance=clienteInstance)
@@ -90,29 +92,34 @@ def profile_simple_view(request, dog):
 
 
 
-def checkout(request):
-    return render(request,"app/checkout_cartao.html")
+def checkout(request,carrinho):
+    cart = models.Carrinho.objects.get(pk=carrinho)
+    pedido = cart.item.first()
+    if request.user.cliente == pedido.idClient:
+        if request.user.cliente.cpf==0:
+            return redirect('user-profile-update', carrinho)
+        return render(request,"app/checkout_cartao.html",{'obj':cart.plano})
+    else:
+        return handler500(request)
 
-def adicionarAoCarrinho(request, pk):
+def adicionarAoCarrinho(request):
     # if request.session.has_key('carrinho') == False:
-        # return redirect('pedidos_carrinho_create')
-    # if request.method == "POST":
-    #     obj = request.POST;
-    #     fooInstance = models.itemDoCarrinho()
-    #     setattr(fooInstance,'referenciaCarrinho',models.carrinho.objects.get(pk=request.session['carrinho']));
-    #     setattr(fooInstance,'referenciaCardapio',models.cardapio.objects.get(pk=obj['referenciaCardapio']));
-    #     fooinstance = fooInstance.save()
-    #     if 'referenciaOpcionais' in obj:
-    #         for item in obj.getlist('referenciaOpcionais'):
-    #             fooInstance.referenciaOpcionais.add(item)
-    #     return redirect('pedidos_cardapio_list')
-
-    plano = models.Plano.objects.get(pk=pk)
-    context = {}
-
-
-    return render(request, 'app/adicionar-ao-carrinho.html', {'context':context})
-
+    pedidos = models.Pedido.objects.filter(status ='Pedido em aberto', idClient = request.user.cliente)
+    newCarrinho = models.Carrinho()
+    strPlano = "Pedido para o "
+    for pedido in pedidos:
+        strPlano += pedido.idDog.nome +", "
+    strPlano = strPlano[:-2]
+    newCarrinho.plano = strPlano
+    savedCarrinho = newCarrinho.save()
+    for pedido in pedidos:
+        pedido.idCarrinho = newCarrinho
+        pedido.status = 'Pedido finalizado pelo cliente'
+        pedido.save()
+    context = {'obj':newCarrinho}
+    if request.user.cliente.cpf==0:
+        return redirect('user-profile-update', newCarrinho)
+    return redirect('clientflow_checkout', newCarrinho)
 
 
 class CachorroEspecialListView(generic.ListView):
@@ -187,14 +194,6 @@ def PedidoFlow(request, plano, dog):
         instance.idPlano = plano
         instance.idDog = dog
         instance.valor = precoKgRacao * plano.refeicoes * dog.calculodia / 1000
-        # cria plano no pagseguro
-        # pgPreApprovalRequest = pagseguro.criarPlano("planjo1","pjlanoref","200.00")
-        # if "erro" in pgPreApprovalRequest:
-        #     return errorView(request, "não foi possível se comunicar com o PagSeguro")
-        #
-        # pgSession = pagseguro.criarSession()
-        # pgHash = pagseguro.criarHash()
-        # instance.valor = dog.calculodia * plano.refeicoes
         savedInstance = instance.save()
         return redirect('clientflow_EntregaFlow', pedido = instance)
     except Exception as e:
@@ -335,7 +334,10 @@ def PedidoDeleteConfirmView(request, pk):
 def PedidoDeleteView(request, pk):
     try:
         instance = models.Pedido.objects.get(pk=pk)
-        info = instance.delete()
+        if instance.status == "Pedido em aberto":
+            info = instance.delete()
+        else:
+            return handler500(request)
     except models.Pedido.DoesNotExist:
         return handler500(request)
     return render(request,'app/pedido_delete.html',{'info':info })
