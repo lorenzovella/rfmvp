@@ -1,5 +1,18 @@
 
-{% extends "base.html" %}
+{% extends "base_flow.html" %}
+
+{% block head %}
+<style>
+.active {
+  border: solid 4px #03FB5C;
+}
+</style>
+<script>
+
+</script>
+
+{% endblock %}
+
 {% block content %}
 <div class='row info-bg'>
   <div class='col-10 info-bar-text'>
@@ -32,11 +45,31 @@
           </div> -->
         </div>
       </div>
+  {% if forloop.last %}
+  </div>
+  <div class="row mx-auto">
+    <div class="card-new text-center col-12">
+      <div class="m-4">
+        <a href="{% url 'clientflow_Cachorro_list' %}" class="link-no-decoration d-block">
+          <svg class="col" width="1em" height="1em" viewBox="0 0 16 16" fill="#7ADBA2" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H4a.5.5 0 0 1 0-1h3.5V4a.5.5 0 0 1 .5-.5z"></path>
+            <path fill-rule="evenodd" d="M7.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0V8z"></path>
+            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+          </svg>
+          <span class="mt-2 card-text font-weight-bold">Adicionar outro pedido</span>
+        </a>
+      </div>
+    </div>
+    <span class="dog-card-img"></span>
+  </div>
+  {% endif %}
   {% endfor %}
+
 </div>
 <div class="endofcontent"></div>
-<div class="footer margin-footer">
+<div class="footer">
   <p class="footer-text ">
+    Concluir meu pedido
   </p>
 </div>
 {% endblock %}
