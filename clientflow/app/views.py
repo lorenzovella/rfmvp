@@ -6,6 +6,7 @@ from django.forms.models import construct_instance
 from formtools.wizard.views import SessionWizardView
 from django.core.files.storage import FileSystemStorage
 from clientflow.app.calculadora import calcularFator
+from django.contrib.auth import login, authenticate
 from clientflow.app import pagseguro
 from decimal import Decimal
 from datetime import date
@@ -23,6 +24,35 @@ def handler500(request):
     return response
 def errorView(request,e):
     return render(request,"error.html",{'erro':e})
+
+def signup_view(request):
+    form = forms.SignUpForm(request.POST)
+    if form.is_valid():
+        user = form.save()
+        user.refresh_from_db()
+        user.cliente.nome = form.cleaned_data.get('username')
+        user.cliente.email = form.cleaned_data.get('email')
+        user.save()
+        username = form.cleaned_data.get('username')
+        password = form.cleaned_data.get('password1')
+        user = authenticate(username=username, password=password)
+        login(request, user)
+        return redirect('user-profile')
+    return render(request, 'registration/sign_up.html', {'form': form})
+
+
+def profile_view(request):
+    username = None
+    if request.user.is_authenticated == True:
+        username = request.user
+    return render(request, 'registration/profile.html', {'user':username})
+
+class profile_update_view(generic.UpdateView):
+    def get_object(self):
+        return models.Cliente.objects.get(user=self.request.user)
+    model = models.Cliente
+    form_class = forms.ClienteForm
+
 
 def checkout(request):
     return render(request,"app/checkout_cartao.html")

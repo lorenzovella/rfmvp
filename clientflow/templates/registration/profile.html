@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="mx-auto col-10 mt-3 left">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="card-title">{{ user.profile.name }}</h2>
+                    <p class="card-text text-muted h3">Username: {{ user.username }}</p>
+                    <p class="card-text text-muted h3">Belt: {{ user.profile.belt }} | E-mail: {{ user.profile.email}} </p>
+                    <p class="card-text text-muted h3">Birthdate: {{ user.profile.birthdate }} | Time Trained: {{ user.profile.time_trained}}  hours</p>
+                </div>
+                <div class="row">
+                  <a class="btn btn-primary m-4" href="{% url 'logout' %}">Log out</a>
+                  <a class="btn btn-primary m-4" href="{% url 'password_change' %}">Change your password</a>
+                  <a class="btn btn-primary m-4" href="{% url 'user-profile-update' %}">Edit your profile</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -6,10 +6,17 @@ from crispy_forms.layout import *
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
+
+class SignUpForm(UserCreationForm):
+    email = forms.EmailField(max_length=200)
+    class Meta:
+        model = User
+        fields = ["username","email",]
+
 class ClienteForm(forms.ModelForm):
     class Meta:
         model = models.Cliente
-        fields = []
+        fields = ["nome","sobrenome","email","telefone","areatelefone","cep","cpf","rua","nascimento","numero","complemento","cidade","estado",]
 
 class EntregaForm(forms.ModelForm):
     class Meta:

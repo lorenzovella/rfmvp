@@ -1,6 +1,11 @@
 from django.db import models
 from django.urls import reverse
 from multiselectfield import MultiSelectField
+from django.db.models.signals import post_save
+from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import User
+from django.dispatch import receiver
+
 
 class Carrinho(models.Model):
     # Fields
@@ -29,7 +34,7 @@ class Carrinho(models.Model):
 
 class Cliente(models.Model):
     # Fields
-    # user = models.OneToOneField(User, related_name='profile', on_delete=models.CASCADE)
+    user = models.OneToOneField(User, related_name='cliente', on_delete=models.CASCADE)
     nome = models.CharField('Nome', max_length=150, default="")
     sobrenome = models.CharField('Sobrenome', max_length=150, default="")
     email = models.EmailField('E-mail', default="")
@@ -38,7 +43,7 @@ class Cliente(models.Model):
     cep = models.BigIntegerField('CEP', default=0)
     cpf = models.BigIntegerField('CPF', default=0)
     rua = models.CharField('Endereço', max_length=300, default="")
-    nascimento = models.DateField('Data de nascimento', null= True)    
+    nascimento = models.DateField('Data de nascimento', null= True)
     numero = models.IntegerField('Número', default=0)
     complemento = models.CharField('Complemento (opcional)', max_length=200, blank=True)
     cidade = models.CharField('Cidade', max_length=150, default="")
@@ -57,6 +62,11 @@ class Cliente(models.Model):
 
     def get_update_url(self):
         return reverse("clientflow_Cliente_update", args=(self.pk,))
+@receiver(post_save, sender=User)
+def update_profile_signal(sender, instance, created, **kwargs):
+    if created:
+        Cliente.objects.create(user=instance)
+    instance.cliente.save()
 
 
 class CachorroEspecial(models.Model):
