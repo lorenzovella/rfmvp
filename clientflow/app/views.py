@@ -87,6 +87,7 @@ def checkout(request,carrinho):
     cart = models.Carrinho.objects.get(pk=carrinho)
     valor = "{:.2f}".format( cart.get_valor_carrinho() )
     pedido = cart.item.first()
+    pedidos = cart.item.all()
     if request.user.cliente == pedido.idClient:
         if request.method == "POST":
             card = request.POST
@@ -94,7 +95,7 @@ def checkout(request,carrinho):
             hash = pagseguro.criarHash(session,valor,card['number'].replace(" ",""),card['brand'],card['cvc'],card['expm'],card['expy'])
             cart.pagseguro_adesao = pagseguro.aderirPlano(cart.pagseguro_plano, carrinho, hash, card['name'], request.user.cliente)
             if type(cart.pagseguro_adesao) is dict:
-                for pedido in cart.item:
+                for pedido in pedidos:
                     pedido.status= 'Pedido em aberto'
                     pedido.save()
                 return errorView(request, cart.pagseguro_adesao)
