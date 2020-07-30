@@ -29,25 +29,6 @@ def handler500(request):
 def errorView(request,e):
     return render(request,"error.html",{'erro':e})
 
-# def signup_view(request):
-#     if request.method == "POST":
-#         form = forms.SignUpForm(request.POST)
-#     else:
-#         form = forms.SignUpForm()
-#     if form.is_valid():
-#         user = form.save()
-#         user.refresh_from_db()
-#         user.cliente.nome = form.cleaned_data.get('username')
-#         user.cliente.email = form.cleaned_data.get('email')
-#         user.save()
-#         username = form.cleaned_data.get('username')
-#         password = form.cleaned_data.get('password1')
-#         user = authenticate(username=username, password=password)
-#         login(request, user)
-#         return redirect('clientflow_Cachorro_list')
-#     return render(request, 'registration/sign_up.html', {'form': form})
-#
-
 def profile_view(request):
     username = None
     if request.user.is_authenticated == True:
@@ -111,6 +92,9 @@ def checkout(request,carrinho):
             hash = pagseguro.criarHash(session,valor,card['number'].replace(" ",""),card['brand'],card['cvc'],card['expm'],card['expy'])
             cart.pagseguro_adesao = pagseguro.aderirPlano(cart.pagseguro_plano, carrinho, hash, card['name'], request.user.cliente)
             if type(cart.pagseguro_adesao) is dict:
+                for pedido in cart.item:
+                    pedido.status= 'Pedido em aberto'
+                    pedido.save()
                 return errorView(request, cart.pagseguro_adesao)
             cart.save()
             return redirect('clientflow_fimDoFlow', carrinho)
