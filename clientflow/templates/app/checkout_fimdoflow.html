@@ -2,86 +2,37 @@
 {% extends "base_flow.html" %}
 {% load static %}
 
-{% block head %}
-<style>
-.active {
-  border: solid 4px #03FB5C;
-}
-
-</style>
-<script>
-$(document).ready(function () {
-  $('.progress-bar.icon-bar').css("width","36%");
-  $('.progress-bar.disabled-bar').css("width","64%");
-  $('.two').removeClass('disabled-bar');
-  $('.middle .card').click(function () {
-   if ($(this).hasClass('active') && !$('.active').length) {
-     $(this).removeClass('active');
-   }
-   else
-   {
-     $('.active').removeClass('active');
-     $(this).addClass('active');
-     $('.active').trigger('cssClassChanged');
-   }
-   $('.footer-text').text("Continuar");
-   // $('.footer-text').attr("href", "/PedidoFlow/"+$(".active").attr('name')+"/"+{{dog}});
-  });
-});
-</script>
-
-{% endblock %}
-
 {% block content %}
 
 <div class='row info-bg'>
   <div class='col-10 info-bar-text'>
-    <p>Planos</p>
+    <p>Compra concluída!</p>
   </div>
 </div>
-<div class='row middle'>
+<div class='row middle mt-3'>
   <div class='col-11 mx-auto mt-1'>
-    {% for object in pedidos %}
-    <div class="row">
-      <div class="card flex-row col-12 plano" name="{{object}}">
-        <div class="card-body col-9 justify-content-start">
-          <div class="d-flex flex-column">
-            <span class='justify-content-start control-label' style="text-shadow: 0px 0px 3px rgba(255, 255, 255, 0.9); z-index: 1;">Plano {{object.nome}}</span>
-            <div class='card-heading'>
-              {{ object.idDog.nome}}
-              {{ object.idDog}}
-              {{ object.valor}}
-              {{ object.sabores}}
-              {{ object.sabores}}
-              {{ object.cart}}
-            </div>
-            <div class='lead'>
-              {{ object.subdescricao}}
-            </div>
+    <div class="card flex-row col-12">
+      <div class="card-body">
+        <div class="d-flex">
+          <div class="col-8 mx-auto ">
+            <p class="control-label text-center mt-3">Parábens! Você deu um passo em direção à um futuro melhor para o seu e muitos outros cachorros.</p>
           </div>
         </div>
-        <div class="col-3">
-          <div class="d-flex flex-row-reverse justify-content-center">
-            <span class="delete-icon plano-{{forloop.counter}} img-fluid pl-4 mt-3" style="min-width: 97px;"></span>
-          </div>
-          <div class="d-flex flex-row-reverse justify-content-center">
-            <span style="bottom: 1.3em;">
-              <p class="col text-center pt-3">R${{ object.valor }}<br>por mês</p>
-              <p class="col text-center control-label">R${{ object.valordia }}<br> por dia!</p>
-            </span>
+        <div class="d-flex">
+          <a
+          class="round-btn p-4 text-white text-decoration-none mx-auto mt-2"
+          href="{% url 'clientflow_Pedido_detail' pedido %}">
+            Detalhes do seu pedido
+          </a>
           </div>
         </div>
       </div>
     </div>
-    {% if forloop.last %}
     <div class='endofcontent'></div>
-    {% endif %}
-    {% endfor %}
   </div>
 </div>
 <div class="footer margin-footer" style="z-index:3;">
     <a class="footer-text">
-      Escolha um plano
     </a>
 </div>
 {% endblock %}

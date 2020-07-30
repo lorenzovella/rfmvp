@@ -5,7 +5,7 @@ from django.db.models.signals import post_save
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import User
 from django.dispatch import receiver
-
+from clientflow.app.pagseguro import consultaAssinatura
 
 class Carrinho(models.Model):
     # Fields
@@ -25,12 +25,13 @@ class Carrinho(models.Model):
         for i in self.item.all():
             sum += i.valor
         return sum
-
+    def get_status(self):
+        return consultaAssinatura(self.pagseguro_adesao)
     def get_absolute_url(self):
-        return reverse("pedidos_carrinho_detail", args=(self.pk,))
+        return reverse("clientflow_carrinho_detail", args=(self.pk,))
 
     def get_update_url(self):
-        return reverse("pedidos_carrinho_update", args=(self.pk,))
+        return reverse("clientflow_carrinho_update", args=(self.pk,))
 
 
 class Cliente(models.Model):
@@ -206,6 +207,7 @@ class Pedido(models.Model):
     created = models.DateTimeField(auto_now_add=True, editable=False)
 
     class Meta:
+        ordering = ['-last_updated']
         pass
 
     def __str__(self):

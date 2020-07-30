@@ -13,7 +13,6 @@ from decimal import Decimal
 from datetime import date
 from math import ceil
 import uuid
-import time
 
 precoKgRacao = 50
 
@@ -91,11 +90,15 @@ def profile_simple_view(request, dog):
         return redirect('clientflow_Cachorro_list')
     return render(request,'registration/sign_up.html',{'form':form,'dog':dog})
 
+def dogdash(request):
+    return render(request,'app/dogdash.html',{'user':request.user.cliente})
 
 def fimDoFlow(request,carrinho):
     cart = models.Carrinho.objects.get(pk=carrinho)
-    pedidos = cart.item.all()
-    return render(request, 'app/checkout_fimdoflow.html',{'pedidos':pedidos, 'cart':cart})
+    if cart.item.first().idClient == request.user.cliente:
+        #pedidos = cart.item.all()
+        return render(request, 'app/checkout_fimdoflow.html',{'pedido':cart.item.first().pk})
+    return handler500(request)
 
 def checkout(request,carrinho):
     cart = models.Carrinho.objects.get(pk=carrinho)
@@ -106,9 +109,9 @@ def checkout(request,carrinho):
             card = request.POST
             session = pagseguro.criarSession()
             hash = pagseguro.criarHash(session,valor,card['number'].replace(" ",""),card['brand'],card['cvc'],card['expm'],card['expy'])
-            if len(cart.pagseguro_adesao) > 1:
-                return redirect('pg_renovarPlano', carrinho)
             cart.pagseguro_adesao = pagseguro.aderirPlano(cart.pagseguro_plano, carrinho, hash, card['name'], request.user.cliente)
+            if type(cart.pagseguro_adesao) is dict:
+                return errorView(request, cart.pagseguro_adesao)
             cart.save()
             return redirect('clientflow_fimDoFlow', carrinho)
             # cobranca = pagseguro.cobrarPlano(pedido.idClient.nome+" - "+ str(carrinho), cart.plano, valor, '1', str(carrinho), cart.pagseguro_adesao)
@@ -191,12 +194,25 @@ class EntregaUpdateView(generic.UpdateView):
     form_class = forms.EntregaForm
     pk_url_kwarg = "pk"
 
-
 class PedidoListView(generic.ListView):
     def get_queryset(self):
-        return self.model.objects.filter(status ='Pedido em aberto', idClient = self.request.user.cliente)
+        return self.model.objects.filter(idClient = self.request.user.cliente).exclude(status ='Pedido em aberto')
     model = models.Pedido
     form_class = forms.PedidoForm
+
+class CarrinhoListView(generic.ListView):
+    template_name = "app/carrinho_list.html"
+    def get(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        if queryset.count() == 0:
+            return redirect('clientflow_Cachorro_list')
+        return super().get(request, *args, **kwargs)
+    def get_queryset(self):
+        return models.Pedido.objects.filter(status ='Pedido em aberto', idClient = self.request.user.cliente)
+
+    model = models.Pedido
+    form_class = forms.PedidoForm
+
 
 
 class PedidoCreateView(generic.CreateView):
@@ -271,7 +287,7 @@ class pedidoWizard(SessionWizardView):
         pedidoInstance.idClient = self.request.user.cliente
         # salva pedido
         savedPedido = pedidoInstance.save()
-        return redirect('clientflow_Pedido_list')
+        return redirect('clientflow_Carrinho_list')
 
 def PlanoFlow(request, pk):
     try:

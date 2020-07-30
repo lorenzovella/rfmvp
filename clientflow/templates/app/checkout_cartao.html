@@ -15,8 +15,10 @@
   }
 </style>
 <script src="{% static 'js/jquery.card.js' %}"></script>
+<script src="{% static 'js/jquery.creditCardValidator.js' %}"></script>
 <script>
   $(document).ready(function () {
+    $('#submit-btn').hide()
     $('.progress-bar.icon-bar').css("width","100%");
     $('.two').removeClass('disabled-bar');
     $('.three').removeClass('disabled-bar');
@@ -30,20 +32,27 @@
           expiryInput: 'input[name="expm"], input[name="expy"]',
       }
     });
-    $("[name='number']").change(function(){
-      $("[name='brand']").val(testarCC( $(this).val()  ) )
-    });
-
-    function testarCC(nr) {
-      var cartoes = {
-        visa: /^4|2/,
-        mastercard: /^5/,
-        amex: /^3/,
-      };
-      for (var cartao in cartoes) if (nr.match(cartoes[cartao])) return cartao;
-      return false;
-    }
   });
+  function bandeiraCartao(nr) {
+    var cartoes = {
+      visa: /^4|2/,
+      mastercard: /^5/,
+      amex: /^3/,
+    };
+    for (var cartao in cartoes) if (nr.match(cartoes[cartao])) return cartao;
+    return false;
+  }
+  function submitform(){
+    let val = $("[name='number']").validateCreditCard();
+    if (val.valid == false){
+        alert("Revise os dados do seu cartão para poder continuar")
+    }
+    else if(val.valid == true){
+      $("[name='brand']").val( bandeiraCartao( $("[name='number']").val()  ) );
+      $("#submit-btn").click();
+    }
+  }
+
 </script>
 {%endblock%}
 {% block content %}
@@ -98,8 +107,8 @@
               </div>
             </div>
           </div>
-          <button type="submit" class="subscribe btn btn-primary btn-block rounded-pill shadow-sm"> Confirmar  </button>
           <input type="hidden" name="brand">
+          <button type="submit" id="submit-btn"></button>
         </form>
       </div>
     </div>
@@ -109,7 +118,8 @@
 </div>
 <div class="endofcontent"></div>
 <div class="footer margin-footer">
-  <p class="footer-text ">
+  <p onclick="submitform()" class="footer-text ">
+  Concluir compra
   </p>
 </div>
 {% endblock %}

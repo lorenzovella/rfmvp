@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<div class='row info-bg'>
+  <div class='col-10 info-bar-text'>
+    <p>Dashboard</p>
+  </div>
+</div>
+<div class="row d-flex middle">
+  <div class="col-12 text-center control-label flex-column mx-auto">
+    <a
+      class="round-btn p-4 text-white text-decoration-none mx-auto m-4"
+      href="{% url 'clientflow_Pedido_list' %}">
+      Meus pedidos
+    </a>
+    <a
+    class="round-btn p-4 text-white text-decoration-none m-4 mx-auto"
+    href="{% url 'clientflow_Cachorro_list' %}">
+      Meus dogs
+    </a>
+    <a
+    class="round-btn p-4 text-white text-decoration-none mx-auto m-4"
+    href="{% url 'clientflow_Carrinho_list' %}">
+      Carrinho
+    </a>
+  </div>
+</div>
+<div class="endofcontent"></div>
+<div class="footer margin-footer">
+  <p class="footer-text ">
+  </p>
+</div>
+{% endblock %}

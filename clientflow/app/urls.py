@@ -23,10 +23,11 @@ urlpatterns = (
     path("Plano/", login_required(views.PlanoListView.as_view()), name="clientflow_Plano_list"),
     path("Plano/create/", views.PlanoCreateView.as_view(), name="clientflow_Plano_create"),
     path("Plano/update/<int:pk>/", views.PlanoUpdateView.as_view(), name="clientflow_Plano_update"),
-    # path("Plano/renovar/<int:carrinho>", views.renovarPlano, name="pg_renovarPlano"),
+
+    # path("DogClient/renovar/<int:carrinho>", views.renovarPlano, name="pg_renovarPlano"),
 
     path("CheckOut/<int:carrinho>", views.checkout, name="clientflow_checkout"),
-    path("CheckOut/Finalizar/<int:carrinho>", views.fimDoFlow, name="clientflow_fimDoFlow"),
+    path("CheckOut/Fim/<int:carrinho>", views.fimDoFlow, name="clientflow_fimDoFlow"),
     path("NewCarrinho/", views.adicionarAoCarrinho, name="adicionar_ao_carrinho"),
 
     path("CachorroEspecial/", views.checkout, name="clientflow_CachorroEspecial_list"),
@@ -40,10 +41,14 @@ urlpatterns = (
     path("Entrega/update/<int:pk>/", views.EntregaUpdateView.as_view(), name="clientflow_Entrega_update"),
 
     path("PedidoFlow/<int:plano>/<int:dog>", views.PedidoFlow, name="clientflow_PedidoFlow"),
+    path("DogDash/", login_required(views.dogdash), name="dogdash"),
     path("Pedido/", login_required(views.PedidoListView.as_view()), name="clientflow_Pedido_list"),
+    path("Carrinho/", login_required(views.CarrinhoListView.as_view()), name="clientflow_Carrinho_list"),
+
     path("Pedido/create/", views.PedidoCreateView.as_view(), name="clientflow_Pedido_create"),
     path("Pedido/detail/<int:pk>/", views.PedidoDetailView.as_view(), name="clientflow_Pedido_detail"),
     path("Pedido/update/<int:pk>/", views.PedidoUpdateView.as_view(), name="clientflow_Pedido_update"),
+
     path("Pedido/delete/confirm/<int:pk>", views.PedidoDeleteConfirmView, name="clientflow_Pedido_delete_confirm"),
     path("Pedido/delete/<int:pk>", views.PedidoDeleteView, name="clientflow_Pedido_delete"),
 

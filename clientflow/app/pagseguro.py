@@ -102,7 +102,6 @@ def aderirPlano(plano,referencia,hash,cardHolder,user):
     }
     response = requests.request("POST", url, headers=headers, data = payload)
     jsonResponse = json.loads(response.text)
-    print(payload)
     if 'code' in jsonResponse:
         return jsonResponse['code']
     else:
@@ -115,17 +114,31 @@ def cobrarPlano(planoid,descricaoplano,valorplano,quantidadeplano,referencia,pre
       'Content-Type': 'application/xml',
       'Accept': 'application/vnd.pagseguro.com.br.v3+json;charset=ISO-8859-1'
     }
-    print(payload)
     response = requests.request("POST", url, headers=headers, data = payload)
 
-    print(response.text.encode('utf8'))
 
 def consultaAssinatura(codigoAdesao):
-    url = "https://ws.sandbox.pagseguro.uol.com.br/pre-approvals/+codigoAdesao+?email="+email+"&token="+token
+    url = "https://ws.sandbox.pagseguro.uol.com.br/pre-approvals/"+codigoAdesao+"?email="+email+"&token="+token
+    payload = {}
     headers = {
       'Content-Type': 'application/json',
       'Accept': 'application/vnd.pagseguro.com.br.v3+json;charset=ISO-8859-1'
     }
-    response = requests.request("GET", url, headers=headers)
 
-    print(response.text.encode('utf8'))
+    response = requests.request("GET", url, headers=headers, data = payload)
+    jsonResponse = json.loads(response.text)
+    if 'status' in jsonResponse:
+        return statusAssinatura[jsonResponse['status']]
+
+
+statusAssinatura = {
+  "INITIATED" : "O comprador iniciou o processo de pagamento, mas abandonou o checkout e não concluiu a compra.",
+  "PENDING" : "O processo de pagamento foi concluído e transação está em análise ou aguardando a confirmação da operadora.",
+  "ACTIVE" : "A criação da recorrência, transação validadora ou transação recorrente foi aprovada.",
+  "PAYMENT_METHOD_CHANGE" : "Uma transação retornou como \"Cartão Expirado, Cancelado ou Bloqueado\" e o cartão da recorrência precisa ser substituído pelo comprador.",
+  "SUSPENDED" : "A recorrência foi suspensa pelo vendedor.",
+  "CANCELLED" : "A criação da recorrência foi cancelada pelo PagSeguro",
+  "CANCELLED_BY_RECEIVER" : "A recorrência foi cancelada a pedido do vendedor.",
+  "CANCELLED_BY_SENDER" : "A recorrência foi cancelada a pedido do comprador.",
+  "EXPIRED" : "A recorrência expirou por atingir a data limite da vigência ou por ter atingido o valor máximo de cobrança definido na cobrança do plano."
+  }
