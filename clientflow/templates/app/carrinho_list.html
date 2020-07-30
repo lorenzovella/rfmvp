@@ -8,7 +8,12 @@
 }
 </style>
 <script>
-
+$(document).ready(function () {
+  $('.progress-bar.icon-bar').css("width","80%");
+  $('.progress-bar.disabled-bar').css("width","20%");
+  $('.two').removeClass('disabled-bar');
+  $('.three').removeClass('disabled-bar');
+});
 </script>
 
 {% endblock %}
