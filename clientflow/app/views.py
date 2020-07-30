@@ -60,6 +60,8 @@ def profile_simple_view(request, dog):
             dogInstance.save()
             user.cliente.nome = formData.get('username')
             user.cliente.email = formData.get('email')
+            user.cliente.cidade = 'Florianópolis'
+            user.cliente.estado = 'Santa Catarina'
             user.save()
 
             user = authenticate(username=formData.get('username'), password=formData.get('password1'))
@@ -96,6 +98,10 @@ def checkout(request,carrinho):
                     pedido.status= 'Pedido em aberto'
                     pedido.save()
                 return errorView(request, cart.pagseguro_adesao)
+            else:
+                for pedido in pedidos:
+                    pedido.status = 'Pedido finalizado pelo cliente'
+                    pedido.save()
             cart.save()
             return redirect('clientflow_fimDoFlow', carrinho)
             # cobranca = pagseguro.cobrarPlano(pedido.idClient.nome+" - "+ str(carrinho), cart.plano, valor, '1', str(carrinho), cart.pagseguro_adesao)
@@ -124,7 +130,6 @@ def adicionarAoCarrinho(request):
 
     for pedido in pedidos:
         pedido.idCarrinho = newCarrinho
-        pedido.status = 'Pedido finalizado pelo cliente'
         pedido.save()
 
     valor = "{:.2f}".format( newCarrinho.get_valor_carrinho() )

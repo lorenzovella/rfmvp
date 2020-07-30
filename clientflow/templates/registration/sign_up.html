@@ -1,13 +1,7 @@
 
 {% extends "base.html" %}
 {% load static %}
-{% block head %}
-<script type="text/javascript">
-  jQuery(document).ready(function() {
-    $("#id_birthdate").datepicker();
-  });
-</script>
-{% endblock %}
+
 {% block content %}
 <div class='row info-bg'>
   <div class='col-10 info-bar-text'>
@@ -18,22 +12,20 @@
   <div class="col-12 text-center control-label mx-auto m-2 ">
     <h3>De quem é o cachorro que foi registrado?</h3>
   </div>
-  <div class="col-12 text-center control-label mx-auto m-2 ">
-    <form method="post">
+  <div class="col-12 flex-column text-center control-label mx-auto m-2 ">
+    <form method="post" style="display: contents;">
       {% csrf_token %}
       {% for field in form %}
-        <p>
-          {{ field.label_tag }}<br>
+          {{ field.label_tag }}
           {{ field }}
           {% if field.help_text %}
-            <small style="color: grey">{{ field.help_text }}</small>
+            <br><small style="color: grey">{{ field.help_text }}</small>
           {% endif %}
           {% for error in field.errors %}
             <p style="color: red">{{ error }}</p>
           {% endfor %}
-        </p>
       {% endfor %}
-      <button class="round-btn p-4 text-white text-decoration-none mx-auto" type="submit">Sign up</button>
+      <button class="round-btn mt-2 p-4 text-white text-decoration-none mx-auto" type="submit">Criar minha conta</button>
     </form>
   </div>
 </div>
