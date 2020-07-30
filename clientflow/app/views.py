@@ -13,6 +13,7 @@ from decimal import Decimal
 from datetime import date
 from math import ceil
 import uuid
+import time
 
 precoKgRacao = 50
 
@@ -91,6 +92,10 @@ def profile_simple_view(request, dog):
     return render(request,'registration/sign_up.html',{'form':form,'dog':dog})
 
 
+def fimDoFlow(request,carrinho):
+    cart = models.Carrinho.objects.get(pk=carrinho)
+    pedidos = cart.item.all()
+    return render(request, 'app/checkout_fimdoflow.html',{'pedidos':pedidos, 'cart':cart})
 
 def checkout(request,carrinho):
     cart = models.Carrinho.objects.get(pk=carrinho)
@@ -100,9 +105,14 @@ def checkout(request,carrinho):
         if request.method == "POST":
             card = request.POST
             session = pagseguro.criarSession()
-            cn = card['number'].replace(" ","")
-            print(pagseguro.criarHash(session,valor,cn,card['brand'],card['cvc'],card['expm'],card['expy']) )
-
+            hash = pagseguro.criarHash(session,valor,card['number'].replace(" ",""),card['brand'],card['cvc'],card['expm'],card['expy'])
+            if len(cart.pagseguro_adesao) > 1:
+                return redirect('pg_renovarPlano', carrinho)
+            cart.pagseguro_adesao = pagseguro.aderirPlano(cart.pagseguro_plano, carrinho, hash, card['name'], request.user.cliente)
+            cart.save()
+            return redirect('clientflow_fimDoFlow', carrinho)
+            # cobranca = pagseguro.cobrarPlano(pedido.idClient.nome+" - "+ str(carrinho), cart.plano, valor, '1', str(carrinho), cart.pagseguro_adesao)
+            # redirect('clientflow_Pedido_detail', carrinho)
         if request.user.cliente.cpf==0:
             return redirect('user-profile-update', carrinho)
 
@@ -112,6 +122,9 @@ def checkout(request,carrinho):
 
 def adicionarAoCarrinho(request):
     pedidos = models.Pedido.objects.filter(status ='Pedido em aberto', idClient = request.user.cliente)
+    if pedidos.count() == 0:
+        return errorView(request,"não foram encontrados pedidos em aberto")
+
     newCarrinho = models.Carrinho()
 
     strPlano = "Pedido para o "
@@ -128,8 +141,8 @@ def adicionarAoCarrinho(request):
         pedido.save()
 
     valor = "{:.2f}".format( newCarrinho.get_valor_carrinho() )
-    codigoPlanoPagSeg = pagseguro.criarPlano(strPlano,str(newCarrinho.pk),str(valor))
-    newCarrinho.pagseguro_plano = codigoPlanoPagSeg['pg']
+    codigoPlano = pagseguro.criarPlano(strPlano,str(newCarrinho.pk),str(valor))
+    newCarrinho.pagseguro_plano = codigoPlano['pg']
     savedCarrinho = newCarrinho.save()
 
     if request.user.cliente.cpf==0:

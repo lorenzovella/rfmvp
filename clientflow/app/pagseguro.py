@@ -1,5 +1,6 @@
 import xml.etree.ElementTree as ET
 import requests
+import json
 
 token = '0E09DA92901245D895156260C19B1B8B'
 email = 'lo2828@hotmail.com'
@@ -31,7 +32,6 @@ def criarSession():
 def criarHash(session,valor,cn,cb,cvv,cem,cey):
     url = "https://df.uol.com.br/v2/cards"
     payload = 'sessionId='+session+'&amount='+valor+'&cardNumber='+cn+'&cardBrand='+cb+'&cardCvv='+cvv+'&cardExpirationMonth='+cem+'&cardExpirationYear='+cey
-    print(payload)
     headers = {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
@@ -39,9 +39,9 @@ def criarHash(session,valor,cn,cb,cvv,cem,cey):
     hash = ET.fromstring(response.text)[0].text
     return hash
 
-def aderirPlano(plano,referencia,user,hash):
+def aderirPlano(plano,referencia,hash,cardHolder,user):
     url = "https://ws.sandbox.pagseguro.uol.com.br/pre-approvals?email="+email+"&token="+token
-    payload = {
+    payload = json.dumps({
     	"plan": plano,
     	"reference": referencia,
     	"sender": {
@@ -53,7 +53,7 @@ def aderirPlano(plano,referencia,user,hash):
     			"number": user.telefone
     		},
     		"address": {
-    			"street": entrega,
+    			"street": user.rua,
     			"number": user.numero,
     			"complement": user.complemento,
     			"district": "It",
@@ -72,15 +72,15 @@ def aderirPlano(plano,referencia,user,hash):
     		"creditCard": {
     			"token": hash,
     			"holder": {
-    				"name": user.name,
-    				"birthDate": user.nasimento,
+    				"name": cardHolder,
+    				"birthDate": user.nascimento.strftime('%d/%m/%Y'),
     				"documents": [{
     					"type": "CPF",
     					"value": user.cpf
     				}],
     				"phone": {
-    					"areaCode": user.telefone,
-    					"number": user.areatelefone
+    					"areaCode": user.areatelefone,
+    					"number": user.telefone
     				},
     				"billingAddress": {
             			"street": user.rua,
@@ -95,21 +95,37 @@ def aderirPlano(plano,referencia,user,hash):
     			}
     		}
     	}
-    }
+    }, default=str)
     headers = {
       'Content-Type': 'application/json',
       'Accept': 'application/vnd.pagseguro.com.br.v1+json;charset=ISO-8859-1'
     }
     response = requests.request("POST", url, headers=headers, data = payload)
+    jsonResponse = json.loads(response.text)
+    print(payload)
+    if 'code' in jsonResponse:
+        return jsonResponse['code']
+    else:
+        return jsonResponse['errors']
 
 def cobrarPlano(planoid,descricaoplano,valorplano,quantidadeplano,referencia,preaprovacao):
     url = "https://ws.sandbox.pagseguro.uol.com.br/pre-approvals/payment?email="+email+"&token="+token
-    payload = {"<payment><items><item><id>"+planoid+"</id><description>"+descricaoplano+"</description><amount>"+valorplano+"</amount><quantity>"+quantidadeplano+"</quantity></item></items>reference>"+referencia+"</reference><preApprovalCode>"+preaprovacao+"</preApprovalCode></payment>"}
+    payload = "<payment><items><item><id>"+planoid+"</id><description>"+descricaoplano+"</description><amount>"+valorplano+"</amount><quantity>"+quantidadeplano+"</quantity></item></items><reference>"+referencia+"</reference><preApprovalCode>"+preaprovacao+"</preApprovalCode></payment>"
     headers = {
       'Content-Type': 'application/xml',
       'Accept': 'application/vnd.pagseguro.com.br.v3+json;charset=ISO-8859-1'
     }
-
+    print(payload)
     response = requests.request("POST", url, headers=headers, data = payload)
+
+    print(response.text.encode('utf8'))
+
+def consultaAssinatura(codigoAdesao):
+    url = "https://ws.sandbox.pagseguro.uol.com.br/pre-approvals/+codigoAdesao+?email="+email+"&token="+token
+    headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/vnd.pagseguro.com.br.v3+json;charset=ISO-8859-1'
+    }
+    response = requests.request("GET", url, headers=headers)
 
     print(response.text.encode('utf8'))
