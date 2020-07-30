@@ -94,29 +94,44 @@ def profile_simple_view(request, dog):
 
 def checkout(request,carrinho):
     cart = models.Carrinho.objects.get(pk=carrinho)
+    valor = "{:.2f}".format( cart.get_valor_carrinho() )
     pedido = cart.item.first()
     if request.user.cliente == pedido.idClient:
+        if request.method == "POST":
+            card = request.POST
+            session = pagseguro.criarSession()
+            cn = card['number'].replace(" ","")
+            print(pagseguro.criarHash(session,valor,cn,card['brand'],card['cvc'],card['expm'],card['expy']) )
+
         if request.user.cliente.cpf==0:
             return redirect('user-profile-update', carrinho)
-        return render(request,"app/checkout_cartao.html",{'obj':cart.plano})
+
+        return render(request,"app/checkout_cartao.html",{'plano':cart.plano, 'valor': "{:.2f}".format(cart.get_valor_carrinho()) })
     else:
         return handler500(request)
 
 def adicionarAoCarrinho(request):
-    # if request.session.has_key('carrinho') == False:
     pedidos = models.Pedido.objects.filter(status ='Pedido em aberto', idClient = request.user.cliente)
     newCarrinho = models.Carrinho()
+
     strPlano = "Pedido para o "
     for pedido in pedidos:
         strPlano += pedido.idDog.nome +", "
     strPlano = strPlano[:-2]
+
     newCarrinho.plano = strPlano
     savedCarrinho = newCarrinho.save()
+
     for pedido in pedidos:
         pedido.idCarrinho = newCarrinho
         pedido.status = 'Pedido finalizado pelo cliente'
         pedido.save()
-    context = {'obj':newCarrinho}
+
+    valor = "{:.2f}".format( newCarrinho.get_valor_carrinho() )
+    codigoPlanoPagSeg = pagseguro.criarPlano(strPlano,str(newCarrinho.pk),str(valor))
+    newCarrinho.pagseguro_plano = codigoPlanoPagSeg['pg']
+    savedCarrinho = newCarrinho.save()
+
     if request.user.cliente.cpf==0:
         return redirect('user-profile-update', newCarrinho)
     return redirect('clientflow_checkout', newCarrinho)

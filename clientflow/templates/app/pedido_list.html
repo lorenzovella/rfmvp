@@ -21,9 +21,11 @@
 </div>
 <div class="row d-flex justify-content-center middle">
   {% for obj in object_list%}
+     {% ifchanged %}
       <div class="text-center control-label mx-auto m-2 p-2">
       <span>{{obj.get_status_display}}</span>
       </div>
+     {% endifchanged %}
       <div class="card col-11">
         <div class="text-center card-subheading">
           Pedido para seu dog {{obj.idDog.nome}} feito às: {{obj.created|date:"j/n H:i"}}</h5>
@@ -52,7 +54,7 @@
       </div>
   {% if forloop.last %}
   </div>
-  <div class="row w-50 mx-auto">
+  <div class="row w-80 mx-auto">
     <div class="card-new text-center col-12">
       <div class="m-4">
         <a href="{% url 'clientflow_Cachorro_list' %}" class="link-no-decoration d-block">

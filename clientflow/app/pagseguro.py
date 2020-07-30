@@ -28,9 +28,10 @@ def criarSession():
     session = ET.fromstring(response.text)[0].text
     return session
 
-def criarHash(cn,cb,cvv,cem,cey):
+def criarHash(session,valor,cn,cb,cvv,cem,cey):
     url = "https://df.uol.com.br/v2/cards"
-    payload = 'sessionId=4eb97a0c24a24b518a883cbcce83ff9a&cardNumber='+cn+'&cardBrand='+cb+'&cardCvv='+cvv+'&cardExpirationMonth='+cem+'&cardExpirationYear='+cey
+    payload = 'sessionId='+session+'&amount='+valor+'&cardNumber='+cn+'&cardBrand='+cb+'&cardCvv='+cvv+'&cardExpirationMonth='+cem+'&cardExpirationYear='+cey
+    print(payload)
     headers = {
       'Content-Type': 'application/x-www-form-urlencoded'
     }

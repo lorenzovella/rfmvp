@@ -12,8 +12,8 @@ class Carrinho(models.Model):
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
     plano = models.CharField(max_length=200, blank=True, default="")
+    pagseguro_plano = models.CharField(max_length=250, blank=True, default="")
     status_adesao = models.CharField(max_length=200, blank=True, default="")
-
     class Meta:
         pass
 

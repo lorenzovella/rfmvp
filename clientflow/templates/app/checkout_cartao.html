@@ -22,16 +22,23 @@
     $('.three').removeClass('disabled-bar');
 
     $('form').card({
-    container: '#card-container',
-    placeholders: {
-      name: 'NOME COMPLETO',
-    }
+      container: '#card-container',
+      placeholders: {
+        name: 'NOME COMPLETO',
+      },
+      formSelectors: {
+          expiryInput: 'input[name="expm"], input[name="expy"]',
+      }
     });
+    $("[name='number']").change(function(){
+      $("[name='brand']").val(testarCC( $(this).val()  ) )
+    });
+
     function testarCC(nr) {
       var cartoes = {
-        Visa: /^4|2/,
-        Mastercard: /^5/,
-        Amex: /^3/,
+        visa: /^4|2/,
+        mastercard: /^5/,
+        amex: /^3/,
       };
       for (var cartao in cartoes) if (nr.match(cartoes[cartao])) return cartao;
       return false;
@@ -47,7 +54,7 @@
 </div>
 <div class="row d-flex middle">
   <div class="col-12 flex-column text-center control-label mx-auto m-2">
-    <p>{{obj}}</p>
+    <p>{{plano}} no valor de R${{valor}}</p>
     <p>Insira os dados do seu cartão</p>
   </div>
   <div class="col-md-8 mx-auto">
@@ -58,7 +65,8 @@
     </div>
     <div class="card">
       <div class="card-body">
-        <form role="form">
+        <form method="post" role="form">
+          {% csrf_token %}
           <div class="form-group">
             <label for="username">Nome Completo</label>
             <input type="text" name="name" placeholder="Boris Adamastor" required class="form-control">
@@ -72,15 +80,16 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-sm-8">
+            <div class="col-sm-6">
               <div class="form-group">
                 <label><span class="hidden-xs">Data de vencimento</span></label>
-                <div class="input-group">
-                  <input type="text" placeholder="MM/YYYY" name="expiry" class="form-control" required>
+                <div class="input-group d-inline-flex">
+                  <input type="text" placeholder="MM" name="expm" class="form-control" required>
+                  <input type="text" placeholder="YYYY" name="expy" class="form-control" required>
                 </div>
               </div>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-6">
               <div class="form-group mb-4">
                 <label data-toggle="tooltip" title="Últimos 3 números no verso do seu cartão">Código de Segurança
                   <i class="fa fa-question-circle"></i>
@@ -89,11 +98,13 @@
               </div>
             </div>
           </div>
-          <button type="button" class="subscribe btn btn-primary btn-block rounded-pill shadow-sm"> Confirmar  </button>
+          <button type="submit" class="subscribe btn btn-primary btn-block rounded-pill shadow-sm"> Confirmar  </button>
+          <input type="hidden" name="brand">
         </form>
       </div>
     </div>
     <!-- End -->
+    <div class="d-flex"><img class="img-fluid mx-auto" src="{% static 'ico/icone_pagseguro.png' %}"></div>
   </div>
 </div>
 <div class="endofcontent"></div>
