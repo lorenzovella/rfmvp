@@ -68,10 +68,13 @@ def profile_simple_view(request, dog):
             user.cliente.nome = form.cleaned_data['first_name']
             user.save()
             user = authenticate(username=email, password=randPass)
+            login(request, user)
             passReset = PasswordResetForm({'email': email})
             if passReset.is_valid():
-                passReset.save(request=HttpRequest(), use_https=True)
-            login(request, user)
+                # formRequest = HttpRequest()
+                # formRequest.META['SERVER_NAME'] = 'app.racaodofuturo.com.br'
+                # formRequest.META['SERVER_PORT'] = '443'
+                passReset.save(request=request, use_https=True)
             return redirect('clientflow_PlanoFlow', dog)
     elif request.user.is_authenticated == False:
         form = forms.ClienteNovoForm()
