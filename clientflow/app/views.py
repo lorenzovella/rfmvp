@@ -71,9 +71,6 @@ def profile_simple_view(request, dog):
             login(request, user)
             passReset = PasswordResetForm({'email': email})
             if passReset.is_valid():
-                # formRequest = HttpRequest()
-                # formRequest.META['SERVER_NAME'] = 'app.racaodofuturo.com.br'
-                # formRequest.META['SERVER_PORT'] = '443'
                 passReset.save(request=request, use_https=True)
             return redirect('clientflow_PlanoFlow', dog)
     elif request.user.is_authenticated == False:

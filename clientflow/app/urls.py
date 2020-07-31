@@ -71,7 +71,7 @@ urlpatterns = (
     path("Cliente/update/<int:pk>/", views.ClienteUpdateView.as_view(), name="clientflow_Cliente_update"),
 
     # path("Cadastro/", views.signup_view, name="sign-up"),
-    path("MinhaConta/", views.profile_view, name="user-profile"),
+    path("MinhaConta/", login_required(views.profile_view), name="user-profile"),
     path("MinhaConta/update/", views.profile_update_view, name="user-profile-update"),
     path("MinhaConta/update/<int:carrinho>", views.profile_update_view, name="user-profile-update"),
     path("MinhaConta/Novo/<int:dog>", views.profile_simple_view, name="user-profile-simple",),

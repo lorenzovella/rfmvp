@@ -10,7 +10,7 @@ from django.contrib.auth.hashers import make_password
 class ClienteForm(forms.ModelForm):
     class Meta:
         model = models.Cliente
-        fields = ["nome","sobrenome","email","telefone","areatelefone","cep","cpf","rua","nascimento","numero","complemento","cidade","estado",]
+        fields = ["nome","sobrenome","telefone","areatelefone","cep","cpf","rua","nascimento","numero","complemento","cidade","estado",]
     nascimento = forms.DateField(
     widget=forms.DateInput(format='%d/%m/%Y'),
     input_formats=('%d/%m/%Y', )
@@ -24,15 +24,14 @@ class ClienteForm(forms.ModelForm):
             Field('nome', wrapper_class="col-6"),
             Field('sobrenome', wrapper_class="col-6"),
             HTML("</div>"),
-            Field('email', wrapper_class="col-12"),
+            Field('cpf'),
+            Field('nascimento'),
             HTML("<div class='row mx-auto' style='white-space: nowrap;'>"),
             Field('areatelefone', wrapper_class="col-4"),
             Field('telefone', wrapper_class="col-8"),
             HTML("</div>"),
-            Field('cpf'),
             Field('cep'),
             Field('rua'),
-            Field('nascimento'),
             Field('numero'),
             Field('complemento'),
             Field('cidade'),
