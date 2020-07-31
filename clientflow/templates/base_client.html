@@ -26,36 +26,21 @@
   <link rel="stylesheet" href="{% static 'css/jquery-ui.theme.css' %}">
   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/extra.css' %}">
-  {% block head %}{% endblock %}
+  {% block head %}
+  {% endblock %}
 </head>
 
 
 <body>
+  <div class="circle-container  circle-background">
+    <div class="color-circle "></div>
+    <div class="inner-circle"></div>
+  </div>
   <div id="content" class="container-fluid">
-    <nav class="navbar navbar-expand-lg fixed-top popoverbar d-flex">
-      <span class="mx-auto header-text">Entrega disponível apenas para a <b>Grande Florianópolis</b></span>
-    </nav>
-    <nav class="navbar navbar-expand-lg fixed-top topbar">
-      <div class="col-10 float-none bg-transparent progress mx-auto">
-        <div class="one">
-          <b class="progress-bar-text">SEU CÃO</b>
-        </div>
-        <div class="two disabled-bar">
-          <b class="progress-bar-text">PLANOS</b>
-        </div>
-        <div class="three disabled-bar">
-          <b class="progress-bar-text">REFEIÇÕES</b>
-        </div>
-        <div class="four disabled-bar">
-          <b class="progress-bar-text">CHECKOUT</b>
-        </div>
-        <div class="progress-bar icon-bar"></div>
-        <div class="progress-bar disabled-bar"></div>
-      </div>
-    </nav>
     {% block content %}{% endblock %}
   </div>
 
+  <!-- Start of LiveChat (www.livechatinc.com) code -->
   <script>
       window.__lc = window.__lc || {};
       window.__lc.license = 12117279;
@@ -63,6 +48,5 @@
   </script>
   <noscript><a href="https://www.livechatinc.com/chat-with/12117279/" rel="nofollow">Chat with us</a>, powered by <a href="https://www.livechatinc.com/?welcome" rel="noopener nofollow" target="_blank">LiveChat</a></noscript>
   <!-- End of LiveChat code -->
-
 </body>
 </html>
