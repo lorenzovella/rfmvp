@@ -15,6 +15,7 @@
   <div class="col-12 flex-column text-center control-label mx-auto m-2 ">
     <form method="post" style="display: contents;">
       {% csrf_token %}
+      <p style="color: red">{{ form.non_field_errors }}</p>
       {% for field in form %}
           {{ field.label_tag }}
           {{ field }}

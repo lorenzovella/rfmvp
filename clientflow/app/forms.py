@@ -45,13 +45,21 @@ class ClienteNovoForm(UserCreationForm):
     class Meta:
         model = User
         fields = ["username","email",]
+    def clean(self):
+        username = self.cleaned_data['email']
+        email = self.cleaned_data['email']
+        password1 = self.cleaned_data['password1']
+        if User.objects.exclude(pk=self.instance.pk).filter(username=username).exists():
+            raise forms.ValidationError(u'O email "%s" já esta em uso.' % username)
+        return self.cleaned_data
+
     def __init__(self, *args, **kwargs):
         super(ClienteNovoForm, self).__init__(*args, **kwargs)
-        self.fields['username'].help_text = ''
+
         self.fields['email'].help_text = ''
         self.fields['password1'].help_text = ''
         self.fields['password2'].help_text = ''
-        self.fields['username'].widget.attrs.update({'class' : 'textinput mt-2 mb-3'})
+        self.fields.pop('username')
         self.fields['email'].widget.attrs.update({'class' : 'textinput mt-2 mb-3'})
         self.fields['password1'].widget.attrs.update({'class' : 'textinput mt-2 mb-3'})
         self.fields['password2'].widget.attrs.update({'class' : 'textinput mt-2 mb-3'})

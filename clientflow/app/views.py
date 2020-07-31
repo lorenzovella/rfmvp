@@ -52,21 +52,21 @@ def profile_simple_view(request, dog):
     if request.method == "POST":
         form = forms.ClienteNovoForm(request.POST)
         if form.is_valid():
-            formData = form.cleaned_data
-            user = form.save()
+            user = form.save(commit=False)
+            user.username = user.email
+            user.save()
             user.refresh_from_db()
             dogInstance = models.Cachorro.objects.get(pk = dog)
             dogInstance.idCliente = user.cliente
             dogInstance.save()
-            user.cliente.nome = formData.get('username')
-            user.cliente.email = formData.get('email')
+            user.cliente.email = user.email
             user.cliente.cidade = 'Florianópolis'
             user.cliente.estado = 'Santa Catarina'
             user.save()
 
-            user = authenticate(username=formData.get('username'), password=formData.get('password1'))
+            user = authenticate(username=form.cleaned_data.get('email'), password=form.cleaned_data.get('password1'))
             login(request, user)
-            return redirect('clientflow_Cachorro_list')
+            return redirect('clientflow_PlanoFlow', dog)
     elif request.user.is_authenticated == False:
         form = forms.ClienteNovoForm()
     elif request.user.is_authenticated == True:
