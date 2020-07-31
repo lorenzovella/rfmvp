@@ -94,7 +94,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+SECURE_SSL_REDIRECT = True
 
 LANGUAGE_CODE = 'pt-br'
 
