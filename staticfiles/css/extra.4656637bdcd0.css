@@ -142,6 +142,49 @@ margin-top: 21px;
   background: #ffffff;
   box-shadow: inset 2px 3px 2px rgba(44,132,190,0.2);
 }
+
+input[type=radio],input[type=checkbox]{
+  margin-top: 15px;
+  margin-left: 15px;
+}
+
+.radio.inline, .checkbox.inline{
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  text-align-last: center;
+  width: 75%;
+  height: 72px;
+  border-radius: 3em;
+  background: #ffffff;
+  box-shadow: inset 2px 3px 2px rgba(44,132,190,0.2);
+  position: relative;
+  margin: 4px auto;
+  overflow: hidden;
+  padding-bottom: 0 !important;
+  padding-top:25px;
+}
+
+.custom-control-radio,.custom-control-checkbox{
+  position: absolute;
+  top: 0.2rem;
+  left: 0;
+  height: 2.5rem;
+  width: 2.5rem;
+  background: #c9ded6;
+  border-radius: 50%;
+}
+.custom-control-radio::after {
+    content: '';
+    position: absolute;
+    opacity: 0;
+    top: .5rem;
+    left: .5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background: #fff;
+  }
 .help-inline, .help-block {
   margin-top:1em;
   margin-left: auto;
