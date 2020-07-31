@@ -2,16 +2,15 @@
 {% block head %}
 <style>
 .circle-background{
-  background-color: #EAF7FF;
-  opacity: 0.4;
+  opacity: 0.7;
 }
 .circle-container{
   z-index:0;
 }
 .color-circle{
     position: absolute;
-    top: -100px;
-    right: -200px;
+    top: -80px;
+    right: -180px;
     width: 400px;
     height: 400px;
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #25A1FB), color-stop(100%, #00418F));
@@ -21,10 +20,11 @@
   }
   .inner-circle{
     position: absolute;
-    top: -85px;
-    right: -220px;
-    width: 300px;
-    height: 300px;
+    top: 0;
+    right: 0;
+    width: 230px;
+    height: 230px;
+    margin: 86px;
     border-radius: 50%;
     background-color: #eee;
     box-shadow: inset 0 12px 3px -7px #fff, 0 7px 34px -4px rgba(0,0,0,0.6),0 16px 12px rgba(0,0,0,0.1);
@@ -38,12 +38,18 @@
       transform: rotateZ(360deg);
     }
   }
+.dash-btn{
+  height: 117px;
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: 0px 3px 13px rgba(220,220,220,0.5);
+}
 </style>
 {% endblock %}
 
 {% block content %}
-<div class='row info-bg'>
-  <div class='col-10 info-bar-text'>
+<div class='row'>
+  <div class='col-8 mx-auto dash-btn'>
     <p>Dashboard</p>
   </div>
 </div>
