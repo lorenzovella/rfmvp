@@ -436,7 +436,7 @@ class cachorroWizard(SessionWizardView):
         if self.request.user.is_authenticated:
             cachorroInstance.idCliente = self.request.user.cliente
             savedCachorro = cachorroInstance.save()
-            return redirect('clientflow_CachorroFlow_list')
+            return redirect('clientflow_PlanoFlow', cachorroInstance)
         savedCachorro = cachorroInstance.save()
         return redirect('user-profile-simple', dog = cachorroInstance)
         # self.instance_dict = None

@@ -69,10 +69,9 @@ $(document).ready(function () {
         monthNamesShort: [ "Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez" ],
         changeMonth: true,
         changeYear: true,
-        showButtonPanel: true,
         onClose: function(dateText, inst) {
           function isDonePressed(){
-              return ($('#ui-datepicker-div').html().indexOf('ui-datepicker-close ui-state-default ui-priority-primary ui-corner-all ui-state-hover') > -1);
+              return $(this).val(dateText)
           }
 
           if (isDonePressed()){

@@ -44,8 +44,12 @@ function submitForm(){
       monthNamesShort: [ "Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez" ],
       changeMonth: true,
       changeYear: true,
-      showButtonPanel: true,
-      yearRange: "1930:2002"
+      yearRange: "1930:2002",
+      onClose: function(dateText, inst) {
+        function isDonePressed(){
+            return $(this).val(dateText)
+        }
+      }
     });
   });
 </script>
