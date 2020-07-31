@@ -1,6 +1,7 @@
 from . import forms
 from . import models
 from django.views import generic
+from django.http import HttpRequest
 from django.shortcuts import redirect, render
 from django.forms.models import construct_instance
 from django.core.files.storage import FileSystemStorage
