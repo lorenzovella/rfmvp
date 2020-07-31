@@ -5,6 +5,7 @@ from django.shortcuts import redirect, render
 from django.forms.models import construct_instance
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth import login, authenticate
 from clientflow.app.calculadora import calcularFator
 from clientflow.app import pagseguro
@@ -52,19 +53,23 @@ def profile_simple_view(request, dog):
     if request.method == "POST":
         form = forms.ClienteNovoForm(request.POST)
         if form.is_valid():
+            email = form.cleaned_data.get('email')
+            randPass = User.objects.make_random_password()
             user = form.save(commit=False)
-            user.username = user.email
+            user.username = email
+            user.set_password( randPass )
             user.save()
             user.refresh_from_db()
             dogInstance = models.Cachorro.objects.get(pk = dog)
             dogInstance.idCliente = user.cliente
             dogInstance.save()
-            user.cliente.email = user.email
-            user.cliente.cidade = 'Florianópolis'
-            user.cliente.estado = 'Santa Catarina'
+            user.cliente.email = email
+            user.cliente.nome = form.cleaned_data['first_name']
             user.save()
-
-            user = authenticate(username=form.cleaned_data.get('email'), password=form.cleaned_data.get('password1'))
+            user = authenticate(username=email, password=randPass)
+            passReset = PasswordResetForm({'email': email})
+            if passReset.is_valid():
+                passReset.save(request=request)
             login(request, user)
             return redirect('clientflow_PlanoFlow', dog)
     elif request.user.is_authenticated == False:
@@ -97,6 +102,7 @@ def checkout(request,carrinho):
             if type(cart.pagseguro_adesao) is dict:
                 for pedido in pedidos:
                     pedido.status= 'Pedido em aberto'
+                    pedido.observacoes = cart.pagseguro_adesao
                     pedido.save()
                 return errorView(request, cart.pagseguro_adesao)
             else:

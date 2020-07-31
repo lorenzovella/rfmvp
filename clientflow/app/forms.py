@@ -5,8 +5,7 @@ from crispy_forms.bootstrap import *
 from crispy_forms.layout import *
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-import uuid
-
+from django.contrib.auth.hashers import make_password
 
 class ClienteForm(forms.ModelForm):
     class Meta:
@@ -41,28 +40,25 @@ class ClienteForm(forms.ModelForm):
             HTML('<button type="submit" id="submit-btn"></button>'),
         )
 
-class ClienteNovoForm(UserCreationForm):
+class ClienteNovoForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ["username","email",]
+        fields = ["first_name","email",]
     def clean(self):
-        username = self.cleaned_data['email']
+        first_name = self.cleaned_data['first_name']
         email = self.cleaned_data['email']
-        password1 = self.cleaned_data['password1']
+        username = self.cleaned_data['email']
         if User.objects.exclude(pk=self.instance.pk).filter(username=username).exists():
             raise forms.ValidationError(u'O email "%s" já esta em uso.' % username)
         return self.cleaned_data
 
     def __init__(self, *args, **kwargs):
         super(ClienteNovoForm, self).__init__(*args, **kwargs)
-
+        self.fields['first_name'].help_text = ''
+        self.fields['first_name'].widget.attrs.update({'class' : 'textinput mt-2 mb-3','required':''})
         self.fields['email'].help_text = ''
-        self.fields['password1'].help_text = ''
-        self.fields['password2'].help_text = ''
-        self.fields.pop('username')
         self.fields['email'].widget.attrs.update({'class' : 'textinput mt-2 mb-3'})
-        self.fields['password1'].widget.attrs.update({'class' : 'textinput mt-2 mb-3'})
-        self.fields['password2'].widget.attrs.update({'class' : 'textinput mt-2 mb-3'})
+
 
 class EntregaForm(forms.ModelForm):
     class Meta:
