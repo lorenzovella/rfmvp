@@ -22,7 +22,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = False
 DEBUG_PROPAGATE_EXCEPTIONS = True
 
-ALLOWED_HOSTS = ['rfmvp.herokuapp.com','127.0.0.1']
+ALLOWED_HOSTS = ['app.racaodofuturo.com.br','rfmvp.herokuapp.com','127.0.0.1']
 
 # Application definition
 INSTALLED_APPS = [
@@ -84,16 +84,13 @@ DATABASES['default'] = dj_database_url.config()
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': 6,
+        }
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
 
@@ -130,3 +127,11 @@ CHANNEL_LAYERS = {
          "CONFIG": {"hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')]},
     },
 }
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'lorenzopvella@gmail.com'
+EMAIL_HOST_PASSWORD = 'qzvubmjgbiqmfzkc'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'Ração do Futuro <au@racaodofuturo.com.br>'
