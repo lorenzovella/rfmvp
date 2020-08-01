@@ -49,40 +49,38 @@ $(document).ready(function () {
     </h2>
   </div>
 </div>
-<div class='row middle'>
-  <div class='col-11 mx-auto mt-1'>
-    {% for object in planos %}
-    <div class="row">
-      <div class="card flex-row col-12 plano" name="{{object}}">
-        <div class="card-body col-9 justify-content-start">
-          <div class="d-flex flex-column">
-            <span class='justify-content-start control-label' style="text-shadow: 0px 0px 3px rgba(255, 255, 255, 0.9); z-index: 1;">Plano {{object.nome}}</span>
-            <div class='card-heading'>
-              {{ object.descricao}}
-            </div>
-            <div class='lead'>
-              {{ object.subdescricao}}
-            </div>
+<div class='col-11 mx-auto mt-1'>
+  {% for object in planos %}
+  <div class="row middle">
+    <div class="card flex-row col-12 plano" name="{{object}}">
+      <div class="card-body col-9 justify-content-start">
+        <div class="d-flex flex-column">
+          <span class='justify-content-start control-label' style="text-shadow: 0px 0px 3px rgba(255, 255, 255, 0.9); z-index: 1;">Plano {{object.nome}}</span>
+          <div class='card-heading'>
+            {{ object.descricao}}
           </div>
-        </div>
-        <div class="col-3">
-          <div class="d-flex flex-row-reverse justify-content-center">
-            <span class="delete-icon plano-{{forloop.counter}} pl-4 mt-3" style="min-height: 50px;"></span>
-          </div>
-          <div class="d-flex flex-row-reverse justify-content-center">
-            <span style="bottom: 1.3em;">
-              <p class="col text-center pt-3">R${{ object.valor }}<br>por mês</p>
-              <p class="col text-center control-label">R${{ object.valordia }}<br> por dia!</p>
-            </span>
+          <div class='lead'>
+            {{ object.subdescricao}}
           </div>
         </div>
       </div>
+      <div class="col-3">
+        <div class="d-flex flex-row-reverse justify-content-center">
+          <span class="delete-icon plano-{{forloop.counter}} pl-4 mt-3" style="min-height: 50px;"></span>
+        </div>
+        <div class="d-flex flex-row-reverse justify-content-center">
+          <span style="bottom: 1.3em;">
+            <p class="col text-center pt-3">R${{ object.valor }}<br>por mês</p>
+            <p class="col text-center control-label">R${{ object.valordia }}<br> por dia!</p>
+          </span>
+        </div>
+      </div>
     </div>
-    {% if forloop.last %}
-    <div class='endofcontent'></div>
-    {% endif %}
-    {% endfor %}
   </div>
+  {% if forloop.last %}
+  <div class='endofcontent'></div>
+  {% endif %}
+  {% endfor %}
 </div>
 <div class="footer margin-footer" style="z-index:3;">
     <a class="footer-text">
