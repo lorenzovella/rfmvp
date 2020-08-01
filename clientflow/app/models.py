@@ -159,6 +159,7 @@ class Cachorro(models.Model):
     castrado_choices = ((0,'Não'),(1,'Sim'))
     atividade_choices = (('Caminhadas Diárias','Caminhadas Diárias'),('Super Ativo','Super Ativo'), ('Nivel Olímpico','Nivel Olímpico'))
     fisico_choices =( ('Magro','Magro'),  ('Na Medida','Na Medida'), ('Gordinho','Gordinho'), ('Obeso','Obeso') )
+    sabores_choices = ( ('Carne de panela', 'Carne de panela'), ('Frango Xadrez', 'Frango Xadrez'), ('Risoto Suíno','Risoto Suíno')  )
     # Fields
     nome = models.CharField('Nome do seu Dog', max_length=150, default="")
     sexo = models.CharField('Sexo', max_length=50, default="", choices=sexo_choices)
@@ -169,6 +170,7 @@ class Cachorro(models.Model):
     pesoideal = models.DecimalField('Peso Ideal',  decimal_places=1, max_digits=3, help_text='Segundo o conselho veterinario, caso seu cão tenha até 12 meses é obrigatorio você informar o peso ideal dele quando adulto. Fique tranquilo, você pode informar o peso aproximado.', default=0, null=True, blank=True)
     atividade = models.CharField('Nivel de atividade Diária', max_length=100, default="", choices=atividade_choices)
     fisico = models.CharField('Físico do cão', help_text='Não sabe o estado físico do seu cão? Não tem problema, clique aqui e descubra.', max_length=100, default="", choices=fisico_choices)
+    sabores = MultiSelectField('Escolha os sabores do futuro', default="", choices=sabores_choices)
     calculomes = models.DecimalField('Quantidade de ração a receber (kg/mês)',  decimal_places=1, max_digits=3, default=0)
     calculodia = models.DecimalField('Quantidade de ração diária para o cão (g/dia)', decimal_places=0, max_digits=4, default=0)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
@@ -196,13 +198,11 @@ class Pedido(models.Model):
     idDog = models.ForeignKey("app.Cachorro", on_delete=models.CASCADE,null=True,blank=True)
     idCarrinho = models.ForeignKey("app.Carrinho", on_delete=models.CASCADE,null=True,blank=True, related_name='item')
     status_choices= ( ('Pedido em aberto','Pedido em aberto'), ('Pedido finalizado pelo cliente','Pedido finalizado pelo cliente'), ('Aguardando confirmação','Aguardando confirmação'), ('Pedido em preparo','Pedido em preparo'), ('Pedido em trânsito','Pedido em trânsito'), ('Pedido concluído','Pedido concluído') )
-    sabores_choices = ( ('Carne de panela', 'Carne de panela'), ('Frango Xadrez', 'Frango Xadrez'), ('Risoto Suíno','Risoto Suíno')  )
     # Fields
     valor = models.DecimalField('Valor do pedido', default=0,  decimal_places=2, max_digits=6,)
     status = models.CharField('Status do pedido', max_length=100, default="Pedido em aberto", choices=status_choices)
     observacoes = models.TextField('Observações', default="")
     linkpagseguro = models.URLField('URL do Pagamento', default="")
-    sabores = MultiSelectField('Escolha os sabores do futuro', default="", choices=sabores_choices)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
     created = models.DateTimeField(auto_now_add=True, editable=False)
 

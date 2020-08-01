@@ -7,19 +7,14 @@
 {{ wizard.form.media }}
 <script>
 $(document).ready(function () {
-  if($('#id_pedido_wizard-current_step').val() == "Sabores"){
+  if($('#id_pedido_wizard-current_step').val() == "Entrega"){
   $('.progress-bar.icon-bar').css("width","41%");
   $('.progress-bar.disabled-bar').css("width","59%");
   $('.two').removeClass('disabled-bar');
   }
-  if($('#id_pedido_wizard-current_step').val() == "Entrega"){
-  $('.progress-bar.icon-bar').css("width","50%");
-  $('.progress-bar.disabled-bar').css("width","50%");
-  $('.two').removeClass('disabled-bar');
-  }
   if($('#id_pedido_wizard-current_step').val() == "Entrega - 2"){
-  $('.progress-bar.icon-bar').css("width","60%");
-  $('.progress-bar.disabled-bar').css("width","40%");
+  $('.progress-bar.icon-bar').css("width","55%");
+  $('.progress-bar.disabled-bar').css("width","45%");
   $('.two').removeClass('disabled-bar');
   }
   if($('#id_pedido_wizard-current_step').val() == "Entrega - 3"){

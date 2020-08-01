@@ -113,7 +113,7 @@ class EntregaForm3(forms.ModelForm):
         )
 class SaboresForm(forms.ModelForm):
     class Meta:
-        model = models.Pedido
+        model = models.Cachorro
         fields = ['sabores']
     def __init__(self, *args, **kwargs):
         super(SaboresForm, self).__init__(*args, **kwargs)

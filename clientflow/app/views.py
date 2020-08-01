@@ -242,13 +242,11 @@ def PedidoFlow(request, plano, dog):
         return errorView(request, e)
 
 FORMS_PEDIDO = [
-    ("Sabores", forms.SaboresForm),
     ("Entrega", forms.EntregaForm),
     ("Entrega - 2", forms.EntregaForm2),
     ("Entrega - 3", forms.EntregaForm3),
     ]
 TEMPLATES_PEDIDO = {
-    "Sabores": "app/pedido_multipageform.html",
     "Entrega": "app/pedido_multipageform.html",
     "Entrega - 2": "app/pedido_multipageform.html",
     "Entrega - 3": "app/pedido_multipageform.html",
@@ -278,9 +276,6 @@ class pedidoWizard(SessionWizardView):
                 setattr(entregaInstance, key, value)
         savedEntrega = entregaInstance.save()
         pedidoInstance.idEntrega = entregaInstance
-        # salva sabores
-        saboresForm = form_dict['Sabores'].cleaned_data
-        pedidoInstance.sabores = saboresForm['sabores']
         # relaciona usuario ao pedido
         pedidoInstance.idClient = self.request.user.cliente
         # salva pedido
@@ -393,6 +388,7 @@ FORMS_CACHORRO = [
     ("CachorroForm4", forms.CachorroForm4),
     ("CachorroForm5", forms.CachorroForm5),
     ("CachorroEspecialForm", forms.CachorroEspecialForm),
+    ("Sabores", forms.SaboresForm),
     ]
 TEMPLATES_CACHORRO = {
     "CachorroForm": "app/cachorro_multipageform.html",
@@ -401,6 +397,7 @@ TEMPLATES_CACHORRO = {
     "CachorroForm4": "app/cachorro_multipageform.html",
     "CachorroForm5": "app/cachorro_multipageform.html",
     "CachorroEspecialForm": "app/cachorroespecial_multipageform.html",
+    "Sabores": "app/pedido_multipageform.html",
     }
 
 def calculate_age(born):
@@ -418,6 +415,7 @@ class cachorroWizard(SessionWizardView):
             form_dict['CachorroForm3'].cleaned_data,
             form_dict['CachorroForm4'].cleaned_data,
             form_dict['CachorroForm5'].cleaned_data,
+
             ]
         for parsedForms in cachorroFormArray:
             for key, value in parsedForms.items():
@@ -440,7 +438,9 @@ class cachorroWizard(SessionWizardView):
             kgpormes = ceil( gramaspordia * 0.028 )
         cachorroInstance.calculodia = Decimal.from_float(gramaspordia)
         cachorroInstance.calculomes = Decimal(kgpormes)
-
+        # salva sabores
+        saboresForm = form_dict['Sabores'].cleaned_data
+        cachorroInstance.sabores = saboresForm['sabores']
         if self.request.user.is_authenticated:
             cachorroInstance.idCliente = self.request.user.cliente
             savedCachorro = cachorroInstance.save()
