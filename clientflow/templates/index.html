@@ -1,7 +1,7 @@
 {% extends "base_client.html" %}
 {% block content %}
 <div class="row d-flex-column middle">
-  <div style="padding-top: 10%;" class='col-lg-8 mx-auto'>
+  <div style="padding-top: 10%;" class='col-lg-8 col-10 mx-auto'>
     {% if user.is_authenticated %}
     <p class="dash-title">Olá {{user.cliente.nome}},</p>
     <p class="card-dash-subtitle" style="color: #000000; margin-top:-20px;">

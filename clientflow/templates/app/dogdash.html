@@ -1,46 +1,50 @@
 {% extends "base_client.html" %}
 {% load static %}
 {% block content %}
-<div class="row d-flex-column middle">
-  <div class='col-10 mx-auto'>
-    <p class="dash-title">Olá {{user.nome}},</p>
-    <p class="dash-subtitle" style="margin-top:-20px;">Bem-vindo ao seu painel.</p>
+<div class='d-flex-column'>
+  <div class="row d-flex">
+    <div class='p-3 col-10 col-md-7 mx-auto'>
+      <p class="pl-1 dash-title">Olá {{user.nome}},</p>
+      <p class="pl-1 dash-subtitle" style="margin-top:-20px;">Bem-vindo ao seu painel.</p>
+    </div>
+    <div style="height:auto!important;" class="col-10 col-md-7 mt-2 mb-2 mx-auto text-decoration-none  dash-btn-text dash-btn">
+      <img class="position-absolute img-fluid" style="margin-top:-18px;" src="{% static 'ico/dog-profile.png' %}"/>
+      <p class="card-dash-title" style="margin-left: 80px;" >Ração do futuro</p>
+      <p class="card-dash-subtitle" style="margin-left: 80px; margin-top:-20px;"> Você tem {{dogcount}}
+        {% if dogcount > 1 %}cães cadastrados{% else %}cão cadastrado{% endif %}.</p>
+    </div>
   </div>
-  <div class="col-11 mt-2 mb-2 ml-2 mx-auto text-decoration-none  dash-btn-text dash-btn">
-    <img class="position-absolute img-fluid" style="margin-top:-18px;" src="{% static 'ico/dog-profile.png' %}"/>
-    <p class="card-dash-title" style="margin-left: 80px;" >Ração do futuro</p>
-    <p class="card-dash-subtitle" style="margin-left: 80px; margin-top:-20px;"> Você tem {{dogcount}}
-      {% if dogcount > 1 %}cães{% else %}cão{% endif %} cadastrado</p>
+  <div class="row d-flex mx-auto col-md-6">
+      <a
+        class="col-5 m-3 mx-auto text-decoration-none text-center dash-btn-text dash-btn"
+        href="{% url 'user-profile' %}">
+        Minha conta
+      </a>
+      <a
+      class="col-5 m-3 mx-auto text-decoration-none text-center dash-btn-text dash-btn"
+      href="{% url 'clientflow_Pedido_list' %}">
+        Pedidos
+      </a>
+      <a
+      class="col-5 m-3 mx-auto text-decoration-none text-center dash-btn-text dash-btn"
+      href="{% url 'user-profile-update' %}">
+        Endereço
+      </a>
+      <a
+      class="col-5 m-3 mx-auto text-decoration-none text-center dash-btn-text dash-btn">
+        Suporte
+      </a>
+      <a
+      class="col-5 m-3 mx-auto text-decoration-none text-center dash-btn-text dash-btn"
+      href="{% url 'clientflow_Cachorro_list' %}">
+        Meus cães
+      </a>
+      <a
+      class="col-5 m-3 mx-auto text-decoration-none text-center dash-btn-text dash-btn"
+      href="{% url 'clientflow_dogflow' %}">
+        Novo cão
+      </a>
   </div>
-  <a
-    class="col-5 mt-2 mb-2 ml-2 mx-auto text-decoration-none text-center dash-btn-text dash-btn"
-    href="{% url 'user-profile' %}">
-    Minha conta
-  </a>
-  <a
-  class="col-5 mt-2 mb-2 mr-2 mx-auto text-decoration-none text-center dash-btn-text dash-btn"
-  href="{% url 'clientflow_Pedido_list' %}">
-    Pedidos
-  </a>
-  <a
-  class="col-5 mt-2 mb-2 ml-2 mx-auto text-decoration-none text-center dash-btn-text dash-btn"
-  href="{% url 'user-profile-update' %}">
-    Endereço
-  </a>
-  <a
-  class="col-5 mt-2 mb-2 mr-2 mx-auto text-decoration-none text-center dash-btn-text dash-btn">
-    Suporte
-  </a>
-  <a
-  class="col-5 mt-2 mb-2 ml-2 mx-auto text-decoration-none text-center dash-btn-text dash-btn"
-  href="{% url 'clientflow_Cachorro_list' %}">
-    Meus cães
-  </a>
-  <a
-  class="col-5  mt-2 mb-2  mx-auto text-decoration-none text-center dash-btn-text dash-btn"
-  href="{% url 'clientflow_dogflow' %}">
-    Novo cão
-  </a>
 </div>
 <div class="endofcontent"></div>
 <div class="footer margin-footer">
