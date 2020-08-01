@@ -80,7 +80,8 @@ def profile_simple_view(request, dog):
     return render(request,'registration/sign_up.html',{'form':form,'dog':dog})
 
 def dogdash(request):
-    return render(request,'app/dogdash.html',{'user':request.user.cliente})
+    dogCount = models.Cachorro.objects.filter(idCliente = request.user.cliente).count()
+    return render(request,'app/dogdash.html',{'user':request.user.cliente,'dogcount':dogCount})
 
 def fimDoFlow(request,carrinho):
     cart = models.Carrinho.objects.get(pk=carrinho)
