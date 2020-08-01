@@ -6,6 +6,20 @@ from crispy_forms.layout import *
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.forms import AuthenticationForm
+from django.forms.widgets import PasswordInput, TextInput
+
+
+class CustomAuthForm(AuthenticationForm):
+    class Meta:
+        model = User
+        fields = ['username','password']
+    def __init__(self, *args, **kwargs):
+        super(CustomAuthForm, self).__init__(*args, **kwargs)
+        self.fields['username'].widget = forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'email@exemplo.com.br'})
+        self.fields['username'].label = "Seu e-mail"
+        self.fields['password'].widget = forms.PasswordInput(attrs={'class': 'form-control', 'placeholder':'.  .  .  .  .  .  .  .  .  .  .'})
+        self.fields['password'].label = "Senha"
 
 class ClienteForm(forms.ModelForm):
     class Meta:

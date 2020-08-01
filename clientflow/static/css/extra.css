@@ -332,3 +332,54 @@ input[type=radio],input[type=checkbox]{
   text-decoration: none !important;
   color: #18447b !important;
 }
+.dash-title{
+  font-family: Montserrat;
+  font-size: 33px;
+  color: #000000;
+  text-align: left;
+  vertical-align: top;
+  font-weight: 700;
+  text-transform: none;
+  text-shadow: 0px 3px 13px rgba(220,220,220,0.7)
+}
+.dash-subtitle{
+  font-family: Montserrat;
+  font-size: 13px;
+  font-weight: 500;
+  text-shadow: 0px 3px 13px rgba(220,220,220,0.7)
+}
+.card-dash-title{
+  font-family: Montserrat;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 22px;
+  letter-spacing: -0.41px;
+}
+.card-dash-subtitle{
+  color: #6b6b6b;
+  font-family: Montserrat;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 26px;
+}
+.dash-btn{
+  height: 117px;
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: 0px 3px 13px rgba(220,220,220,0.7);
+}
+.dash-btn-text{
+  padding-top: 45px;
+  color: #000000;
+}
+.dash-big-btn{
+ height: 88px;
+ padding-top:30px!important;
+ background-color: #00418F;
+ border-radius: 44px;
+ font-family: Montserrat;
+ color: #00FF30!important;
+ text-align: center;
+ font-weight: 700;
+ font-size: 14px;
+}

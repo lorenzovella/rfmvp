@@ -1,53 +1,5 @@
 {% extends "base_client.html" %}
 {% load static %}
-{% block head %}
-<style>
-.dash-title{
-  font-family: Montserrat;
-  font-size: 33px;
-  color: #000000;
-  text-align: left;
-  vertical-align: top;
-  font-weight: 700;
-  text-transform: none;
-  text-shadow: 0px 3px 13px rgba(220,220,220,0.7)
-}
-.dash-subtitle{
-  font-family: Montserrat;
-  font-size: 13px;
-  font-weight: 500;
-  text-shadow: 0px 3px 13px rgba(220,220,220,0.7)
-}
-.card-dash-title{
-  font-family: Montserrat;
-  font-size: 17px;
-  font-weight: 600;
-  line-height: 22px;
-  letter-spacing: -0.41px;
-  margin-left: 80px;
-}
-.card-dash-subtitle{
-  color: #6b6b6b;
-  font-family: Montserrat;
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 26px;
-  margin-left: 80px;
-}
-.dash-btn{
-  height: 117px;
-  border-radius: 24px;
-  background: #ffffff;
-  box-shadow: 0px 3px 13px rgba(220,220,220,0.7);
-}
-.dash-btn-text{
-  padding-top: 45px;
-  color: #000000;
-}
-</style>
-
-{% endblock %}
-
 {% block content %}
 <div class="row d-flex-column middle">
   <div class='col-10 mx-auto'>
@@ -56,8 +8,8 @@
   </div>
   <div class="col-11 mt-2 mb-2 ml-2 mx-auto text-decoration-none  dash-btn-text dash-btn">
     <img class="position-absolute img-fluid" style="margin-top:-18px;" src="{% static 'ico/dog-profile.png' %}"/>
-    <p class="card-dash-title">Ração do futuro</p>
-    <p class="card-dash-subtitle" style="margin-top:-20px;"> Você tem {{dogcount}}
+    <p class="card-dash-title" style="margin-left: 80px;" >Ração do futuro</p>
+    <p class="card-dash-subtitle" style="margin-left: 80px; margin-top:-20px;"> Você tem {{dogcount}}
       {% if dogcount > 1 %}cães{% else %}cão{% endif %} cadastrado</p>
   </div>
   <a

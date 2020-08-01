@@ -41,7 +41,6 @@ urlpatterns = (
     path("Entrega/update/<int:pk>/", views.EntregaUpdateView.as_view(), name="clientflow_Entrega_update"),
 
     path("PedidoFlow/<int:plano>/<int:dog>", views.PedidoFlow, name="clientflow_PedidoFlow"),
-    path("DogDash/", login_required(views.dogdash), name="dogdash"),
     path("Pedido/", login_required(views.PedidoListView.as_view()), name="clientflow_Pedido_list"),
     path("Carrinho/", login_required(views.CarrinhoListView.as_view()), name="clientflow_Carrinho_list"),
 
@@ -71,6 +70,7 @@ urlpatterns = (
     path("Cliente/update/<int:pk>/", views.ClienteUpdateView.as_view(), name="clientflow_Cliente_update"),
 
     # path("Cadastro/", views.signup_view, name="sign-up"),
+    path("DogDash/", login_required(views.dogdash), name="dogdash"),
     path("MinhaConta/", login_required(views.profile_view), name="user-profile"),
     path("MinhaConta/update/", views.profile_update_view, name="user-profile-update"),
     path("MinhaConta/update/<int:carrinho>", views.profile_update_view, name="user-profile-update"),
