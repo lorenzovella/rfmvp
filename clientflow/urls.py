@@ -24,6 +24,7 @@ handler404 = 'clientflow.app.views.handler404'
 handler500 = 'clientflow.app.views.handler500'
 urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html', authentication_form=CustomAuthForm), name='login'),
+    path('logout/', auth_views.LogoutView.as_view()),
     path('', TemplateView.as_view(template_name='index.html'), name='index'),
     path('', include('clientflow.app.urls')),
     path('admin/', admin.site.urls),
