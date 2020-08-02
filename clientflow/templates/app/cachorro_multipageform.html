@@ -104,6 +104,11 @@ $(document).ready(function () {
     $('.progress-bar.icon-bar').css("width","24%");
     $('.progress-bar.disabled-bar').css("width","76%");
   }
+  if($('#id_cachorro_wizard-current_step').val() == "Sabores"){
+    $('.progress-bar.icon-bar').css("width","33%");
+    $('.progress-bar.disabled-bar').css("width","67%");
+    $('.two').removeClass('disabled-bar');
+  }
 })
 </script>
 {% endblock %}

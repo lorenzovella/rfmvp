@@ -395,7 +395,7 @@ TEMPLATES_CACHORRO = {
     "CachorroForm4": "app/cachorro_multipageform.html",
     "CachorroForm5": "app/cachorro_multipageform.html",
     "CachorroEspecialForm": "app/cachorroespecial_multipageform.html",
-    "Sabores": "app/pedido_multipageform.html",
+    "Sabores": "app/cachorro_multipageform.html",
     }
 
 class cachorroWizard(SessionWizardView):
@@ -409,7 +409,6 @@ class cachorroWizard(SessionWizardView):
             form_dict['CachorroForm3'].cleaned_data,
             form_dict['CachorroForm4'].cleaned_data,
             form_dict['CachorroForm5'].cleaned_data,
-
             ]
         for parsedForms in cachorroFormArray:
             for key, value in parsedForms.items():
