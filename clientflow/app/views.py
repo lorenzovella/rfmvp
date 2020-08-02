@@ -226,6 +226,19 @@ class PedidoUpdateView(generic.UpdateView):
     form_class = forms.PedidoForm
     pk_url_kwarg = "pk"
 
+
+def PlanoFlow(request, dog):
+    try:
+        instance = models.Cachorro.objects.get(pk=dog)
+    except models.Cachorro.DoesNotExist:
+        return handler500(request)
+    planos = models.Plano.objects.all()
+    for obj in planos:
+        setattr(obj, "valor", "{:.2f}".format( precoKgRacao/1000 * obj.refeicoes * float(instance.calculodia)  )  )
+        setattr(obj, "valordia", "{:.2f}".format( float(obj.valor)/float(30) ) )
+
+    return render(request,'app/plano_list.html',{'planos':planos,'dog':instance})
+
 def PedidoFlow(request, plano, dog):
     try:
         instance = models.Pedido()
@@ -239,22 +252,22 @@ def PedidoFlow(request, plano, dog):
     except Exception as e:
         return errorView(request, e)
 
-FORMS_PEDIDO = [
+FORMS_ENTREGA = [
     ("Entrega", forms.EntregaForm),
     ("Entrega - 2", forms.EntregaForm2),
     ("Entrega - 3", forms.EntregaForm3),
     ]
-TEMPLATES_PEDIDO = {
+TEMPLATES_ENTREGA = {
     "Entrega": "app/pedido_multipageform.html",
     "Entrega - 2": "app/pedido_multipageform.html",
     "Entrega - 3": "app/pedido_multipageform.html",
     }
 
-class pedidoWizard(SessionWizardView):
+class entregaWizard(SessionWizardView):
     def get_template_names(self):
-        return [TEMPLATES_PEDIDO[self.steps.current]]
+        return [TEMPLATES_ENTREGA[self.steps.current]]
     def get_context_data(self, form, **kwargs):
-        context = super(pedidoWizard, self).get_context_data(form=form, **kwargs)
+        context = super(entregaWizard, self).get_context_data(form=form, **kwargs)
         if self.steps.current == "Entrega - 3":
             data_entrega = self.get_cleaned_data_for_step('Entrega') # zero indexed
             data_entrega2 = self.get_cleaned_data_for_step('Entrega - 2') # zero indexed
@@ -279,19 +292,6 @@ class pedidoWizard(SessionWizardView):
         # salva pedido
         savedPedido = pedidoInstance.save()
         return redirect('clientflow_Carrinho_list')
-
-def PlanoFlow(request, pk):
-    try:
-        instance = models.Cachorro.objects.get(pk=pk)
-    except models.Cachorro.DoesNotExist:
-        return handler500(request)
-    planos = models.Plano.objects.all()
-    for obj in planos:
-        setattr(obj, "valor", "{:.2f}".format( precoKgRacao/1000 * obj.refeicoes * float(instance.calculodia)  )  )
-        setattr(obj, "valordia", "{:.2f}".format( float(obj.valor)/float(30) ) )
-
-    return render(request,'app/plano_list.html',{'planos':planos,'dog':instance})
-
 
 
 class PlanoListView(generic.ListView):
