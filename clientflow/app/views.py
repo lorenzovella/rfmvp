@@ -12,9 +12,7 @@ from clientflow.app.calculadora import calcularFator
 from clientflow.app import pagseguro
 from formtools.wizard.views import SessionWizardView
 from decimal import Decimal
-from datetime import date
 from math import ceil
-import uuid
 
 precoKgRacao = 50
 
@@ -400,10 +398,6 @@ TEMPLATES_CACHORRO = {
     "Sabores": "app/pedido_multipageform.html",
     }
 
-def calculate_age(born):
-    today = date.today()
-    return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
-
 class cachorroWizard(SessionWizardView):
     def get_template_names(self):
         return [TEMPLATES_CACHORRO[self.steps.current]]
@@ -428,7 +422,7 @@ class cachorroWizard(SessionWizardView):
             savedDogEspecial = dogEspecialInstance.save()
             cachorroInstance.dogEspecial = dogEspecialInstance
         # calculo filhote
-        if(calculate_age(cachorroInstance.nascimento) < 1):
+        if cachorroInstance.calculate_age() < 1:
             gramaspordia = round( 416*(float(cachorroInstance.peso)**0.75)*(2.718**(-0.87*float(cachorroInstance.peso/cachorroInstance.pesoideal))-0.1) )
             kgpormes = ceil( gramaspordia * 0.028 )
         # calculo dog adulto

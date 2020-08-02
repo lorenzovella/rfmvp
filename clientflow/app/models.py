@@ -6,6 +6,7 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import User
 from django.dispatch import receiver
 from clientflow.app.pagseguro import consultaAssinatura
+from datetime import date
 
 class Carrinho(models.Model):
     # Fields
@@ -75,7 +76,7 @@ def update_profile_signal(sender, instance, created, **kwargs):
 
 class CachorroEspecial(models.Model):
 
-    condicao_choices = (('alergia', 'Alegia'),
+    condicao_choices = (('alergia', 'Alergia'),
     ('cardiaco', 'Cardiaco'),
     ('diabetes', 'Diabetes'),
     ('renal', 'Renal'),
@@ -175,9 +176,12 @@ class Cachorro(models.Model):
     calculodia = models.DecimalField('Quantidade de ração diária para o cão (g/dia)', decimal_places=0, max_digits=4, default=0)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
     created = models.DateTimeField(auto_now_add=True, editable=False)
-
     class Meta:
         pass
+    def calculate_age(self):
+        born = self.nascimento
+        today = date.today()
+        return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
 
     def __str__(self):
         return str(self.pk)
