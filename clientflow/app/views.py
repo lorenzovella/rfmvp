@@ -246,7 +246,7 @@ def PedidoFlow(request, plano, dog):
         dog = models.Cachorro.objects.get(pk=dog)
         instance.idPlano = plano
         instance.idDog = dog
-        instance.valor = precoKgRacao * plano.refeicoes * dog.calculodia / 1000
+        instance.valor = precoKgRacao * plano.refeicoes * dog.calculomes/28
         savedInstance = instance.save()
         return redirect('clientflow_EntregaFlow', pedido = instance)
     except Exception as e:

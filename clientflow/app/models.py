@@ -129,7 +129,7 @@ class Entrega(models.Model):
     diadasemana_choices = (('Segunda','Segunda'),('Terça','Terça'),('Quarta','Quarta'),('Quinta','Quinta'),('Sexta','Sexta'),('Sábado','Sábado'),('Domingo','Domingo'))
     periodo_choices = (('Matutino','Matutino'),('Vespertino','Vespertino'),('Noturno','Noturno'))
     preferencia_choices=(('Portaria','Pode deixar na portaria.'),('Em mãos', 'Sempre em mãos'))
-    frequencia_choices=(('1 Entrega no mês', ' 1 Entrega no mês (Grátis)'),('2 Entregas no mês','2 Entregas no mês (R$9,90)'))
+    frequencia_choices=((1, ' 1 Entrega no mês (Grátis)'),(2,'2 Entregas no mês (R$9,90)'))
 
     dia = MultiSelectField('Quais dias da semana você pode receber a Ração Do Futuro?', choices=diadasemana_choices, default="")
     periodo = MultiSelectField('Qual o período ideal para ser realizada a entrega?', choices=periodo_choices, default="")

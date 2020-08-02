@@ -59,7 +59,11 @@ z-index:2;
   margin-top: -47px;
   object-fit: scale-down;
 }
-
+.dog-card-img-2{
+    content: url(/static/ico/new-dog.png);
+    margin-left: -15px;
+    object-fit: scale-down;
+}
 .one, .two, .three, .four{
 background-color: #00FB5C;
 position:absolute;
