@@ -14,7 +14,23 @@ from formtools.wizard.views import SessionWizardView
 from decimal import Decimal
 from math import ceil
 
-precoKgRacao = 50
+def calculaDescontoProgressivo(consumoKg):
+    consumoKg = float(consumoKg)
+    precoKg = 55
+    if consumoKg < 4 :
+        desconto = ( consumoKg - 1 ) * 0.07 # 0.7% de desconto a cada 100g
+    if consumoKg >= 4 and consumoKg < 5:
+        desconto = 0.203 + (( consumoKg - 4 ) * 0.055)
+    if consumoKg >= 5 and consumoKg < 5.5:
+        desconto = 0.26 + (( consumoKg - 5 ) * 0.04)
+    if consumoKg >= 5.5 and consumoKg < 9.5:
+        desconto = 0.29 + (( consumoKg - 5.5 ) * 0.03)
+    if consumoKg >= 9.5 and consumoKg < 12.5:
+        desconto = 0.41 + (( consumoKg - 9.5 ) * 0.02)
+    if consumoKg >= 12.5:
+        desconto = 0.47 + (( consumoKg - 12.5 ) * 0.01)
+    desconto = min(desconto,0.5)
+    return precoKg*(1-desconto)
 
 def handler404(request,exception):
     context = {}
@@ -232,10 +248,11 @@ def PlanoFlow(request, dog):
         instance = models.Cachorro.objects.get(pk=dog)
     except models.Cachorro.DoesNotExist:
         return handler500(request)
+    precoKgRacao = calculaDescontoProgressivo(instance.calculomes)
     planos = models.Plano.objects.all()
     for obj in planos:
-        setattr(obj, "valor", "{:.2f}".format( precoKgRacao/1000 * obj.refeicoes * float(instance.calculodia)  )  )
-        setattr(obj, "valordia", "{:.2f}".format( float(obj.valor)/float(30) ) )
+        setattr(obj, "valor", "{:.2f}".format( precoKgRacao * obj.refeicoes * float(instance.calculomes)/28  )  )
+        setattr(obj, "valordia", "{:.2f}".format( float(obj.valor)/float(28) ) )
 
     return render(request,'app/plano_list.html',{'planos':planos,'dog':instance})
 
@@ -246,7 +263,8 @@ def PedidoFlow(request, plano, dog):
         dog = models.Cachorro.objects.get(pk=dog)
         instance.idPlano = plano
         instance.idDog = dog
-        instance.valor = precoKgRacao * plano.refeicoes * dog.calculomes/28
+        precoKgRacao = calculaDescontoProgressivo(dog.calculomes)
+        instance.valor = precoKgRacao * plano.refeicoes * float(dog.calculomes)/28
         savedInstance = instance.save()
         return redirect('clientflow_EntregaFlow', pedido = instance)
     except Exception as e:
