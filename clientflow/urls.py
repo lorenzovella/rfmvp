@@ -19,9 +19,10 @@ from django.views.generic import TemplateView
 from clientflow.app.forms import CustomAuthForm
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import views as auth_views
+from clientflow.app.views import IndexView
 
 handler404 = 'clientflow.app.views.handler404'
-handler500 = 'clientflow.app.views.handler500'
+handler404 = 'clientflow.app.views.handler404'
 urlpatterns = [
     path('accounts/login/', auth_views.LoginView.as_view(template_name='registration/login.html', authentication_form=CustomAuthForm), name='login'),
     path('logout/', auth_views.LogoutView.as_view(),name='logout'),
@@ -31,7 +32,7 @@ urlpatterns = [
     path('esqueciminha/done', auth_views.PasswordResetDoneView.as_view(),name='password_reset_done'),
     path('novasenha/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(),name='password_reset_confirm'),
     path('novasenha/done', auth_views.PasswordResetCompleteView.as_view(),name='password_reset_complete'),
-    path('', TemplateView.as_view(template_name='index.html'), name='index'),
+    path('',  IndexView, name='index'),
     path('', include('clientflow.app.urls')),
     path('admin/', admin.site.urls),
     # path('accounts/', include('django.contrib.auth.urls')),

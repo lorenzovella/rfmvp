@@ -3,11 +3,11 @@
 {% block content %}
 <div class='d-flex-column'>
   <div class="row d-flex">
-    <div class='p-3 col-10 col-md-7 mx-auto'>
+    <div class='p-3 mt-4 col-10 col-md-7 mx-auto'>
       <p class="pl-1 dash-title">Olá {{user.nome}},</p>
       <p class="pl-1 dash-subtitle" style="margin-top:-20px;">Bem-vindo ao seu painel.</p>
     </div>
-    <div style="height:auto!important;" class="col-10 col-md-7 mt-2 mb-2 mx-auto text-decoration-none  dash-btn-text dash-btn">
+    <div class="col-10 col-md-7 mt-2 mb-2 mx-auto text-decoration-none  dash-btn-text dash-btn">
       <img class="position-absolute img-fluid" style="margin-top:-18px;" src="{% static 'ico/dog-profile.png' %}"/>
       <p class="card-dash-title" style="margin-left: 80px;" >Ração do futuro</p>
       <p class="card-dash-subtitle" style="margin-left: 80px; margin-top:-20px;"> Você tem {{dogcount}}

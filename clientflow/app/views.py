@@ -96,6 +96,12 @@ def profile_simple_view(request, dog):
         return redirect('clientflow_Cachorro_list')
     return render(request,'registration/sign_up.html',{'form':form,'dog':dog})
 
+def IndexView(request):
+    if request.user.is_authenticated:
+        return redirect('dogdash')
+    return render(request,'index.html')
+
+
 def dogdash(request):
     dogCount = models.Cachorro.objects.filter(idCliente = request.user.cliente).count()
     return render(request,'app/dogdash.html',{'user':request.user.cliente,'dogcount':dogCount})
