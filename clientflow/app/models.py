@@ -113,6 +113,7 @@ class Plano(models.Model):
     created = models.DateTimeField(auto_now_add=True, editable=False)
 
     class Meta:
+        ordering = ['-last_updated']
         pass
 
     def __str__(self):
@@ -199,7 +200,7 @@ class Pedido(models.Model):
     idClient = models.ForeignKey("app.Cliente", on_delete=models.CASCADE,null=True,blank=True)
     idPlano = models.ForeignKey("app.Plano", on_delete=models.CASCADE)
     idEntrega = models.OneToOneField("app.Entrega", on_delete=models.CASCADE,null=True, blank=True)
-    idDog = models.ForeignKey("app.Cachorro", on_delete=models.CASCADE,null=True,blank=True)
+    idDog = models.ForeignKey("app.Cachorro", on_delete=models.CASCADE,null=True,blank=True, related_name='pedido')
     idCarrinho = models.ForeignKey("app.Carrinho", on_delete=models.CASCADE,null=True,blank=True, related_name='item')
     status_choices= ( ('Pedido em aberto','Pedido em aberto'), ('Pedido finalizado pelo cliente','Pedido finalizado pelo cliente'), ('Aguardando confirmação','Aguardando confirmação'), ('Pedido em preparo','Pedido em preparo'), ('Pedido em trânsito','Pedido em trânsito'), ('Pedido concluído','Pedido concluído') )
     # Fields

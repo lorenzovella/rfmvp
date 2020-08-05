@@ -18,7 +18,9 @@ def calculaDescontoProgressivo(consumoKg):
     consumoKg = float(consumoKg)
     precoKg = 55
     if consumoKg < 4 :
-        desconto = ( consumoKg - 1 ) * 0.07 # 0.7% de desconto a cada 100g
+        #         #número de vezes a    # % de desconto
+        #         #aplicar o desconto   # a cada 100g
+        desconto = ( consumoKg - 1 ) * 0.07
     if consumoKg >= 4 and consumoKg < 5:
         desconto = 0.203 + (( consumoKg - 4 ) * 0.055)
     if consumoKg >= 5 and consumoKg < 5.5:
@@ -30,6 +32,7 @@ def calculaDescontoProgressivo(consumoKg):
     if consumoKg >= 12.5:
         desconto = 0.47 + (( consumoKg - 12.5 ) * 0.01)
     desconto = min(desconto,0.5)
+    # retorna valor do Kg com desconto aplicado
     return precoKg*(1-desconto)
 
 def handler404(request,exception):
