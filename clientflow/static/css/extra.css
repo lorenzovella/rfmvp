@@ -12,7 +12,7 @@
 body {
   font-family: "Poppins",sans-serif;
   padding-top: 150px;
-  background: #f4f7f9;
+  background: #FFFFFF;
 }
 .header-text {
   font-size: 0.825em;
@@ -28,7 +28,7 @@ body {
 }
 .progress-bar {
   height: 4px;
-  background-color: #00FB5C;
+  background-color: #FFFFFF;
   overflow: visible;
   margin-top: 26px;
 }
@@ -198,9 +198,9 @@ input[type=radio],input[type=checkbox]{
   outline:0;
 }
 
-.middle {
-  background: #f4f7f9;
-}
+/* .middle {
+  background: #ffffff;
+} */
 
 .asteriskField {
     display: none;
@@ -339,32 +339,20 @@ input[type=radio],input[type=checkbox]{
 .dash-title{
   font-family: Montserrat;
   font-size: 33px;
-  color: #000000;
+  color: #00418F;
   text-align: left;
   vertical-align: top;
-  font-weight: 700;
+  font-weight: 800;
   text-transform: none;
-  text-shadow: 0px 3px 13px rgba(220,220,220,0.7)
+  text-shadow: 0px 3px 13px rgba(220,220,220,0.2)
 }
 .dash-subtitle{
   font-family: Montserrat;
+  color: #00418F;
   font-size: 13px;
-  font-weight: 500;
-  text-shadow: 0px 3px 13px rgba(220,220,220,0.7)
-}
-.card-dash-title{
-  font-family: Montserrat;
-  font-size: 17px;
-  font-weight: 600;
-  line-height: 22px;
-  letter-spacing: -0.41px;
-}
-.card-dash-subtitle{
-  color: #6b6b6b;
-  font-family: Montserrat;
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 26px;
+  font-weight: 400;
+  line-height: 30px;
+  text-shadow: 0px 3px 13px rgba(220,220,220,0.2)
 }
 .dash-btn{
   height: 117px;
@@ -377,17 +365,16 @@ input[type=radio],input[type=checkbox]{
   color: #000000;
 }
 .dash-big-btn{
- height: 88px;
- padding-top:30px!important;
+ height: 69px;
  background-color: #00418F;
- border-radius: 44px;
- font-family: Montserrat;
- color: #00FF30!important;
+ box-shadow: 0px 15px 30px 0 #0000000D;
+ border-radius: 20px;
+ font-family: Roboto;
+ color: #00FB5C!important;
  text-align: center;
  font-weight: 700;
- font-size: 14px;
- white-space: nowrap;
-}
+ font-size: 18px;
+white-space: nowrap;
 }
 .dash-card{
   background-color: #FFFFFF;
@@ -398,39 +385,46 @@ input[type=radio],input[type=checkbox]{
   box-shadow: 0px 2px 5px #979797;
 }
 .dash-card-btn{
-  height: 56px;
-  width: 50%;
+  height: 61px;
   min-width: 230px;
   background-color: #00418F;
-  border-radius: 28px;
-  font-family: Montserrat;
-  font-size: 14px;
-  color: #00FF30;
-  text-align: center;
-  vertical-align: top;
+  box-shadow: 0px 15px 30px 0 #0000000D;
+  border-radius: 20px;
+  font-family: Roboto;
+  font-size: 18px;
+  color: #00FB5C;
   font-weight: 700;
   text-transform: none;
   border-width: 0px;
-  padding-top: 19px;
-  margin-bottom: -23px;
+  padding-top: 18px;
+  margin-bottom: -28px;
+  margin-right: 32px;
   white-space: nowrap;
 }
-.dash-card-title{
+.card-dash-title{
   font-family: Montserrat;
-  font-size: 15px;
-  color: #000000;
-  text-align: left;
-  vertical-align: top;
+  color: #00418F;
+  font-size: 17px;
   font-weight: 600;
-  text-transform: none;
+  line-height: 22px;
+  letter-spacing: -0.41px;
 }
-.dash-card-subtitle{
-  font-family: Montserrat;
-  font-size: 13px;
-  color: #6B6B6B;
+.card-dash-subtitle, .card-dash-subtitle a{
+  font-family: Roboto;
+  font-size: 16px;
+  color: #00418F!important;
   text-align: left;
   vertical-align: top;
-  font-weight: 500;
-  line-height: 26px;
+  font-weight: 400;
   text-transform: none;
+  letter-spacing: 0.5px;
+}
+.index-blue-text{
+font-family: Roboto;
+font-size: 18px;
+color: #00418F;
+text-align: center;
+vertical-align: top;
+font-weight: 600;
+text-transform: none;
 }

@@ -37,7 +37,7 @@ body {
 }
 .progress-bar.icon-bar::after{
 position: relative;
-content: url('/static/ico/Dog-Symbol.png');
+content: url("/static/ico/Dog-Symbol.4ab696b3695a.png");
 display: block;
 align-self: flex-end;
 margin-right: -2em;
@@ -46,7 +46,7 @@ z-index:2;
 }
 
 .logo-header{
-  content: url('/static/ico/logo.png');
+  content: url("/static/ico/logo.7862bb2be824.png");
   position: relative;
   display: flex;
   align-self: center;
@@ -55,12 +55,12 @@ z-index:2;
 
 .dog-card-img{
   position: relative;
-  content: url('/static/ico/new-dog.png');
+  content: url("/static/ico/new-dog.5fb865ce1b8c.png");
   margin-top: -47px;
   object-fit: scale-down;
 }
 .dog-card-img-2{
-    content: url(/static/ico/new-dog.png);
+    content: url("/static/ico/new-dog.5fb865ce1b8c.png");
     margin-left: -15px;
     object-fit: scale-down;
 }
@@ -348,10 +348,8 @@ input[type=radio],input[type=checkbox]{
 }
 .dash-subtitle{
   font-family: Montserrat;
-  color: #00418F;
   font-size: 13px;
   font-weight: 400;
-  line-height: 30px;
   text-shadow: 0px 3px 13px rgba(220,220,220,0.2)
 }
 .dash-btn{
@@ -385,34 +383,34 @@ white-space: nowrap;
   box-shadow: 0px 2px 5px #979797;
 }
 .dash-card-btn{
-  height: 61px;
+  height: 56px;
+  width: 50%;
   min-width: 230px;
   background-color: #00418F;
-  box-shadow: 0px 15px 30px 0 #0000000D;
-  border-radius: 20px;
-  font-family: Roboto;
-  font-size: 18px;
+  border-radius: 28px;
+  font-family: Montserrat;
+  font-size: 14px;
   color: #00FB5C;
-  font-weight: 700;
+  text-align: center;
+  vertical-align: top;
+  font-weight: 800;
   text-transform: none;
   border-width: 0px;
-  padding-top: 18px;
-  margin-bottom: -28px;
-  margin-right: 32px;
+  padding-top: 19px;
+  margin-bottom: -23px;
   white-space: nowrap;
 }
 .card-dash-title{
   font-family: Montserrat;
-  color: #00418F;
   font-size: 17px;
   font-weight: 600;
   line-height: 22px;
   letter-spacing: -0.41px;
 }
-.card-dash-subtitle, .card-dash-subtitle a{
+.card-dash-subtitle{
   font-family: Roboto;
   font-size: 16px;
-  color: #00418F!important;
+  color: #00418F;
   text-align: left;
   vertical-align: top;
   font-weight: 400;
@@ -422,9 +420,9 @@ white-space: nowrap;
 .index-blue-text{
 font-family: Roboto;
 font-size: 18px;
-color: #00418F;
+color: #00418F !important;
 text-align: center;
 vertical-align: top;
-font-weight: 600;
+font-weight: 500;
 text-transform: none;
 }

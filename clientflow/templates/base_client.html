@@ -21,103 +21,27 @@
   <script src="{% static 'js/moment.js' %}"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;900&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500;900&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/jquery-ui.theme.css' %}">
   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/extra.css' %}">
   <style>
-  .circle-background{
-    opacity: 0.7;
+  .dog-background{
+    /* opacity: 0.7; */
   }
-  .circle-container{
+  .dog-container{
     z-index:0;
+    margin-top: -150px!important;
     position: absolute;
   }
-  .circle-blue{
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #25A1FB), color-stop(100%, #00418F));
-  }
-  .circle-green{
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #00ffb6), color-stop(100%, #00FF59));
-  }
-  .circle-one{
-    top: -80px;
-    right: -180px;
-    width: 400px;
-    height: 400px;
-  }
-  .circle-one-inner{
-    width: 230px;
-    height: 230px;
-    margin: 86px;
-  }
-  .circle-two{
-    bottom: -100px;
-    left: -180px;
-    width: 400px;
-    height: 400px;
-  }
-  .circle-two-inner{
-    width: 230px;
-    height: 230px;
-    margin: 86px;
-  }
-  .circle-three{
-    bottom: -60px;
-    right: -20px;
-    width: 90px;
-    height: 90px;
-  }
-  .circle-three-inner{
-    width: 46px;
-    height: 46px;
-    margin: 23px;
-  }
-  .circle-four{
-    top: 100px;
-    left: -65px;
-    width: 140px;
-    height: 140px;
-  }
-  .circle-four-inner{
-    width: 90px;
-    height: 90px;
-    margin: 25px;
-  }
-  .circle-five{
-    top: 90px;
-    left: 100px;
-    width: 70px;
-    height: 70px;
-  }
-  .circle-five-inner{
-    width: 30px;
-    height: 30px;
-    margin: 20px;
-  }
-  .color-circle{
-    position: fixed;
-    border-radius: 50%;
-    z-index: 1;
-    animation: spin 2s infinite linear;
-  }
-  .inner-circle{
-    border-radius: 50%;
-    background-color: #eee;
-    box-shadow: inset 0 12px 3px -7px #fff, 0 7px 34px -4px rgba(0,0,0,0.6),0 16px 12px rgba(0,0,0,0.1);
-    z-index: 1;
-  }
-  @-webkit-keyframes spin{
-    0%{
-      transform: rotateZ(0deg);
-    }
-    100%{
-      transform: rotateZ(360deg);
-    }
-  }
-  body{
-    overflow-x: hidden;
+  .dog-bg-img{
+    max-width: 35vw;
+    min-width: 280px;
+    position: relative;
+    padding: 10% 10% 10% 0;
+
   }
   </style>
   {% block head %}
@@ -126,23 +50,8 @@
 
 
 <body>
-  <div class="circle-container  circle-background">
-    <div class="color-circle circle-blue circle-one ">
-      <div class="inner-circle circle-one-inner"></div>
-    </div>
-    <div class="color-circle circle-green circle-two ">
-      <div class="inner-circle circle-two-inner"></div>
-    </div>
-    <div class="color-circle circle-blue circle-three ">
-      <div class="inner-circle circle-three-inner"></div>
-    </div>
-    <div class="color-circle circle-green circle-four ">
-      <div class="inner-circle circle-four-inner"></div>
-    </div>
-    <div class="color-circle circle-blue circle-five ">
-      <div class="inner-circle circle-five-inner"></div>
-    </div>
-    <img src="{% static 'ico/dog-dash-bg.png'%}" style='left:33%; margin-top:-200px; position: relative; z-index:10;'/>
+  <div class="dog-container col-lg-6 dog-background">
+    <img class="dog-bg-img" src="{% static 'ico/dog-dash-bg.png'%} "/>
   </div>
   <div id="content" class="container-fluid">
     {% block content %}{% endblock %}

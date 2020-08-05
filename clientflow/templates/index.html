@@ -1,49 +1,27 @@
 {% extends "base_client.html" %}
 {% block content %}
 <div class="row d-flex-column middle">
-  <div style="padding-top: 10%;" class='col-lg-8 col-10 mx-auto'>
-    {% if user.is_authenticated %}
-    <p class="dash-title">Olá {{user.cliente.nome}},</p>
-    <p class="card-dash-subtitle" style="color: #000000; margin-top:-20px;">
-    Bem vindo ao Ração do Futuro.
-    </p>
-    <a
-    class="dash-big-btn p-4 m-3 d-block text-decoration-none mx-auto"
-    href="{% url 'dogdash' %}">
-    Minha dashboard
-    <svg width="50px" height="12px" viewBox="0 0 20 9">
-  <path d="M19.2857 4.25276C19.2857 4.35693 19.2485 4.44622 19.1741 4.52062L14.8884 8.47151C14.7693 8.57568 14.6391 8.598 14.4978 8.53848C14.3564 8.47151 14.2857 8.36363 14.2857 8.21482L14.2857 5.71482L0.357143 5.71482C0.252976 5.71482 0.167411 5.68134 0.100446 5.61437C0.0334818 5.54741 0 5.46184 0 5.35767L0 3.21482C0 3.11065 0.0334818 3.02509 0.100446 2.95812C0.167411 2.89116 0.252976 2.85767 0.357143 2.85767L14.2857 2.85767L14.2857 0.357675C14.2857 0.201424 14.3564 0.093538 14.4978 0.0340139C14.6391 -0.0255102 14.7693 -0.00690924 14.8884 0.0898174L19.1741 3.99607C19.2485 4.07047 19.2857 4.15604 19.2857 4.25276Z" id="" fill="#00FF30" stroke="none" />
-  </svg>
-    </a>
-    {% else %}
+  <div style="padding-top: 171px;" class='col-lg-6 col-10 mx-auto'>
     <p class="dash-title">Olá Humano,</p>
-    <p class="card-dash-subtitle" style="color: #000000; margin-top:-20px;">
-    Escolha uma das opções abaixo. Caso você queira apenas <strong>simular um plano</strong> clique em assinar, basta
-    você não concluir a compra. 😉
+    <p class="card-dash-subtitle" style="margin-top:-20px;">
+      Escolha uma das opções abaixo.
     </p>
     <a
     class="dash-big-btn p-4 m-3 d-block text-decoration-none mx-auto"
     href="{% url 'clientflow_dogflow' %}">
-    Assinar o Ração do Futuro
-    <svg width="50px" height="12px" viewBox="0 0 20 9">
-  <path d="M19.2857 4.25276C19.2857 4.35693 19.2485 4.44622 19.1741 4.52062L14.8884 8.47151C14.7693 8.57568 14.6391 8.598 14.4978 8.53848C14.3564 8.47151 14.2857 8.36363 14.2857 8.21482L14.2857 5.71482L0.357143 5.71482C0.252976 5.71482 0.167411 5.68134 0.100446 5.61437C0.0334818 5.54741 0 5.46184 0 5.35767L0 3.21482C0 3.11065 0.0334818 3.02509 0.100446 2.95812C0.167411 2.89116 0.252976 2.85767 0.357143 2.85767L14.2857 2.85767L14.2857 0.357675C14.2857 0.201424 14.3564 0.093538 14.4978 0.0340139C14.6391 -0.0255102 14.7693 -0.00690924 14.8884 0.0898174L19.1741 3.99607C19.2485 4.07047 19.2857 4.15604 19.2857 4.25276Z" id="" fill="#00FF30" stroke="none" />
-  </svg>
+    Assinar a Ração do Futuro
     </a>
     <a
-    class="dash-big-btn p-4 m-3 d-block text-decoration-none mx-auto"
-    href="{% url 'login' %}">
-    Já sou cadastrado
-    <svg width="50px" height="12px" viewBox="0 0 20 9">
-  <path d="M19.2857 4.25276C19.2857 4.35693 19.2485 4.44622 19.1741 4.52062L14.8884 8.47151C14.7693 8.57568 14.6391 8.598 14.4978 8.53848C14.3564 8.47151 14.2857 8.36363 14.2857 8.21482L14.2857 5.71482L0.357143 5.71482C0.252976 5.71482 0.167411 5.68134 0.100446 5.61437C0.0334818 5.54741 0 5.46184 0 5.35767L0 3.21482C0 3.11065 0.0334818 3.02509 0.100446 2.95812C0.167411 2.89116 0.252976 2.85767 0.357143 2.85767L14.2857 2.85767L14.2857 0.357675C14.2857 0.201424 14.3564 0.093538 14.4978 0.0340139C14.6391 -0.0255102 14.7693 -0.00690924 14.8884 0.0898174L19.1741 3.99607C19.2485 4.07047 19.2857 4.15604 19.2857 4.25276Z" id="" fill="#00FF30" stroke="none" />
-  </svg>
+    class="p-4 m-3 d-block index-blue-text text-decoration-none mx-auto"
+    href="{% url 'clientflow_dogflow' %}">
+    Simular plano
     </a>
-    {% endif%}
   </div>
+  <p class="card-dash-subtitle text-center col-12"
+  style="margin-top:150px;">
+    Já é cadastrado? <a href="{% url 'login' %}"><strong>Clique aqui</strong></a>.
+  </p>
 </div>
 </div>
 <div class="endofcontent"></div>
-<div class="footer">
-  <p class="footer-text ">
-  </p>
-</div>
 {% endblock %}

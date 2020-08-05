@@ -384,7 +384,7 @@ def PedidoDeleteConfirmView(request, pk):
     try:
         instance = models.Pedido.objects.get(pk=pk)
     except models.Pedido.DoesNotExist:
-        return handler500(request)
+        return handler5s00(request)
     return render(request,'app/pedido_delete_confirm.html',{'obj':instance })
 
 def PedidoDeleteView(request, pk):
