@@ -381,8 +381,7 @@ white-space: nowrap;
   border-radius: 36px;
   border-color: #979797;
   border-width: 1px;
-  opacity: 0.9;
-  box-shadow: 0px 2px 5px #979797;
+  /* box-shadow: 0px 2px 5px #979797; */
 }
 .dash-card-btn{
   height: 61px;
