@@ -1,20 +1,73 @@
-{% extends "base_client.html" %}
+{% extends "base_dash.html" %}
 {% load static %}
+{% block head %}
+<script src="{% static 'js/siema.min.js' %}"></script>
+<script>
+  $(document).ready(function() {
+    const carousel = new Siema({
+      selector: '.siema',
+      duration: 1250,
+      startIndex: 0,
+      perPage: {
+        597: 2,
+        897: 3,
+      },
+    });
+    setTimeout(() => carousel.next(), 1000)
+  });
+
+</script>
+<style>
+.siema > div {
+  /* width:850px !important; */
+  margin-left: auto;
+  margin-right: auto;
+}
+.dogdash-card{
+  background-color: #FFFFFF;
+  box-shadow: 0px 15px 30px 0 #0000000D;
+  border-radius: 40px;
+  min-width: 258px;
+  height: 294px;
+}
+a, a:hover{
+  color:#00418F!important;
+}
+</style>
+
+{% endblock %}
 {% block content %}
 <div class='d-flex-column'>
   <div class="row d-flex">
-    <div class='p-3 mt-4 col-10 col-md-7 mx-auto'>
-      <p class="pl-1 dash-title">Olá {{user.nome}},</p>
-      <p class="pl-1 dash-subtitle" style="margin-top:-20px;">Bem-vindo ao seu painel.</p>
-    </div>
-    <div class="col-10 col-md-7 mt-2 mb-2 mx-auto text-decoration-none  dash-btn-text dash-btn">
-      <img class="position-absolute img-fluid" style="margin-top:-18px;" src="{% static 'ico/dog-profile.png' %}"/>
-      <p class="card-dash-title" style="margin-left: 80px;" >Ração do futuro</p>
-      <p class="card-dash-subtitle" style="margin-left: 80px; margin-top:-20px;"> Você tem {{dogcount}}
-        {% if dogcount > 1 %}cães cadastrados{% else %}cão cadastrado{% endif %}.</p>
+    <div class='pt-5 pl-5 mt-4 col-12 col-md-7 mx-auto'>
+      <p class="pl-1 dash-title">Painel Humano.</p>
+      <p class="pl-1 dash-subtitle" style="margin-top:-20px;" >Você está editando informações pessoais.</p>
     </div>
   </div>
-  <div class="row d-flex mx-auto col-md-6">
+  <div class="siema">
+    <div class="m-2 pt-4 pl-4 text-decoration-none mx-auto dogdash-card">
+      <p class="card-dash-title" style="margin-bottom: 4px;" >Olá
+      <p class="dash-title" style="font-size: 26px;">{{user.nome}},</p>
+      <p class="card-dash-centered-text pt-3">
+        <a href="{% url 'user-profile' %}"> Editar informações humanas</a>
+      </p>
+    </div>
+    <div class="m-2 pt-4 pl-4 text-decoration-none mx-auto dogdash-card">
+      <p class="card-dash-title" style="margin-bottom: 4px;" >Seus
+      <p class="dash-title" style="font-size: 26px;">Planos na plataforma</p>
+      <p class="card-dash-centered-text pt-3">
+        <a href="{% url 'clientflow_Pedido_list' %}"> Visualizar ou editar planos</a>
+      </p>
+    </div>
+    <div class="m-2 pt-4 pl-4 text-decoration-none mx-auto dogdash-card">
+      <p class="card-dash-title" style="margin-bottom: 4px;" >O futuro é sobre
+      <p class="dash-title" style="font-size: 26px;">Sustentabilidade</p>
+      <p class="card-dash-centered-text pt-3">
+        Uma porcentagem do plástico usado na Ração do Futuro é compensado por uma empresa parceira.
+      </p>
+    </div>
+  </div>
+  <!-- <div class="row d-flex mx-auto col-md-6">
       <a
         class="col-5 m-3 mx-auto text-decoration-none text-center dash-btn-text dash-btn"
         href="{% url 'clientflow_Carrinho_list' %}">
@@ -44,11 +97,7 @@
       href="{% url 'clientflow_dogflow' %}">
         Novo cão
       </a>
-  </div>
+  </div> -->
 </div>
 <div class="endofcontent"></div>
-<div class="footer margin-footer">
-  <p class="footer-text ">
-  </p>
-</div>
 {% endblock %}

@@ -404,7 +404,7 @@ white-space: nowrap;
 .card-dash-title{
   font-family: Montserrat;
   color: #00418F;
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 600;
   line-height: 22px;
   letter-spacing: -0.41px;
@@ -427,4 +427,11 @@ text-align: center;
 vertical-align: top;
 font-weight: 600;
 text-transform: none;
+}
+.card-dash-centered-text{
+  font-family: Roboto;
+  font-size: 14px;
+  color: #00418F;
+  text-align: center;
+  font-weight: 200;
 }
