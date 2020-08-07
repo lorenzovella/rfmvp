@@ -13,13 +13,17 @@
         897: 3,
       },
     });
-    setTimeout(() => carousel.next(), 1000)
   });
 
 </script>
 <style>
+.siema {
+  width: 120vw!important;
+  height: 340px;
+}
 .siema > div {
-  /* width:850px !important; */
+
+  max-width: 800px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -37,13 +41,13 @@ a, a:hover{
 
 {% endblock %}
 {% block content %}
-<div class='d-flex-column'>
-  <div class="row d-flex">
-    <div class='pt-5 pl-5 mt-4 col-12 col-md-7 mx-auto'>
-      <p class="pl-1 dash-title">Painel Humano.</p>
-      <p class="pl-1 dash-subtitle" style="margin-top:-20px;" >Você está editando informações pessoais.</p>
-    </div>
+<div class="col-lg-10 d-flex-column">
+  <div class='pt-5 pl-5 mt-4 col-12 col-md-7 mx-auto'>
+    <p class="pl-1 dash-title">Painel Humano.</p>
+    <p class="pl-1 dash-subtitle" style="margin-top:-20px;" >Você está editando informações pessoais.</p>
   </div>
+</div>
+<div class="mx-auto">
   <div class="siema">
     <div class="m-2 pt-4 pl-4 text-decoration-none mx-auto dogdash-card">
       <p class="card-dash-title" style="margin-bottom: 4px;" >Olá
@@ -67,37 +71,17 @@ a, a:hover{
       </p>
     </div>
   </div>
-  <!-- <div class="row d-flex mx-auto col-md-6">
-      <a
-        class="col-5 m-3 mx-auto text-decoration-none text-center dash-btn-text dash-btn"
-        href="{% url 'clientflow_Carrinho_list' %}">
-        Carrinho
-      </a>
-      <a
-      class="col-5 m-3 mx-auto text-decoration-none text-center dash-btn-text dash-btn"
-      href="{% url 'clientflow_Pedido_list' %}">
-        Pedidos
-      </a>
-      <a
-      class="col-5 m-3 mx-auto text-decoration-none text-center dash-btn-text dash-btn"
-      href="{% url 'user-profile-update' %}">
-        Endereço
-      </a>
-      <a
-      class="col-5 m-3 mx-auto text-decoration-none text-center dash-btn-text dash-btn">
-        Suporte
-      </a>
-      <a
-      class="col-5 m-3 mx-auto text-decoration-none text-center dash-btn-text dash-btn"
-      href="{% url 'clientflow_Cachorro_list' %}">
-        Meus cães
-      </a>
-      <a
-      class="col-5 m-3 mx-auto text-decoration-none text-center dash-btn-text dash-btn"
-      href="{% url 'clientflow_dogflow' %}">
-        Novo cão
-      </a>
-  </div> -->
+</div>
+<div class="col-lg-6 mx-auto">
+  <div class="d-flex">
+    <div class='pt-5 pl-5 mt-4 col-12 col-md-7 mx-auto'>
+      <p class="pl-1 dash-title">Cãodiministrativo.</p>
+      <p class="pl-1 dash-subtitle" style="margin-top:-20px;" >Aqui você pode adminitrar sua cãonta.</p>
+    </div>
+  </div>
+  <div class="m-2 pt-4 pl-4 text-decoration-none mx-auto dogdash-card">
+    <p class="dash-title" style="margin-bottom: 4px;" >Cãoconta</p>
+  </div>
 </div>
 <div class="endofcontent"></div>
 {% endblock %}

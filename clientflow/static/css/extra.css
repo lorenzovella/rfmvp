@@ -434,3 +434,9 @@ text-transform: none;
   text-align: center;
   font-weight: 200;
 }
+.card-faq-text{
+  font-family: Roboto;
+  font-size: 16px;
+  color: #00418F;
+  font-weight: 400;
+}
