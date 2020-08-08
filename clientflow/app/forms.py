@@ -149,7 +149,7 @@ class CachorroForm(forms.ModelForm):
         self.helper = FormHelper(self)
         self.helper.layout = Layout(
             Field('nome', placeholder="Digite aqui o nome do seu cão"),
-            InlineRadios('sexo',css_class="custom-control-radio"),
+            Field('sexo', template="app/custom-inline.html"),
             HTML('<div class="footer margin-footer"><input type="submit" class="btn-next" value="Continuar"/></div>'),
         )
 
