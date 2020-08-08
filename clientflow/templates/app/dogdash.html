@@ -6,24 +6,22 @@
   $(document).ready(function() {
     const carousel = new Siema({
       selector: '.siema',
-      duration: 1250,
+      duration: 4000,
       startIndex: 0,
       perPage: {
         597: 2,
         897: 3,
       },
     });
+    setTimeout(() => carousel.next(), 1000)
   });
 
 </script>
 <style>
 .siema {
-  width: 120vw!important;
   height: 340px;
 }
 .siema > div {
-
-  max-width: 800px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -41,14 +39,15 @@ a, a:hover{
 
 {% endblock %}
 {% block content %}
-<div class="col-lg-10 d-flex-column">
-  <div class='pt-5 pl-5 mt-4 col-12 col-md-7 mx-auto'>
-    <p class="pl-1 dash-title">Painel Humano.</p>
-    <p class="pl-1 dash-subtitle" style="margin-top:-20px;" >Você está editando informações pessoais.</p>
+<div class="row">
+  <div class="col-lg-10 d-flex-column">
+    <div class='pt-5 pl-5 mt-4 col-12 col-md-7 mx-auto'>
+      <p class="pl-1 dash-title">Painel Humano.</p>
+      <p class="pl-1 dash-subtitle" style="margin-top:-20px;" >Você está editando informações pessoais.</p>
+    </div>
   </div>
 </div>
-<div class="mx-auto">
-  <div class="siema">
+<div class="mx-auto col-lg-10 siema">
     <div class="m-2 pt-4 pl-4 text-decoration-none mx-auto dogdash-card">
       <p class="card-dash-title" style="margin-bottom: 4px;" >Olá
       <p class="dash-title" style="font-size: 26px;">{{user.nome}},</p>
@@ -70,7 +69,6 @@ a, a:hover{
         Uma porcentagem do plástico usado na Ração do Futuro é compensado por uma empresa parceira.
       </p>
     </div>
-  </div>
 </div>
 <div class="col-lg-6 mx-auto">
   <div class="d-flex">

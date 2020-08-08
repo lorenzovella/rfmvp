@@ -3,7 +3,6 @@ django-extensions
 djangorestframework
 djangorestframework-datatables
 dj-database-url
-django-heroku
 whitenoise
 gunicorn
 asgiref
@@ -16,7 +15,6 @@ channels_redis
 django-import-export
 django-bootstrap-modal-forms
 django-multiselectfield
-django-wordpress-api
 django-crispy-forms
 django-formtools
 asgi_redis

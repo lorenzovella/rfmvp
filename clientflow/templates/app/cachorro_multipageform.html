@@ -23,7 +23,7 @@
 </style>
 <script>
 $(document).ready(function () {
-
+  $('form').attr('autocomplete','off');
   if($('#id_cachorro_wizard-current_step').val() == "CachorroForm2"){
     // Dog bar animation
     $('.progress-bar.icon-bar').css("width","7%");
