@@ -13,18 +13,24 @@
         897: 3,
       },
     });
-    setTimeout(() => carousel.next(), 1000)
+    setTimeout(() => carousel.next(), 1000);
+    $('.siema').css('width','110vw');
   });
 
 </script>
 <style>
 .siema {
   height: 340px;
+  max-width:1000px;
   margin-right: -15px!important;
 }
 .siema > div {
   margin-left: auto;
   margin-right: auto;
+}
+.siema > div > div {
+  padding-left: 10px;
+  padding-right: 10px;
 }
 .dogdash-card{
   background-color: #FFFFFF;
@@ -42,39 +48,43 @@ a, a:hover{
 {% block content %}
 <div class="row">
   <div class="col-lg-10 d-flex-column">
-    <div class='pt-5 pl-5 mt-4 col-12 col-md-7 mx-auto'>
-      <p class="pl-1 dash-title">Painel Humano.</p>
+    <div class='pt-5 pl-1 mt-4 col-12 col-md-7 mx-auto'>
+      <p class="pl-1 dash-title"><span style="font-weight:600"> Painel </span>Humano.</p>
       <p class="pl-1 dash-subtitle" style="margin-top:-20px;" >Você está editando informações pessoais.</p>
     </div>
   </div>
 </div>
-<div class="mx-auto siema">
-    <div class="m-2 pt-4 pl-4 text-decoration-none mx-auto dogdash-card">
-      <p class="card-dash-title" style="margin-bottom: 4px;" >Olá
-      <p class="dash-title" style="font-size: 26px;">{{user.nome}},</p>
-      <p class="card-dash-centered-text pt-3">
-        <a href="{% url 'user-profile' %}"> Editar informações humanas</a>
-      </p>
+<div class="row">
+  <div class="col-10">
+    <div class="siema mx-auto">
+        <div class="m-2 pt-4 pl-4 text-decoration-none mx-auto dogdash-card">
+          <p class="card-dash-title" style="margin-bottom: 4px;" >Olá
+          <p class="dash-title" style="font-size: 26px;">{{user.nome}},</p>
+          <p class="card-dash-centered-text pt-4">
+            <a href="{% url 'user-profile' %}"> Editar informações humanas</a>
+          </p>
+        </div>
+        <div class="m-2 pt-4 pl-4 text-decoration-none mx-auto dogdash-card">
+          <p class="card-dash-title" style="margin-bottom: 4px;" >Seus
+          <p class="dash-title" style="font-size: 26px;">Planos na plataforma</p>
+          <p class="card-dash-centered-text pt-4">
+            <a href="{% url 'clientflow_Pedido_list' %}"> Visualizar ou editar planos</a>
+          </p>
+        </div>
+        <div class="m-2 pt-4 pl-4 text-decoration-none mx-auto dogdash-card">
+          <p class="card-dash-title" style="margin-bottom: 4px;" >O futuro é sobre
+          <p class="dash-title" style="font-size: 26px;">Sustentabilidade</p>
+          <p class="card-dash-centered-text pt-3">
+            Uma porcentagem do plástico usado na Ração do Futuro é compensado por uma empresa parceira.
+          </p>
+        </div>
     </div>
-    <div class="m-2 pt-4 pl-4 text-decoration-none mx-auto dogdash-card">
-      <p class="card-dash-title" style="margin-bottom: 4px;" >Seus
-      <p class="dash-title" style="font-size: 26px;">Planos na plataforma</p>
-      <p class="card-dash-centered-text pt-3">
-        <a href="{% url 'clientflow_Pedido_list' %}"> Visualizar ou editar planos</a>
-      </p>
-    </div>
-    <div class="m-2 pt-4 pl-4 text-decoration-none mx-auto dogdash-card">
-      <p class="card-dash-title" style="margin-bottom: 4px;" >O futuro é sobre
-      <p class="dash-title" style="font-size: 26px;">Sustentabilidade</p>
-      <p class="card-dash-centered-text pt-3">
-        Uma porcentagem do plástico usado na Ração do Futuro é compensado por uma empresa parceira.
-      </p>
-    </div>
+  </div>
 </div>
 <div class="col-lg-6 mx-auto">
   <div class="d-flex">
     <div class='pt-5 mt-4 col-12 col-md-7 mx-auto'>
-      <p class="pl-1 dash-title">Cãodiministrativo.</p>
+      <p class="pl-1 dash-title">Cão<span style="font-weight:600">diministrativo.</span></p>
       <p class="pl-1 dash-subtitle" style="margin-top:-20px;" >Aqui você pode adminitrar sua cãonta.</p>
     </div>
   </div>

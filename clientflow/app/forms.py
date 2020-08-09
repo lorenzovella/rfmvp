@@ -147,11 +147,13 @@ class CachorroForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(CachorroForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper(self)
+        self.helper.attrs={'value':'aaaa'}
         self.helper.layout = Layout(
             Field('nome', placeholder="Digite aqui o nome do seu cão"),
             Field('sexo', template="app/custom-inline.html"),
             HTML('<div class="footer margin-footer"><input type="submit" class="btn-next" value="Continuar"/></div>'),
         )
+        # self.fields['sexo'].widget.attrs.update({'newattr' : 'attrvalue'})
 
 class CachorroForm2(forms.ModelForm):
     class Meta:
