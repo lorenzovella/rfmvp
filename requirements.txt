@@ -19,3 +19,4 @@ django-crispy-forms
 django-formtools
 asgi_redis
 requests
+sentry-sdk

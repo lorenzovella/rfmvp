@@ -32,9 +32,9 @@ urlpatterns = [
     path('esqueciminha/done', auth_views.PasswordResetDoneView.as_view(),name='password_reset_done'),
     path('novasenha/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(),name='password_reset_confirm'),
     path('novasenha/done', auth_views.PasswordResetCompleteView.as_view(),name='password_reset_complete'),
+    path('admin/', admin.site.urls),
     path('',  IndexView, name='index'),
     path('', include('clientflow.app.urls')),
-    path('admin/', admin.site.urls),
     # path('accounts/', include('django.contrib.auth.urls')),
 
 
