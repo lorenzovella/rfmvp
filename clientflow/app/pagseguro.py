@@ -6,7 +6,7 @@ token = os.environ.get('pgtoken')
 email = os.environ.get('pgemail')
 
 def criarPlano(name,reference,valor):
-    url = "https://ws.sandbox.pagseguro.uol.com.br/pre-approvals/request/?email="+email+"&token="+token
+    url = "https://ws.pagseguro.uol.com.br/pre-approvals/request/?email="+email+"&token="+token
     payload = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\"?>\r\n<preApprovalRequest>\r\n<preApproval>\r\n<name>"+name+"</name>\r\n<reference>"+reference+"</reference>\r\n<charge>AUTO</charge>\r\n<period>MONTHLY</period>\r\n<amountPerPayment>"+valor+"</amountPerPayment>\r\n<cancelURL>http://sitedocliente.com</cancelURL>\r\n<membershipFee>0.00</membershipFee>\r\n<trialPeriodDuration>1</trialPeriodDuration>\r\n</preApproval>\r\n<maxUses>1</maxUses>\r\n</preApprovalRequest>"
     headers = {
       'Accept': 'application/vnd.pagseguro.com.br.v3+xml;charset=ISO-8859-1',
@@ -20,7 +20,7 @@ def criarPlano(name,reference,valor):
     return {"pg": preApprovalRequest}
 
 def criarSession():
-    url = "https://ws.sandbox.pagseguro.uol.com.br/v2/sessions?email="+email+"&token="+token
+    url = "https://ws.pagseguro.uol.com.br/v2/sessions?email="+email+"&token="+token
     payload = {}
     headers = {
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -40,7 +40,7 @@ def criarHash(session,valor,cn,cb,cvv,cem,cey):
     return hash
 
 def aderirPlano(plano,referencia,hash,cardHolder,user):
-    url = "https://ws.sandbox.pagseguro.uol.com.br/pre-approvals?email="+email+"&token="+token
+    url = "https://ws.pagseguro.uol.com.br/pre-approvals?email="+email+"&token="+token
     payload = json.dumps({
     	"plan": plano,
     	"reference": referencia,
@@ -108,7 +108,7 @@ def aderirPlano(plano,referencia,hash,cardHolder,user):
         return jsonResponse['errors']
 
 def cobrarPlano(planoid,descricaoplano,valorplano,quantidadeplano,referencia,preaprovacao):
-    url = "https://ws.sandbox.pagseguro.uol.com.br/pre-approvals/payment?email="+email+"&token="+token
+    url = "https://ws.pagseguro.uol.com.br/pre-approvals/payment?email="+email+"&token="+token
     payload = "<payment><items><item><id>"+planoid+"</id><description>"+descricaoplano+"</description><amount>"+valorplano+"</amount><quantity>"+quantidadeplano+"</quantity></item></items><reference>"+referencia+"</reference><preApprovalCode>"+preaprovacao+"</preApprovalCode></payment>"
     headers = {
       'Content-Type': 'application/xml',
@@ -118,7 +118,7 @@ def cobrarPlano(planoid,descricaoplano,valorplano,quantidadeplano,referencia,pre
 
 
 def consultaAssinatura(codigoAdesao):
-    url = "https://ws.sandbox.pagseguro.uol.com.br/pre-approvals/"+codigoAdesao+"?email="+email+"&token="+token
+    url = "https://ws.pagseguro.uol.com.br/pre-approvals/"+codigoAdesao+"?email="+email+"&token="+token
     payload = {}
     headers = {
       'Content-Type': 'application/json',

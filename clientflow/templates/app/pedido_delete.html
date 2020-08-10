@@ -11,14 +11,15 @@
   <div class="col-12 text-center control-label mx-auto m-4 p-4">
     <h3>Pronto! Você removeu um pedido da sua conta.</h3>
   </div>
-  <div class="col=12 text-center control-label round-btn mx-auto m-4 p-4">
-    <a href="/Cachorro/" class="mx-auto text-white text-decoration-none">
-        Deseja adicionar um novo pedido?
+  <div class="col-8 text-center control-label round-btn mx-auto m-4 p-4">
+    <a href="{% url 'clientflow_Carrinho_list'%}" class="mx-auto text-white text-decoration-none">
+        Meu carrinho
     </a>
   </div>
-</div>
-<div class="footer margin-footer">
-  <p class="footer-text ">
-  </p>
+  <div class="col-8 text-center control-label round-btn mx-auto m-4 p-4">
+    <a href="{% url 'clientflow_Cachorro_list'%}" class="mx-auto text-white text-decoration-none">
+      Deseja adicionar um novo pedido?
+    </a>
+  </div>
 </div>
 {% endblock %}
