@@ -138,3 +138,15 @@ EMAIL_HOST_PASSWORD = os.environ.get('mailtoken')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'Ração do Futuro'
+
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
+sentry_sdk.init(
+    dsn="https://ae42145524d740b5a09e6535508016c1@o432355.ingest.sentry.io/5384972",
+    integrations=[DjangoIntegration()],
+
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True
+)
