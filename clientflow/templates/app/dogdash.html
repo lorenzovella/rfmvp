@@ -9,7 +9,7 @@
       startIndex: 0,
       perPage: {
         597: 2,
-        897: 3,
+        997: 3,
       },
     });
     setTimeout(() => carousel.next(), 1000);
@@ -54,7 +54,7 @@ a, a:hover{
   </div>
 </div>
 <div class="row">
-  <div class="col-10 mx-auto">
+  <div class="col-10 mx-auto overflow-hidden">
     <div class="siema">
         <div class="m-2 pt-4 pl-4 text-decoration-none mx-auto dogdash-card">
           <p class="card-dash-title" style="margin-bottom: 4px;" >Olá
@@ -81,14 +81,81 @@ a, a:hover{
   </div>
 </div>
 <div class="row">
+  <div class="m-2 col-10 d-flex-column text-decoration-none mx-auto dogdash-card" style="height:231px!important;">
+    <img
+    class="position-absolute img-fluid"
+    src="{% static 'ico/entrega.png'%}"
+    style="margin-left: -48px;max-height: 224px;"/>
+      <p class="card-dash-subtitle text-center pt-3"> <span style="font-weight:500">
+        Próxima entrega:</span>
+        <br>
+        xx/xx/xxxx
+      </p>
+      <p class="card-footer-link text-right mr-2"><a href="#">Editar dados de entrega   > </a></p>
+    <hr style="
+      border:none;
+     	width: 83.3vw;
+    	height: 98px;
+    	margin-top: 0;
+    	box-shadow:  0px 15px 30px 0 #0000000D;
+      margin: -50px auto 10px;
+      margin-left: -15px; ">
+      <p style="margin-left: 28px;" class="card-footer-text text-center">
+        Entrega realizada entre as
+      </p>
+  </div>
+</div>
+<div class="row">
   <div class="col-lg-10 d-flex-column">
     <div class='pt-5 pl-1 mt-4 col-12 col-md-7 mx-auto'>
       <p class="pl-1 dash-title">Cão<span style="font-weight:600">diministrativo.</span></p>
       <p class="pl-1 dash-subtitle" style="margin-top:-20px;" >Aqui você pode adminitrar sua cãonta.</p>
     </div>
   </div>
-  <div class="m-2 pt-4 pl-4 text-decoration-none mx-auto dogdash-card">
-    <p class="dash-title" style="margin-bottom: 4px;" >Cãoconta</p>
+</div>
+<div class="row">
+  <div class="m-2 pt-4 pl-4 col-10 d-flex text-decoration-none mx-auto dogdash-card"  style="height:139px!important;">
+    <div class="col-4 card-dash-blue-button m-auto">
+      <img style="
+          margin-left: -34px;
+          max-width: 124px;"
+          src="{% static 'ico/Dog-Symbol-2.png'%}"/>
+    </div>
+    <div class="col-8 m-auto">
+      <p class="card-dash-subtitle" style="margin-bottom: 4px;" >
+        <span style="font-weight:900">Cão</span><span style="font-weight:500">conta</span>
+      </p>
+      <p class="card-dash-thin-text">
+        <a href="{% url 'clientflow_Cachorro_list' %}">Editar informações caninas</a>
+      </p>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div
+    class="m-2 pl-4 col-10 d-flex text-decoration-none mx-auto dogdash-card"
+    style="height:67px;">
+    <div class="col-10 card-dash-subtitle m-auto">
+      <a href="#">Perguntas frequentes</a>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div
+    class="m-2 pl-4 col-10 d-flex text-decoration-none mx-auto dogdash-card"
+    style="height:67px;">
+    <div class="col-10 card-dash-subtitle m-auto">
+      <a href="#">Suporte do futuro</a>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div
+    class="m-2 pl-4 col-10 d-flex text-decoration-none mx-auto dogdash-card"
+    style="height:67px;">
+    <div class="col-10 card-dash-subtitle m-auto">
+      <a href="[% url 'clientflow_dogflow' %]">Cadastrar um novo cão</a>
+    </div>
   </div>
 </div>
 <div class="endofcontent"></div>

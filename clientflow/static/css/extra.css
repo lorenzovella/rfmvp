@@ -440,3 +440,34 @@ text-transform: none;
   color: #00418F;
   font-weight: 400;
 }
+.card-dash-blue-button{
+  max-width: 90px;
+  max-height: 83px;
+  background-color: #004094;
+  box-shadow: inset 1px 2px 3px 0 #0E3B5280;
+  border-radius: 20px;
+}
+.card-dash-thin-text{
+  font-family: Roboto;
+  font-size: 13px;
+  color: #00418F;
+  text-align: left;
+  vertical-align: top;
+  font-weight: 200;
+}
+.card-footer-text{
+  font-family: Montserrat;
+  font-size: 11px;
+  color: #00418F;
+  text-align: left;
+  vertical-align: top;
+  font-weight: 500;
+}
+.card-footer-link{
+  font-family: Roboto;
+  font-size: 10px;
+  color: #00418F;
+  text-align: left;
+  vertical-align: top;
+  font-weight: 500;
+}
