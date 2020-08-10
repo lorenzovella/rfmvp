@@ -133,11 +133,11 @@ CHANNEL_LAYERS = {
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'lorenzopvella@gmail.com'
+EMAIL_HOST_USER = 'empresa@racaodofuturo.com.br'
 EMAIL_HOST_PASSWORD = os.environ.get('mailtoken')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'Ração do Futuro <lorenzopvella@gmail.com>'
+DEFAULT_FROM_EMAIL = 'Ração do Futuro <empresa@racaodofuturo.com.br>'
 
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
