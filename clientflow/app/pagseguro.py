@@ -2,8 +2,8 @@ import xml.etree.ElementTree as ET
 import requests
 import json
 
-token = '0E09DA92901245D895156260C19B1B8B'
-email = 'lo2828@hotmail.com'
+token = os.environ.get('pgtoken')
+email = os.environ.get('pgemail')
 
 def criarPlano(name,reference,valor):
     url = "https://ws.sandbox.pagseguro.uol.com.br/pre-approvals/request/?email="+email+"&token="+token
