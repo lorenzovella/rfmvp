@@ -44,7 +44,7 @@ class Cliente(models.Model):
     telefone = models.BigIntegerField('Telefone', default=0)
     areatelefone = models.BigIntegerField('DDD', default=0)
     cep = models.BigIntegerField('CEP', default=0)
-    cpf = models.BigIntegerField('CPF', default=0)
+    cpf = models.CharField('CPF', default="", max_length=13)
     rua = models.CharField('Endereço', max_length=300, default="")
     nascimento = models.DateField('Data de nascimento', null= True)
     numero = models.IntegerField('Número', default=0)
