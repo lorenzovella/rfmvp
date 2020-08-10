@@ -137,7 +137,7 @@ EMAIL_HOST_USER = 'lorenzopvella@gmail.com'
 EMAIL_HOST_PASSWORD = os.environ.get('mailtoken')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'Ração do Futuro'
+DEFAULT_FROM_EMAIL = 'Ração do Futuro <lorenzopvella@gmail.com>'
 
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
