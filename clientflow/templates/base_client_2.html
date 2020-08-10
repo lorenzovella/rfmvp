@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <title>Ração do Futuro</title>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-173241489-2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-173241489-2');
+  </script>
+
+  <script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+  <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'js/extra.js' %}"></script>
+  <script src="{% static 'js/moment.js' %}"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/jquery-ui.theme.css' %}">
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/extra.css' %}">
+  <style>
+  .dog-background{
+    /* opacity: 0.7; */
+  }
+  .dog-container{
+    z-index:0;
+    margin-top: -150px!important;
+    position: absolute;
+  }
+  .dog-bg-img{
+    max-width: 35vw;
+    min-width: 280px;
+    position: relative;
+    padding: 10% 10% 10% 0;
+
+  }
+  </style>
+  {% block head %}
+  {% endblock %}
+</head>
+
+
+<body>
+  <div class="dog-container col-lg-6 dog-background">
+    <img class="dog-bg-img" src="{% static 'ico/dog-dash-bg-reverse.png'%} "/>
+  </div>
+  <div id="content" class="container-fluid">
+    {% block content %}{% endblock %}
+  </div>
+
+  <!-- Start of LiveChat (www.livechatinc.com) code -->
+  <script>
+      window.__lc = window.__lc || {};
+      window.__lc.license = 12117279;
+      ;(function(n,t,c){function i(n){return e._h?e._h.apply(null,n):e._q.push(n)}var e={_q:[],_h:null,_v:"2.0",on:function(){i(["on",c.call(arguments)])},once:function(){i(["once",c.call(arguments)])},off:function(){i(["off",c.call(arguments)])},get:function(){if(!e._h)throw new Error("[LiveChatWidget] You can't use getters before load.");return i(["get",c.call(arguments)])},call:function(){i(["call",c.call(arguments)])},init:function(){var n=t.createElement("script");n.async=!0,n.type="text/javascript",n.src="https://cdn.livechatinc.com/tracking.js",t.head.appendChild(n)}};!n.__lc.asyncInit&&e.init(),n.LiveChatWidget=n.LiveChatWidget||e}(window,document,[].slice))
+  </script>
+  <noscript><a href="https://www.livechatinc.com/chat-with/12117279/" rel="nofollow">Chat with us</a>, powered by <a href="https://www.livechatinc.com/?welcome" rel="noopener nofollow" target="_blank">LiveChat</a></noscript>
+  <!-- End of LiveChat code -->
+</body>
+</html>

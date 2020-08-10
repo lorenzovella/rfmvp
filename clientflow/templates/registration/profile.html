@@ -1,27 +1,62 @@
-{% extends "base.html" %}
+{% extends "base_client_2.html" %}
+{% load static %}
+
+{% block head %}
+<style>
+a, a:hover{
+  color:#00418F!important;
+}
+</style>
+{% endblock %}
+
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="mx-auto col-10 mt-3 left">
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h2 class="card-title">{{ user.nome }}</h2>
-                    {% for label, value in user.get_fields %}
-                    <p class="card-text text-muted h3">
-                        <tr>
-                            <td>{{ label }}:</td>
-                            <td>{{ value }}</td>
-                        </tr>
-                    </p>
-                    {% endfor %}
-                </div>
-                <div class="row mx-auto">
-                  <a class="btn btn-primary m-4" href="{% url 'logout' %}">Log out</a>
-                  <a class="btn btn-primary m-4" href="{% url 'password_change' %}">Change your password</a>
-                  <a class="btn btn-primary m-4" href="{% url 'user-profile-update' %}">Edit your profile</a>
-                </div>
+<div class="row">
+  <div class="col-lg-10 d-flex-column">
+    <div class='pt-5 pl-1 mt-4 col-12 col-md-7 mx-auto'>
+      <p class="pl-3 dash-title">Huma<span style="font-weight:600">nistrativo.</span></p>
+      <p class="pl-3 dash-subtitle" style="margin-top:-20px;" >Dados e informações sobre humanos.</p>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="m-2 col-10 d-flex-column text-decoration-none mx-auto dogdash-card" style="height:231px!important;">
+    <img
+    class="position-absolute img-fluid"
+    src="{% static 'ico/entrega.png' %}"
+    style="margin-left: -48px;max-height: 224px;"/>
+      <p class="card-dash-subtitle text-center pt-3"> <span style="font-weight:500">
+        Próxima entrega:</span>
+        <br>
+        xx/xx/xxxx
+      </p>
+      <p class="card-footer-link text-right mr-2"><a href="#">Editar dados de entrega   > </a></p>
+    <hr class="custom-hr">
+      <p style="margin-left: 28px;" class="pt-3 mx-auto card-footer-text text-center">
+        Entrega realizada entre as
+      </p>
+  </div>
+</div>
+<div class="row">
+    <div class="mx-auto col-10 mt-3 left">
+        <div class="dogdash-card mb-4">
+            <div class="card-body">
+                <h2 class="card-title">{{ user.nome }}</h2>
+                {% for label, value in user.get_fields %}
+                <p class="card-text text-muted h3">
+                    <tr>
+                        <td>{{ label }}:</td>
+                        <td>{{ value }}</td>
+                    </tr>
+                </p>
+                {% endfor %}
+            </div>
+            <div class="row mx-auto">
+              <a class="btn btn-primary m-4" href="{% url 'logout' %}">Log out</a>
+              <a class="btn btn-primary m-4" href="{% url 'password_change' %}">Change your password</a>
+              <a class="btn btn-primary m-4" href="{% url 'user-profile-update' %}">Edit your profile</a>
             </div>
         </div>
     </div>
 </div>
+
 {% endblock %}

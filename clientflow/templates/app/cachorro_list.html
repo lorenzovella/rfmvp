@@ -1,24 +1,30 @@
-{% extends "base_client.html" %}
+{% extends "base_client_2.html" %}
 {% load static %}
+
 {% block head %}
 <style>
 a, a:hover{
-  color:#00FF30!important;
+  color:#00FB5C!important;
 }
 </style>
 {% endblock %}
+
 {% block content %}
-<div class="row d-flex-column middle justify-content-center mx-auto">
-  <div style="padding-top: 5%;" class='col-10 col-lg-6 mx-auto mb-2'>
-    <p class="pl-1 dash-title">{% if object_list|length > 1 %}Seus cães{% else %}Seu cão{% endif %}.</p>
-    <p class="pl-1 dash-subtitle" style="margin-top:-20px;">Consulte os dados.</p>
+<div class="row">
+  <div class="col-lg-10 d-flex-column">
+    <div class='pt-5 pl-1 mt-4 col-12 col-md-7 mx-auto'>
+      <p class="pl-3 dash-title">Cão<span style="font-weight:600">conta.</span></p>
+      <p class="pl-3 dash-subtitle" style="margin-top:-20px;" >Selecione o cãozinho desejado.</p>
+    </div>
   </div>
+</div>
+
   <div style="height:auto!important;" class="col-12 col-md-7 m-4 mx-auto dash-btn-text dash-btn">
-    <span class="position-absolute" style="background-color:#004094; width:62px;height:62px;border-radius: 50%;">
+    <a href="{% url 'dogdash'%}" class="position-absolute" style="background-color:#004094; width:62px;height:62px;border-radius: 50%;">
       <svg style="margin-top:24px" width="63px" height="12px" viewBox="0 0 20 9">
       <path d="M19.2857 4.25276C19.2857 4.35693 19.2485 4.44622 19.1741 4.52062L14.8884 8.47151C14.7693 8.57568 14.6391 8.598 14.4978 8.53848C14.3564 8.47151 14.2857 8.36363 14.2857 8.21482L14.2857 5.71482L0.357143 5.71482C0.252976 5.71482 0.167411 5.68134 0.100446 5.61437C0.0334818 5.54741 0 5.46184 0 5.35767L0 3.21482C0 3.11065 0.0334818 3.02509 0.100446 2.95812C0.167411 2.89116 0.252976 2.85767 0.357143 2.85767L14.2857 2.85767L14.2857 0.357675C14.2857 0.201424 14.3564 0.093538 14.4978 0.0340139C14.6391 -0.0255102 14.7693 -0.00690924 14.8884 0.0898174L19.1741 3.99607C19.2485 4.07047 19.2857 4.15604 19.2857 4.25276Z" id="" fill="#00FF30" stroke="none"></path>
       </svg>
-    </span>
+    </a>
     <p class="card-dash-title" style="margin-left: 80px;" >Voltar para a dashboard</p>
     <p class="card-dash-subtitle" style="margin-left: 80px; margin-top:-20px;">
       Você tem {{object_list|length}}
@@ -34,37 +40,39 @@ a, a:hover{
     </div>
   </div>
   {% for object in object_list %}
-  <div style="height:auto!important;" class="col-12 col-md-7 m-4 mx-auto text-decoration-none dash-btn">
-    <p class="dash-title dash-btn-text font-weight-bold" >
-      {{object.nome}}
-    </p>
-    <p class="card-dash-subtitle" style="margin-top:-20px;">
-      {{object.raca}}
-    </p>
-    <hr>
-    <span class="card-dash-title">Sexo:</span><br><span class="card-dash-subtitle">{{object.sexo}}</span><br>
-    <span class="card-dash-title">Idade:</span><br><span class="card-dash-subtitle">{{object.calculate_age}} anos</span><br>
-    <span class="card-dash-title">Peso:</span><br><span class="card-dash-subtitle">{{object.peso}} kg</span><br>
-    {% if object.dogEspecial.condicao %}
-    <span class="card-dash-title">Observação:</span><br><span class="card-dash-subtitle">
-      {{object.dogEspecial.condicao}}    </span><br>
-    {%endif%}
+  <div class="row">
+    <div style="height:auto!important;" class="col-12 col-md-7 m-4 mx-auto text-decoration-none dash-btn">
+      <p class="dash-title dash-btn-text font-weight-bold" >
+        {{object.nome}}
+      </p>
+      <p class="card-dash-subtitle" style="margin-top:-20px;">
+        {{object.raca}}
+      </p>
+      <hr>
+      <span class="card-dash-title">Sexo:</span><br><span class="card-dash-subtitle">{{object.sexo}}</span><br>
+      <span class="card-dash-title">Idade:</span><br><span class="card-dash-subtitle">{{object.calculate_age}} anos</span><br>
+      <span class="card-dash-title">Peso:</span><br><span class="card-dash-subtitle">{{object.peso}} kg</span><br>
+      {% if object.dogEspecial.condicao %}
+      <span class="card-dash-title">Observação:</span><br><span class="card-dash-subtitle">
+        {{object.dogEspecial.condicao}}    </span><br>
+      {%endif%}
 
 
-    <div class="row mx-auto justify-content-end">
-      <span class="col-5 text-center dash-card-btn">
-        {% if object.pedido.first %}
-        <a class="text-decoration-none" href="{{ object.pedido.last.get_absolute_url }}">Ver plano</a>
-        <svg width="50px" height="12px" viewBox="0 0 20 9">
-          <path d="M19.2857 4.25276C19.2857 4.35693 19.2485 4.44622 19.1741 4.52062L14.8884 8.47151C14.7693 8.57568 14.6391 8.598 14.4978 8.53848C14.3564 8.47151 14.2857 8.36363 14.2857 8.21482L14.2857 5.71482L0.357143 5.71482C0.252976 5.71482 0.167411 5.68134 0.100446 5.61437C0.0334818 5.54741 0 5.46184 0 5.35767L0 3.21482C0 3.11065 0.0334818 3.02509 0.100446 2.95812C0.167411 2.89116 0.252976 2.85767 0.357143 2.85767L14.2857 2.85767L14.2857 0.357675C14.2857 0.201424 14.3564 0.093538 14.4978 0.0340139C14.6391 -0.0255102 14.7693 -0.00690924 14.8884 0.0898174L19.1741 3.99607C19.2485 4.07047 19.2857 4.15604 19.2857 4.25276Z" id="" fill="#00FF30" stroke="none"></path>
-        </svg>
-        {% else %}
-        <a class="text-decoration-none" href="{% url 'clientflow_PlanoFlow' object %}">Começar um pedido</a>
-        <svg width="50px" height="12px" viewBox="0 0 20 9">
-          <path d="M19.2857 4.25276C19.2857 4.35693 19.2485 4.44622 19.1741 4.52062L14.8884 8.47151C14.7693 8.57568 14.6391 8.598 14.4978 8.53848C14.3564 8.47151 14.2857 8.36363 14.2857 8.21482L14.2857 5.71482L0.357143 5.71482C0.252976 5.71482 0.167411 5.68134 0.100446 5.61437C0.0334818 5.54741 0 5.46184 0 5.35767L0 3.21482C0 3.11065 0.0334818 3.02509 0.100446 2.95812C0.167411 2.89116 0.252976 2.85767 0.357143 2.85767L14.2857 2.85767L14.2857 0.357675C14.2857 0.201424 14.3564 0.093538 14.4978 0.0340139C14.6391 -0.0255102 14.7693 -0.00690924 14.8884 0.0898174L19.1741 3.99607C19.2485 4.07047 19.2857 4.15604 19.2857 4.25276Z" id="" fill="#00FF30" stroke="none"></path>
-        </svg>
-        {% endif %}
-      </span>
+      <div class="row mx-auto justify-content-end">
+        <span class="col-5 text-center dash-card-btn">
+          {% if object.pedido.first %}
+          <a class="text-decoration-none" href="{{ object.pedido.last.get_absolute_url }}">Ver plano</a>
+          <svg width="50px" height="12px" viewBox="0 0 20 9">
+            <path d="M19.2857 4.25276C19.2857 4.35693 19.2485 4.44622 19.1741 4.52062L14.8884 8.47151C14.7693 8.57568 14.6391 8.598 14.4978 8.53848C14.3564 8.47151 14.2857 8.36363 14.2857 8.21482L14.2857 5.71482L0.357143 5.71482C0.252976 5.71482 0.167411 5.68134 0.100446 5.61437C0.0334818 5.54741 0 5.46184 0 5.35767L0 3.21482C0 3.11065 0.0334818 3.02509 0.100446 2.95812C0.167411 2.89116 0.252976 2.85767 0.357143 2.85767L14.2857 2.85767L14.2857 0.357675C14.2857 0.201424 14.3564 0.093538 14.4978 0.0340139C14.6391 -0.0255102 14.7693 -0.00690924 14.8884 0.0898174L19.1741 3.99607C19.2485 4.07047 19.2857 4.15604 19.2857 4.25276Z" id="" fill="#00FF30" stroke="none"></path>
+          </svg>
+          {% else %}
+          <a class="text-decoration-none" href="{% url 'clientflow_PlanoFlow' object %}">Começar um pedido</a>
+          <svg width="50px" height="12px" viewBox="0 0 20 9">
+            <path d="M19.2857 4.25276C19.2857 4.35693 19.2485 4.44622 19.1741 4.52062L14.8884 8.47151C14.7693 8.57568 14.6391 8.598 14.4978 8.53848C14.3564 8.47151 14.2857 8.36363 14.2857 8.21482L14.2857 5.71482L0.357143 5.71482C0.252976 5.71482 0.167411 5.68134 0.100446 5.61437C0.0334818 5.54741 0 5.46184 0 5.35767L0 3.21482C0 3.11065 0.0334818 3.02509 0.100446 2.95812C0.167411 2.89116 0.252976 2.85767 0.357143 2.85767L14.2857 2.85767L14.2857 0.357675C14.2857 0.201424 14.3564 0.093538 14.4978 0.0340139C14.6391 -0.0255102 14.7693 -0.00690924 14.8884 0.0898174L19.1741 3.99607C19.2485 4.07047 19.2857 4.15604 19.2857 4.25276Z" id="" fill="#00FF30" stroke="none"></path>
+          </svg>
+          {% endif %}
+        </span>
+      </div>
     </div>
   </div>
   {% endfor %}
