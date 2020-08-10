@@ -135,8 +135,8 @@ def checkout(request,carrinho):
                     pedido.status = 'Pedido finalizado pelo cliente'
                     pedido.save()
             cart.save()
+            cobranca = pagseguro.cobrarPlano(pedido.idClient.nome+" - "+ str(carrinho), cart.plano, valor, '1', str(carrinho), cart.pagseguro_adesao)
             return redirect('clientflow_fimDoFlow', carrinho)
-            # cobranca = pagseguro.cobrarPlano(pedido.idClient.nome+" - "+ str(carrinho), cart.plano, valor, '1', str(carrinho), cart.pagseguro_adesao)
             # redirect('clientflow_Pedido_detail', carrinho)
         if request.user.cliente.cpf==0:
             return redirect('user-profile-update', carrinho)
