@@ -48,6 +48,7 @@ class Cliente(models.Model):
     rua = models.CharField('Endereço', max_length=300, default="")
     nascimento = models.DateField('Data de nascimento', null= True)
     numero = models.IntegerField('Número', default=0)
+    bairro = models.CharField('Bairro', max_length=200, blank=True)
     complemento = models.CharField('Complemento (opcional)', max_length=200, blank=True)
     cidade = models.CharField('Cidade', max_length=150, default="")
     estado = models.CharField('Estado', max_length=100, default="")

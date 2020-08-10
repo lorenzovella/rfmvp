@@ -24,7 +24,7 @@ class CustomAuthForm(AuthenticationForm):
 class ClienteForm(forms.ModelForm):
     class Meta:
         model = models.Cliente
-        fields = ["nome","sobrenome","telefone","areatelefone","cep","cpf","rua","nascimento","numero","complemento","cidade","estado",]
+        fields = ["nome","sobrenome","telefone","areatelefone","cep","cpf","rua","nascimento","numero","bairro","complemento","cidade","estado",]
     nascimento = forms.DateField(
     widget=forms.DateInput(format='%d/%m/%Y'),
     input_formats=('%d/%m/%Y', )
@@ -47,6 +47,7 @@ class ClienteForm(forms.ModelForm):
             Field('cep'),
             Field('rua'),
             Field('numero'),
+            Field('bairro'),
             Field('complemento'),
             Field('cidade'),
             Field('estado'),
