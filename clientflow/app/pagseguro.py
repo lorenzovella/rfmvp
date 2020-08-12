@@ -4,7 +4,7 @@ import json
 import os
 token = os.environ.get('pgtoken')
 email = os.environ.get('pgemail')
-pgUrl = "https://ws.sandbox.pagseguro.uol.com.br"
+pgUrl = "https://ws.pagseguro.uol.com.br"
 
 def criarPlano(name,reference,valor):
     name = name[:min(len(name), 99)]
