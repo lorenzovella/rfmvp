@@ -51,7 +51,9 @@
 
 <body>
   <div class="dog-container col-lg-6 dog-background">
-    <img class="dog-bg-img" src="{% static 'ico/dog-dash-bg-reverse.png'%} "/>
+    <a href="{% url 'index' %}">
+      <img class="dog-bg-img" src="{% static 'ico/dog-dash-bg-reverse.png'%} "/>
+    </a>
   </div>
   <div id="content" class="container-fluid">
     {% block content %}{% endblock %}

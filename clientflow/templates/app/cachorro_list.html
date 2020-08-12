@@ -3,9 +3,11 @@
 
 {% block head %}
 <style>
-a, a:hover{
+span > a, span > a:hover{
   color:#00FB5C!important;
 }
+p > a, p > a:hover{
+  color:#00418F!important;
 </style>
 {% endblock %}
 
@@ -13,7 +15,7 @@ a, a:hover{
 <div class="row">
   <div class="col-lg-10 d-flex-column">
     <div class='pt-5 pl-1 mt-4 col-12 col-md-7 mx-auto'>
-      <p class="pl-3 dash-title">Cão<span style="font-weight:600">conta.</span></p>
+      <p class="pl-3 dash-title"><span style="font-weight:600">Cão</span>conta.</p>
       <p class="pl-3 dash-subtitle" style="margin-top:-20px;" >Selecione o cãozinho desejado.</p>
     </div>
   </div>
@@ -22,21 +24,14 @@ a, a:hover{
   {% for object in object_list %}
   <div class="row">
     <div style="height:auto!important;" class="col-10 col-md-7 m-4 mx-auto text-decoration-none dash-btn">
-      <p class="dash-title dash-btn-text" >
+      <p class="dog-card-title dash-btn-text" >
         {{object.nome}}
       </p>
       <p class="card-dash-subtitle" style="margin-top:-20px;">
-        Status do plano: {{object.pedido.status}}
+        Status do plano: {{object.pedido.first.status}}
       </p>
-      <span class="card-dash-title">Sexo:</span><br><span class="card-dash-subtitle">{{object.sexo}}</span><br>
-      <span class="card-dash-title">Idade:</span><br><span class="card-dash-subtitle">{{object.calculate_age}} anos</span><br>
-      <span class="card-dash-title">Peso:</span><br><span class="card-dash-subtitle">{{object.peso}} kg</span><br>
-      {% if object.dogEspecial.condicao %}
-      <span class="card-dash-title">Observação:</span><br><span class="card-dash-subtitle">
-        {{object.dogEspecial.condicao}}    </span><br>
-      {%endif%}
-
-
+      <p class="card-footer-link text-right mr-2"><a href="#">Editar cãoconta   > </a></p>
+      <hr class="custom-hr" style="margin: -50px auto 50px;">
       <div class="row mx-auto justify-content-end">
         <span class="col-5 text-center dash-card-btn">
           {% if object.pedido.first %}

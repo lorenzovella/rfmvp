@@ -486,3 +486,9 @@ text-transform: none;
   margin-left: -15px;
   margin-right: -15px;
 }
+.dog-card-title{
+  color: #00418f;
+  font-family: Roboto;
+  font-size: 33px;
+  font-weight: 700;
+}

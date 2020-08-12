@@ -1,4 +1,4 @@
-{% extends "base_client.html" %}
+{% extends "base_client.html" %} 
 {% load static %}
 {% block head %}
 <style>
@@ -9,7 +9,7 @@ a, a:hover{
 {% endblock %}
 {% block content %}
 <div class="row d-flex-column middle justify-content-center mx-auto">
-  <div style="padding-top: 5%;" class='col-10 col-lg-6 mx-auto mb-2'>
+  <div style="padding-top: 10%;" class='col-10 col-lg-6 mx-auto mb-2'>
     <p class="pl-1 dash-title">{% if object_list|length > 1 %}Seu plano{% else %}Seus planos{% endif %}.</p>
     <p class="pl-1 dash-subtitle" style="margin-top:-20px;">Caso queira alterar entre em contato conosco.</p>
   </div>
