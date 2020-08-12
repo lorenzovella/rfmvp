@@ -14,6 +14,10 @@ from formtools.wizard.views import SessionWizardView
 from decimal import Decimal
 from math import ceil
 
+def pgNotification(request):
+    if request.method == "POST":
+        card = request.POST
+
 def calculaDescontoProgressivo(consumoKg):
     consumoKg = float(consumoKg)
     precoKg = 55
@@ -244,6 +248,12 @@ class PedidoCreateView(generic.CreateView):
 class PedidoDetailView(generic.DetailView):
     model = models.Pedido
     form_class = forms.PedidoForm
+
+class PagtoDetailView(generic.DetailView):
+    template_name = "app/pagto_detail.html"
+    model = models.Pedido
+    form_class = forms.PedidoForm
+
 
 
 class PedidoUpdateView(generic.UpdateView):

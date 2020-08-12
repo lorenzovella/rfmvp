@@ -45,6 +45,7 @@ urlpatterns = (
 
     path("Pedido/create/", views.PedidoCreateView.as_view(), name="clientflow_Pedido_create"),
     path("Pedido/detail/<int:pk>/", views.PedidoDetailView.as_view(), name="clientflow_Pedido_detail"),
+    path("Fatura/<int:pk>/", views.PagtoDetailView.as_view(), name="clientflow_Fatura"),
     path("Pedido/update/<int:pk>/", views.PedidoUpdateView.as_view(), name="clientflow_Pedido_update"),
 
     path("Pedido/delete/confirm/<int:pk>", views.PedidoDeleteConfirmView, name="clientflow_Pedido_delete_confirm"),
@@ -73,5 +74,7 @@ urlpatterns = (
     path("MinhaConta/update/", views.profile_update_view, name="user-profile-update"),
     path("MinhaConta/update/<int:carrinho>", views.profile_update_view, name="user-profile-update"),
     path("MinhaConta/Novo/<int:dog>", views.profile_simple_view, name="user-profile-simple",),
+
+    path("pg/status/", views.pgNotification,name="pg-notification")
 
 )

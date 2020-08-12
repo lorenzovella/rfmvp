@@ -4,8 +4,9 @@ from multiselectfield import MultiSelectField
 from django.db.models.signals import post_save
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import User
+from django.core.validators import RegexValidator
 from django.dispatch import receiver
-from clientflow.app.pagseguro import consultaAssinatura
+from clientflow.app.pagseguro import consultaAssinatura, listaPagamentos
 from datetime import date
 
 class Carrinho(models.Model):
@@ -28,6 +29,8 @@ class Carrinho(models.Model):
         return sum
     def get_status(self):
         return consultaAssinatura(self.pagseguro_adesao)
+    def lista_pagamentos(self):
+        return listaPagamentos(self.pagseguro_adesao)
     def get_absolute_url(self):
         return reverse("clientflow_carrinho_detail", args=(self.pk,))
 
@@ -36,22 +39,23 @@ class Carrinho(models.Model):
 
 
 class Cliente(models.Model):
+    phone_regex = RegexValidator(regex=r'^\+?1?\d{8,9}$', message="Digite apenas o número do seu telefone")
     # Fields
     user = models.OneToOneField(User, related_name='cliente', on_delete=models.CASCADE)
     nome = models.CharField('Nome', max_length=150, default="")
     sobrenome = models.CharField('Sobrenome', max_length=150, default="")
     email = models.EmailField('E-mail', default="")
-    telefone = models.BigIntegerField('Telefone', default=0)
-    areatelefone = models.BigIntegerField('DDD', default=0)
-    cep = models.BigIntegerField('CEP', default=0)
+    telefone = models.CharField('Telefone',validators=[phone_regex], null=True, max_length=9)
+    areatelefone = models.CharField('DDD', max_length=2,null=True)
+    cep = models.BigIntegerField('CEP', null=True)
     cpf = models.CharField('CPF', default="", max_length=13)
-    rua = models.CharField('Endereço', max_length=300, default="")
+    rua = models.CharField('Endereço', max_length=80, default="")
     nascimento = models.DateField('Data de nascimento', null= True)
-    numero = models.IntegerField('Número', default=0)
-    bairro = models.CharField('Bairro', max_length=200, blank=True)
-    complemento = models.CharField('Complemento (opcional)', max_length=200, blank=True)
-    cidade = models.CharField('Cidade', max_length=150, default="")
-    estado = models.CharField('Estado', max_length=100, default="")
+    numero = models.IntegerField('Número', null=True)
+    bairro = models.CharField('Bairro', max_length=60, blank=True)
+    complemento = models.CharField('Complemento (opcional)', max_length=40, blank=True)
+    cidade = models.CharField('Cidade', max_length=60, default="")
+    estado = models.CharField('Estado', max_length=2, default="")
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
 

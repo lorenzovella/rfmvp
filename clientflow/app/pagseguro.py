@@ -6,6 +6,7 @@ token = os.environ.get('pgtoken')
 email = os.environ.get('pgemail')
 
 def criarPlano(name,reference,valor):
+    name = name[:min(len(name), 99)]
     url = "https://ws.pagseguro.uol.com.br/pre-approvals/request/?email="+email+"&token="+token
     payload = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\"?>\r\n<preApprovalRequest>\r\n<preApproval>\r\n<name>"+name+"</name>\r\n<reference>"+reference+"</reference>\r\n<charge>AUTO</charge>\r\n<period>MONTHLY</period>\r\n<amountPerPayment>"+valor+"</amountPerPayment>\r\n<cancelURL>http://sitedocliente.com</cancelURL>\r\n<membershipFee>0.00</membershipFee>\r\n<trialPeriodDuration>1</trialPeriodDuration>\r\n</preApproval>\r\n<maxUses>1</maxUses>\r\n</preApprovalRequest>"
     headers = {
@@ -124,11 +125,13 @@ def consultaAssinatura(codigoAdesao):
       'Content-Type': 'application/json',
       'Accept': 'application/vnd.pagseguro.com.br.v3+json;charset=ISO-8859-1'
     }
-
     response = requests.request("GET", url, headers=headers, data = payload)
+    print(response)
     jsonResponse = json.loads(response.text)
     if 'status' in jsonResponse:
         return statusAssinatura[jsonResponse['status']]
+    else:
+        return jsonResponse['errors']
 
 
 statusAssinatura = {
@@ -142,3 +145,15 @@ statusAssinatura = {
   "CANCELLED_BY_SENDER" : "A recorrência foi cancelada a pedido do comprador.",
   "EXPIRED" : "A recorrência expirou por atingir a data limite da vigência ou por ter atingido o valor máximo de cobrança definido na cobrança do plano."
   }
+
+def listaPagamentos(codigoAdesao):
+    url = "https://ws.pagseguro.uol.com.br/pre-approvals/"+codigoAdesao+"/payment-orders?email="+email+"&token="+token
+    payload = {}
+    headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/vnd.pagseguro.com.br.v3+json;charset=ISO-8859-1'
+    }
+
+    response = requests.request("GET", url, headers=headers, data = payload)
+    jsonResponse = json.loads(response.text)
+    return jsonResponse

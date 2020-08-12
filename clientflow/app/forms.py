@@ -151,7 +151,9 @@ class CachorroForm(forms.ModelForm):
         self.helper.layout = Layout(
             Field('nome', placeholder="Digite aqui o nome do seu cão"),
             InlineRadios('sexo'),
-            HTML('<div class="footer margin-footer"><input type="submit" class="btn-next" value="Continuar"/></div>'),
+            Div(
+                Submit("submit","Continuar",css_class="btn-next"), css_class="footer margin-footer"
+            )
         )
         # self.fields['sexo'].widget.attrs.update({'newattr' : 'attrvalue'})
 
