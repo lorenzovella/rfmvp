@@ -10,8 +10,8 @@
   display: none;
   }
 #ui-datepicker-div{
-  position: fixed !important;
-  top: 50% !important;
+  position: absolute !important;
+  top: 315px !important;
   left: 50% !important;
   z-index: 9999 !important;
 
@@ -115,12 +115,12 @@ $(document).ready(function () {
 {% block content %}
 
 <div class='row info-bg'>
-  <div class='col-10 info-bar-text'>
+  <div class='col-10 info-bar-text' >
     <p> Dados do seu cão - {{ wizard.steps.step1 }} </p>
   </div>
 </div>
 <div class='row middle'>
-  <div class='col mx-auto'>
+  <div class='col mx-auto' style="height: 100vh;">
     <form action="" method="post">
       {{ wizard.management_form }}
       {% crispy wizard.form %}

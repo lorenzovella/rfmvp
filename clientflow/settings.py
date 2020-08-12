@@ -22,7 +22,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = False
 DEBUG_PROPAGATE_EXCEPTIONS = True
 
-ALLOWED_HOSTS = ['app.racaodofuturo.com.br','rfmvp.herokuapp.com','127.0.0.1']
+ALLOWED_HOSTS = ['app.racaodofuturo.com.br','rfmvp.herokuapp.com','127.0.0.1', 'localhost']
 
 # Application definition
 INSTALLED_APPS = [
@@ -78,8 +78,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'clientflow.wsgi.application'
 
-DATABASES = {}
-DATABASES['default'] = dj_database_url.config()
+DATABASE_URL = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
+
+DATABASES = {'default': dj_database_url.config(default=DATABASE_URL)}
 
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -94,9 +95,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# SECURE_SSL_REDIRECT = True
+# SESSION_COOKIE_SECURE = True
 
 LANGUAGE_CODE = 'pt-br'
 
