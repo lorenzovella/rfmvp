@@ -45,7 +45,7 @@ urlpatterns = (
 
     path("Pedido/create/", views.PedidoCreateView.as_view(), name="clientflow_Pedido_create"),
     path("Pedido/detail/<int:pk>/", views.PedidoDetailView.as_view(), name="clientflow_Pedido_detail"),
-    path("Fatura/<int:pk>/", views.PagtoDetailView.as_view(), name="clientflow_Fatura"),
+    path("Fatura/<int:pk>/", views.PagtoDetailView.as_view(), name="clientflow_Pedido_detail"),
     path("Pedido/update/<int:pk>/", views.PedidoUpdateView.as_view(), name="clientflow_Pedido_update"),
 
     path("Pedido/delete/confirm/<int:pk>", views.PedidoDeleteConfirmView, name="clientflow_Pedido_delete_confirm"),
@@ -75,6 +75,9 @@ urlpatterns = (
     path("MinhaConta/update/<int:carrinho>", views.profile_update_view, name="user-profile-update"),
     path("MinhaConta/Novo/<int:dog>", views.profile_simple_view, name="user-profile-simple",),
 
-    path("pg/status/", views.pgNotification,name="pg-notification")
+    path("Pedido/suspender/confirm/<int:pk>", views.suspendePlanoConfirm,name="pg_suspende_confirm"),
+    path("Pedido/suspender/<int:pk>", views.suspendePlano,name="pg_suspende"),
+    path("Pedido/cancela/confirm/<int:pk>", views.cancelaPlanoConfirm,name="pg_cancela_confirm"),
+    path("Pedido/cancela/<int:pk>", views.cancelaPlano,name="pg_cancela"),
 
 )

@@ -4,10 +4,11 @@ import json
 import os
 token = os.environ.get('pgtoken')
 email = os.environ.get('pgemail')
+pgUrl = "https://ws.sandbox.pagseguro.uol.com.br"
 
 def criarPlano(name,reference,valor):
     name = name[:min(len(name), 99)]
-    url = "https://ws.pagseguro.uol.com.br/pre-approvals/request/?email="+email+"&token="+token
+    url = pgUrl + "/pre-approvals/request/?email="+email+"&token="+token
     payload = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\"?>\r\n<preApprovalRequest>\r\n<preApproval>\r\n<name>"+name+"</name>\r\n<reference>"+reference+"</reference>\r\n<charge>AUTO</charge>\r\n<period>MONTHLY</period>\r\n<amountPerPayment>"+valor+"</amountPerPayment>\r\n<cancelURL>http://sitedocliente.com</cancelURL>\r\n<membershipFee>0.00</membershipFee>\r\n<trialPeriodDuration>1</trialPeriodDuration>\r\n</preApproval>\r\n<maxUses>1</maxUses>\r\n</preApprovalRequest>"
     headers = {
       'Accept': 'application/vnd.pagseguro.com.br.v3+xml;charset=ISO-8859-1',
@@ -21,7 +22,7 @@ def criarPlano(name,reference,valor):
     return {"pg": preApprovalRequest}
 
 def criarSession():
-    url = "https://ws.pagseguro.uol.com.br/v2/sessions?email="+email+"&token="+token
+    url = pgUrl + "/v2/sessions?email="+email+"&token="+token
     payload = {}
     headers = {
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -41,7 +42,7 @@ def criarHash(session,valor,cn,cb,cvv,cem,cey):
     return hash
 
 def aderirPlano(plano,referencia,hash,cardHolder,user):
-    url = "https://ws.pagseguro.uol.com.br/pre-approvals?email="+email+"&token="+token
+    url = pgUrl + "/pre-approvals?email="+email+"&token="+token
     payload = json.dumps({
     	"plan": plano,
     	"reference": referencia,
@@ -109,7 +110,7 @@ def aderirPlano(plano,referencia,hash,cardHolder,user):
         return jsonResponse['errors']
 
 def cobrarPlano(planoid,descricaoplano,valorplano,quantidadeplano,referencia,preaprovacao):
-    url = "https://ws.pagseguro.uol.com.br/pre-approvals/payment?email="+email+"&token="+token
+    url = pgUrl + "/pre-approvals/payment?email="+email+"&token="+token
     payload = "<payment><items><item><id>"+planoid+"</id><description>"+descricaoplano+"</description><amount>"+valorplano+"</amount><quantity>"+quantidadeplano+"</quantity></item></items><reference>"+referencia+"</reference><preApprovalCode>"+preaprovacao+"</preApprovalCode></payment>"
     headers = {
       'Content-Type': 'application/xml',
@@ -119,7 +120,7 @@ def cobrarPlano(planoid,descricaoplano,valorplano,quantidadeplano,referencia,pre
 
 
 def consultaAssinatura(codigoAdesao):
-    url = "https://ws.pagseguro.uol.com.br/pre-approvals/"+codigoAdesao+"?email="+email+"&token="+token
+    url = pgUrl + "/pre-approvals/"+codigoAdesao+"?email="+email+"&token="+token
     payload = {}
     headers = {
       'Content-Type': 'application/json',
@@ -147,7 +148,7 @@ statusAssinatura = {
   }
 
 def listaPagamentos(codigoAdesao):
-    url = "https://ws.pagseguro.uol.com.br/pre-approvals/"+codigoAdesao+"/payment-orders?email="+email+"&token="+token
+    url = pgUrl + "/pre-approvals/"+codigoAdesao+"/payment-orders?email="+email+"&token="+token
     payload = {}
     headers = {
       'Content-Type': 'application/json',
@@ -157,3 +158,36 @@ def listaPagamentos(codigoAdesao):
     response = requests.request("GET", url, headers=headers, data = payload)
     jsonResponse = json.loads(response.text)
     return jsonResponse
+
+def suspendePlano(codigoAdesao):
+    url = pgUrl + "/pre-approvals/"+codigoAdesao+"/status?email="+email+"&token="+token
+
+    payload = "{\n\t\"status\":\"SUSPENDED\"\n}"
+    headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/vnd.pagseguro.com.br.v3+json;charset=ISO-8859-1'
+    }
+
+    response = requests.request("PUT", url, headers=headers, data = payload)
+    if response.status_code == 204:
+        return "Pronto! seu plano foi suspenso."
+    else:
+        jsonResponse = json.loads(response.text)
+        return "Houve um erro!" + str(jsonResponse['errors'])
+
+def cancelaPlano(codigoAdesao):
+    url = pgUrl + "/pre-approvals/"+codigoAdesao+"/cancel?email="+email+"&token="+token
+
+    payload  = {}
+    headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/vnd.pagseguro.com.br.v3+json;charset=ISO-8859-1'
+    }
+
+    response = requests.request("PUT", url, headers=headers, data = payload)
+    print(response.text)
+    if response.status_code == 204:
+        return "Pronto! seu plano foi Cancelado."
+    else:
+        jsonResponse = json.loads(response.text)
+        return "Houve um erro!" + str(jsonResponse['errors'])

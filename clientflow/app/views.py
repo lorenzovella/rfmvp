@@ -14,10 +14,6 @@ from formtools.wizard.views import SessionWizardView
 from decimal import Decimal
 from math import ceil
 
-def pgNotification(request):
-    if request.method == "POST":
-        card = request.POST
-
 def calculaDescontoProgressivo(consumoKg):
     consumoKg = float(consumoKg)
     precoKg = 55
@@ -413,6 +409,36 @@ def PedidoDeleteView(request, pk):
     except models.Pedido.DoesNotExist:
         return handler500(request)
     return render(request,'app/pedido_delete.html',{'info':info })
+
+def suspendePlanoConfirm(request, pk):
+    try:
+        instance = models.Pedido.objects.get(pk=pk)
+    except models.Pedido.DoesNotExist:
+        return handler500(request)
+    return render(request,'app/suspende_pg_confirm.html',{'obj':instance })
+
+def suspendePlano(request, pk):
+    try:
+        instance = models.Pedido.objects.get(pk=pk)
+        info = pagseguro.suspendePlano(instance.idCarrinho.pagseguro_adesao)
+    except models.Pedido.DoesNotExist:
+        return handler500(request)
+    return render(request,'app/suspende_pg.html',{'info':info })
+
+def cancelaPlanoConfirm(request, pk):
+    try:
+        instance = models.Pedido.objects.get(pk=pk)
+    except models.Pedido.DoesNotExist:
+        return handler500(request)
+    return render(request,'app/cancela_pg_confirm.html',{'obj':instance })
+
+def cancelaPlano(request, pk):
+    try:
+        instance = models.Pedido.objects.get(pk=pk)
+        info = pagseguro.cancelaPlano(instance.idCarrinho.pagseguro_adesao)
+    except models.Pedido.DoesNotExist:
+        return handler500(request)
+    return render(request,'app/cancela_pg.html',{'info':info })
 
 
 

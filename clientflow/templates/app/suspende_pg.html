@@ -1,0 +1,27 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class='row info-bg'>
+  <div class='col-10 info-bar-text'>
+    <p>Suspender um plano</p>
+  </div>
+</div>
+<div class="row d-flex middle">
+  <div class="col-12 text-center control-label mx-auto m-4 p-4">
+    <h3>
+    {{info}}
+    </h3>
+  </div>
+  <div class="col-8 text-center control-label round-btn mx-auto m-4 p-4">
+    <a href="{% url 'dogdash'%}" class="mx-auto text-white text-decoration-none">
+        Meu dashboard
+    </a>
+  </div>
+  <div class="col-8 text-center control-label round-btn mx-auto m-4 p-4">
+    <a href="{% url 'clientflow_Cachorro_list'%}" class="mx-auto text-white text-decoration-none">
+      Deseja adicionar um novo pedido?
+    </a>
+  </div>
+</div>
+{% endblock %}
