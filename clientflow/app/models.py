@@ -88,14 +88,15 @@ class CachorroEspecial(models.Model):
     ('obesidade', 'Obesidade'),
     ('intestinal', 'Instestinal'),
     ('outro', 'Outro'))
+    medicamento_choices = ((1,'Sim'), (0,'Não'))
 
     # Fields
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
     condicao = MultiSelectField('Qual o problema de saúde?', max_length=200, choices=condicao_choices,blank=True, null=True)
-    medicamento = models.BooleanField('Ele toma algum medicamento?', default=False,blank=True, null=True)
-    descricao   = models.TextField('Breve descrição sobre o problema', help_text='Escreva aqui', default="",blank=True, null=True)
-    anexo = models.URLField('Algum exame ou receita?', help_text='Clique ou arraste os arquivos nessa área para anexá-los', blank=True, null=True)
+    medicamento = models.BooleanField('Ele toma algum medicamento?',  default=0, choices=medicamento_choices)
+    descricao   = models.TextField('Breve descrição sobre o problema', default="",blank=True, null=True)
+    # anexo = models.URLField('Algum exame ou receita?', help_text='Clique ou arraste os arquivos nessa área para anexá-los', blank=True, null=True)
     class Meta:
         pass
 
@@ -163,7 +164,7 @@ class Cachorro(models.Model):
     dogEspecial = models.OneToOneField("app.CachorroEspecial", on_delete=models.CASCADE, null=True, blank=True)
 
     sexo_choices = (('Macho','Macho'),('Femea','Femea'),('Indefinido','Indefinido'))
-    castrado_choices = ((0,'Não'),(1,'Sim'))
+    castrado_choices = ((1,'Sim'), (0,'Não'))
     atividade_choices = (('Caminhadas Diárias','Caminhadas Diárias'),('Super Ativo','Super Ativo'), ('Nivel Olímpico','Nivel Olímpico'))
     fisico_choices =( ('Magro','Magro'),  ('Na Medida','Na Medida'), ('Gordinho','Gordinho'), ('Obeso','Obeso') )
     sabores_choices = ( ('Carne de panela', 'Carne de panela'), ('Frango Xadrez', 'Frango Xadrez'), ('Risoto Suíno','Risoto Suíno')  )
@@ -176,7 +177,7 @@ class Cachorro(models.Model):
     peso = models.DecimalField('Peso', decimal_places=1, max_digits=3, help_text='Observação: Não sabe o peso exato? Não faz mal, você pode inserir um peso próximo.', default=0)
     pesoideal = models.DecimalField('Peso Ideal',  decimal_places=1, max_digits=3, help_text='Segundo o conselho veterinario, caso seu cão tenha até 12 meses é obrigatorio você informar o peso ideal dele quando adulto. Fique tranquilo, você pode informar o peso aproximado.', default=0, null=True, blank=True)
     atividade = models.CharField('Nivel de atividade Diária', max_length=100, default="", choices=atividade_choices)
-    fisico = models.CharField('Físico do cão', help_text='Não sabe o estado físico do seu cão? Não tem problema, clique aqui e descubra.', max_length=100, default="", choices=fisico_choices)
+    fisico = models.CharField('Físico do cão', max_length=100, default="", choices=fisico_choices)
     sabores = MultiSelectField('Escolha os sabores do futuro', default="", choices=sabores_choices)
     calculomes = models.DecimalField('Quantidade de ração a receber (kg/mês)',  decimal_places=1, max_digits=3, default=0)
     calculodia = models.DecimalField('Quantidade de ração diária para o cão (g/dia)', decimal_places=0, max_digits=4, default=0)
