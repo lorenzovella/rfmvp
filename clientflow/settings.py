@@ -78,9 +78,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'clientflow.wsgi.application'
 
-DATABASE_URL = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
-
-DATABASES = {'default': dj_database_url.config(default=DATABASE_URL)}
+DATABASES = {}
+DATABASES['default'] = dj_database_url.config()
 
 
 AUTH_PASSWORD_VALIDATORS = [
