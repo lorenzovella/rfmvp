@@ -13,15 +13,15 @@
       },
     });
     setTimeout(() => carousel.next(), 1000);
-    $('.siema').css('width','110vw');
+    $('.siema').css('width','100vw');
   });
 
 </script>
 <style>
 .siema {
   height: 340px;
+  width: 88vw;
   max-width:1200px;
-  margin-right: -15px!important;
 }
 .siema > div {
   margin-left: auto;
@@ -47,8 +47,8 @@ a, a:hover{
   </div>
 </div>
 <div class="row">
-  <div class="col-10 mx-auto overflow-hidden">
-    <div class="siema">
+  <div class="mx-auto">
+    <div class="siema pl-4">
         <div class="m-2 pt-4 pl-4 text-decoration-none mx-auto dogdash-card">
           <p class="card-dash-title" style="margin-bottom: 4px;" >Olá
           <p class="dash-title" style="font-size: 26px;">{{user.nome}},</p>
