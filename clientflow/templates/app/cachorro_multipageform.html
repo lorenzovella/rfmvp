@@ -26,7 +26,7 @@
 #ui-datepicker-div{
   height: 72px;
   position: absolute !important;
-  top: 305px !important;
+  top: 329px !important;
   left: 50% !important;
   border:0;
   z-index: 10 !important;
@@ -131,8 +131,8 @@ $(document).ready(function () {
 {% endblock %}
 {% block content %}
 
-<div class='row middle'>
-  <div class='col mx-auto' style="height: 100vh;">
+<div class='row middle vh-100'>
+  <div class='col mx-auto'>
     <form action="" method="post">
       {{ wizard.management_form }}
       {% crispy wizard.form %}
