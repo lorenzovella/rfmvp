@@ -2,7 +2,7 @@
 {% load static %}
 {% load l10n %}
 
-<div class="m-auto col-lg-8">
+<div class="m-auto">
     <label class="field-title">{{field.label|safe}}</label>
     <div class="{% if field_class %} {{ field_class }}{% endif %}multi-select-image"{% if flat_attrs %} {{ flat_attrs|safe }}{% endif %}>
         <div class="row">
