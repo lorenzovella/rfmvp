@@ -2,7 +2,7 @@
 {% load static %}
 {% load l10n %}
 
-<div class="m-auto w-75">
+<div class="m-auto col-lg-8">
     <label class="field-title">{{field.label|safe}}</label>
     <div class="{% if field_class %} {{ field_class }}{% endif %}multi-select-image"{% if flat_attrs %} {{ flat_attrs|safe }}{% endif %}>
         <div class="row">
@@ -29,7 +29,7 @@
             {% include 'bootstrap4/layout/field_errors_block.html' %}
         </div>
         {% endif %}
-    
+
         {% include 'bootstrap4/layout/help_text.html' %}
     </div>
 </div>

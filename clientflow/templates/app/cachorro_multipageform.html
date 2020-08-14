@@ -6,14 +6,31 @@
 {% block head %}
 {{ wizard.form.media }}
 <style>
+.ui-datepicker-prev, .ui-datepicker-next{
+  display: none;
+}
+
+.ui-datepicker-header {
+  border: none;
+  margin-top: 0.6em;
+}
+.ui-datepicker-title > select {
+  height: 35px;
+  margin-left: 5px!important;
+}
+
+
 .ui-datepicker-calendar {
   display: none;
   }
 #ui-datepicker-div{
+  height: 72px;
   position: absolute !important;
-  top: 315px !important;
+  top: 305px !important;
   left: 50% !important;
-  z-index: 9999 !important;
+  border:0;
+  z-index: 10 !important;
+      border-radius: 20px;
 
   -webkit-transform   : translateX(-50%) translateY(-50%) !important;
   -moz-transform      : translateX(-50%) translateY(-50%) !important;
@@ -65,7 +82,7 @@ $(document).ready(function () {
     $('#id_CachorroForm3-nascimento').datepicker(
       {
         dateFormat: "mm/yy",
-        yearRange: "-20:+0",
+        yearRange: "-25:+0",
         monthNamesShort: [ "Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez" ],
         changeMonth: true,
         changeYear: true,
@@ -114,11 +131,6 @@ $(document).ready(function () {
 {% endblock %}
 {% block content %}
 
-<div class='row info-bg'>
-  <div class='col-10 info-bar-text' >
-    <p> Dados do seu cão - {{ wizard.steps.step1 }} </p>
-  </div>
-</div>
 <div class='row middle'>
   <div class='col mx-auto' style="height: 100vh;">
     <form action="" method="post">

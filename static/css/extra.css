@@ -1,9 +1,8 @@
 .topbar {
  min-height: 90px;
- background-color: #19437a;
  margin-top: 40px;
- box-shadow: 3px 3px 30px #2b2b2b;
  flex-wrap: wrap;
+ background-color: #FFFFFF;
 }
 .popoverbar {
   min-height: 40px;
@@ -28,12 +27,12 @@ body {
 }
 .progress-bar {
   height: 4px;
-  background-color: #FFFFFF;
+  background-color: #00FB5C;
   overflow: visible;
   margin-top: 26px;
 }
 .disabled-bar {
-  background-color: #395F8D !important;
+  background-color: #00418F  !important;
 }
 .progress-bar.icon-bar::after{
 position: relative;
@@ -75,7 +74,7 @@ margin-top: 21px;
 }
 .progress-bar-text {
   font-family: 'Roboto', sans-serif;
-  color: #00FB5C;
+  color: #004094;
   position: fixed;
   padding-top: 2em;
   margin-left: -1.7em;
@@ -194,6 +193,15 @@ margin-top: 21px;
 input[type=radio],input[type=checkbox]{
   margin-top: 15px;
   margin-left: 15px;
+  opacity:0;
+  position: fixed;
+  width: 0;
+}
+
+input[type="checkbox"]:checked + label {
+  background-color: #003F9A;
+  color: white;
+  box-shadow: inset 0px 1px 15px 0 #0000004A;
 }
 
 .radio.inline, .checkbox.inline{
@@ -639,18 +647,7 @@ text-transform: none;
   font-weight: 400;
 }
 
-.ui-datepicker-prev .ui-corner-all {
-  display: none !important;
-  background-color: #003F9A;
-}
 
-.ui-datepicker-next .ui-corner-all {
-  display: none !important;
-}
-
-.ui-datepicker-header {
-  border: none;
-}
 
 .card-dash-blue-button{
   max-width: 90px;
@@ -704,4 +701,8 @@ text-transform: none;
   font-family: Roboto;
   font-size: 33px;
   font-weight: 700;
+}
+.invalid-feedback{
+  display: flex!important;
+  justify-content: center!important;
 }

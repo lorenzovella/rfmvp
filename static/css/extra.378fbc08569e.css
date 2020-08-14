@@ -36,7 +36,7 @@ body {
 }
 .progress-bar.icon-bar::after{
 position: relative;
-content: url('/static/ico/Dog-Symbol.png');
+content: url("/static/ico/Dog-Symbol.4ab696b3695a.png");
 display: block;
 align-self: flex-end;
 margin-right: -2em;
@@ -45,7 +45,7 @@ z-index:2;
 }
 
 .logo-header{
-  content: url('/static/ico/logo.png');
+  content: url("/static/ico/logo.7862bb2be824.png");
   position: relative;
   display: flex;
   align-self: center;
@@ -54,12 +54,12 @@ z-index:2;
 
 .dog-card-img{
   position: relative;
-  content: url('/static/ico/new-dog.png');
+  content: url("/static/ico/new-dog.5fb865ce1b8c.png");
   margin-top: -47px;
   object-fit: scale-down;
 }
 .dog-card-img-2{
-    content: url(/static/ico/new-dog.png);
+    content: url("/static/ico/new-dog.5fb865ce1b8c.png");
     margin-left: -15px;
     object-fit: scale-down;
 }
@@ -292,9 +292,6 @@ input[type="checkbox"]:checked + label {
 }
 
 /* ------ */
-.ui-corner-all {
-  background-color: #003F9A;
-}
 
 #ui-id-1 {
   top: 480px;
@@ -649,6 +646,8 @@ text-transform: none;
   color: #00418F;
   font-weight: 400;
 }
+
+
 
 .card-dash-blue-button{
   max-width: 90px;

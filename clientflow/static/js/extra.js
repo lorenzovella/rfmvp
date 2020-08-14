@@ -3,8 +3,6 @@ $(document).ready(function () {
 // Responsiveness helpers
   // $('.control-group').last().css('margin-bottom','180px');
 
-  let fullWindowHeight = window.innerHeight;
-  let keyboardIsProbablyOpen = false;
 
   $(document).keypress(
   function(event){

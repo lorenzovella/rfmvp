@@ -28,7 +28,7 @@ $(document).ready(function () {
 </div>
 <div class='row middle'>
   <div class='col mx-auto'>
-    <div id="optionalForm" style="display:none; height: 100vh;">
+    <div id="optionalForm" style="display:none;">
       <form action="" method="post">
         {{ wizard.management_form }}
         {% crispy wizard.form %}
@@ -46,9 +46,7 @@ $(document).ready(function () {
       </div>
     </div>
   </div>
+  <div class="endofcontent"></div>
 </div>
 
-
-  </div>
-</div>
 {% endblock %}
