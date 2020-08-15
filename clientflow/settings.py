@@ -150,3 +150,4 @@ EMAIL_HOST_USER = os.environ.get('mailaddress')
 EMAIL_HOST_PASSWORD = os.environ.get('mailtoken')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'Ração do Futuro <walter@racaodofuturo.com.br>'
