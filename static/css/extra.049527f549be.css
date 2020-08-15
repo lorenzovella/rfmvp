@@ -32,7 +32,7 @@ body {
   margin-top: 26px;
 }
 .disabled-bar {
-  background-color: #00418F  !important;
+  background-color: #004094  !important;
 }
 .progress-bar.icon-bar::after{
 position: relative;
@@ -232,7 +232,7 @@ input[type="checkbox"]:checked + label {
 .multi-select-flavor-title {
   font-family: 'Montserrat';
   font-size: 13px;
-  color: #00418F;
+  color: #004094;
   text-align: left;
   vertical-align: top;
   font-weight: 400;
@@ -244,7 +244,7 @@ input[type="checkbox"]:checked + label {
 .multi-select-title-description {
   font-family: 'Roboto';
   font-size: 14px;
-  color: #00418F;
+  color: #004094;
   text-align: left;
   vertical-align: top;
   font-weight: 500;
@@ -256,7 +256,7 @@ input[type="checkbox"]:checked + label {
 .multi-select-flavor {
   font-family: 'Roboto';
   font-size: 14px;
-  color: #00418F;
+  color: #004094;
   text-align: left;
   vertical-align: top;
   font-weight: 200;
@@ -335,7 +335,7 @@ input[type="checkbox"]:checked + label {
 .second-description {
   font-family: 'Roboto';
   font-size: 14px;
-  color: #00418F;
+  color: #004094;
   text-align: center;
   vertical-align: top;
   font-weight: 400;
@@ -343,7 +343,12 @@ input[type="checkbox"]:checked + label {
   text-transform: none;
   letter-spacing: 0.0003938px;
 }
-@media not all and (pointer: coarse) {
+.radio-toolbar label:hover {
+  background-color: #003F9A;
+  color: white;
+  cursor: pointer;
+}
+@media (hover:none) {
   .radio-toolbar label:hover {
     background-color: #FFFFFF;
     color: #003F9A;
@@ -351,16 +356,11 @@ input[type="checkbox"]:checked + label {
 }
 
 
-.radio-toolbar label:hover {
-  background-color: #003F9A;
-  color: white;
-  cursor: pointer;
-}
 
 .field-title {
   font-family: Roboto;
   font-size: 17px;
-  color: #00418F;
+  color: #004094;
   text-align: left;
   vertical-align: top;
   font-weight: 500;
@@ -375,7 +375,7 @@ input[type="checkbox"]:checked + label {
   font-family: 'Roboto';
   font-size: 17px;
   margin-bottom: 25px;
-  color: #00418F;
+  color: #004094;
   text-align: left;
   vertical-align: top;
   font-weight: 500;
@@ -560,7 +560,7 @@ input[type="checkbox"]:checked + label {
 .dash-title{
   font-family: Montserrat;
   font-size: 33px;
-  color: #00418F;
+  color: #004094;
   text-align: left;
   vertical-align: top;
   font-weight: 800;
@@ -569,7 +569,7 @@ input[type="checkbox"]:checked + label {
 }
 .dash-subtitle{
   font-family: Montserrat;
-  color: #00418F;
+  color: #004094;
   font-size: 13px;
   font-weight: 400;
   line-height: 30px;
@@ -586,7 +586,7 @@ input[type="checkbox"]:checked + label {
 }
 .dash-big-btn{
  height: 69px;
- background-color: #00418F;
+ background-color: #004094;
  box-shadow: 0px 15px 30px 0 #0000000D;
  border-radius: 20px;
  font-family: Roboto;
@@ -606,7 +606,7 @@ white-space: nowrap;
 .dash-card-btn{
   height: 61px;
   min-width: 230px;
-  background-color: #00418F;
+  background-color: #004094;
   box-shadow: 0px 15px 30px 0 #0000000D;
   border-radius: 20px;
   font-family: Roboto;
@@ -622,7 +622,7 @@ white-space: nowrap;
 }
 .card-dash-title{
   font-family: Montserrat;
-  color: #00418F;
+  color: #004094;
   font-size: 18px;
   font-weight: 600;
   line-height: 22px;
@@ -631,7 +631,7 @@ white-space: nowrap;
 .card-dash-subtitle, .card-dash-subtitle a{
   font-family: Roboto;
   font-size: 16px;
-  color: #00418F!important;
+  color: #004094!important;
   text-align: left;
   vertical-align: top;
   font-weight: 400;
@@ -641,7 +641,7 @@ white-space: nowrap;
 .index-blue-text{
 font-family: Roboto;
 font-size: 18px;
-color: #00418F;
+color: #004094;
 text-align: center;
 vertical-align: top;
 font-weight: 600;
@@ -650,14 +650,14 @@ text-transform: none;
 .card-dash-centered-text{
   font-family: Roboto;
   font-size: 14px;
-  color: #00418F;
+  color: #004094;
   text-align: center;
   font-weight: 200;
 }
 .card-faq-text{
   font-family: Roboto;
   font-size: 16px;
-  color: #00418F;
+  color: #004094;
   font-weight: 400;
 }
 
@@ -671,7 +671,7 @@ text-transform: none;
 .card-dash-thin-text{
   font-family: Roboto;
   font-size: 13px;
-  color: #00418F;
+  color: #004094;
   text-align: left;
   vertical-align: top;
   font-weight: 200;
@@ -679,7 +679,7 @@ text-transform: none;
 .card-footer-text{
   font-family: Montserrat;
   font-size: 11px;
-  color: #00418F;
+  color: #004094;
   text-align: left;
   vertical-align: top;
   font-weight: 500;
@@ -687,7 +687,7 @@ text-transform: none;
 .card-footer-link{
   font-family: Roboto;
   font-size: 10px;
-  color: #00418F;
+  color: #004094;
   text-align: left;
   vertical-align: top;
   font-weight: 500;
@@ -708,7 +708,7 @@ text-transform: none;
   margin: -50px -15px 10px -15px;
 }
 .dog-card-title{
-  color: #00418f;
+  color: #004094;
   font-family: Roboto;
   font-size: 33px;
   font-weight: 700;

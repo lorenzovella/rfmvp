@@ -1,34 +1,12 @@
 {% extends "base_client.html" %}
 {% load static %}
 {% block head %}
-<style>
-label{
-  font-family: Montserrat;
-  font-size: 15px;
-  color: #00418F;
-  text-align: left;
-  vertical-align: top;
-  font-weight: 600;
-  text-transform: none;
-}
-input{
-  font-family: Montserrat!important;
-margin-bottom: 28px;
-  outline:none!important;
-  border:none!important;
-  border-bottom:1px solid #000000!important;
-}
-input:focus{
-  border:none!important;
-  outline:none!important;
-  box-shadow: 0 2px 0px -1px #00FB5C!important;
-}
-</style>
+<link rel="stylesheet" href="{% static 'css/registration.css' %}">
 {% endblock %}
 {% block content %}
 <div class="row d-flex-column middle justify-content-center mx-auto">
   <div style="padding-top: 20%;" class='col-10 col-lg-6 mx-auto mb-2'>
-    <p class="dash-title text-left">Você voltou!</p>
+    <p class="dash-title text-left"><span style="font-weight:600";>Você</span> voltou!</p>
     <p class="card-dash-subtitle text-left" style="margin-top:-20px;">
     Faça o login na sua conta Ração do Futuro.
     </p>
