@@ -122,24 +122,19 @@ class SaboresForm(forms.ModelForm):
         super(SaboresForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper(self)
         self.helper.layout = Layout(
-            # InlineCheckboxes('sabores',css_class="custom-control-checkbox"),
             Field('sabores', template="app/custom_components/multi-select.html"),
             footerHtml,
         )
-
 
 class PedidoForm(forms.ModelForm):
     class Meta:
         model = models.Pedido
         fields = []
 
-
 class PlanoForm(forms.ModelForm):
     class Meta:
         model = models.Plano
         fields = []
-
-
 
 class CachorroForm(forms.ModelForm):
     class Meta:
@@ -152,7 +147,7 @@ class CachorroForm(forms.ModelForm):
         super(CachorroForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper(self)
         self.helper.layout = Layout(
-            Field('nome', placeholder="Digite aqui o nome do seu cão", ),
+            Field('nome', placeholder="Digite aqui o nome do seu cão", template="app/custom_components/textinput.html"),
             Field('sexo', template="app/custom_components/radio.html"),
             footerHtml,
         )
@@ -171,7 +166,7 @@ class CachorroForm2(forms.ModelForm):
         self.helper.layout = Layout(
             HTML('<button name="wizard_goto_step" class="btn-back" type="submit" value="{{ wizard.steps.prev }}"><svg width="31px" height="22px" viewBox="0 0 31 22" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><path d="M11.2306 0.421231C11.7798 0.994106 11.7798 1.94508 11.2414 2.52941L4.70545 9.50702L29.611 9.50702C30.3755 9.50702 31 10.1716 31 10.9965C31 11.8214 30.3755 12.486 29.611 12.486L4.70545 12.486L11.2522 19.4636C11.7906 20.0479 11.7798 20.9874 11.2414 21.5718C10.6923 22.1446 9.82008 22.1446 9.27093 21.5603L0.398402 12.0506C0.279958 11.9131 0.18305 11.7642 0.107676 11.5808C0.0323029 11.3975 0 11.2027 0 11.008C0 10.6184 0.139979 10.2518 0.398402 9.96532L9.27093 0.455604C9.79854 -0.140186 10.6815 -0.151643 11.2306 0.421231L11.2306 0.421231Z" id="Path" fill="#17437A" stroke="none" /> </svg></button>'),
             Field('castrado', template="app/custom_components/radio.html"),
-            Field('raca', placeholder="Digite aqui..."),
+            Field('raca', placeholder="Digite aqui...", template="app/custom_components/textinput.html"),
             footerHtml,
         )
 
@@ -188,9 +183,9 @@ class CachorroForm3(forms.ModelForm):
         self.helper = FormHelper(self)
         self.helper.layout = Layout(
             HTML('<button name="wizard_goto_step" class="btn-back" type="submit" value="{{ wizard.steps.prev }}"><svg width="31px" height="22px" viewBox="0 0 31 22" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><path d="M11.2306 0.421231C11.7798 0.994106 11.7798 1.94508 11.2414 2.52941L4.70545 9.50702L29.611 9.50702C30.3755 9.50702 31 10.1716 31 10.9965C31 11.8214 30.3755 12.486 29.611 12.486L4.70545 12.486L11.2522 19.4636C11.7906 20.0479 11.7798 20.9874 11.2414 21.5718C10.6923 22.1446 9.82008 22.1446 9.27093 21.5603L0.398402 12.0506C0.279958 11.9131 0.18305 11.7642 0.107676 11.5808C0.0323029 11.3975 0 11.2027 0 11.008C0 10.6184 0.139979 10.2518 0.398402 9.96532L9.27093 0.455604C9.79854 -0.140186 10.6815 -0.151643 11.2306 0.421231L11.2306 0.421231Z" id="Path" fill="#17437A" stroke="none" /> </svg></button>'),
-            Field('nascimento', placeholder="Mês / Ano"),
-            Field('pesoideal', placeholder="Ex. 10,3kg"),
-            Field('peso', placeholder="Ex. 10,3kg"),
+            Field('nascimento', placeholder="Mês / Ano", template="app/custom_components/textinput.html"),
+            Field('pesoideal', placeholder="Ex. 10,3kg", template="app/custom_components/textinput.html"),
+            Field('peso', placeholder="Ex. 10,3kg", template="app/custom_components/textinput.html"),
             footerHtml,
         )
 
