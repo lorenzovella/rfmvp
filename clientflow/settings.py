@@ -94,10 +94,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-# SECURE_SSL_REDIRECT = True
-# SESSION_COOKIE_SECURE = True
-# CSRF_USE_SESSIONS = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_USE_SESSIONS = True
 
 LANGUAGE_CODE = 'pt-br'
 
@@ -145,7 +145,7 @@ sentry_sdk.init(
 )
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'smtp-relay.gmail.com'
 EMAIL_HOST_USER = os.environ.get('mailaddress')
 EMAIL_HOST_PASSWORD = os.environ.get('mailtoken')
 EMAIL_PORT = 587
