@@ -26,7 +26,7 @@ urlpatterns = (
     path("Carrinho/", login_required(views.CarrinhoListView.as_view()), name="clientflow_Carrinho_list"),
     path("NewCarrinho/", views.adicionarAoCarrinho, name="adicionar_ao_carrinho"),
     path("CheckOut/<int:carrinho>", views.checkout, name="clientflow_checkout"),
-    path("CheckOut/Fim/<int:carrinho>", views.fimDoFlow, name="clientflow_fimDoFlow"),
+    path("CompraConcluida/<int:carrinho>", views.fimDoFlow, name="clientflow_fimDoFlow"),
 
     # path("DogClient/renovar/<int:carrinho>", views.renovarPlano, name="pg_renovarPlano"),
 
