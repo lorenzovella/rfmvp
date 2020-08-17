@@ -61,7 +61,7 @@ function submitForm(){
 
                   //Preenche os campos com "..." enquanto consulta webservice.
                   $("[name='rua']").val("...");
-                  $("[name='complemento']").val("...");
+                  $("[name='bairro']").val("...");
                   $("[name='cidade']").val("...");
                   $("[name='estado']").val("...");
 
@@ -71,7 +71,7 @@ function submitForm(){
                       if (!("erro" in dados)) {
                           //Atualiza os campos com os valores da consulta.
                           $("[name='rua']").val(dados.logradouro);
-                          $("[name='complemento']").val(dados.bairro);
+                          $("[name='bairro']").val(dados.bairro);
                           $("[name='cidade']").val(dados.localidade);
                           $("[name='estado']").val(dados.uf);
                       } //end if.
