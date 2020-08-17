@@ -86,6 +86,7 @@ $(document).ready(function () {
         monthNamesShort: [ "Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez" ],
         changeMonth: true,
         changeYear: true,
+        defaultDate: '-1y',
         onClose: function(dateText, inst) {
           function isDonePressed(){
               return $(this).val(dateText)

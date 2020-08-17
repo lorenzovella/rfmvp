@@ -42,7 +42,6 @@ def criarHash(session,valor,cn,cb,cvv,cem,cey):
     return hash
 
 def aderirPlano(plano,referencia,hash,cardHolder,user,ip):
-    print(ip)
     url = pgUrl + "/pre-approvals?email="+email+"&token="+token
     payload = json.dumps({
     	"plan": plano,

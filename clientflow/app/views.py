@@ -139,7 +139,7 @@ def checkout(request,carrinho):
             # cobranca = pagseguro.cobrarPlano(pedido.idClient.nome+" - "+ str(carrinho), cart.plano, valor, '1', str(carrinho), cart.pagseguro_adesao)
             return redirect('clientflow_fimDoFlow', carrinho)
             # redirect('clientflow_Pedido_detail', carrinho)
-        if request.user.cliente.cpf==0:
+        if request.user.cliente.cpf=="":
             return redirect('user-profile-update', carrinho)
 
         return render(request,"app/checkout_cartao.html",{'plano':cart.plano, 'valor': "{:.2f}".format(cart.get_valor_carrinho()) })
