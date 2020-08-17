@@ -41,7 +41,8 @@ def criarHash(session,valor,cn,cb,cvv,cem,cey):
     hash = ET.fromstring(response.text)[0].text
     return hash
 
-def aderirPlano(plano,referencia,hash,cardHolder,user):
+def aderirPlano(plano,referencia,hash,cardHolder,user,ip):
+    print(ip)
     url = pgUrl + "/pre-approvals?email="+email+"&token="+token
     payload = json.dumps({
     	"plan": plano,
@@ -49,7 +50,7 @@ def aderirPlano(plano,referencia,hash,cardHolder,user):
     	"sender": {
     		"name":  user.nome,
     		"email": user.email,
-    		"hash": hash,
+    		"ip": ip,
     		"phone": {
     			"areaCode": user.areatelefone,
     			"number": user.telefone

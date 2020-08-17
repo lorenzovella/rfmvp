@@ -13,6 +13,7 @@ from clientflow.app import pagseguro
 from formtools.wizard.views import SessionWizardView
 from decimal import Decimal
 from math import ceil
+from ipware import get_client_ip
 
 def calculaDescontoProgressivo(consumoKg):
     consumoKg = float(consumoKg)
@@ -123,7 +124,7 @@ def checkout(request,carrinho):
             card = request.POST
             session = pagseguro.criarSession()
             hash = pagseguro.criarHash(session,valor,card['number'].replace(" ",""),card['brand'],card['cvc'],card['expm'],card['expy'])
-            cart.pagseguro_adesao = pagseguro.aderirPlano(cart.pagseguro_plano, carrinho, hash, card['name'], request.user.cliente)
+            cart.pagseguro_adesao = pagseguro.aderirPlano(cart.pagseguro_plano, carrinho, hash, card['name'], request.user.cliente, get_client_ip(request)[0])
             if type(cart.pagseguro_adesao) is dict:
                 for pedido in pedidos:
                     pedido.status= 'Pedido em aberto'
