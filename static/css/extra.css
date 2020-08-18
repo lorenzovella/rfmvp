@@ -342,13 +342,13 @@ input[type="checkbox"]:checked + label {
   text-transform: none;
   letter-spacing: 0.0003938px;
 }
-.radio-toolbar .first-description:hover {
+.radio-toolbar label:hover {
   background-color: #0033b2;
   color: white;
   cursor: pointer;
 }
 @media (hover:none) {
-  .radio-toolbar .first-description:hover {
+  .radio-toolbar label:hover {
     background-color: #FFFFFF;
     color: #0033b2;
     box-shadow: inset 1px 0px 8px 0 #A4A4A4C0;  }
