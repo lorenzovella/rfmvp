@@ -4,9 +4,6 @@
 
 {% block head %}
 <style>
-.active {
-  border: solid 4px #03FB5C;
-}
 .plano-1 {
   content: url('/static/ico/plano_recomendado.png');
 }
@@ -16,14 +13,17 @@
 .plano-3 {
   content: url('/static/ico/plano_quarto.png');
 }
-
+.dogdash-card{
+  height: auto;
+  margin-top: 15px;
+}
 </style>
 <script>
 $(document).ready(function () {
   $('.progress-bar.icon-bar').css("width","36%");
   $('.progress-bar.disabled-bar').css("width","64%");
   $('.two').removeClass('disabled-bar');
-  $('.middle .card').click(function () {
+  $('.middle .dogdash-card').click(function () {
    if ($(this).hasClass('active') && !$('.active').length) {
      $(this).removeClass('active');
    }
@@ -45,14 +45,14 @@ $(document).ready(function () {
 
 <div class='row info-bg'>
   <div class='col-10 info-bar-text'>
-    <h2 class="p-3 control-label text-center">Planos para o seu {{dog.raca}}, {{dog.nome}}
+    <h2 class="p-3 field-title text-center">Planos para o seu {{dog.raca}}, {{dog.nome}}
     </h2>
   </div>
 </div>
 <div class='col-lg-8 mx-auto mt-1'>
   {% for object in planos %}
   <div class="row middle">
-    <div class="card flex-row col-12 plano" name="{{object}}">
+    <div class="dogdash-card position-relative d-flex flex-row col plano" name="{{object}}">
       <div class="card-body col-9 justify-content-start">
         <div class="d-flex flex-column">
           <span class='justify-content-start control-label' style="text-shadow: 0px 0px 3px rgba(255, 255, 255, 0.9); z-index: 1;">Plano {{object.nome}}</span>
