@@ -189,6 +189,8 @@ class Cachorro(models.Model):
     created = models.DateTimeField(auto_now_add=True, editable=False)
     class Meta:
         pass
+    def sabores_name(self):
+        return  repr(self.sabores).replace("'","").replace("[","").replace("]","")
     def calculate_age(self):
         born = self.nascimento
         today = date.today()
