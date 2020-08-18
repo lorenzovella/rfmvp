@@ -1,0 +1,30 @@
+{% extends "base_dash.html" %}
+{% load static %}
+
+{% block content %}
+<div class="free-dog-badge-container">
+  <div class="w-100 text-center">
+    <img src="{% static 'css/images/pride-day-badge.png' %}" alt="flavor" />
+  </div>
+  <div class="badge-content">
+    <div>
+      <img src="{% static 'css/images/dog-logo-1.png' %}" alt="dog flying" />
+    </div>
+    <div class="badge-description">Badge</div>
+    <h1>Por mais Igualdade</h1>
+    <h2>O futuro é sobre</h2>
+    <h2 class="bold-text">Amor e empatia.</h2>
+    <p>Seu cão não tem rotulos, gostamos disso, sabia?</p>
+    <button class="free-dog-badge-button my-4">Voltar para o dashboard</button>
+  
+    <h1>Badge <span class="regular-text">visível?</span></h1>
+    <p>Você pode deixar ele visivel na sua dashboard.</p>
+    <div>
+      <button class="free-dog-badge-button mt-1">Sim</button>
+    </div>
+    <div>
+      <button class="free-dog-badge-button mt-1">Não</button>
+    </div>
+  </div>
+</div>
+{% endblock %}

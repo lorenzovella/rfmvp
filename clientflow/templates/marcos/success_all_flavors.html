@@ -1,0 +1,14 @@
+{% extends "base_dash.html" %}
+{% load static %}
+
+{% block content %}
+<div class="flavor-container">
+  <div class="imgs-container">
+    <img class="flavor-img" src="{% static 'css/images/all-flavors-1.png' %}" alt="flavor" />
+    <img class="flavor-middle-img" src="{% static 'css/images/all-flavors-2.png' %}" alt="flavor" />
+    <img class="flavor-img" src="{% static 'css/images/all-flavors-3.png' %}" alt="flavor" />
+  </div>
+  <h1 class="flavor-title">Você <span class="bold">adicionou todos os sabores.</span></h1>
+  <p class="flavor-description">Esperamos que o seu cão ame a Ração do Futuro, que tal contar depois pra gente? Publica lá no instagram que a gente te responde, ok?</p>
+</div>
+{% endblock %}

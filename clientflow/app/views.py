@@ -101,6 +101,8 @@ def IndexView(request):
         return redirect('dogdash')
     return render(request,'index.html')
 
+def teste(request):
+    return render(request, 'marcos/free_dog_badge.html')
 
 def dogdash(request):
     dogCount = models.Cachorro.objects.filter(idCliente = request.user.cliente).count()
