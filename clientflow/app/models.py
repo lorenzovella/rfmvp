@@ -169,9 +169,9 @@ class Cachorro(models.Model):
     atividade_choices = (('Caminhadas Diárias','De 30 min até 1:30 de caminhadas diárias.'),('Super Ativo','1:30 até 2:30 de caminhadas diárias.'), ('Nivel Olímpico','2:30 até 3:30 de caminhadas diárias.'))
     fisico_choices =( ('Magro','Magro'),  ('Na Medida','Na Medida'), ('Gordinho','Gordinho'), ('Obeso','Obeso') )
     sabores_choices = (
-    ('Carne de panela', mark_safe('https://res.cloudinary.com/dr1cvxypv/image/upload/c_scale,w_345/v1597777400/rf/carne_qwjvgl.png') ),
-    ('Frango Xadrez', mark_safe('https://res.cloudinary.com/dr1cvxypv/image/upload/c_scale,w_345/v1597777400/rf/frango_jucebo.png') ),
-    ('Risoto Suíno', mark_safe('https://res.cloudinary.com/dr1cvxypv/image/upload/c_scale,w_345/v1597777400/rf/risoto_xf3jqt.png') )  )
+    ('Carne de panela', mark_safe('/static/css/images/carne.png') ),
+    ('Frango Xadrez', mark_safe('/static/css/images/frango.png') ),
+    ('Risoto Suíno', mark_safe('/static/css/images/risoto.png') )  )
     # Fields
     nome = models.CharField('Nome do seu Dog', max_length=150, default="")
     sexo = models.CharField('Sexo', max_length=50, default="", choices=sexo_choices)

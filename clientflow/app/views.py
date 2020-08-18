@@ -267,8 +267,9 @@ def PlanoFlow(request, dog):
     precoKgRacao = calculaDescontoProgressivo(instance.calculomes)
     planos = models.Plano.objects.all()
     for obj in planos:
-        setattr(obj, "valor", "{:.2f}".format( precoKgRacao * obj.refeicoes * float(instance.calculomes)/28  )  )
-        setattr(obj, "valordia", "{:.2f}".format( float(obj.valor)/float(28) ) )
+        valorPlano = precoKgRacao * obj.refeicoes * float(instance.calculomes)/28
+        setattr(obj, "valor", "{:.2f}".format( valorPlano )  )
+        setattr(obj, "valordia", "{:.2f}".format( float(valorPlano)/float(obj.refeicoes) ) )
 
     return render(request,'app/plano_list.html',{'planos':planos,'dog':instance})
 
