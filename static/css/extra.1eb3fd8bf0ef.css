@@ -140,7 +140,7 @@ margin-top: 21px;
   text-align: center;
   text-align-last: center;
   width: 75%;
-  background-color: #003F9A;
+  background-color: #004094;
   border-radius: 20px;
   border: none;
   color: #FFF;;
@@ -195,13 +195,13 @@ input[type=radio],input[type=checkbox]{
 }
 
 input[type="checkbox"]:checked + label {
-  background-color: #003F9A;
+  background-color: #004094;
   color: white;
   box-shadow: inset 0px 1px 15px 0 #0000004A;
 }
 
 .radio-toolbar input[type="radio"]:checked + label {
-  background-color: #003F9A;
+  background-color: #004094;
   color: white;
 }
 
@@ -294,14 +294,14 @@ input[type="checkbox"]:checked + label {
 
 /* ------ */
 .ui-corner-all {
-  background-color: #003F9A;
+  background-color: #004094;
 }
 
 #ui-id-1 {
   top: 480px;
   font-family: Roboto;
   border-radius: 20px;
-  background: #003F9A;
+  background: #004094;
   color: #fff;
 }
 .ui-menu-item:hover {
@@ -323,7 +323,7 @@ input[type="checkbox"]:checked + label {
 
   font-family: 'Roboto';
   font-size: 16px;
-  color: #003F9A;
+  color: #004094;
   text-align: center;
   vertical-align: top;
   font-weight: 500;
@@ -344,14 +344,14 @@ input[type="checkbox"]:checked + label {
   letter-spacing: 0.0003938px;
 }
 .radio-toolbar label:hover {
-  background-color: #003F9A;
+  background-color: #004094;
   color: white;
   cursor: pointer;
 }
 @media (hover:none) {
   .radio-toolbar label:hover {
     background-color: #FFFFFF;
-    color: #003F9A;
+    color: #004094;
     box-shadow: inset 1px 0px 8px 0 #A4A4A4C0;  }
 }
 

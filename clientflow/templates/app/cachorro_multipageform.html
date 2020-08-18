@@ -6,10 +6,18 @@
 {% block head %}
 {{ wizard.form.media }}
 <style>
+#div_id_CachorroForm3-peso.special:after, #div_id_CachorroForm3-pesoideal.special:after {
+  content: "kg";
+  position: absolute;
+  margin-top: 25px;
+  color: #fff;
+  left: 50%;
+  padding-left: 17px;
+}
+
 .ui-datepicker-prev, .ui-datepicker-next{
   display: none;
 }
-
 .ui-datepicker-header {
   border: none;
   margin-top: 0.6em;
@@ -18,19 +26,17 @@
   height: 35px;
   margin-left: 5px!important;
 }
-
-
 .ui-datepicker-calendar {
   display: none;
   }
-#ui-datepicker-div{
+.ui-datepicker{
   height: 72px;
   position: absolute !important;
-  top: 310px !important;
+  top: 112px !important;
   left: 50% !important;
-  border:0;
+  border:0!important;
   z-index: 10 !important;
-      border-radius: 20px;
+  border-radius: 20px;
 
   -webkit-transform   : translateX(-50%) translateY(-50%) !important;
   -moz-transform      : translateX(-50%) translateY(-50%) !important;
@@ -40,6 +46,14 @@
 </style>
 <script>
 $(document).ready(function () {
+  $('#id_CachorroForm3-peso').one('keydown', function() {
+    $('#div_id_CachorroForm3-peso').toggleClass('special');
+    $('#id_CachorroForm3-peso').unbind;
+  });
+  $('#id_CachorroForm3-pesoideal').one('keydown', function() {
+    $('#div_id_CachorroForm3-pesoideal').toggleClass('special');
+    $('#id_CachorroForm3-pesoideal').unbind;
+  });
   $('form').attr('autocomplete','off');
   if($('#id_cachorro_wizard-current_step').val() == "CachorroForm2"){
     // Dog bar animation
@@ -66,43 +80,36 @@ $(document).ready(function () {
     $('.progress-bar.disabled-bar').css("width","100%");
   }
   if($('#id_cachorro_wizard-current_step').val() == "CachorroForm3"){
+    $('.pageMenu .active').toggleClass('changed');
     $("#div_id_CachorroForm3-pesoideal").hide();
 
     $('.progress-bar.icon-bar').css("width","13%");
     $('.progress-bar.disabled-bar').css("width","87%");
 
-    $('#id_CachorroForm3-nascimento').change(function(){
-      var years = moment().diff( moment( $('#id_CachorroForm3-nascimento').val(), "MM-YYYY" ), 'years' );
-      if( years < 1 ) {
-        $("#div_id_CachorroForm3-pesoideal").show();
-        $("#div_id_CachorroForm3-pesoideal input").prop('required',true);
-      }
-    });
-
-    $('#id_CachorroForm3-nascimento').datepicker(
+    $('#div_id_CachorroForm3-nascimento .controls').datepicker(
       {
+        altField: "#id_CachorroForm3-nascimento",
         dateFormat: "mm/yy",
         yearRange: "-25:+0",
         monthNamesShort: [ "Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez" ],
         changeMonth: true,
         changeYear: true,
         defaultDate: '-1y',
-        onClose: function(dateText, inst) {
-          function isDonePressed(){
-              return $(this).val(dateText)
+        onChangeMonthYear : function(year, month, inst) {
+          $('#id_CachorroForm3-nascimento').val(month+"/"+year);
+          var years = moment().diff( moment( $('#id_CachorroForm3-nascimento').val(), "MM-YYYY" ), 'years' );
+          if( years < 1 ) {
+            $("#div_id_CachorroForm3-pesoideal").show();
+            $("#div_id_CachorroForm3-pesoideal input").prop('required',true);
           }
-
-          if (isDonePressed()){
-              var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
-              var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
-              $(this).datepicker('setDate', new Date(year, month, 1)).trigger('change');
-
-               $('.date-picker').focusout()//Added to remove focus from datepicker input box on selecting date
+          else {
+            $("#div_id_CachorroForm3-pesoideal").hide();
+            $("#div_id_CachorroForm3-pesoideal input").prop('required',false);
+            $("#div_id_CachorroForm3-pesoideal input").val("0");
           }
         },
         beforeShow : function(input, inst) {
           inst.dpDiv.addClass('month_year_datepicker')
-
           if ((datestr = $(this).val()).length > 0) {
               year = datestr.substring(datestr.length-4, datestr.length);
               month = datestr.substring(0, 2);
