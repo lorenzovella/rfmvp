@@ -11,21 +11,17 @@ $(document).ready(function () {
     $("#optionalForm").show();
     $("#optionalText").hide();
   });
-  $("#nextStep").click(function (){
-    $("form").submit();
-  });
   $('.progress-bar.icon-bar').css("width","28%");
   $('.progress-bar.disabled-bar').css("width","72%");
 });
 </script>
+<style>
+input[type=checkbox]:checked + label {
+  color: #03FB5C;
+}
+</style>
 {% endblock %}
 {% block content %}
-
-<div class='row info-bg'>
-  <div class='col-10 info-bar-text'>
-    <p>Dados do seu cão - {{ wizard.steps.step1 }} </p>
-  </div>
-</div>
 <div class='row middle'>
   <div class='col mx-auto'>
     <div id="optionalForm" style="display:none;">
@@ -37,11 +33,17 @@ $(document).ready(function () {
     <div id="optionalText" class="col-12 flex-column mx-auto my-3">
       <span class="control-label mx-auto">Algum problema de Saúde</span>
       <div class="d-flex flex-row mt-3">
-        <div id="openForm" class="col-5 d-flex textinput">
-          <span class="m-auto">Sim</span>
+        <div class="col-5 d-flex textinput">
+          <input type="checkbox" id="openForm">
+          <label for="openForm" class="m-auto special-btn">
+            Sim
+          </label>
         </div>
-        <div id="nextStep" class="col-5 d-flex textinput">
-          <span class="m-auto">Não</span>
+        <div class="col-5 d-flex textinput">
+          <input type="checkbox" id="nextStep">
+          <label for="nextStep" class="m-auto special-btn">
+            Não
+          </label>
         </div>
       </div>
     </div>

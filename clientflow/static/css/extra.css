@@ -142,14 +142,13 @@ margin-top: 21px;
   margin-right: auto;
   text-align: center;
   text-align-last: center;
-  width: 75%;
   background-color: #004094;
   border-radius: 20px;
   border: none;
   color: #FFF;;
   height: 72px;
+  width: 80vw;
 }
-
 .numberinput::-webkit-outer-spin-button,
 .numberinput::-webkit-inner-spin-button {
   -webkit-appearance: none;

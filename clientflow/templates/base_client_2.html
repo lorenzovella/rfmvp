@@ -46,20 +46,22 @@
   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/extra.css' %}">
   <style>
-  .dog-background{
-    /* opacity: 0.7; */
-  }
   .dog-container{
     z-index:0;
-    margin-top: -150px!important;
+    top: 30px;
+    left: 30px;
     position: absolute;
   }
   .dog-bg-img{
-    max-width: 35vw;
-    min-width: 280px;
     position: relative;
-    padding: 10% 10% 10% 0;
-
+  }
+  #content{
+    margin-top: -95px!important;
+  }
+  .arrow-container{
+    top: 20px;
+    left: 20px;
+    position: absolute;
   }
   </style>
   {% block head %}
@@ -68,7 +70,17 @@
 
 
 <body>
-  <div class="dog-container col-lg-6 dog-background">
+  <div class="arrow-container">
+    <a href="{{request.META.HTTP_REFERER|escape}}">
+      <?xml version="1.0" encoding="utf-8"?>
+      <svg width="22px" height="22px" viewBox="0 0 22 22" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+        <g>
+          <path d="M0.385618 11.8615L0.346067 11.8082L0.326292 11.7905L0.286742 11.7638L0.266966 11.7283C0.227416 11.675 0.197753 11.6306 0.16809 11.5862L0.138427 11.5418L0.108764 11.4885C0.0889888 11.4441 0.0791011 11.3908 0.0593258 11.3464L0.0395506 11.3286L0.0197753 11.222L0 11.1066L0 11.0355L0 10.9645L0 10.8934L0.0197753 10.7868L0.0395506 10.6891L0.0593258 10.6536C0.0791011 10.6003 0.0889888 10.547 0.108764 10.5115L0.138427 10.4671L0.16809 10.4227C0.197753 10.3694 0.227416 10.325 0.266966 10.2895L0.286742 10.2362L0.326292 10.2095L0.346067 10.1829L0.385618 10.1296L0.425169 10.1118L11.2818 0.359709C11.8157 -0.119903 12.6661 -0.119903 13.2099 0.359709C13.7339 0.839322 13.7339 1.60315 13.2099 2.08276L4.65708 9.77432L20.6256 9.77432C21.3771 9.77432 22 10.325 22 11C22 11.675 21.3771 12.2257 20.6256 12.2257L4.65708 12.2257L13.2099 19.9084C13.7339 20.3969 13.7339 21.1696 13.2099 21.6403C12.6661 22.1199 11.8157 22.1199 11.2818 21.6403L0.385618 11.8615Z" id="Icon" fill="#00418F" stroke="none" />
+        </g>
+      </svg>
+    </a>
+  </div>
+  <div class="dog-container col-lg-6">
     <a href="{% url 'index' %}">
       <img class="dog-bg-img" src="{% static 'ico/dog-dash-bg-reverse.png'%} "/>
     </a>
