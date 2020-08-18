@@ -10,6 +10,7 @@
 .popoverbar {
   min-height: 40px;
   background-color: #03FB5C;
+  color: #fff !important;
 }
 body {
   font-family: "Poppins",sans-serif;
@@ -40,6 +41,8 @@ body {
 .progress-bar.icon-bar::after{
 position: relative;
 content: url('/static/ico/Dog-Symbol.png');
+max-width:64px;
+transform: scale(0.3);
 display: block;
 align-self: flex-end;
 margin-right: -2em;
@@ -77,10 +80,14 @@ margin-top: 21px;
 }
 .progress-bar-text {
   font-family: 'Roboto', sans-serif;
-  color: #0033b2;
+  color: #0133b2;
   position: fixed;
-  padding-top: 2em;
+  padding-top: 3em;
   margin-left: -1.7em;
+  letter-spacing: 0.3px;
+  font-weight: 400;
+  font-size: 10px;
+}
 }
 .one{
   left: 1%;
