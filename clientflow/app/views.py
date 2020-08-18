@@ -34,7 +34,7 @@ def calculaDescontoProgressivo(consumoKg):
         desconto = 0.47 + (( consumoKg - 12.5 ) * 0.01)
     desconto = min(desconto,0.5)
     # retorna valor do Kg com desconto aplicado
-    return precoKg*(1-desconto)
+    return (precoKg*(1-desconto))+15
 
 def handler404(request,exception):
     context = {}
@@ -264,9 +264,9 @@ def PlanoFlow(request, dog):
         instance = models.Cachorro.objects.get(pk=dog)
     except models.Cachorro.DoesNotExist:
         return handler500(request)
-    precoKgRacao = calculaDescontoProgressivo(instance.calculomes)
     planos = models.Plano.objects.all()
     for obj in planos:
+        precoKgRacao = calculaDescontoProgressivo( float(instance.calculomes) * float(obj.refeicoes/28) )
         valorPlano = precoKgRacao * obj.refeicoes * float(instance.calculomes)/28
         setattr(obj, "valor", "{:.2f}".format( valorPlano )  )
         setattr(obj, "valordia", "{:.2f}".format( float(valorPlano)/float(obj.refeicoes) ) )
