@@ -9,6 +9,7 @@ class Migration(migrations.Migration):
     dependencies = [
         ('app', '0032_auto_20200818_0021'),
     ]
+    operations = [
         migrations.AlterField(
             model_name='entrega',
             name='dia',
