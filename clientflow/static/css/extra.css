@@ -1,3 +1,6 @@
+*{
+  transition: background 0.3s 0s ease;
+}
 .topbar {
  min-height: 90px;
  margin-top: 40px;
@@ -315,12 +318,11 @@ input[type="checkbox"]:checked + label {
 }
 
 .radio-toolbar .first-description {
+  width: 80vw;
   padding: 24px 52px;
   box-shadow: inset 1px 0px 8px 0 #A4A4A4C0;
   border-radius: 20px;
-
   background-color: #FFFFFF;
-
   font-family: 'Roboto';
   font-size: 16px;
   color: #004094;
@@ -458,6 +460,7 @@ input[type="checkbox"]:checked + label {
 }
 .footer input{
   background: #004094 !important;
+  box-shadow: none!important;
   border:0;
 }
 .footer input::active{

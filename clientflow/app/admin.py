@@ -41,6 +41,16 @@ class PedidoAdminForm(forms.ModelForm):
 class ClienteAdmin(admin.ModelAdmin):
     form = ClienteAdminForm
     list_display = [
+    "user",
+    "nome",
+    "sobrenome",
+    "email",
+    "telefone",
+    "areatelefone",
+    "cep",
+    "cpf",
+    "numero",
+    "complemento"    ,
     "created",
     "last_updated",
     ]
@@ -52,6 +62,11 @@ class ClienteAdmin(admin.ModelAdmin):
 class PlanoAdmin(admin.ModelAdmin):
     form = PlanoAdminForm
     list_display = [
+        "nome",
+        "refeicoes",
+        "descricao",
+        "subdescricao",
+        "condicaofrete",
         "last_updated",
         "created",
     ]
@@ -63,6 +78,10 @@ class PlanoAdmin(admin.ModelAdmin):
 class EntregaAdmin(admin.ModelAdmin):
     form = EntregaAdminForm
     list_display = [
+        "frequencia",
+        "periodo",
+        "dia",
+        "preferencia",
         "last_updated",
         "created",
     ]
@@ -74,8 +93,10 @@ class EntregaAdmin(admin.ModelAdmin):
 class CachorroEspecialAdmin(admin.ModelAdmin):
     form = CachorroEspecialAdminForm
     list_display = [
-        "created",
-        "last_updated",
+        "Cachorro",
+        "condicao",
+        "medicamento",
+        "descricao",
     ]
     readonly_fields = [
         "created",
@@ -88,7 +109,10 @@ class CachorroEspecialAdmin(admin.ModelAdmin):
 class CachorroAdmin(admin.ModelAdmin):
     form = CachorroAdminForm
     list_display = [
-    "last_updated",
+    "idCliente",
+    "nome",
+    "sabores",
+    "calculomes",
     "created",
     ]
     readonly_fields = [
@@ -99,6 +123,10 @@ class CachorroAdmin(admin.ModelAdmin):
 class CarrinhoAdmin(admin.ModelAdmin):
     form = CarrinhoAdminForm
     list_display = [
+    "plano",
+    "status_adesao",
+    "pagseguro_plano",
+    "pagseguro_adesao",
     "last_updated",
     "created",
     ]
@@ -111,6 +139,13 @@ class CarrinhoAdmin(admin.ModelAdmin):
 class PedidoAdmin(admin.ModelAdmin):
     form = PedidoAdminForm
     list_display = [
+        "idClient",
+        "valor",
+        "status",
+        "idPlano",
+        "idEntrega",
+        "idDog",
+        "idCarrinho",
         "last_updated",
         "created",
     ]

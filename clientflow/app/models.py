@@ -161,7 +161,7 @@ class Cachorro(models.Model):
 
     # Relationships
     idCliente = models.ForeignKey("app.Cliente", on_delete=models.CASCADE, null=True, blank=True)
-    dogEspecial = models.OneToOneField("app.CachorroEspecial", on_delete=models.CASCADE, null=True, blank=True)
+    dogEspecial = models.OneToOneField("app.CachorroEspecial", on_delete=models.CASCADE, related_name="Cachorro", null=True, blank=True)
 
     sexo_choices = (('Macho','Macho'),('Femea','Femea'),('Indefinido','Indefinido'))
     castrado_choices = ((1,'Sim'), (0,'Não'))
