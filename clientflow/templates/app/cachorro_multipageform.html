@@ -12,9 +12,14 @@
   margin-top: 25px;
   color: #fff;
   left: 50%;
-  padding-left: 17px;
+  padding-left: 16.8px;
 }
-
+#id_CachorroForm3-nascimento{
+  color: #0033b2;
+}
+.ui-corner-all {
+  background-color: transparent;
+}
 .ui-datepicker-prev, .ui-datepicker-next{
   display: none;
 }
@@ -30,18 +35,11 @@
   display: none;
   }
 .ui-datepicker{
-  height: 72px;
   position: absolute !important;
-  top: 112px !important;
   left: 50% !important;
   border:0!important;
   z-index: 10 !important;
-  border-radius: 20px;
-
-  -webkit-transform   : translateX(-50%) translateY(-50%) !important;
-  -moz-transform      : translateX(-50%) translateY(-50%) !important;
-  -ms-transform       : translateX(-50%) translateY(-50%) !important;
-  transform           : translateX(-50%) translateY(-50%) !important;
+  transform: translateX(-50%) !important;
 }
 </style>
 <script>
@@ -105,7 +103,7 @@ $(document).ready(function () {
           else {
             $("#div_id_CachorroForm3-pesoideal").hide();
             $("#div_id_CachorroForm3-pesoideal input").prop('required',false);
-            $("#div_id_CachorroForm3-pesoideal input").val("0");
+            $("#div_id_CachorroForm3-pesoideal input").val("");
           }
         },
         beforeShow : function(input, inst) {
@@ -139,12 +137,13 @@ $(document).ready(function () {
 {% endblock %}
 {% block content %}
 
-<div class='row middle vh-100'>
+<div class='row middle'>
   <div class='col mx-auto'>
     <form action="" method="post">
       {{ wizard.management_form }}
       {% crispy wizard.form %}
     </form>
+    <div class="endofcontent"></div>
   </div>
 </div>
 {% endblock %}

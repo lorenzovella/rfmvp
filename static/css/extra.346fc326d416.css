@@ -1,3 +1,6 @@
+*{
+  transition: background 0.3s 0s ease;
+}
 .topbar {
  min-height: 90px;
  margin-top: 40px;
@@ -32,7 +35,7 @@ body {
   margin-top: 26px;
 }
 .disabled-bar {
-  background-color: #004094  !important;
+  background-color: #0033b2  !important;
 }
 .progress-bar.icon-bar::after{
 position: relative;
@@ -74,7 +77,7 @@ margin-top: 21px;
 }
 .progress-bar-text {
   font-family: 'Roboto', sans-serif;
-  color: #004094;
+  color: #0033b2;
   position: fixed;
   padding-top: 2em;
   margin-left: -1.7em;
@@ -139,14 +142,13 @@ margin-top: 21px;
   margin-right: auto;
   text-align: center;
   text-align-last: center;
-  width: 75%;
-  background-color: #004094;
+  background-color: #0033b2;
   border-radius: 20px;
   border: none;
   color: #FFF;;
   height: 72px;
+  width: 80vw;
 }
-
 .numberinput::-webkit-outer-spin-button,
 .numberinput::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -195,13 +197,13 @@ input[type=radio],input[type=checkbox]{
 }
 
 input[type="checkbox"]:checked + label {
-  background-color: #004094;
+  background-color: #0033b2;
   color: white;
   box-shadow: inset 0px 1px 15px 0 #0000004A;
 }
 
 .radio-toolbar input[type="radio"]:checked + label {
-  background-color: #004094;
+  background-color: #0033b2;
   color: white;
 }
 
@@ -231,8 +233,8 @@ input[type="checkbox"]:checked + label {
 
 .multi-select-flavor-title {
   font-family: 'Montserrat';
-  font-size: 13px;
-  color: #004094;
+  font-size: 16px;
+  color: #0033b2;
   text-align: left;
   vertical-align: top;
   font-weight: 400;
@@ -243,20 +245,20 @@ input[type="checkbox"]:checked + label {
 
 .multi-select-title-description {
   font-family: 'Roboto';
-  font-size: 14px;
-  color: #004094;
+  font-size: 16px;
+  color: #0033b2;
   text-align: left;
   vertical-align: top;
   font-weight: 500;
-  line-height: 30px;
   text-transform: none;
   letter-spacing: 0.3px;
+  margin-top: -8px;
 }
 
 .multi-select-flavor {
   font-family: 'Roboto';
   font-size: 14px;
-  color: #004094;
+  color: #0033b2;
   text-align: left;
   vertical-align: top;
   font-weight: 200;
@@ -266,7 +268,7 @@ input[type="checkbox"]:checked + label {
 }
 
 .add-flavor {
-  background-color: #004094;
+  background-color: #0033b2;
   border-radius: 17px;
 
   font-family: 'Roboto';
@@ -288,20 +290,16 @@ input[type="checkbox"]:checked + label {
 
 .multi-select-image input[type="checkbox"]:checked + label {
   background-color: #00FB5C;
-  color: #004094;
+  color: #0033b2;
   box-shadow: inset 0px 1px 15px 0 #0000004A;
 }
 
 /* ------ */
-.ui-corner-all {
-  background-color: #004094;
-}
-
 #ui-id-1 {
   top: 480px;
   font-family: Roboto;
   border-radius: 20px;
-  background: #004094;
+  background: #0033b2;
   color: #fff;
 }
 .ui-menu-item:hover {
@@ -315,15 +313,14 @@ input[type="checkbox"]:checked + label {
 }
 
 .radio-toolbar .first-description {
+  width: 80vw;
   padding: 24px 52px;
   box-shadow: inset 1px 0px 8px 0 #A4A4A4C0;
   border-radius: 20px;
-
   background-color: #FFFFFF;
-
   font-family: 'Roboto';
   font-size: 16px;
-  color: #004094;
+  color: #0033b2;
   text-align: center;
   vertical-align: top;
   font-weight: 500;
@@ -335,7 +332,7 @@ input[type="checkbox"]:checked + label {
 .second-description {
   font-family: 'Roboto';
   font-size: 14px;
-  color: #004094;
+  color: #0033b2;
   text-align: center;
   vertical-align: top;
   font-weight: 400;
@@ -343,15 +340,15 @@ input[type="checkbox"]:checked + label {
   text-transform: none;
   letter-spacing: 0.0003938px;
 }
-.radio-toolbar label:hover {
-  background-color: #004094;
+.radio-toolbar .first-description:hover {
+  background-color: #0033b2;
   color: white;
   cursor: pointer;
 }
 @media (hover:none) {
-  .radio-toolbar label:hover {
+  .radio-toolbar .first-description:hover {
     background-color: #FFFFFF;
-    color: #004094;
+    color: #0033b2;
     box-shadow: inset 1px 0px 8px 0 #A4A4A4C0;  }
 }
 
@@ -360,7 +357,7 @@ input[type="checkbox"]:checked + label {
 .field-title {
   font-family: Roboto;
   font-size: 17px;
-  color: #004094;
+  color: #0033b2;
   text-align: left;
   vertical-align: top;
   font-weight: 500;
@@ -375,7 +372,7 @@ input[type="checkbox"]:checked + label {
   font-family: 'Roboto';
   font-size: 17px;
   margin-bottom: 25px;
-  color: #004094;
+  color: #0033b2;
   text-align: left;
   vertical-align: top;
   font-weight: 500;
@@ -450,14 +447,14 @@ input[type="checkbox"]:checked + label {
 }
 
 .footer{
-  background: #004094;
+  background: #0033b2;
   position: fixed;
   display: flex;
   width:100%;
   bottom: 0;
 }
 .footer input{
-  background: #004094 !important;
+  background: #0033b2 !important;
   box-shadow: none!important;
   border:0;
 }
@@ -561,7 +558,7 @@ input[type="checkbox"]:checked + label {
 .dash-title{
   font-family: Montserrat;
   font-size: 33px;
-  color: #004094;
+  color: #0033b2;
   text-align: left;
   vertical-align: top;
   font-weight: 800;
@@ -570,7 +567,7 @@ input[type="checkbox"]:checked + label {
 }
 .dash-subtitle{
   font-family: Montserrat;
-  color: #004094;
+  color: #0033b2;
   font-size: 13px;
   font-weight: 400;
   line-height: 30px;
@@ -587,7 +584,7 @@ input[type="checkbox"]:checked + label {
 }
 .dash-big-btn{
  height: 69px;
- background-color: #004094;
+ background-color: #0033b2;
  box-shadow: 0px 15px 30px 0 #0000000D;
  border-radius: 20px;
  font-family: Roboto;
@@ -607,7 +604,7 @@ white-space: nowrap;
 .dash-card-btn{
   height: 61px;
   min-width: 230px;
-  background-color: #004094;
+  background-color: #0033b2;
   box-shadow: 0px 15px 30px 0 #0000000D;
   border-radius: 20px;
   font-family: Roboto;
@@ -623,7 +620,7 @@ white-space: nowrap;
 }
 .card-dash-title{
   font-family: Montserrat;
-  color: #004094;
+  color: #0033b2;
   font-size: 18px;
   font-weight: 600;
   line-height: 22px;
@@ -632,7 +629,7 @@ white-space: nowrap;
 .card-dash-subtitle, .card-dash-subtitle a{
   font-family: Roboto;
   font-size: 16px;
-  color: #004094!important;
+  color: #0033b2!important;
   text-align: left;
   vertical-align: top;
   font-weight: 400;
@@ -642,7 +639,7 @@ white-space: nowrap;
 .index-blue-text{
 font-family: Roboto;
 font-size: 18px;
-color: #004094;
+color: #0033b2;
 text-align: center;
 vertical-align: top;
 font-weight: 600;
@@ -651,28 +648,28 @@ text-transform: none;
 .card-dash-centered-text{
   font-family: Roboto;
   font-size: 14px;
-  color: #004094;
+  color: #0033b2;
   text-align: center;
   font-weight: 200;
 }
 .card-faq-text{
   font-family: Roboto;
   font-size: 16px;
-  color: #004094;
+  color: #0033b2;
   font-weight: 400;
 }
 
 .card-dash-blue-button{
   max-width: 90px;
   max-height: 83px;
-  background-color: #004094;
+  background-color: #0033b2;
   box-shadow: inset 1px 2px 3px 0 #0E3B5280;
   border-radius: 20px;
 }
 .card-dash-thin-text{
   font-family: Roboto;
   font-size: 13px;
-  color: #004094;
+  color: #0033b2;
   text-align: left;
   vertical-align: top;
   font-weight: 200;
@@ -680,7 +677,7 @@ text-transform: none;
 .card-footer-text{
   font-family: Montserrat;
   font-size: 11px;
-  color: #004094;
+  color: #0033b2;
   text-align: left;
   vertical-align: top;
   font-weight: 500;
@@ -688,7 +685,7 @@ text-transform: none;
 .card-footer-link{
   font-family: Roboto;
   font-size: 10px;
-  color: #004094;
+  color: #0033b2;
   text-align: left;
   vertical-align: top;
   font-weight: 500;
@@ -709,7 +706,7 @@ text-transform: none;
   margin: -50px -15px 10px -15px;
 }
 .dog-card-title{
-  color: #004094;
+  color: #0033b2;
   font-family: Roboto;
   font-size: 33px;
   font-weight: 700;

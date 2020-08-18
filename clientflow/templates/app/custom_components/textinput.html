@@ -6,7 +6,7 @@
     <{% if tag %}{{ tag }}{% else %}div{% endif %} id="div_{{ field.auto_id }}" {% if not field|is_checkbox %}class="form-group{% else %}class="checkbox{% endif %}{% if wrapper_class %} {{ wrapper_class }}{% endif %}{% if form_show_errors%}{% if field.errors %} has-error{% endif %}{% endif %}{% if field.css_classes %} {{ field.css_classes }}{% endif %}">
         {% if field.label and form_show_labels %}
         <div class="row">
-            <label for="{{ field.id_for_label }}" class="col-8 mx-auto field-title {{ label_class }}{% if field.field.required %} requiredField{% endif %}">
+            <label for="{{ field.id_for_label }}" class="col-10 mx-auto field-title {{ label_class }}{% if field.field.required %} requiredField{% endif %}">
                 {{ field.label|safe }}{% if field.field.required %}<span class="asteriskField">*</span>{% endif %}
             </label>
           </div>

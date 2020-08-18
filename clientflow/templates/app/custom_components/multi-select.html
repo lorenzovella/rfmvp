@@ -2,17 +2,17 @@
 {% load static %}
 {% load l10n %}
 
-<div class="m-auto">
+<div class="m-auto col col-lg-8">
     <label class="field-title">{{field.label|safe}}</label>
     <div class="{% if field_class %} {{ field_class }}{% endif %}multi-select-image"{% if flat_attrs %} {{ flat_attrs|safe }}{% endif %}>
         <div class="row">
             {% for choice in field.field.choices %}
                 <div class="col-sm-12 col-md-12 col-lg-12">
                     <div class="d-inline-flex ">
-                      <img src="{% static 'css/images/exemplo.png' %}" alt="{{choice.description}}" />
+                      <img src="{{choice.1}}" />
                       <div class="d-flex flex-column ml-4">
                         <label class="multi-select-flavor-title">Sabor</label>
-                        <label class="multi-select-title-description">Frango com Requeijão</label>
+                        <label class="multi-select-title-description">{{choice.0}}</label>
                         <input type="checkbox" {% if choice.0|stringformat:"s" == field.value|default_if_none:""|stringformat:"s" %} checked="checked"{% endif %} name="{{ field.html_name }}" id="id_{{ field.html_name }}_{{ forloop.counter }}" value="{{ choice.0|unlocalize }}" {{ field.field.widget.attrs|flatatt }}>
                         <label class="add-flavor" for="id_{{ field.html_name }}_{{ forloop.counter }}">
                           Adicionar sabor

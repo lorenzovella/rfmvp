@@ -6,6 +6,7 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
 from django.dispatch import receiver
+from django.utils.safestring import mark_safe
 from clientflow.app.pagseguro import consultaAssinatura, listaPagamentos
 from datetime import date
 
@@ -165,9 +166,12 @@ class Cachorro(models.Model):
 
     sexo_choices = (('Macho','Macho'),('Femea','Femea'),('Indefinido','Indefinido'))
     castrado_choices = ((1,'Sim'), (0,'Não'))
-    atividade_choices = (('Caminhadas Diárias','Caminhadas Diárias'),('Super Ativo','Super Ativo'), ('Nivel Olímpico','Nivel Olímpico'))
+    atividade_choices = (('Caminhadas Diárias','De 30 min até 1:30 de caminhadas diárias.'),('Super Ativo','1:30 até 2:30 de caminhadas diárias.'), ('Nivel Olímpico','2:30 até 3:30 de caminhadas diárias.'))
     fisico_choices =( ('Magro','Magro'),  ('Na Medida','Na Medida'), ('Gordinho','Gordinho'), ('Obeso','Obeso') )
-    sabores_choices = ( ('Carne de panela', 'Carne de panela'), ('Frango Xadrez', 'Frango Xadrez'), ('Risoto Suíno','Risoto Suíno')  )
+    sabores_choices = (
+    ('Carne de panela', mark_safe('https://res.cloudinary.com/dr1cvxypv/image/upload/c_scale,w_500/v1597771642/rf/32131_kcvajt.png') ),
+    ('Frango Xadrez', mark_safe('https://res.cloudinary.com/dr1cvxypv/image/upload/c_scale,w_500/v1597771624/rf/31_ukretl.png') ),
+    ('Risoto Suíno', mark_safe('https://res.cloudinary.com/dr1cvxypv/image/upload/c_scale,w_500/v1597771619/rf/3123_nkn6pb.png') )  )
     # Fields
     nome = models.CharField('Nome do seu Dog', max_length=150, default="")
     sexo = models.CharField('Sexo', max_length=50, default="", choices=sexo_choices)
