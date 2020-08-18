@@ -180,7 +180,7 @@ class Cachorro(models.Model):
     nascimento = models.DateField('Data de nascimento', null= True)
     peso = models.DecimalField('Peso', decimal_places=1, max_digits=3, help_text='Observação: Não sabe o peso exato? Não faz mal, você pode inserir um peso próximo.', default=0)
     pesoideal = models.DecimalField('Peso Ideal',  decimal_places=1, max_digits=3, help_text='Segundo o conselho veterinario, caso seu cão tenha até 12 meses é obrigatorio você informar o peso ideal dele quando adulto. Fique tranquilo, você pode informar o peso aproximado.', default=0, null=True, blank=True)
-    atividade = models.CharField('Nivel de atividade Diária', max_length=100, default="", choices=atividade_choices)
+    atividade = models.CharField('Nivel de atividade Diária', max_length=250, default="", choices=atividade_choices)
     fisico = models.CharField('Físico do cão', max_length=100, default="", choices=fisico_choices)
     sabores = MultiSelectField('Escolha os sabores do futuro', default="", choices=sabores_choices)
     calculomes = models.DecimalField('Quantidade de ração a receber (kg/mês)',  decimal_places=1, max_digits=3, default=0)

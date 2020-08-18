@@ -9,22 +9,10 @@ class Migration(migrations.Migration):
     dependencies = [
         ('app', '0032_auto_20200818_0021'),
     ]
-
-    operations = [
-        migrations.AlterField(
-            model_name='cachorro',
-            name='atividade',
-            field=models.CharField(choices=[('Caminhadas Diárias', 'De 30 min até 1:30 de caminhadas diárias.'), ('Super Ativo', '1:30 até 2:30 de caminhadas diárias.'), ('Nivel Olímpico', '2:30 até 3:30 de caminhadas diárias.')], default='', max_length=100, verbose_name='Nivel de atividade Diária'),
-        ),
-        migrations.AlterField(
-            model_name='cachorro',
-            name='sabores',
-            field=multiselectfield.db.fields.MultiSelectField(choices=[('Carne de panela', 'https://res.cloudinary.com/dr1cvxypv/image/upload/c_scale,w_345/v1597771642/rf/32131_kcvajt.png'), ('Frango Xadrez', 'https://res.cloudinary.com/dr1cvxypv/image/upload/c_scale,w_345/v1597771624/rf/31_ukretl.png'), ('Risoto Suíno', 'https://res.cloudinary.com/dr1cvxypv/image/upload/c_scale,w_345/v1597771619/rf/3123_nkn6pb.png')], default='', max_length=42, verbose_name='Escolha os sabores do futuro'),
-        ),
         migrations.AlterField(
             model_name='entrega',
             name='dia',
-            field=multiselectfield.db.fields.MultiSelectField(choices=[('Segunda', 'Segunda'), ('Terça', 'Terça'), ('Quarta', 'Quarta'), ('Quinta', 'Quinta'), ('Sexta', 'Sexta'), ('Sábado', 'Sábado')], default='', max_length=40, verbose_name='Quais dias da semana você pode receber a Ração Do Futuro?'),
+            field=multiselectfield.db.fields.MultiSelectField(choices=[('Segunda', 'Segunda'), ('Terça', 'Terça'), ('Quarta', 'Quarta'), ('Quinta', 'Quinta'), ('Sexta', 'Sexta'), ('Sábado', 'Sábado')], default='', max_length=250, verbose_name='Quais dias da semana você pode receber a Ração Do Futuro?'),
         ),
         migrations.AlterField(
             model_name='entrega',

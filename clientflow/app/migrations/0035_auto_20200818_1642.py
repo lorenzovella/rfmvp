@@ -7,7 +7,7 @@ import multiselectfield.db.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app', '0034_auto_20200818_1605'),
+        ('app', '0033_auto_20200818_1600'),
     ]
 
     operations = [
