@@ -157,7 +157,7 @@ def listaPagamentos(codigoAdesao):
 
     response = requests.request("GET", url, headers=headers, data = payload)
     jsonResponse = json.loads(response.text)
-    return jsonResponse
+    return jsonResponse['paymentOrders']
 
 def suspendePlano(codigoAdesao):
     url = pgUrl + "/pre-approvals/"+codigoAdesao+"/status?email="+email+"&token="+token

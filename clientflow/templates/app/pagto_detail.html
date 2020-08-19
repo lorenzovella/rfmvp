@@ -1,34 +1,67 @@
 
-{% extends "base.html" %}
+{% extends "base_client_2.html" %}
 {% load static %}
+
+{% block head %}
+<style>
+  select{
+    appearance: none;
+    border: none;
+    width: 120%;
+    opacity: 1;
+    background: transparent;
+  }
+</style>
+{% endblock %}
 
 {% block content %}
 
-<div class='row info-bg'>
-  <div class='col-10 info-bar-text'>
-    <p>Meu pedido</p>
+<div class="row">
+  <div class="col-lg-10 d-flex-column">
+    <div class='pt-5 pl-1 mt-4 col-12 col-md-7 mx-auto'>
+      <p class="pl-3 dash-title">Huma<span style="font-weight:600">nistrativo.</span></p>
+      <p class="pl-3 dash-subtitle" style="margin-top:-20px;" >Dados e informações sobre humanos.</p>
+    </div>
   </div>
 </div>
+<div class='row'>
+  <div class='col-10 dash-title d-flex mx-auto'>
+    <p>Minhas faturas</p>
+  </div>
+</div>
+
 <div class='row middle'>
   <div class='col-10 mx-auto mt-1'>
     <div class="row">
-      <div class="card col-sm">
+      {% for obj, val in object.idCarrinho.lista_pagamentos.items %}
+      {% if forloop.first %}
+      <strong class="card-dash-title text-center">{{object.idCarrinho.plano}} <br> </strong>
+      </div>
+      <div class="row">
+      {% endif %}
+      <div class="dogdash-card m-2 col-sm" style="height:auto">
         <div class="card-body">
-          <span class="card-title">
-            Nome do Cão: <br><span class='card-heading'>{{object.idDog.nome}}</span>
-          </span>
           <div class='row'>
-            <div class='col-12 card-text'>
-              Status:<br>
-              <span class='card-subheading'>{{object.idCarrinho.lista_pagamentos}}</span>
+            <div class='col-12 m-1 card-dash-title'>
+              Data de cobrança: <br>
+              <span class='card-dash-subtitle'>{{val.schedulingDate|slice:10}}<br> </span>
+              Status: <br>
+              <select class="card-dash-subtitle" disabled value="{{val.status}}">
+                <option {% if val.status == 1 %} selected="selected" {% endif %} value="1">Aguardando pagamento</option>
+                <option {% if val.status == 2 %} selected="selected" {% endif %} value="2">Em análise</option>
+                <option {% if val.status == 3 %} selected="selected" {% endif %} value="3">Paga</option>
+                <option {% if val.status == 4 %} selected="selected" {% endif %} value="4">Disponível</option>
+                <option {% if val.status == 5 %} selected="selected" {% endif %} value="5">Em disputa</option>
+                <option {% if val.status == 6 %} selected="selected" {% endif %} value="6">Devolvida</option>
+                <option {% if val.status == 7 %} selected="selected" {% endif %} value="7">Cancelada</option>
+              </select>
+              Valor da cobrança: <br>
+              <span class='card-dash-subtitle'>R${{val.amount}} <br> </span>
             </div>
-            <!-- <div class='col-6 card-text'>
-              Quantidade de ração diária para o cão:<br>
-              <span class='card-subheading'>{{object.calculodia}} g/dia</span>
-            </div> -->
           </div>
         </div>
       </div>
+      {% endfor %}
     </div>
   </div>
 </div>

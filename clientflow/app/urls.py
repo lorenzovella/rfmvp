@@ -44,7 +44,7 @@ urlpatterns = (
 
 
     path("Pedido/create/", views.PedidoCreateView.as_view(), name="clientflow_Pedido_create"),
-    path("Pedido/detail/<int:pk>/", views.PedidoDetailView.as_view(), name="clientflow_Pedido_detail"),
+    # path("Pedido/detail/<int:pk>/", views.PedidoDetailView.as_view(), name="clientflow_Pedido_detail"),
     path("Fatura/<int:pk>/", views.PagtoDetailView.as_view(), name="clientflow_Pedido_detail"),
     path("Pedido/update/<int:pk>/", views.PedidoUpdateView.as_view(), name="clientflow_Pedido_update"),
 
