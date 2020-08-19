@@ -155,7 +155,7 @@ margin-top: 21px;
   background-color: #0033b2;
   border-radius: 20px;
   border: none;
-  color: #FFF;;
+  color: #03FB5C;
   height: 72px;
   width: 80vw;
   font-weight: 500;
@@ -730,7 +730,7 @@ text-transform: none;
 }
 .dog-container{
   z-index:0;
-  margin-top: -120px;
+  margin-top: -100px;
   padding-left: 30px;
 }
 .arrow-container{
