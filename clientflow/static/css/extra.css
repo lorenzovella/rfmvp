@@ -124,14 +124,17 @@ margin-top: 21px;
 }
 
 .control-label{
-  color: #0033b2;
   font-family: Roboto;
-  font-size: 25px;
-  font-weight: 700;
-  line-height: 30px;
-  letter-spacing: 0.5px;
+  font-size: 17px;
+  color: #0033b2;
+  text-align: left;
+  vertical-align: top;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0.0004781px;
+  margin-top: 26px;
+  margin-bottom: 26px;
   display: flex;
-  justify-content: center;
 }
 .control-group{
   margin-left: auto;

@@ -94,35 +94,9 @@ function submitForm(){
           }
       });
     $('#submit-btn').hide()
-    $("#id_nascimento").datepicker({
-      dateFormat: "dd/mm/yy",
-      yearRange: "-20:+0",
-      monthNamesShort: [ "Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez" ],
-      changeMonth: true,
-      changeYear: true,
-      yearRange: "-70:",
-      maxDate: "-18Y",
-      onClose: function(dateText, inst) {
-        function isDonePressed(){
-            return $(this).val(dateText)
-        }
-      }
-    });
   });
 </script>
-<style>
-  #ui-datepicker-div{
-    position: fixed !important;
-    top: 50% !important;
-    left: 50% !important;
-    z-index: 9999 !important;
 
-    -webkit-transform   : translateX(-50%) translateY(-50%) !important;
-    -moz-transform      : translateX(-50%) translateY(-50%) !important;
-    -ms-transform       : translateX(-50%) translateY(-50%) !important;
-    transform           : translateX(-50%) translateY(-50%) !important;
-  }
-</style>
 
 {% endblock %}
 {% block content %}
@@ -133,7 +107,7 @@ function submitForm(){
   </div>
 </div>
 <div class='row middle'>
-  <div class='mx-auto'>
+  <div class='col mx-auto'>
     <form action="" method="post">
       {% crispy form %}
     </form>
@@ -141,8 +115,8 @@ function submitForm(){
 </div>
 <div class="endofcontent"></div>
 <div class="footer margin-footer" style="z-index:3;">
-    <span class="footer-text" onclick="submitForm()">
+    <button class="footer-text btn btn-primary btn-next" onclick="$('form').submit()">
       Continuar
-    </span>
+    </button>
 </div>
 {% endblock %}
