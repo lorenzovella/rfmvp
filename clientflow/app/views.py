@@ -1,5 +1,6 @@
 from . import forms
 from . import models
+from django import forms as djangoforms
 from django.views import generic
 from django.http import HttpRequest
 from django.shortcuts import redirect, render
@@ -14,6 +15,26 @@ from formtools.wizard.views import SessionWizardView
 from decimal import Decimal
 from math import ceil
 from ipware import get_client_ip
+
+
+class PasswordResetForm(djangoforms.Form):
+    def send_mail(self, subject_template_name,context, from_email,
+     to_email, html_email_template_name='email/boas_vindas.html' ):
+        """
+        Send a django.core.mail.EmailMultiAlternatives to `to_email`.
+        """
+        subject = loader.render_to_string(subject_template_name, context)
+        # Email subject *must not* contain newlines
+        subject = ''.join(subject.splitlines())
+        body = loader.render_to_string(email_template_name, context)
+
+        email_message = EmailMultiAlternatives(subject, body, from_email, [to_email])
+        if html_email_template_name is not None:
+            html_email = loader.render_to_string(html_email_template_name, context)
+            email_message.attach_alternative(html_email, 'text/html')
+
+        email_message.send()
+
 
 def calculaDescontoProgressivo(consumoKg):
     consumoKg = float(consumoKg)
@@ -87,7 +108,7 @@ def profile_simple_view(request, dog):
             user.save()
             user = authenticate(username=email, password=randPass)
             login(request, user)
-            passReset = PasswordResetForm({'email': email}, html_email_template_name='email/boas_vindas.html')
+            passReset = PasswordResetForm({'email': email})
             if passReset.is_valid():
                 passReset.save(request=request, use_https=True)
             return redirect('clientflow_PlanoFlow', dog)
