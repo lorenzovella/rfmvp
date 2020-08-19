@@ -165,7 +165,7 @@ class Cachorro(models.Model):
     idCliente = models.ForeignKey("app.Cliente", on_delete=models.CASCADE, null=True, blank=True)
     dogEspecial = models.OneToOneField("app.CachorroEspecial", on_delete=models.CASCADE, related_name="Cachorro", null=True, blank=True)
 
-    sexo_choices = (('Macho','Macho'),('Femea','Femea'),('Indefinido','Indefinido'))
+    sexo_choices = (('Macho','Macho'),('Femea','Femea'))
     castrado_choices = ((1,'Sim'), (0,'Não'))
     atividade_choices = (('Caminhadas Diárias','De 30 min até 1:30 de caminhadas diárias.'),('Super Ativo','1:30 até 2:30 de caminhadas diárias.'), ('Nivel Olímpico','2:30 até 3:30 de caminhadas diárias.'))
     fisico_choices =( ('Magro','Magro'),  ('Na Medida','Na Medida'), ('Gordinho','Gordinho'), ('Obeso','Obeso') )
