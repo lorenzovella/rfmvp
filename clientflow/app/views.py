@@ -87,7 +87,7 @@ def profile_simple_view(request, dog):
             user.save()
             user = authenticate(username=email, password=randPass)
             login(request, user)
-            passReset = PasswordResetForm({'email': email})
+            passReset = PasswordResetForm({'email': email}, html_email_template_name='email/boas_vindas.html')
             if passReset.is_valid():
                 passReset.save(request=request, use_https=True)
             return redirect('clientflow_PlanoFlow', dog)
