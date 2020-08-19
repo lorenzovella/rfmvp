@@ -46,16 +46,6 @@
   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/extra.css' %}">
   <style>
-  .dog-container{
-    z-index:0;
-    top: 30px;
-    left: 30px;
-    position: absolute;
-  }
-  .dog-bg-img{
-    position: relative;
-    max-width:141px;
-  }
   #content{
     margin-top: -55px!important;
   }
@@ -66,12 +56,12 @@
 
 
 <body>
-  <div class="dog-container col-lg-6 dog-background">
-    <a href="{% url 'index' %}">
-    <img class="dog-bg-img" src="{% static 'ico/dog-dash-bg.png'%} "/>
-    </a>
-  </div>
   <div id="content" class="container-fluid">
+    <div class="dog-container col-lg-6 dog-background">
+      <a href="{% url 'index' %}">
+        <img class="dog-bg-img" src="{% static 'ico/dog-dash-bg.png'%} "/>
+      </a>
+    </div>
     {% block content %}{% endblock %}
   </div>
 

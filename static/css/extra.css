@@ -106,9 +106,12 @@ margin-top: 21px;
   margin-top: -18px;
   padding-top: 15px;
 }
-
+.dog-bg-img{
+  position: relative;
+  max-width:141px;
+}
 .info-bar-text{
-  color: #17437a;
+  color: #0033b2;
   font-family: Roboto;
   font-size: 14px;
   font-weight: 700;
@@ -121,7 +124,7 @@ margin-top: 21px;
 }
 
 .control-label{
-  color: #395f8d;
+  color: #0033b2;
   font-family: Roboto;
   font-size: 25px;
   font-weight: 700;
@@ -167,12 +170,12 @@ margin-top: 21px;
 .textarea {
   width: 100%;
   padding: 10px 10px;
-  box-shadow: rgba(164, 164, 164, 0.753) 1px 0px 8px 0px inset;
+  box-shadow: #a4a4a4c0 1px 0px 8px 0px inset;
   border-radius: 20px;
-  background-color: rgb(255, 255, 255);
+  background-color: #fff;
   font-family: Roboto;
   font-size: 16px;
-  color: rgb(0, 63, 154);
+  color: #0033b2;
   vertical-align: top;
   font-weight: 500;
   line-height: 21px;
@@ -186,7 +189,7 @@ margin-top: 21px;
 
 .textarea:focus {
   outline: none !important;
-  box-shadow: 0 0 10px #719ECE;
+  box-shadow: 0 0 10px #0033b2;
 }
 
 .numberinput::placeholder, .textinput::placeholder, .dateinput::placeholder {
@@ -225,7 +228,7 @@ input[type="checkbox"]:checked + label {
   height: 72px;
   border-radius: 3em;
   background: #ffffff;
-  box-shadow: inset 2px 3px 2px rgba(44,132,190,0.2);
+  box-shadow: inset 2px 3px 2px #0033b235;
   position: relative;
   margin: 4px auto;
   overflow: hidden;
@@ -463,12 +466,12 @@ input[type="checkbox"]:checked + label {
   width:100%;
   bottom: 0;
 }
-.footer input{
+.footer *{
   background: #0033b2 !important;
   box-shadow: none!important;
   border:0;
 }
-.footer input::active{
+.footer *::active{
   border:0;
 }
 .margin-footer{
@@ -488,7 +491,7 @@ input[type="checkbox"]:checked + label {
 }
 .card {
   border-radius: 10px;
-  color: #18447b;
+  color: #0033b2;
   border: solid 4px #d5e8f4;
   background: #ffffff;
   margin-top: 0.7em;
@@ -521,7 +524,7 @@ input[type="checkbox"]:checked + label {
 }
 .card-subheading {
   margin-top: 0.7em;
-  color: #18447b;
+  color: #0033b2;
   font-family: Roboto;
   font-size: 22px;
   font-weight: 700;
@@ -530,7 +533,7 @@ input[type="checkbox"]:checked + label {
 }
 .card-new{
   border-radius: 10px;
-  color: #18447b;
+  color: #0033b2;
   border: dashed 4px #d5e8f4;
   background: #ffffff;
   margin-top: 0.7em;
@@ -546,9 +549,9 @@ input[type="checkbox"]:checked + label {
 }
 .round-btn{
   border-radius: 14px;
-  border: solid 4px rgba(24,68,123,0.85);
-  background: #18447b;
-  box-shadow: 0px 0px 25px rgba(5,39,83,0.25);
+  border: solid 4px #0033b2d9;
+  background: #0033b2;
+  box-shadow: 0px 0px 25px #0033b340;
   color: #f4f7f9;
   font-size: 20px;
   font-weight: 700;
@@ -563,7 +566,7 @@ input[type="checkbox"]:checked + label {
 }
 .link-no-decoration {
   text-decoration: none !important;
-  color: #18447b !important;
+  color: #0033b2 !important;
 }
 .dash-title{
   font-family: Montserrat;
@@ -573,7 +576,7 @@ input[type="checkbox"]:checked + label {
   vertical-align: top;
   font-weight: 800;
   text-transform: none;
-  text-shadow: 0px 3px 13px rgba(220,220,220,0.2)
+  text-shadow: 0px 3px 13px #dcdcdc33;
 }
 .dash-subtitle{
   font-family: Montserrat;
@@ -581,13 +584,13 @@ input[type="checkbox"]:checked + label {
   font-size: 13px;
   font-weight: 400;
   line-height: 30px;
-  text-shadow: 0px 3px 13px rgba(220,220,220,0.2)
+  text-shadow: 0px 3px 13px #dcdcdc33;
 }
 .dash-btn{
   height: 117px;
   border-radius: 24px;
   background: #ffffff;
-  box-shadow: 0px 3px 13px rgba(220,220,220,0.7);
+  box-shadow: 0px 3px 13px #dcdcdcb3;
 }
 .dash-btn-text{
   padding-top: 45px;
@@ -724,4 +727,19 @@ text-transform: none;
 .invalid-feedback{
   display: flex!important;
   justify-content: center!important;
+}
+.dog-container{
+  z-index:0;
+  margin-top: -80px;
+  padding-left: 30px;
+  position: absolute;
+}
+
+#content{
+  margin-top: -95px!important;
+}
+.arrow-container{
+  top: 20px;
+  left: 20px;
+  position: absolute;
 }
