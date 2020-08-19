@@ -139,7 +139,7 @@ class Entrega(models.Model):
     preferencia_choices=(('Portaria','Pode deixar na portaria'),('Em mãos', 'Sempre em mãos'))
     frequencia_choices=((1, ' 1 Entrega no mês (Grátis)'),(2,'2 Entregas no mês (R$9,90)'))
 
-    dia = MultiSelectField('Quais dias da semana você pode receber a Ração Do Futuro?', choices=diadasemana_choices, default="")
+    dia = MultiSelectField('Quais dias da semana você pode receber a Ração Do Futuro?', max_length=150, choices=diadasemana_choices, default="")
     periodo = MultiSelectField('Qual o período ideal para ser realizada a entrega?', choices=periodo_choices, default="")
     preferencia = models.CharField('Para quem podemos entregar?', max_length=150, default="", choices=preferencia_choices)
     frequencia = models.IntegerField('Com qual frequência quer receber a Ração do Futuro?', default=0, choices=frequencia_choices)
@@ -148,6 +148,7 @@ class Entrega(models.Model):
 
     class Meta:
         pass
+
 
     def __str__(self):
         return str(self.pk)
