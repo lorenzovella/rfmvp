@@ -7,6 +7,7 @@
 label{
   float: left;
   margin-left: 28px;
+  width: 80vw;
 }
 </style>
 <script>
@@ -20,9 +21,9 @@ $(document).ready(function () {
 {% block content %}
 <div class="row d-flex middle">
   <div class="col-10 mx-auto m-2 d-flex ">
-  <p class="dash-title" style="font-weight:600">De quem é o cachorro que foi registrado?</p>
+    <p class="dash-title" style="font-weight:600">Humano, agora preencha suas informações.</p>
   </div>
-  <div class="col-12 flex-column text-center first-description mx-auto m-2 ">
+  <div class="col-12 flex-column d-flex text-center first-description mx-auto m-2 ">
     <form method="post" style="display: contents;">
       {% csrf_token %}
       {{form.as_table}}
