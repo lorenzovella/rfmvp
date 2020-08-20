@@ -9,7 +9,7 @@
 }
 .popoverbar {
   min-height: 40px;
-  background-color: #0133b2;
+  background-color: #0033b2;
   color: #fff !important;
 }
 body {
@@ -80,23 +80,23 @@ margin-top: 21px;
 }
 .progress-bar-text {
   font-family: 'Roboto', sans-serif;
-  color: #0133b2;
-  position: fixed;
+  color: #0033b2;
   padding-top: 3em;
-  margin-left: -1.7em;
   letter-spacing: 0.3px;
   font-weight: 400;
   font-size: 10px;
-}
+  justify-content: center;
+  display: flex;
+  white-space: nowrap;
 }
 .one{
   left: 1%;
 }
 .two{
-  left:28%;
+  left:33%;
 }
 .three{
-  right:32%
+  right:33%
 }
 .four{
   right:1%
@@ -383,7 +383,7 @@ input[type="checkbox"]:checked + label {
   text-transform: none;
   letter-spacing: 0.0004781px;
   margin-top: 26px;
-  margin-bottom: 26px;
+  margin-bottom: 13px;
 }
 
 
