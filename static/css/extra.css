@@ -447,13 +447,13 @@ input[type="checkbox"]:checked + label {
 }
 .btn-next{
   width:50%;
-  height:120px;
+  height:100px;
   outline: 0;
   box-shadow: none;
   border: 0px;
   box-sizing: none;
   background-color: transparent;
-  color: #9fb2c8;
+  color: #FFF;
   font-family: Roboto;
   font-size: 34px;
   font-weight: 900;
@@ -461,6 +461,9 @@ input[type="checkbox"]:checked + label {
   letter-spacing: 2px;
   margin-left: auto;
   margin-right:auto;
+}
+.btn-next:hover{
+  color: #00FB5C;
 }
 
 .footer{
