@@ -793,3 +793,38 @@ text-transform: none;
   position: absolute;
   top: -50px;
 }
+.valormes{
+  height: 30px;
+  width: 125px;
+  font-family: Montserrat;
+  font-size: 14px;
+  color: #0033B2;
+  text-align: right;
+  vertical-align: top;
+  font-weight: 700;
+  box-shadow: -3px -2px 5px 0 #0000002E;
+  border-radius: 5px 0px 0px 5px;
+  background: #fff;
+  position: absolute;
+  right: -32px;
+  top: 72px;
+  padding-top: 5px;
+}
+
+.valordia{
+  height: 30px;
+  width: 112px;
+  font-family: Montserrat;
+  font-size: 12px;
+  color: #FFFFFF;
+  text-align: right;
+  vertical-align: top;
+  font-weight: 600;
+  box-shadow: -3px -2px 5px 0 #0000002E;
+  border-radius: 5px 0px 0px 5px;
+  background: #0033B2;
+  position: absolute;
+  right: -32px;
+  top: 106px;
+  padding-top: 5px;
+}
