@@ -19,7 +19,7 @@ from ipware import get_client_ip
 
 class newPasswordResetForm(PasswordResetForm):
     def send_mail(self, *args, **kwargs):
-        self.html_email_template_name = 'email/boas_vindas.html'
+        args['html_email_template_name'] = 'email/boas_vindas.html'
         super().send_mail(*args, **kwargs)
 def calculaDescontoProgressivo(consumoKg):
     consumoKg = float(consumoKg)
@@ -138,6 +138,7 @@ def checkout(request,carrinho):
                     pedido.save()
                 return errorView(request, cart.pagseguro_adesao)
             else:
+                pagseguro.descontoPlano()
                 for pedido in pedidos:
                     pedido.status = 'Pedido finalizado pelo cliente'
                     pedido.save()
