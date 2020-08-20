@@ -142,6 +142,12 @@ class CachorroForm(forms.ModelForm):
         super(CachorroForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper(self)
         self.helper.layout = Layout(
+            Div(
+                Div(
+                    HTML(
+                    '<p class="dash-title"><span style="font-weight:600">Olá</span> Humano,</p>'),
+                    HTML('<p class="card-dash-subtitle" style="margin-top:-20px;">Caso tenha outro cão você pode inserir no final</p>'),
+                    css_class="col-10 col-lg-6 d-flex flex-column mx-auto"),css_class="row"),
             Field('nome', placeholder="Digite aqui o nome do seu cão", template="app/custom_components/textinput.html"),
             Field('sexo', template="app/custom_components/radio.html"),
             footerHtml,

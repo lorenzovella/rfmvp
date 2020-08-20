@@ -15,7 +15,7 @@ a, a:hover{
   </div>
   {% for object in object_list %}
   {% ifchanged %}
-    <div class="text-center custom-hr col-12 control-label text-center m-2 p-2">
+    <div class="text-center custom-hr col-12 col-lg-7 control-label text-center m-2 p-2">
       <span class="d-flex align-items-center">{{object.get_status_display}}</span>
     </div>
   {% endifchanged %}

@@ -249,7 +249,7 @@ input[type="checkbox"]:checked + label {
 
 .multi-select-flavor-title {
   font-family: 'Montserrat';
-  font-size: 16px;
+  font-size: 13px;
   color: #0033b2;
   text-align: left;
   vertical-align: top;
@@ -257,6 +257,7 @@ input[type="checkbox"]:checked + label {
   line-height: 30px;
   text-transform: none;
   letter-spacing: 0.3px;
+  margin-bottom: 3px;
 }
 
 .multi-select-title-description {
@@ -286,7 +287,6 @@ input[type="checkbox"]:checked + label {
 .add-flavor {
   background-color: #0033b2;
   border-radius: 17px;
-
   font-family: 'Roboto';
   padding: 16px 26px;
   font-size: 16px;
@@ -297,6 +297,8 @@ input[type="checkbox"]:checked + label {
   text-transform: none;
   letter-spacing: 0.00045px;
   cursor: pointer;
+  margin-right: 12px;
+  white-space: nowrap;
 }
 
 .multi-select-image img {
