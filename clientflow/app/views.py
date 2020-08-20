@@ -74,7 +74,7 @@ def profile_update_view(request,carrinho=0):
         form = forms.ClienteForm(instance=clienteInstance)
     return render(request, 'registration/edit_profile.html',{'form':form} )
 
-def profile_simple_view(request, dog):
+def profile_simple_view(request, pedido, dog):
     if request.method == "POST":
         form = forms.ClienteNovoForm(request.POST)
         if form.is_valid():
@@ -87,6 +87,8 @@ def profile_simple_view(request, dog):
             user.refresh_from_db()
             dogInstance = models.Cachorro.objects.get(pk = dog)
             dogInstance.idCliente = user.cliente
+            pedidoInstance = models.Pedido.objects.get(pk = pedido)
+            pedidoInstance.idCliente = user.cliente
             dogInstance.save()
             user.cliente.email = email
             user.cliente.nome = form.cleaned_data['first_name']
@@ -96,7 +98,7 @@ def profile_simple_view(request, dog):
             passReset = newPasswordResetForm({'email': email})
             if passReset.is_valid():
                 passReset.save(request=request, use_https=True)
-            return redirect('clientflow_PlanoFlow', dog)
+            return redirect('clientflow_Carrinho_list')
     elif request.user.is_authenticated == False:
         form = forms.ClienteNovoForm()
     elif request.user.is_authenticated == True:
@@ -329,10 +331,13 @@ class entregaWizard(SessionWizardView):
         savedEntrega = entregaInstance.save()
         pedidoInstance.idEntrega = entregaInstance
         # relaciona usuario ao pedido
-        pedidoInstance.idClient = self.request.user.cliente
-        # salva pedido
-        savedPedido = pedidoInstance.save()
-        return redirect('clientflow_Carrinho_list')
+        if self.request.user.is_authenticated:
+            pedidoInstance.idClient = self.request.user.cliente
+            # salva pedido
+            savedPedido = pedidoInstance.save()
+            return redirect('clientflow_Carrinho_list')
+
+        return redirect('user-profile-simple', pedido = pedidoInstance, dog = pedidoInstance.idDog)
 
 
 class PlanoListView(generic.ListView):
@@ -506,14 +511,9 @@ class cachorroWizard(SessionWizardView):
         # salva sabores
         saboresForm = form_dict['Sabores'].cleaned_data
         cachorroInstance.sabores = saboresForm['sabores']
-        if self.request.user.is_authenticated:
-            cachorroInstance.idCliente = self.request.user.cliente
-            savedCachorro = cachorroInstance.save()
-            return redirect('clientflow_PlanoFlow', cachorroInstance)
         savedCachorro = cachorroInstance.save()
-        return redirect('user-profile-simple', dog = cachorroInstance)
-        # self.instance_dict = None
-        # self.storage.reset()
+        return redirect('clientflow_PlanoFlow', cachorroInstance)
+
 
 class ClienteListView(generic.ListView):
     model = models.Cliente

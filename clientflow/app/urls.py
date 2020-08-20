@@ -73,7 +73,7 @@ urlpatterns = (
     path("MinhaConta/", login_required(views.profile_view), name="user-profile"),
     path("MinhaConta/update/", views.profile_update_view, name="user-profile-update"),
     path("MinhaConta/update/<int:carrinho>", views.profile_update_view, name="user-profile-update"),
-    path("MinhaConta/Novo/<int:dog>", views.profile_simple_view, name="user-profile-simple",),
+    path("MinhaConta/Novo/<int:pedido>/<int:dog>/", views.profile_simple_view, name="user-profile-simple",),
 
     path("Pedido/suspender/confirm/<int:pk>", views.suspendePlanoConfirm,name="pg_suspende_confirm"),
     path("Pedido/suspender/<int:pk>", views.suspendePlano,name="pg_suspende"),
