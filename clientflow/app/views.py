@@ -273,7 +273,7 @@ def PlanoFlow(request, dog):
     planos = models.Plano.objects.all()
     for obj in planos:
         precoKgRacao = calculaDescontoProgressivo( float(instance.calculomes) * float(obj.refeicoes/28) )
-        valorPlano = precoKgRacao * obj.refeicoes * float(instance.calculomes)/28
+        valorPlano = (precoKgRacao * obj.refeicoes * float(instance.calculomes)/28)*0.9
         setattr(obj, "valor", "{:.2f}".format( valorPlano )  )
         setattr(obj, "valordia", "{:.2f}".format( float(valorPlano)/float(obj.refeicoes) ) )
 
@@ -287,7 +287,7 @@ def PedidoFlow(request, plano, dog):
         instance.idPlano = plano
         instance.idDog = dog
         precoKgRacao = calculaDescontoProgressivo(dog.calculomes)
-        instance.valor = precoKgRacao * plano.refeicoes * float(dog.calculomes)/28
+        instance.valor = (precoKgRacao * plano.refeicoes * float(dog.calculomes)/28)*0.9
         savedInstance = instance.save()
         return redirect('clientflow_EntregaFlow', pedido = instance)
     except Exception as e:
