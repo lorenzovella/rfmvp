@@ -19,20 +19,15 @@ from ipware import get_client_ip
 
 class newPasswordResetForm(PasswordResetForm):
     def send_mail(self, subject_template_name,context, from_email,
-     to_email, html_email_template_name='email/boas_vindas.html' ):
-        """
-        Send a django.core.mail.EmailMultiAlternatives to `to_email`.
-        """
+     to_email, html_email_template_name ):
         subject = loader.render_to_string(subject_template_name, context)
         # Email subject *must not* contain newlines
         subject = ''.join(subject.splitlines())
         body = loader.render_to_string(email_template_name, context)
 
         email_message = EmailMultiAlternatives(subject, body, from_email, [to_email])
-        if html_email_template_name is not None:
-            html_email = loader.render_to_string(html_email_template_name, context)
-            email_message.attach_alternative(html_email, 'text/html')
-
+        html_email = loader.render_to_string('email/boas_vindas.html', context)
+        email_message.attach_alternative(html_email, 'text/html')
         email_message.send()
 
 def calculaDescontoProgressivo(consumoKg):
