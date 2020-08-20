@@ -440,10 +440,10 @@ input[type="checkbox"]:checked + label {
   outline:0;
 }
 .btn-back{
-  margin-top: -140px;
+  margin-top: -115px;
+  margin-left: 15px;  
   text-align: left;
   position: absolute;
-  opacity: 0.3;
   z-index: 2000;
   outline: 0;
   border: 0px;
