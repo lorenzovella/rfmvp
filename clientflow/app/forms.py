@@ -104,7 +104,7 @@ class EntregaForm3(forms.ModelForm):
         self.helper = FormHelper(self)
         self.helper.layout = Layout(
             goBackBtn,
-            HTML('<div class="card"><div class="card-body"><p class="card-heading">Próxima entrega</p><p class="card-text">{{dia|join:", "}}</p><p class="card-text">{{periodo|join:", "}}</p></div></div>'),
+            # HTML('<div class="card"><div class="card-body"><p class="card-heading">Próxima entrega</p><p class="card-text">{{dia|join:", "}}</p><p class="card-text">{{periodo|join:", "}}</p></div></div>'),
             Field('preferencia', template="app/custom_components/radio.html"),
             Field('frequencia', template="app/custom_components/radio.html"),
             footerHtml,
