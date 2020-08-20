@@ -17,7 +17,7 @@ from math import ceil
 from ipware import get_client_ip
 
 
-class PasswordResetForm(djangoforms.Form):
+class newPasswordResetForm(PasswordResetForm):
     def send_mail(self, subject_template_name,context, from_email,
      to_email, html_email_template_name='email/boas_vindas.html' ):
         """
@@ -34,11 +34,7 @@ class PasswordResetForm(djangoforms.Form):
             email_message.attach_alternative(html_email, 'text/html')
 
         email_message.send()
-    def get_users(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-            
+
 def calculaDescontoProgressivo(consumoKg):
     consumoKg = float(consumoKg)
     precoKg = 55
@@ -111,7 +107,7 @@ def profile_simple_view(request, dog):
             user.save()
             user = authenticate(username=email, password=randPass)
             login(request, user)
-            passReset = PasswordResetForm({'email': email})
+            passReset = newPasswordResetForm({'email': email})
             if passReset.is_valid():
                 passReset.save(request=request, use_https=True)
             return redirect('clientflow_PlanoFlow', dog)

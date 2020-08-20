@@ -191,3 +191,16 @@ def cancelaPlano(codigoAdesao):
     else:
         jsonResponse = json.loads(response.text)
         return "Houve um erro!" + str(jsonResponse['errors'])
+
+def descontoPlano(codigoAdesao, p):
+    url = pgUrl + "/pre-approvals/"+codigoAdesao+"/discount?email="+email+"&token="+token
+
+    payload = "{\"type\":\"DISCOUNT_PERCENT\",\"value\":"+p+"}"
+    headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/vnd.pagseguro.com.br.v3+json;charset=ISO-8859-1'
+    }
+
+    response = requests.request("PUT", url, headers=headers, data = payload)
+
+    print(response.text.encode('utf8'))
