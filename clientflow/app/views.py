@@ -19,8 +19,8 @@ from ipware import get_client_ip
 
 class newPasswordResetForm(PasswordResetForm):
     def send_mail(self, *args, **kwargs):
-        args['html_email_template_name'] = 'email/boas_vindas.html'
         super().send_mail(*args, **kwargs)
+
 def calculaDescontoProgressivo(consumoKg):
     consumoKg = float(consumoKg)
     precoKg = 55

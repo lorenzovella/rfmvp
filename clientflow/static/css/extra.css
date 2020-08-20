@@ -213,13 +213,14 @@ input[type=radio],input[type=checkbox]{
 
 input[type="checkbox"]:checked + label {
   background-color: #0033b2;
-  color: white;
+  color: #0033b2;
   box-shadow: inset 0px 1px 15px 0 #0000004A;
 }
 
 .radio-toolbar input[type="radio"]:checked + label {
-  background-color: #0033b2;
-  color: white;
+  background-color: #00FB5C;
+  color: #0033b2;
+  box-shadow: inset 0px 1px 15px 0 #0000004A;
 }
 
 .radio.inline, .checkbox.inline{
@@ -330,12 +331,12 @@ input[type="checkbox"]:checked + label {
 .radio-toolbar .first-description {
   width: 80vw;
   padding: 24px 52px;
-  box-shadow: inset 1px 0px 8px 0 #A4A4A4C0;
+  box-shadow: inset 0px 1px 15px 0 #0000004A;
   border-radius: 20px;
-  background-color: #FFFFFF;
+  background-color: #0033b2;
   font-family: 'Roboto';
   font-size: 16px;
-  color: #0033b2;
+  color: #00FB5C;
   text-align: center;
   vertical-align: top;
   font-weight: 500;
@@ -356,8 +357,8 @@ input[type="checkbox"]:checked + label {
   letter-spacing: 0.0003938px;
 }
 .radio-toolbar label:hover {
-  background-color: #0033b2;
-  color: white;
+  background-color: #00FB5C;
+  color: #0033b2;
   cursor: pointer;
 }
 @media (hover:none) {
