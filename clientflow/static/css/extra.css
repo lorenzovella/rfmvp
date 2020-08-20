@@ -333,7 +333,7 @@ input[type="checkbox"]:checked + label {
 .radio-toolbar .first-description {
   width: 80vw;
   height: 72px;
-  padding: 24px 52px;
+  padding: 24px 40px;
   box-shadow: inset 0px 1px 15px 0 #0000004A;
   border-radius: 20px;
   background-color: #0033b2;
@@ -350,6 +350,7 @@ input[type="checkbox"]:checked + label {
 
 .second-description {
   font-family: 'Roboto';
+  box-shadow: none!important;
   font-size: 14px;
   color: #0033b2;
   text-align: center;
@@ -366,12 +367,10 @@ input[type="checkbox"]:checked + label {
 }
 @media (hover:none) {
   .radio-toolbar label:hover {
-    background-color: #FFFFFF;
-    color: #0033b2;
+    background-color: #0033b2;
+    color: #00FB5C;
     box-shadow: inset 1px 0px 8px 0 #A4A4A4C0;  }
 }
-
-
 
 .field-title {
   font-family: Roboto;
@@ -441,7 +440,7 @@ input[type="checkbox"]:checked + label {
 }
 .btn-back{
   margin-top: -115px;
-  margin-left: 15px;  
+  margin-left: 15px;
   text-align: left;
   position: absolute;
   z-index: 2000;
@@ -452,7 +451,7 @@ input[type="checkbox"]:checked + label {
 }
 .btn-next{
   width:50%;
-  height:80px;
+  height:100px;
   outline: 0;
   box-shadow: none;
   border: 0px;
@@ -726,6 +725,13 @@ text-transform: none;
   min-width: 258px;
   height: 294px;
 }
+.plano-card{
+  background-color: #FFFFFF;
+  box-shadow: 0px 0px 30px 0 #0000000D;
+  border-radius: 20px;
+  max-width: 190px;
+  height: 496px;
+}
 .custom-hr{
   border:none;
   border-radius:20px;
@@ -733,6 +739,9 @@ text-transform: none;
   margin-top: 0;
   box-shadow:  0px 15px 30px 0 #0000000D;
   margin: -50px -15px 10px -15px;
+}
+.custom-hr-2{
+  border-top:1.5px solid #E5EAF7;
 }
 .dog-card-title{
   color: #0033b2;
@@ -754,4 +763,33 @@ text-transform: none;
   top: 20px;
   left: 20px;
   position: absolute;
+}
+.less-spacing{
+  margin-top:-1em!important;
+}
+.plano-bold{
+  font-family: Montserrat;
+  font-size: 12px;
+  color: #0033B2;
+  text-align: left;
+  vertical-align: top;
+  font-weight: 600;
+  text-transform: none;
+}
+.plano-thin{
+  font-family: Montserrat;
+  font-size: 12px;
+  color: #0033B2;
+  text-align: left;
+  vertical-align: top;
+  font-weight: 400;
+  text-transform: none;
+}
+.plano-card-footer{
+  position: absolute;
+  bottom: 0;
+}
+.plano-img{
+  position: absolute;
+  top: -50px;
 }

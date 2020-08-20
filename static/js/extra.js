@@ -1,9 +1,6 @@
 $(document).ready(function () {
-
 // Responsiveness helpers
   // $('.control-group').last().css('margin-bottom','180px');
-
-
   $(document).keypress(
   function(event){
     if (event.which == '13') {
@@ -12,5 +9,4 @@ $(document).ready(function () {
       return false;
     }
   });
-  $(".lc-1pwp3xu").hide();
 });

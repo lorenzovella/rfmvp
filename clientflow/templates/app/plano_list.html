@@ -1,17 +1,33 @@
-
 {% extends "base_flow.html" %}
 {% load static %}
-
 {% block head %}
+<script src="{% static 'js/siema.min.js' %}"></script>
 <style>
+.siema {
+  height: 570px;
+  width: 88vw;
+  padding-top:50px;
+}
+.siema > div {
+  width:670px!important;
+  margin-left: auto;
+  margin-right: auto;
+}
+.siema > div > div {
+  padding-left: 10px;
+  padding-right: 10px;
+}
 .plano-1 {
   content: url('/static/ico/plano_recomendado.png');
+  max-height: 115px;
 }
 .plano-2 {
   content: url('/static/ico/plano_metade.png');
+  max-height: 115px;
 }
 .plano-3 {
   content: url('/static/ico/plano_quarto.png');
+  max-height: 115px;
 }
 .dogdash-card{
   height: auto;
@@ -20,21 +36,23 @@
 </style>
 <script>
 $(document).ready(function () {
+  const carousel = new Siema({
+    selector: '.siema',
+    startIndex: 0,
+    perPage: {
+      597: 2,
+      997: 3,
+    },
+  });
+  $('.siema').css('width','100vw');
+
   $('.progress-bar.icon-bar').css("width","36%");
   $('.progress-bar.disabled-bar').css("width","64%");
   $('.two').removeClass('disabled-bar');
-  $('.middle .dogdash-card').click(function () {
-   if ($(this).hasClass('active') && !$('.active').length) {
-     $(this).removeClass('active');
-   }
-   else
-   {
-     $('.active').removeClass('active');
-     $(this).addClass('active');
-     $('.active').trigger('cssClassChanged');
-   }
-   $('.footer-text').text("Continuar");
-   $('.footer-text').attr("href", "/PedidoFlow/"+$(".active").attr('name')+"/"+{{dog}});
+
+  $('input[type="radio"]').on('change', function() {
+    $('.footer-text').attr("href", "/PedidoFlow/"+ $('input[type="radio"]:checked').val() +"/"+{{dog}});
+    $('.footer-text').text("Continuar");
   });
 });
 </script>
@@ -43,45 +61,42 @@ $(document).ready(function () {
 
 {% block content %}
 
-<div class='row info-bg'>
-  <div class='col-10 info-bar-text'>
-    <h2 class="p-3 field-title text-center">Planos para o seu {{dog.raca}}, {{dog.nome}}
-    </h2>
-  </div>
-</div>
-<div class='col-lg-8 mx-auto mt-1'>
-  {% for object in planos %}
-  <div class="row middle">
-    <div class="dogdash-card position-relative d-flex flex-row col plano" name="{{object}}">
-      <div class="card-body col-9 justify-content-start">
-        <div class="d-flex flex-column">
-          <span class='justify-content-start control-label' style="text-shadow: 0px 0px 3px rgba(255, 255, 255, 0.9); z-index: 1;">Plano {{object.nome}}</span>
-          <div class='card-heading'>
-            {{ object.descricao}}
+<div class="row">
+  <div class="mx-auto">
+    <p class="dog-card-title col-10 mx-auto">Planos</p>
+    <p class="multi-select-flavor-title col-10 mx-auto" style="margin-top:-2em;">Escolha o plano ideal para o <span style="font-weight:600;">{{dog.nome}}</span> e para você.</p>
+    <div class="siema pl-4">
+      {% for object in planos %}
+        <div class="m-2 pt-4 pl-3 pr-1 text-decoration-none mx-auto plano-card position-relative" name="{{object}}">
+          <div class="d-flex plano-img">
+            <span class="plano-{{forloop.counter}} pl-4 mt-3" style="min-height: 50px;"></span>
           </div>
-          <div class='lead'>
-            {{ object.subdescricao}}
+          <div class="col mx-auto radio-toolbar" style="padding-top: 70px;">
+            <div class="d-flex" style="justify-content: flex-end;">
+              <input type="radio" name="planoChoice" id="planoChoices_{{object}}" value="{{object}}">
+              <label class="first-description mx-auto" style="height:50px;white-space:nowrap;padding: 16px 25px;" for="planoChoices_{{object}}">
+                  Escolher plano
+              </label>
+            </div>
+           </div>
+          <p class="second-description text-left">Plano</p>
+          <p class="card-subheading text-left less-spacing">{{object.nome}}</p>
+          <p class="card-footer-text less-spacing">{{ object.descricao}}</p>
+          <div class="plano-card-footer">
+            <p class="plano-bold">{{object.subdescricao}}</p>
+            <hr class="custom-hr-2">
+            <p class="plano-thin">{{object.condicaofrete}}</p>
+            <hr class="custom-hr-2">
+            <p class="plano-bold">Reembolso garantido</p>
+            <hr class="custom-hr-2">
+            <p class="plano-thin">Cancele a hora que quiser</p>
           </div>
         </div>
-      </div>
-      <div class="col-3">
-        <div class="d-flex flex-row-reverse justify-content-center">
-          <span class="delete-icon plano-{{forloop.counter}} pl-4 mt-3" style="min-height: 50px;"></span>
-        </div>
-        <div class="d-flex flex-row-reverse justify-content-center">
-          <span style="bottom: 1.3em;">
-            <p class="col text-center pt-3">R${{ object.valor }}<br>por mês</p>
-            <p class="col text-center control-label">R${{ object.valordia }}<br> por refeição!</p>
-          </span>
-        </div>
-      </div>
+      {% endfor %}
     </div>
   </div>
-  {% if forloop.last %}
-  <div class='endofcontent'></div>
-  {% endif %}
-  {% endfor %}
 </div>
+<div class="endofcontent"></div>
 <div class="footer margin-footer" style="z-index:3;">
     <a class="footer-text btn-next">
       Escolha um plano
