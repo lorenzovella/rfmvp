@@ -1,9 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-
 <head>
-
   <title>Ração do Futuro</title>
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-173241489-2"></script>
   <script>
@@ -37,6 +35,8 @@
   <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
   <script src="{% static 'js/extra.js' %}"></script>
   <script src="{% static 'js/moment.js' %}"></script>
+  {% block head %}
+  {% endblock %}
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;900&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@200;400;500;700;900&display=swap" rel="stylesheet">
