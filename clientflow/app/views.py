@@ -34,8 +34,11 @@ class PasswordResetForm(djangoforms.Form):
             email_message.attach_alternative(html_email, 'text/html')
 
         email_message.send()
-
-
+    def get_users(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+            
 def calculaDescontoProgressivo(consumoKg):
     consumoKg = float(consumoKg)
     precoKg = 55
