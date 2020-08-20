@@ -138,7 +138,6 @@ def checkout(request,carrinho):
                     pedido.save()
                 return errorView(request, cart.pagseguro_adesao)
             else:
-                pagseguro.descontoPlano()
                 for pedido in pedidos:
                     pedido.status = 'Pedido finalizado pelo cliente'
                     pedido.save()
