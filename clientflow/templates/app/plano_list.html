@@ -46,9 +46,10 @@ $(document).ready(function () {
   });
   $('.siema').css('width','100vw');
 
-  $('.progress-bar.icon-bar').css("width","36%");
-  $('.progress-bar.disabled-bar').css("width","64%");
+  $('.progress-bar.icon-bar').css("width","66%");
+  $('.progress-bar.disabled-bar').css("width","34%");
   $('.two').removeClass('disabled-bar');
+  $('.three').removeClass('disabled-bar');
 
   $('input[type="radio"]').on('change', function() {
     $('.footer-text').attr("href", "/PedidoFlow/"+ $('input[type="radio"]:checked').val() +"/"+{{dog}});

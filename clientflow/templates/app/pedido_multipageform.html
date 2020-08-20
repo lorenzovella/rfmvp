@@ -8,18 +8,20 @@
 <script>
 $(document).ready(function () {
   if($('#id_entrega_wizard-current_step').val() == "Entrega"){
-  $('.progress-bar.icon-bar').css("width","41%");
-  $('.progress-bar.disabled-bar').css("width","59%");
-  $('.two').removeClass('disabled-bar');
-  }
-  if($('#id_entrega_wizard-current_step').val() == "Entrega - 2"){
-  $('.progress-bar.icon-bar').css("width","55%");
-  $('.progress-bar.disabled-bar').css("width","45%");
-  $('.two').removeClass('disabled-bar');
-  }
-  if($('#id_entrega_wizard-current_step').val() == "Entrega - 3"){
   $('.progress-bar.icon-bar').css("width","70%");
   $('.progress-bar.disabled-bar').css("width","30%");
+  $('.two').removeClass('disabled-bar');
+  $('.three').removeClass('disabled-bar');
+  }
+  if($('#id_entrega_wizard-current_step').val() == "Entrega - 2"){
+  $('.progress-bar.icon-bar').css("width","78%");
+  $('.progress-bar.disabled-bar').css("width","22%");
+  $('.two').removeClass('disabled-bar');
+  $('.three').removeClass('disabled-bar');
+  }
+  if($('#id_entrega_wizard-current_step').val() == "Entrega - 3"){
+  $('.progress-bar.icon-bar').css("width","89%");
+  $('.progress-bar.disabled-bar').css("width","11%");
   $('.two').removeClass('disabled-bar');
   $('.three').removeClass('disabled-bar');
   }
