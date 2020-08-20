@@ -336,6 +336,7 @@ class entregaWizard(SessionWizardView):
             # salva pedido
             savedPedido = pedidoInstance.save()
             return redirect('clientflow_Carrinho_list')
+        savedPedido = pedidoInstance.save()
 
         return redirect('user-profile-simple', pedido = pedidoInstance, dog = pedidoInstance.idDog)
 
