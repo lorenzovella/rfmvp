@@ -9,7 +9,7 @@
 }
 .popoverbar {
   min-height: 40px;
-  background-color: #03FB5C;
+  background-color: #0133b2;
   color: #fff !important;
 }
 body {
@@ -19,7 +19,7 @@ body {
 }
 .header-text {
   font-size: 0.825em;
-  color: #19437a;
+  color: #00FB5C;
   letter-spacing: 1px;
   text-transform: initial;
   font-size: min(2.8vw, 0.825em);
