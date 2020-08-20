@@ -174,7 +174,7 @@ class Cachorro(models.Model):
     ('Frango Xadrez', mark_safe('/static/css/images/frango.png') ),
     ('Risoto Suíno', mark_safe('/static/css/images/risoto.png') )  )
     # Fields
-    nome = models.CharField('Nome do seu Dog', max_length=150, default="")
+    nome = models.CharField('Nome do seu dog', max_length=150, default="")
     sexo = models.CharField('Sexo', max_length=50, default="", choices=sexo_choices)
     castrado = models.BooleanField('Ele é castrado?', max_length=50, default=0, choices=castrado_choices)
     raca = models.CharField('Raça', max_length=100, default="")
