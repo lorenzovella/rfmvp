@@ -12,4 +12,5 @@ $(document).ready(function () {
       return false;
     }
   });
+  $(".lc-1pwp3xu").hide();
 });

@@ -465,7 +465,7 @@ input[type="checkbox"]:checked + label {
   margin-right:auto;
 }
 .btn-next:hover{
-  color: #00FB5C;
+  color: #00FB5C!important;  
 }
 
 .footer{
@@ -474,6 +474,9 @@ input[type="checkbox"]:checked + label {
   display: flex;
   width:100%;
   bottom: 0;
+}
+.footer > input, .footer > a {
+  width: 100%;
 }
 .footer *{
   background: #0033b2 !important;
@@ -491,7 +494,7 @@ input[type="checkbox"]:checked + label {
   letter-spacing: 2px;
   margin-left: auto;
   margin-right:auto;
-  color: #9fb2c8 !important;
+  color: #fff!important;
   font-family: Roboto;
   font-size: 28px;
   padding-top: 20px;
@@ -738,7 +741,7 @@ text-transform: none;
   justify-content: center!important;
 }
 .dog-container{
-  z-index:0;
+  z-index:55;
   margin-top: -100px;
   margin-bottom: 20px;
   padding-left: 30px;
