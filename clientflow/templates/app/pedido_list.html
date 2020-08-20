@@ -1,7 +1,36 @@
 {% extends "base_client.html" %}
 {% load static %}
 {% block head %}
+<script src="{% static 'js/siema.min.js' %}"></script>
+<script>
+  $(document).ready(function() {
+    const carousel = new Siema({
+      selector: '.siema',
+      startIndex: 0,
+      perPage: {
+        597: 2,
+        997: 3,
+      },
+    });
+    setTimeout(() => carousel.next(), 1000);
+    $('.siema').css('width','100vw');
+  });
+
+</script>
 <style>
+.siema {
+  height: 340px;
+  width: 88vw;
+  max-width:1200px;
+}
+.siema > div {
+  margin-left: auto;
+  margin-right: auto;
+}
+.siema > div > div {
+  padding-left: 10px;
+  padding-right: 10px;
+}
 a, a:hover{
   color:#00FF30!important;
 }
