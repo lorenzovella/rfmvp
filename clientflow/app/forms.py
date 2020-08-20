@@ -185,8 +185,8 @@ class CachorroForm3(forms.ModelForm):
         self.helper.layout = Layout(
             goBackBtn,
             Field('nascimento', placeholder="Mês / Ano", template="app/custom_components/textinput.html"),
-            Field('pesoideal', placeholder="Ex. 10,3kg", template="app/custom_components/textinput.html"),
             Field('peso', placeholder="Ex. 10,3kg", template="app/custom_components/textinput.html"),
+            Field('pesoideal', placeholder="Ex. 10,3kg", template="app/custom_components/textinput.html"),
             footerHtml,
         )
 

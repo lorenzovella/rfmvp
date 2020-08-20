@@ -40,7 +40,7 @@ def calculaDescontoProgressivo(consumoKg):
         desconto = 0.47 + (( consumoKg - 12.5 ) * 0.01)
     desconto = min(desconto,0.5)
     # retorna valor do Kg com desconto aplicado
-    return (precoKg*(1-desconto))+15
+    return (precoKg*(1-desconto))
 
 def handler404(request,exception):
     context = {}
@@ -273,7 +273,7 @@ def PlanoFlow(request, dog):
     planos = models.Plano.objects.all()
     for obj in planos:
         precoKgRacao = calculaDescontoProgressivo( float(instance.calculomes) * float(obj.refeicoes/28) )
-        valorPlano = (precoKgRacao * obj.refeicoes * float(instance.calculomes)/28)*0.9
+        valorPlano = (precoKgRacao * obj.refeicoes * float(instance.calculomes)/28)*0.9 + 15
         setattr(obj, "valor", "{:.2f}".format( valorPlano )  )
         setattr(obj, "valordia", "{:.2f}".format( float(valorPlano)/float(obj.refeicoes) ) )
 
@@ -287,7 +287,7 @@ def PedidoFlow(request, plano, dog):
         instance.idPlano = plano
         instance.idDog = dog
         precoKgRacao = calculaDescontoProgressivo(dog.calculomes)
-        instance.valor = (precoKgRacao * plano.refeicoes * float(dog.calculomes)/28)*0.9
+        instance.valor = (precoKgRacao * plano.refeicoes * float(dog.calculomes)/28)*0.9 + 15
         savedInstance = instance.save()
         return redirect('clientflow_EntregaFlow', pedido = instance)
     except Exception as e:
@@ -493,7 +493,8 @@ class cachorroWizard(SessionWizardView):
             cachorroInstance.dogEspecial = dogEspecialInstance
         # calculo filhote
         if cachorroInstance.calculate_age() < 1:
-            gramaspordia = round( 416*(float(cachorroInstance.peso)**0.75)*(2.718**(-0.87*float(cachorroInstance.peso/cachorroInstance.pesoideal))-0.1) )
+            kcalpordia = round( 416*(float(cachorroInstance.peso)**0.75)*(2.718**(-0.87*float(cachorroInstance.peso/cachorroInstance.pesoideal))-0.1) )
+            gramaspordia = float(kcalpordia) / float(1.5859)
             kgpormes = ceil( gramaspordia * 0.028 )
         # calculo dog adulto
         else:
