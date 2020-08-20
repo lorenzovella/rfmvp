@@ -787,7 +787,7 @@ text-transform: none;
 }
 .plano-card-footer{
   position: absolute;
-  bottom: 0;
+  bottom: 40px;
 }
 .plano-img{
   position: absolute;
