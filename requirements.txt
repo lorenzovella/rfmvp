@@ -21,3 +21,4 @@ asgi_redis
 requests
 sentry-sdk
 django-ipware
+django-mathfilters

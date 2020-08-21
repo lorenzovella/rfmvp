@@ -39,6 +39,7 @@ urlpatterns = (
     path("Entrega/detail/<int:pk>/", views.EntregaDetailView.as_view(), name="clientflow_Entrega_detail"),
     path("Entrega/update/<int:pk>/", views.EntregaUpdateView.as_view(), name="clientflow_Entrega_update"),
 
+    path("CarrinhoDetail/", login_required(views.CarrinhoListView2.as_view()), name="clientflow_Carrinho_2"),
     path("Pedido/", login_required(views.PedidoListView.as_view()), name="clientflow_Pedido_list"),
     path("Plano/", login_required(views.PlanoListView.as_view()), name="clientflow_Plano_list"),
 

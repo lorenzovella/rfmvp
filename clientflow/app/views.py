@@ -246,6 +246,20 @@ class CarrinhoListView(generic.ListView):
     model = models.Pedido
     form_class = forms.PedidoForm
 
+class CarrinhoListView2(generic.ListView):
+    template_name = "app/carrinho_list2.html"
+    def get(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        if queryset.count() == 0:
+            return redirect('clientflow_Cachorro_list')
+        return super().get(request, *args, **kwargs)
+    def get_queryset(self):
+        return models.Pedido.objects.filter(status ='Pedido em aberto', idClient = self.request.user.cliente)
+
+    model = models.Pedido
+    form_class = forms.PedidoForm
+
+
 
 
 class PedidoCreateView(generic.CreateView):

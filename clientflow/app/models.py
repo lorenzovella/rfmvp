@@ -228,6 +228,11 @@ class Pedido(models.Model):
         ordering = ['-last_updated']
         pass
 
+    def get_valor_carrinho(self):
+        sum = 0
+        for i in Pedido.objects.filter(idClient = self.idClient).filter(status="Pedido em aberto"):
+            sum += i.valor
+        return sum
     def __str__(self):
         return str(self.pk)
 

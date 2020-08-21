@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'multiselectfield',
     'clientflow.app',
     'requests',
+    'mathfilters',
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
