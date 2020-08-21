@@ -87,9 +87,10 @@ def profile_simple_view(request, pedido, dog):
             user.refresh_from_db()
             dogInstance = models.Cachorro.objects.get(pk = dog)
             dogInstance.idCliente = user.cliente
+            dogInstance.save()
             pedidoInstance = models.Pedido.objects.get(pk = pedido)
             pedidoInstance.idCliente = user.cliente
-            dogInstance.save()
+            pedidoInstance.save()
             user.cliente.email = email
             user.cliente.nome = form.cleaned_data['first_name']
             user.save()
