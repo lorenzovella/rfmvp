@@ -492,12 +492,15 @@ class cachorroWizard(SessionWizardView):
             for key, value in parsedForms.items():
                  setattr(cachorroInstance, key, value)
         dogEspecial = form_dict['CachorroEspecialForm'].cleaned_data
-        if(dogEspecial):
+        if(dogEspecial['condicao']):
             dogEspecialInstance = models.CachorroEspecial()
             for key, value in dogEspecial.items():
                 setattr(dogEspecialInstance,key,value)
             savedDogEspecial = dogEspecialInstance.save()
             cachorroInstance.dogEspecial = dogEspecialInstance
+            return render(None, 'app/dogespecial.html')
+
+
         # calculo filhote
         if cachorroInstance.calculate_age() < 1:
             kcalpordia = round( 416*(float(cachorroInstance.peso)**0.75)*(2.718**(-0.87*float(cachorroInstance.peso/cachorroInstance.pesoideal))-0.1) )
