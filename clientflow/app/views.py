@@ -85,15 +85,15 @@ def profile_simple_view(request, pedido, dog):
             user.set_password( randPass )
             user.save()
             user.refresh_from_db()
+            user.cliente.email = email
+            user.cliente.nome = form.cleaned_data['first_name']
+            user.save()
             dogInstance = models.Cachorro.objects.get(pk = dog)
             dogInstance.idCliente = user.cliente
             dogInstance.save()
             pedidoInstance = models.Pedido.objects.get(pk = pedido)
             pedidoInstance.idCliente = user.cliente
             pedidoInstance.save()
-            user.cliente.email = email
-            user.cliente.nome = form.cleaned_data['first_name']
-            user.save()
             user = authenticate(username=email, password=randPass)
             login(request, user)
             passReset = newPasswordResetForm({'email': email})
