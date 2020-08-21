@@ -92,7 +92,7 @@ def profile_simple_view(request, pedido, dog):
             dogInstance.idCliente = user.cliente
             dogInstance.save()
             pedidoInstance = models.Pedido.objects.get(pk = pedido)
-            pedidoInstance.idCliente = user.cliente
+            pedidoInstance.idClient = user.cliente
             pedidoInstance.save()
             user = authenticate(username=email, password=randPass)
             login(request, user)
