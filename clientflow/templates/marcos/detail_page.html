@@ -1,0 +1,43 @@
+{% extends "base_dash.html" %}
+{% load static %}
+
+{% block content %}
+<div>
+  <div class="detail-page">
+    <img class="logo" src="{% static 'css/images/dog-logo-2.png' %}" alt="logo" />
+    <h1 class="detail-page-title">O que você quer fazer?</h1>
+    <h2 class="detail-page-subtitle">Escolha uma das opções abaixo:</h2>
+    <button class="detail-page-simple-button">Adicionar novo cão</button>
+    <button class="detail-page-simple-button">Detalhes do pedido</button>
+    <div class="detail-page-footer">
+      <div class="terms-container">
+        <label class="terms-checkbox">Eu li e concordo com os termos de uso e politica de privacidade.
+          <input type="checkbox" checked="checked">
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      <div class="info-container">
+        <div class="finish-order-line">
+          <p class="finish-order-description">Assinatura <span class="bold-text">x1</span> Cão</p>
+          <p class="finish-order-description text-line-through">R$ 228,41</p>
+        </div>
+        <div class="finish-order-line">
+          <p class="finish-order-description">Desconto primeiros assinantes:</p>
+          <p class="finish-order-description">R$ 38,90</p>
+        </div>
+        <div class="finish-order-line">
+          <p class="finish-order-description">Cupom de desconto</p>
+          <p class="finish-order-description">Não informado</p>
+        </div>
+        <div class="finish-order-last-line">
+          <p class="finish-order-last-description">
+            <img class="mr-4 cart-img" src="{% static 'css/images/shopping-cart.png' %}"/>Valor total
+          </p>
+          <p class="finish-order-last-description">R$ 200,00</p>
+        </div>
+        <button class="finish-order-button">Finalizar Compra<img class="ml-4" src="{% static 'css/images/right-arrow.png' %}"/></button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

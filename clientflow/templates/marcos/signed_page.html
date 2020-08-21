@@ -1,0 +1,35 @@
+{% extends "base_dash.html" %}
+{% load static %}
+
+{% block content %}
+<div>
+  <div class="signed-page-container">
+    <div class="content">
+      <div class="d-flex justify-content-center w-100">
+        <img class="logo" src="{% static 'css/images/dog-logo-3.png' %}" alt="flavor" />
+      </div>
+      <h1 class="signed-page-title">Uhuul…</h1>
+      <h2 class="signed-page-subtitle">Você acabou de assinara Ração do Futuro.</h2>
+      <p class="signed-page-description">Esperamos que você e seu cãozinho ame absolutamente tudo, todo o processo, desde a produção até a entrega é feita com muito amor. Que tal contar pra gente sobre a sua experiência com o Ração do Futuro? Marque a gente no instagram @racaodofuturo.</p>  
+      <div class="mt-4 delivery-container">
+        <img class="person-with-box-img" src="{% static 'css/images/person-dog-box.png' %}" alt="Person with a box" />
+        <div class="delivery-info-container">
+          <h1>Próxima entrega</h1>
+          <h2>26/08/2020</h2>
+          
+          <p>Horário:</p>
+          <h2>12:30 até as 18:00</h2>
+    
+          <p>Status:</p>
+          <h2>Confirmado</h2>
+        </div>
+      </div>
+    </div>
+    <div class="signed-page-footer">
+      <button class="signed-page-footer-button">
+        Ir para o Painel<img class="ml-4" src="{% static 'css/images/right-arrow.png' %}"/>
+      </button>
+    </div>
+  </div>
+</div>
+{% endblock %}

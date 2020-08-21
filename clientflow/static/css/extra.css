@@ -827,3 +827,580 @@ text-transform: none;
   top: 106px;
   padding-top: 5px;
 }
+
+
+/* *********************************** */
+/* pacote 2 */
+/* *********************************** */
+
+.text-line-through {
+  text-decoration: line-through;
+}
+
+.bold-text {
+  font-weight: bold !important;
+}
+
+.regular-text {
+  font-weight: 400 !important;
+}
+
+/* flavor components */
+
+.flavor-container {
+  text-align: center;
+  width: 360px;
+}
+
+.imgs-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flavor-img {
+  width: 157px;
+}
+
+.flavor-middle-img {
+  width: 157px;
+  position: absolute;
+  left: 120px;;
+}
+
+.flavor-title {
+  font-family: 'Montserrat';
+  font-size: 33px;
+  color: #0033B2;
+  text-align: center;
+  vertical-align: top;
+  font-weight: 500;
+  text-transform: none;
+
+  margin-top: 20px;
+}
+
+.flavor-title span {
+  font-weight: 600;
+}
+
+.flavor-description {
+  font-family: 'Montserrat';
+  font-size: 13px;
+  color: #0033B2;
+  text-align: center;
+  vertical-align: top;
+  font-weight: 400;
+  line-height: 30px;
+  text-transform: none;
+  letter-spacing: 0.3px;
+}
+
+/* saving data page */
+
+.saving-dog-container {
+  width: 50%;
+  margin: auto;
+}
+
+.saving-dog-container .logo {
+  display: flex;
+  text-align: center;
+  width: 120px;
+
+  margin: 80px auto;
+}
+
+.saving-dog-title {
+  font-family: 'Montserrat';
+  font-size: 33px;
+  color: #0033B2;
+  text-align: center;
+  vertical-align: top;
+  font-weight: 700;
+  text-transform: none;
+}
+
+.saving-dog-owner {
+  font-family: 'Montserrat';
+  font-size: 24px;
+  color: #0033B2;
+  text-align: left;
+  vertical-align: top;
+  font-weight: 800;
+  line-height: 34px;
+  text-transform: none;
+  letter-spacing: 0.3px;
+
+  margin-top: 200px;
+}
+
+.saving-dog-description {
+  font-family: 'Montserrat';
+  font-size: 13px;
+  color: #0033B2;
+  text-align: left;
+  vertical-align: top;
+  font-weight: 400;
+  line-height: 30px;
+  text-transform: none;
+  letter-spacing: 0.3px;
+}
+
+.saving-dog-description-2 {
+  font-family: 'Montserrat';
+  font-size: 13px;
+  color: #0033B2;
+  text-align: left;
+  vertical-align: top;
+  font-style: italic;
+  font-weight: 600;
+  line-height: 30px;
+  text-transform: none;
+  letter-spacing: 0.3px;
+}
+
+/* detail page */
+
+.detail-page {
+  width: 100%;
+  height: calc(100vh + 283px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #0033B2;
+}
+
+.detail-page .logo {
+  width: 150px;
+  margin-top: 62px;
+}
+
+.detail-page .cart-img {
+  margin-top: -5px;
+}
+
+.detail-page-title {
+  font-family: 'Montserrat';
+  font-size: 23px;
+  color: #FFFFFF;
+  text-align: left;
+  vertical-align: top;
+  font-weight: 800;
+  text-transform: none;
+
+  margin-top: 180px;
+}
+
+.detail-page-subtitle {
+  font-family: 'Montserrat';
+  font-size: 13px;
+  color: #FFFFFF;
+  text-align: left;
+  vertical-align: top;
+  font-weight: 500;
+  line-height: 30px;
+  text-transform: none;
+  letter-spacing: 0.3px;
+}
+
+.detail-page-simple-button {
+  display: block;
+  background-color: #FFFFFF;
+  box-shadow: 0px 15px 30px 0 #0000000D;
+  border-radius: 20px;
+  padding: 24px 100px;
+  border: none;
+
+  margin-top: 20px;
+}
+
+.detail-page-footer {
+  width: 100%;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  bottom: 0;
+}
+
+.info-container {
+  width: 100%;
+
+  text-align: center;
+  margin: auto;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  background-color: #00FB5C;
+  border-radius: 35px 35px 0px 0px;
+}
+
+.finish-order-description {
+  font-family: 'Roboto';
+  font-size: 16px;
+  color: #0033B2;
+  text-align: left;
+  vertical-align: top;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0.00045px;
+}
+
+.finish-order-line {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin: auto;
+}
+
+.finish-order-last-line {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin: auto;
+
+  font-family: 'Roboto';
+  font-size: 33px;
+  color: #FFFFFF98;
+  text-align: left;
+  vertical-align: top;
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: 0.0005906px;
+}
+
+.finish-order-last-description {
+  font-family: 'Roboto';
+  font-size: 18px;
+  color: #004094;
+  text-align: right;
+  vertical-align: top;
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: 0.0005062px;
+}
+
+.finish-order-button {
+  width: 80%;
+
+  font-family: 'Roboto';
+  font-size: 24px;
+  color: #00FB5C;
+  vertical-align: top;
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: 1.2px;
+  border: none;
+
+  background-color: #0033B2;
+  box-shadow: 0px 15px 30px 0 #0000000D;
+  border-radius: 10px;
+  padding: 21px 48px;
+}
+
+
+/* accept terms checkbox */
+
+/* Hide default checkbox */
+.terms-container input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create custom */
+.checkmark {
+  position: absolute;
+  top: -18px;
+  left: -80px;
+  height: 53px;
+  width: 53px;
+  background-color: #FFFFFF;
+  box-shadow: inset 1px 0px 8px 0 #E3E3E3;
+  border-radius: 53px;
+  right: 0;
+}
+
+/* attributes for checkbox label */
+
+.terms-container .terms-checkbox {
+  cursor: pointer;
+  position: relative;
+  font-family: 'Roboto';
+  font-size: 14px;
+  color: #FFF;
+  text-align: left;
+  vertical-align: top;
+  font-weight: 500;
+  line-height: 22px;
+  text-transform: none;
+  letter-spacing: 0.7px;
+}
+
+.terms-container input:checked ~ .checkmark {
+  background-color: #00FF39;
+  box-shadow: inset 1px 2px 3px 0 #0E3B5280;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.terms-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.terms-container .checkmark:after {
+  left: 22px;
+  top: 16px;
+  width: 10px;
+  height: 20px;
+  border: solid #0033B2;
+  border-width: 0 4px 4px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+
+.terms-container {
+  width: 100%;
+  padding: 42px 28px;
+  background-color: #0033B2;
+  margin-bottom: -31px;
+  height: 151px;
+  text-align: center;
+}
+
+.terms-text {
+  font-family: 'Roboto';
+  font-size: 14px;
+  color: #FFF;
+  text-align: left;
+  vertical-align: top;
+  font-weight: 500;
+  line-height: 22px;
+  text-transform: none;
+  letter-spacing: 0.7px;
+}
+
+/* signed page */
+
+.signed-page-container {
+  width: 100%;
+  margin: auto;
+  height: calc(100vh + 106px);
+}
+
+.signed-page-container .content {
+  width: 80%;
+  margin: auto;
+}
+
+.signed-page-container .logo {
+  text-align: center;
+  width: 150px;
+
+  margin-top: 80px;
+  margin-bottom: 10px;
+}
+
+.signed-page-title {
+  font-family: 'Montserrat';
+  font-size: 33px;
+  color: #0033B2;
+  text-align: center;
+  vertical-align: top;
+  font-weight: 800;
+  text-transform: none;
+  margin-top: 12px;
+}
+
+.signed-page-subtitle {
+  font-family: 'Montserrat';
+  font-size: 20px;
+  color: #0033B2;
+  text-align: center;
+  vertical-align: top;
+  font-weight: 700;
+  text-transform: none;
+  margin-top: 12px;
+}
+
+.signed-page-description {
+  font-family: 'Montserrat';
+  font-size: 13px;
+  color: #0033B2;
+  text-align: center;
+  vertical-align: top;
+  font-weight: 400;
+  line-height: 30px;
+  text-transform: none;
+  letter-spacing: 0.3px;
+  margin-top: 12px;
+}
+
+.delivery-container {
+  display: flex;
+  align-items: flex-end;
+  margin: auto;
+  margin-bottom: 120px;
+}
+
+.delivery-info-container {
+  margin-left: 10px;
+  margin-bottom: 24px;
+}
+
+.person-with-box-img {
+  width: 238px;
+}
+
+.delivery-info-container > h1 {
+  font-family: 'Montserrat';
+  font-size: 20px;
+  color: #0033B2;
+  text-align: left;
+  vertical-align: top;
+  font-weight: 700;
+  text-transform: none;
+}
+
+.delivery-info-container > h2 {
+  font-family: 'Montserrat';
+  font-size: 14px;
+  color: #0033B2;
+  text-align: left;
+  vertical-align: top;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0.175px;
+
+  margin-bottom: 22px;
+}
+
+.delivery-info-container > p {
+  font-family: 'Montserrat';
+  font-size: 14px;
+  color: #0033B2;
+  text-align: left;
+  vertical-align: top;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0.175px;
+  margin-bottom: 0px;
+}
+
+.signed-page-footer {
+  width: 100%;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  bottom: 0;
+  margin-left: -15px;
+}
+
+.signed-page-footer-button {
+  font-family: 'Roboto';
+  font-size: 24px;
+  color: #00FF39;
+  background-color: #0033B2;
+  text-align: center;
+  vertical-align: top;
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: 1.2px;
+  border: none;
+  padding-top: 35px;
+  padding-bottom: 35px;
+}
+
+@media only screen and (max-width: 600px) {
+  .person-with-box-img {
+    margin-left: -152px;
+  }
+}
+
+/* free dog badge */
+
+.free-dog-badge-container {
+  background-color: #0033B2;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.badge-description {
+  font-family: 'Montserrat';
+  font-size: 24px;
+  color: #FFFFFF;
+  text-align: left;
+  vertical-align: top;
+  font-weight: 200;
+  text-transform: none;
+}
+
+.free-dog-badge-container > label {
+  font-family: 'Montserrat';
+  font-size: 24px;
+  color: #FFFFFF;
+  text-align: left;
+  vertical-align: top;
+  font-weight: 200;
+  text-transform: none;
+}
+
+.free-dog-badge-container h1 {
+  font-family: 'Montserrat';
+  font-size: 33px;
+  color: #FFFFFF;
+  text-align: left;
+  vertical-align: top;
+  font-weight: 700;
+  text-transform: none;
+}
+
+.free-dog-badge-container h2 {
+  font-family: 'Montserrat';
+  font-size: 20px;
+  color: #FFFFFF;
+  text-align: left;
+  vertical-align: top;
+  font-weight: 200;
+  line-height: 32px;
+  text-transform: none;
+}
+
+.free-dog-badge-container p {
+  font-family: 'Montserrat';
+  font-size: 13px;
+  color: #FFFFFF;
+  text-align: left;
+  vertical-align: top;
+  font-weight: 400;
+  line-height: 30px;
+  text-transform: none;
+  letter-spacing: 0.3px;
+}
+
+.free-dog-badge-button {
+  background-color: #003AA4;
+  box-shadow: inset 1px 0px 10px 0 #07070757;
+  border-radius: 20px;
+  padding: 24px 89px;
+  color: #FFF;
+  border: none;
+  min-width: 384px;
+}
+
+.free-dog-badge-button:hover {
+  color: #00FF00;
+}
+
+.badge-content {
+  width: 45%;
+  margin: auto;
+}
