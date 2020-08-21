@@ -1,5 +1,6 @@
 {% extends "base_client.html" %}
 {% load static %}
+{% load mathfilters %}
 {% block content %}
 <div class="row d-flex-column middle justify-content-center mx-auto">
   <div style="padding-top: 10%;" class='col-10 col-lg-6 mx-auto mb-2'>
@@ -25,7 +26,9 @@
     <span class="card-dash-title">Plano:</span><br><span class="card-dash-subtitle">{{object.idPlano.nome}}</span><br>
     <span class="card-dash-title">Sabores:</span><br><span class="card-dash-subtitle">{{object.idDog.sabores_name}}</span><br>
     <span class="card-dash-title">Entrega:</span><br><span class="card-dash-subtitle">{{object.idEntrega.get_frequencia_display}}</span><br>
-    <span class="card-dash-title">A receber:</span><br><span class="card-dash-subtitle">{{object.idDog.calculomes}}kg de ração por mês</span><br>
+    {% with refeicoes=object.idPlano.refeicoes calculomes=object.idDog.calculomes %}
+    <span class="card-dash-title">A receber:</span><br><span class="card-dash-subtitle">{{calculomes|mul:refeicoes|div:28}} kg de ração por mês</span><br>
+    {% endwith %}
     <span class="card-dash-title">Dieta cão:</span><br><span class="card-dash-subtitle">{{object.idDog.calculodia}} gramas por dia</span><br>
     <hr>
     <span class="card-dash-title">Total do pedido mensal:</span><br><span class="card-dash-subtitle ml-1">R${{object.valor}}</span><br>
