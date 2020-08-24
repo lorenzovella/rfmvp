@@ -507,6 +507,7 @@ class cachorroWizard(SessionWizardView):
         for parsedForms in cachorroFormArray:
             for key, value in parsedForms.items():
                  setattr(cachorroInstance, key, value)
+
         dogEspecial = form_dict['CachorroEspecialForm'].cleaned_data
         if(dogEspecial['condicao']):
             dogEspecialInstance = models.CachorroEspecial()
@@ -534,6 +535,9 @@ class cachorroWizard(SessionWizardView):
         # salva sabores
         saboresForm = form_dict['Sabores'].cleaned_data
         cachorroInstance.sabores = saboresForm['sabores']
+        # salva cliente
+        if self.request.user.is_authenticated:
+            cachorroInstance.idCliente = self.request.user.cliente
         savedCachorro = cachorroInstance.save()
         return redirect('clientflow_PlanoFlow', cachorroInstance)
 
