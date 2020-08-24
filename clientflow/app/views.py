@@ -231,8 +231,13 @@ class EntregaUpdateView(generic.UpdateView):
     pk_url_kwarg = "pk"
 
 class PedidoListView(generic.ListView):
+    def get(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        if queryset.count() == 0:
+            return redirect('dogdash')
+        return super().get(request, *args, **kwargs)
     def get_queryset(self):
-        return self.model.objects.filter(idClient = self.request.user.cliente).exclude(status ='Pedido em aberto')
+        return self.model.objects.filter(idClient = self.request.user.cliente).filter(status ='Pedido finalizado pelo cliente')
     model = models.Pedido
     form_class = forms.PedidoForm
 
@@ -241,7 +246,7 @@ class CarrinhoListView(generic.ListView):
     def get(self, request, *args, **kwargs):
         queryset = self.get_queryset()
         if queryset.count() == 0:
-            return redirect('clientflow_Cachorro_list')
+            return redirect('dogdash')
         return super().get(request, *args, **kwargs)
     def get_queryset(self):
         return models.Pedido.objects.filter(status ='Pedido em aberto', idClient = self.request.user.cliente)
@@ -254,7 +259,7 @@ class CarrinhoListView2(generic.ListView):
     def get(self, request, *args, **kwargs):
         queryset = self.get_queryset()
         if queryset.count() == 0:
-            return redirect('clientflow_Cachorro_list')
+            return redirect('dogdash')
         return super().get(request, *args, **kwargs)
     def get_queryset(self):
         return models.Pedido.objects.filter(status ='Pedido em aberto', idClient = self.request.user.cliente)
