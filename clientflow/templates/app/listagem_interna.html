@@ -1,0 +1,78 @@
+{% extends "base_client_2.html" %}
+{% load static %}
+
+{% block head %}
+<style>
+span > a, span > a:hover{
+  color:#00FB5C!important;
+}
+p > a, p > a:hover{
+  color:#0033b2!important;
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-lg-10 d-flex-column">
+    <div class='pt-5 pl-1 mt-4 col-12 col-md-7 mx-auto'>
+      <p class="pl-3 dash-title"><span style="font-weight:600">Entregas</span> a realizar.</p>
+    </div>
+  </div>
+</div>
+
+  {% for object in pedidos %}
+  <div class="row">
+    <div style="height:auto!important;" class="col-10 col-md-7 m-4 mx-auto text-decoration-none dash-btn">
+      <p class="dog-card-title dash-btn-text" >
+        nº{{object}} - <span style="font-weight:400">{{object.idClient.nome}} {{object.idClient.sobrenome}} </span>
+      </p>
+      <p class="card-dash-title text-center">
+      Dados do cliente
+      </p>
+      <p class="card-dash-centered-text text-left">
+        <span style="font-weight:500">Telefone:</span>
+        ({{object.idClient.areatelefone}}) {{object.idClient.telefone}}
+      </p>
+      <p class="card-dash-centered-text text-left">
+        <span style="font-weight:500">Endereço:</span>
+        {{object.idClient.rua}}, {{object.idClient.numero}}<br>
+        <span style="font-weight:500">Bairro:</span>
+        {{object.idClient.bairro}}<br>
+        <span style="font-weight:500">Complemento:</span>
+        {{object.idClient.complemento}}
+      </p>
+
+      <p class="card-dash-title text-center">
+      Dados da entrega
+      </p>
+      <p class="card-dash-centered-text text-left">
+        <span style="font-weight:500">Periodo:</span>
+        {{object.idEntrega.periodo}}<br>
+        <span style="font-weight:500">Dia:</span>
+        {{object.idEntrega.dia}}
+      </p>
+
+      <p class="card-dash-title text-center">
+      Dados do Pedido
+      </p>
+      <p class="card-dash-centered-text text-left">
+        <span style="font-weight:500">Valor:</span>
+        R${{object.valor}}<br>
+        <span style="font-weight:500">Sabores:</span>
+        {% for key in object.idDog.sabores %}
+        {{key}}<br>
+        {% endfor %}
+        <span style="font-weight:500">Quantidade à separar:</span>
+        {{object.idDog.calculomes}} {{object.idPlano.refeicoes}}kg
+      </p>
+
+      <hr class="custom-hr" style="margin: -80px -15px 50px -15px;">
+      <p class="card-dash-centered-text">
+      <span style="font-weight:500">{{object.idEntrega.get_preferencia_display}}</span>
+      </p>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+<div class="endofcontent"></div>
+{% endblock %}

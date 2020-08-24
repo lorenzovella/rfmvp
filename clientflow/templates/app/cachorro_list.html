@@ -25,10 +25,13 @@ p > a, p > a:hover{
   <div class="row">
     <div style="height:auto!important;" class="col-10 col-md-7 m-4 mx-auto text-decoration-none dash-btn">
       <p class="dog-card-title dash-btn-text" >
-        {{object.nome}}
+        {{object.nome}}, <span style="font-weight:400">{{object.raca}}
       </p>
       <p class="card-dash-subtitle" style="margin-top:-20px;">
-        Status do plano: {{object.pedido.first.status}}
+        {% if object.pedido.first %}
+        Status do plano: {{object.pedido.first.status}}<br>
+        {% endif %}
+        Dieta do cão: {{object.calculodia}} gramas por dia
       </p>
       <p class="card-footer-link text-right mr-2"><a href="#">Editar cãoconta   > </a></p>
       <hr class="custom-hr" style="margin: -80px -15px 50px -15px;">

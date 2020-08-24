@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework import routers
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.admin.views.decorators import staff_member_required
 from . import api
 from . import views
 
@@ -71,6 +71,7 @@ urlpatterns = (
 
     # path("Cadastro/", views.signup_view, name="sign-up"),
     path("DogDash/", login_required(views.dogdash), name="dogdash"),
+    path("Interno/", staff_member_required(views.pedidosDash), name="pedidosDash",),
     path("teste/", views.teste, name="teste",),
     path("MinhaConta/", login_required(views.profile_view), name="user-profile"),
     path("MinhaConta/update/", views.profile_update_view, name="user-profile-update"),
