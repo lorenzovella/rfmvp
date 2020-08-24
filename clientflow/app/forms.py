@@ -166,7 +166,7 @@ class CachorroForm2(forms.ModelForm):
         self.helper = FormHelper(self)
         self.helper.layout = Layout(
             goBackBtn,
-            Field('castrado', template="app/custom_components/radio.html"),
+            Field('castrado', template="app/custom_components/radio_unchecked.html"),
             Field('raca', placeholder="Digite aqui...", template="app/custom_components/textinput.html"),
             footerHtml,
         )

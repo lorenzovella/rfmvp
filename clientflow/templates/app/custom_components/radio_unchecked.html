@@ -1,0 +1,36 @@
+{% load crispy_forms_filters %}
+{% load l10n %}
+
+<div class="row">
+  <label class="col-10 mx-auto field-title">{{field.label|safe}}</label>
+</div>
+<div class="row">
+  <div class="col col-lg-8 mx-auto">
+    <div class="{% if field_class %} {{ field_class }}{% endif %}radio-toolbar"{% if flat_attrs %} {{ flat_attrs|safe }}{% endif %}>
+      <div class="row flex-column flex-sm-row">
+        {% for choice in field.field.choices %}
+        {% if forloop.counter0|divisibleby:2 %}</div><div class="row flex-column flex-sm-row">{% endif %}
+          <div class="col">
+              <div class="d-flex">
+                  <input type="radio" name="{{ field.html_name }}" id="id_{{ field.html_name }}_{{ forloop.counter }}" value="{{ choice.0|unlocalize }}" {{ field.field.widget.attrs|flatatt }}>
+                  <label class="first-description mx-auto" for="id_{{ field.html_name }}_{{ forloop.counter }}">
+                      {{ choice.1|unlocalize }}
+                  </label>
+              </div>
+          </div>
+        {% if forloop.last %}</div>{% endif %}
+        {% if field.errors and forloop.last and not inline_class %}
+            {% include 'bootstrap4/layout/field_errors_block.html' %}
+        {% endif %}
+      {% endfor %}
+      {% if field.errors and inline_class %}
+        <div class="w-100 {%if use_custom_control%}custom-control custom-radio{% if inline_class %} custom-control-inline{% endif %}{% else %}form-check{% if inline_class %} form-check-inline{% endif %}{% endif %}">
+            {# the following input is only meant to allow boostrap to render the error message as it has to be after an invalid input. As the input has no name, no data will be sent. #}
+            <input type="checkbox" class="custom-control-input {% if field.errors %}is-invalid{%endif%}">
+            {% include 'bootstrap4/layout/field_errors_block.html' %}
+        </div>
+      {% endif %}
+      {% include 'bootstrap4/layout/help_text.html' %}
+    </div>
+  </div>
+</div>
