@@ -1,6 +1,6 @@
 {% extends "base_client_2.html" %}
 {% load static %}
-
+{% load mathfilters %}
 {% block head %}
 <style>
 span > a, span > a:hover{
@@ -62,8 +62,15 @@ p > a, p > a:hover{
         {% for key in object.idDog.sabores %}
         {{key}}<br>
         {% endfor %}
+        <span style="font-weight:500">Plano:</span>
+        {{object.idPlano.nome}}<br>
+        <span style="font-weight:500">Frequência:</span>
+        {{object.idPlano.condicaofrete}}<br>
         <span style="font-weight:500">Quantidade à separar:</span>
-        {{object.idDog.calculomes}} {{object.idPlano.refeicoes}}kg
+        {% with refeicoes=object.idPlano.refeicoes calculomes=object.idDog.calculomes %}
+          {{calculomes|mul:refeicoes|div:28}}kg
+        {% endwith %}
+
       </p>
 
       <hr class="custom-hr" style="margin: -80px -15px 50px -15px;">

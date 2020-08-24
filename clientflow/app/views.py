@@ -167,7 +167,11 @@ def checkout(request,carrinho):
 def adicionarAoCarrinho(request):
     pedidos = models.Pedido.objects.filter(status ='Pedido em aberto', idClient = request.user.cliente)
     if pedidos.count() == 0:
-        return errorView(request,"não foram encontrados pedidos em aberto")
+        try:
+            lastCarrinho = models.Carrinho.objects.filter(item__idClient = request.user.cliente).last()
+            return redirect('clientflow_checkout', lastCarrinho)
+        except models.Carrinho.DoesNotExist:
+            return errorView(request, "não foram encontrados pedidos em aberto")
 
     newCarrinho = models.Carrinho()
 
