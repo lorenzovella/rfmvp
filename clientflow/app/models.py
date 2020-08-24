@@ -215,7 +215,7 @@ class Pedido(models.Model):
     idEntrega = models.OneToOneField("app.Entrega", on_delete=models.CASCADE,null=True, blank=True)
     idDog = models.ForeignKey("app.Cachorro", on_delete=models.CASCADE,null=True,blank=True, related_name='pedido')
     idCarrinho = models.ForeignKey("app.Carrinho", on_delete=models.CASCADE,null=True,blank=True, related_name='item')
-    status_choices= ( ('Pedido em aberto','Pedido em aberto'), ('Pedido finalizado pelo cliente','Pedido finalizado pelo cliente'), ('Aguardando confirmação','Aguardando confirmação'), ('Pedido em preparo','Pedido em preparo'), ('Pedido em trânsito','Pedido em trânsito'), ('Pedido concluído','Pedido concluído') )
+    status_choices= ( ('Pedido em aberto','Pedido em aberto'), ('Carrinho criado', 'Carrinho criado'), ('Pedido finalizado pelo cliente','Pedido finalizado pelo cliente'), ('Aguardando confirmação','Aguardando confirmação'), ('Pedido em preparo','Pedido em preparo'), ('Pedido em trânsito','Pedido em trânsito'), ('Pedido concluído','Pedido concluído') )
     # Fields
     valor = models.DecimalField('Valor do pedido', default=0,  decimal_places=2, max_digits=6,)
     status = models.CharField('Status do pedido', max_length=100, default="Pedido em aberto", choices=status_choices)

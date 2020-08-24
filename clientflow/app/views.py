@@ -167,6 +167,8 @@ def adicionarAoCarrinho(request):
     strPlano = "Pedido para o "
     for pedido in pedidos:
         strPlano += pedido.idDog.nome +", "
+        pedido.status = 'Carrinho criado'
+        pedido.save()
     strPlano = strPlano[:-2]
 
     newCarrinho.plano = strPlano
