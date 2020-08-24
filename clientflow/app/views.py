@@ -116,7 +116,8 @@ def teste(request):
 
 def dogdash(request):
     dogCount = models.Cachorro.objects.filter(idCliente = request.user.cliente).count()
-    return render(request,'app/dogdash.html',{'user':request.user.cliente,'dogcount':dogCount})
+    carrinho = models.Carrinho.objects.filter(item__idClient = request.user.cliente).last()
+    return render(request,'app/dogdash.html',{'user':request.user.cliente,'dogcount':dogCount, 'carrinho':carrinho})
 
 def fimDoFlow(request,carrinho):
     cart = models.Carrinho.objects.get(pk=carrinho)

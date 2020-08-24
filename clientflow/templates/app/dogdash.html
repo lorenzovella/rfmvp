@@ -48,6 +48,17 @@ a, a:hover{
 </div>
 <div class="row">
   <div class="mx-auto">
+    {% if carrinho %}
+      <div style="height:auto!important;" class="col-10 col-md-7 m-4 mx-auto text-decoration-none dash-btn">
+        <p class="card-dash-title dash-btn-text">Você possui um {{carrinho.plano|lower}} no carrinho.</p>
+        <div class="col">
+          <div class="d-flex radio-toolbar">
+            <a class="first-description mx-auto" style="color: #00FB5C!important;" href="{% url 'clientflow_checkout' carrinho %}">Finalizar pedido</a>
+          </div>
+        </div>
+        <span class="dog-card-img-2 mt-2"></span>
+      </div>
+    {% endif %}
     <div class="siema pl-4">
         <div class="m-2 pt-4 pl-4 text-decoration-none mx-auto dogdash-card">
           <p class="card-dash-title" style="margin-bottom: 4px;" >Olá
