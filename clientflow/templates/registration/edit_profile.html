@@ -6,6 +6,22 @@
 {% block head %}
 {{ wizard.form.media }}
 <script type="text/javascript">
+function setInputFilter(textbox, inputFilter) {
+  ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function(event) {
+    textbox.addEventListener(event, function() {
+      if (inputFilter(this.value)) {
+        this.oldValue = this.value;
+        this.oldSelectionStart = this.selectionStart;
+        this.oldSelectionEnd = this.selectionEnd;
+      } else if (this.hasOwnProperty("oldValue")) {
+        this.value = this.oldValue;
+        this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+      } else {
+        this.value = "";
+      }
+    });
+  });
+}
 function TestaCPF(strCPF) {
     var Soma;
     var Resto;
@@ -37,13 +53,34 @@ function submitForm(){
 }
 
 $(document).ready(function() {
-   $("#id_nascimento").keyup(function(){
-       if ($(this).val().length == 2){
-           $(this).val($(this).val() + "/");
-       }else if ($(this).val().length == 5){
-           $(this).val($(this).val() + "/");
-       }
-   });
+  setInputFilter(document.getElementById("id_cpf"), function(value) {
+    return /^-?\d*$/.test(value);
+  });
+  setInputFilter(document.getElementById("id_areatelefone"), function(value) {
+    return /^-?\d*$/.test(value);
+  });
+  setInputFilter(document.getElementById("id_telefone"), function(value) {
+    return /^-?\d*$/.test(value);
+  });
+  setInputFilter(document.getElementById("id_cep"), function(value) {
+    return /^-?\d*$/.test(value);
+  });
+  let $jqDate = $("#id_nascimento")
+  $jqDate.bind('keyup', function(ev) {
+    if (ev.which !== 8) {
+      let input = $jqDate.val();
+      let out = input.replace(/\D/g, '');
+      let len = out.length;
+
+      if (len > 1 && len < 4) {
+        out = out.substring(0, 2) + '/' + out.substring(2, 3);
+      } else if (len >= 4) {
+        out = out.substring(0, 2) + '/' + out.substring(2, 4) + '/' + out.substring(4, len);
+        out = out.substring(0, 10)
+      }
+      $jqDate.val(out)
+    }
+  });
   function limpa_formulário_cep() {
       $("#rua").val("");
       $("#bairro").val("");
@@ -52,7 +89,7 @@ $(document).ready(function() {
     }
     //Quando o campo cep perde o foco.
     $("[name='cep']").blur(function() {
-
+        alert("Estamos buscando seu endereço pelo cep...")
         //Nova variável "cep" somente com dígitos.
         var cep = $(this).val().replace(/\D/g, '');
 
