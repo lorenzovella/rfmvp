@@ -1,0 +1,20 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class='row info-bg'>
+  <div class='col-10 info-bar-text'>
+    <p>Deletar um Dog</p>
+  </div>
+</div>
+<div class="row d-flex middle">
+  <div class="col-12 text-center control-label mx-auto m-4 p-4">
+    <h3>Pronto! Você removeu um carrinho da sua conta.</h3>
+  </div>
+  <div class="col-8 text-center control-label round-btn mx-auto m-4 p-4">
+    <a href="{% url 'dogdash'%}" class="mx-auto text-white text-decoration-none">
+        Voltar ao dashboard
+    </a>
+  </div>
+</div>
+{% endblock %}

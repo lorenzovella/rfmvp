@@ -445,7 +445,7 @@ def PedidoDeleteConfirmView(request, pk):
     try:
         instance = models.Pedido.objects.get(pk=pk)
     except models.Pedido.DoesNotExist:
-        return handler5s00(request)
+        return handler500(request)
     return render(request,'app/pedido_delete_confirm.html',{'obj':instance })
 
 def PedidoDeleteView(request, pk):
@@ -458,6 +458,21 @@ def PedidoDeleteView(request, pk):
     except models.Pedido.DoesNotExist:
         return handler500(request)
     return render(request,'app/pedido_delete.html',{'info':info })
+
+def CarrinhoDeleteConfirmView(request, pk):
+    try:
+        instance = models.Carrinho.objects.get(pk=pk)
+    except models.Carrinho.DoesNotExist:
+        return handler500(request)
+    return render(request,'app/carrinho_delete_confirm.html',{'obj':instance })
+
+def CarrinhoDeleteView(request, pk):
+    try:
+        instance = models.Carrinho.objects.filter(item__idClient = request.user.cliente).get(pk=pk)
+        info = instance.delete()
+    except models.Carrinho.DoesNotExist:
+        return handler500(request)
+    return render(request,'app/carrinho_delete.html',{'info':info })
 
 def suspendePlanoConfirm(request, pk):
     try:

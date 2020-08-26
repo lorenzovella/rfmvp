@@ -1,0 +1,30 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block head %}
+
+<style>
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class='row info-bg'>
+  <div class='col-10 info-bar-text'>
+    <p>Deletar um Carrinho</p>
+  </div>
+</div>
+<div class='row middle d-flex'>
+  <div class='col-10 mx-auto mt-3'>
+    <span class='control-label'>Você quer mesmo remover o carrinho com o {{obj.plano}}?</span>
+  </div>
+  <div class='col-10 d-flex mx-auto mt-3'>
+    <a href="{% url 'clientflow_Carrinho_delete' pk=obj %}" class="mx-auto round-btn text-white text-decoration-none">Sim</a>
+    <a href="{% url 'clientflow_Carrinho_list' %}" class="mx-auto round-btn text-white text-decoration-none">Não</a>
+  </div>
+</div>
+<div class="footer margin-footer">
+  <p class="footer-text ">
+  </p>
+</div>
+{% endblock %}

@@ -52,7 +52,8 @@ urlpatterns = (
     path("Pedido/delete/confirm/<int:pk>", views.PedidoDeleteConfirmView, name="clientflow_Pedido_delete_confirm"),
     path("Pedido/delete/<int:pk>", views.PedidoDeleteView, name="clientflow_Pedido_delete"),
 
-
+    path("Carrinho/delete/confirm/<int:pk>", views.CarrinhoDeleteConfirmView, name="clientflow_Carrinho_delete_confirm"),
+    path("Carrinho/delete/<int:pk>", views.CarrinhoDeleteView, name="clientflow_Carrinho_delete"),
 
     path("Cachorro/inFlow", login_required(views.CachorroListFlowView.as_view()), name="clientflow_CachorroFlow_list"),
     path("Cachorro/", login_required(views.CachorroListView.as_view()), name="clientflow_Cachorro_list"),
