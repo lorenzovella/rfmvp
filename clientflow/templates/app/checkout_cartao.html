@@ -18,6 +18,10 @@
 <script src="{% static 'js/jquery.creditCardValidator.js' %}"></script>
 <script>
   $(document).ready(function () {
+    $('form').submit(function(){
+      $('.footer a').text("Processando...")
+      $('.footer a').removeAttr("onclick");
+    });
     $('#submit-btn').hide()
     $('.progress-bar.icon-bar').css("width","100%");
     $('.two').removeClass('disabled-bar');
@@ -52,7 +56,6 @@
       $("#submit-btn").click();
     }
   }
-
 </script>
 {%endblock%}
 {% block content %}
