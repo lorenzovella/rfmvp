@@ -98,7 +98,7 @@ def profile_simple_view(request, pedido, dog):
             login(request, user)
             passReset = newPasswordResetForm({'email': email})
             if passReset.is_valid():
-                passReset.save(request=request, use_https=True, email_template_name='email/boas_vindas.html')
+                passReset.save(request=request, use_https=True, email_template_name='email/boas_vindas_plain.html', html_email_template_name='email/boas_vindas.html')
             return redirect('clientflow_Carrinho_list')
     elif request.user.is_authenticated == False:
         form = forms.ClienteNovoForm()

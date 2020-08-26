@@ -31,6 +31,7 @@ class ClienteForm(forms.ModelForm):
     widget=forms.DateInput(format='%d/%m/%Y'),
     input_formats=('%d/%m/%Y', )
     )
+    cep = forms.CharField(widget=forms.TextInput)
     def __init__(self, *args, **kwargs):
         super(ClienteForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper(self)

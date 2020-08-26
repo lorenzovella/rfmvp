@@ -1,0 +1,15 @@
+Olá {{ user.get_username }},
+
+Eu sou o Walter, do Ração do Futuro!
+
+Vi que você se cadastrou na nossa plataforma, muito obrigado!
+
+Para você ativar seu cadastro basta clicar no link abaixo.
+
+https://app.racaodofuturo.com.br{% url 'password_reset_confirm' uidb64=uid token=token %}
+
+Qualquer dúvida, entre em contato com a nossa central de atendimento nos links abaixo.
+
+WHATSAPP: https://api.whatsapp.com/send?phone=5548996793978
+
+INSTAGRAM: https://www.instagram.com/racaodofuturo/

@@ -62,11 +62,8 @@ $(document).ready(function() {
   setInputFilter(document.getElementById("id_telefone"), function(value) {
     return /^\d*$/.test(value);
   });
-  $("#id_cep").on("keydown", function(e) {
-    var invalidChars = ["-", "+", "e"]; //include "." if you only want integers
-    if (invalidChars.includes(e.key)) {
-        e.preventDefault();
-    }
+  setInputFilter(document.getElementById("id_cep"), function(value) {
+   return /^\d*$/.test(value);
   });
   let $jqDate = $("#id_nascimento")
   $jqDate.bind('keyup', function(ev) {
