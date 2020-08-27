@@ -22,3 +22,4 @@ requests
 sentry-sdk
 django-ipware
 django-mathfilters
+django-session-timeout
