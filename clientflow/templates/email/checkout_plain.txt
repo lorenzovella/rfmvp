@@ -1,0 +1,21 @@
+Obrigado por comprar no ração do futuro!
+
+Seu pedido foi recebido e estamos aguardando a confirmação do pagamento pela operadora do cartão de crédito.
+Confira os itens do seu pedido, e caso identifique alguma anormalidade entre em contato conosco pelo whatssapp, e-mail ou chat.
+
+Sua Assinatura {{pedido}}:
+
+{{pedido.idPlano.nome}}
+{{pedido.idPlano.refeicoes}} refeições
+{% for key in pedido.idDog.sabores %}
+{{key}}
+{{pedido.idEntrega.get_frequencia_display}}
+
+Endereço de entrega
+{{pedido.idClient.nome}} {{pedido.idClient.sobrenome}}
+{{pedido.idClient.rua}}, {{pedido.idClient.numero}}
+{{pedido.idClient.bairro}} - {{pedido.idClient.complemento}}
+
+Forma de pagamento
+Cartão de Crédito
+R${{pedido.valor}}

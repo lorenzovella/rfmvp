@@ -23,6 +23,18 @@ class CustomAuthForm(AuthenticationForm):
         self.fields['password'].widget = forms.PasswordInput(attrs={'class': 'form-control', 'placeholder':'.  .  .  .  .  .  .  .  .  .  .'})
         self.fields['password'].label = "Senha"
 
+class ClienteFormLead(forms.ModelForm):
+    class Meta:
+        model = models.Cliente
+        fields = ["nome","email"]
+    def __init__(self, *args, **kwargs):
+        super(ClienteFormLead, self).__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.layout = Layout(
+            HTML("<p class='dash-title text-center'>Humano, agora preencha suas informações.</p>"),
+            Field('nome', template="app/custom_components/textinput.html"),
+            Field('email', template="app/custom_components/textinput.html"),
+            )
 class ClienteForm(forms.ModelForm):
     class Meta:
         model = models.Cliente
@@ -178,7 +190,7 @@ class CachorroForm3(forms.ModelForm):
         fields = [
             "nascimento",
         ]
-    peso = forms.DecimalField(max_digits=3, decimal_places=1,initial='')
+    peso = forms.DecimalField(max_digits=3, min_value=1, decimal_places=1,initial='')
     pesoideal = forms.DecimalField(label = "Peso estimado do cachorro adulto", max_digits=3, decimal_places=1, initial='', required=False)
     def __init__(self, *args, **kwargs):
         super(CachorroForm3, self).__init__(*args, **kwargs)

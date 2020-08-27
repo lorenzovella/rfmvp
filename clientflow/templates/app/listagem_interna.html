@@ -69,7 +69,7 @@ p > a, p > a:hover{
         <span style="font-weight:500">Plano:</span>
         {{object.idPlano.nome}}<br>
         <span style="font-weight:500">Frequência:</span>
-        {{object.idPlano.condicaofrete}}<br>
+        {{object.idEntrega.get_frequencia_display}}<br>
         <span style="font-weight:500">Quantidade à separar:</span>
         {% with refeicoes=object.idPlano.refeicoes calculomes=object.idDog.calculomes %}
           {{calculomes|mul:refeicoes|div:28}}kg

@@ -15,11 +15,13 @@ from formtools.wizard.views import SessionWizardView
 from decimal import Decimal
 from math import ceil
 from ipware import get_client_ip
-
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
 
 class newPasswordResetForm(PasswordResetForm):
     def send_mail(self, *args, **kwargs):
         super().send_mail(*args, **kwargs)
+
 
 def calculaDescontoProgressivo(consumoKg):
     consumoKg = float(consumoKg)
@@ -111,8 +113,8 @@ def IndexView(request):
         return redirect('dogdash')
     return render(request,'index.html')
 
-def teste(request):
-    return render(request, 'marcos/free_dog_badge.html')
+def ra(request):
+    return render(request, 'ra/index.html')
 
 def dogdash(request):
     dogCount = models.Cachorro.objects.filter(idCliente = request.user.cliente).count()
@@ -154,9 +156,13 @@ def checkout(request,carrinho):
                     pedido.status = 'Pedido finalizado pelo cliente'
                     pedido.save()
             cart.save()
-            # cobranca = pagseguro.cobrarPlano(pedido.idClient.nome+" - "+ str(carrinho), cart.plano, valor, '1', str(carrinho), cart.pagseguro_adesao)
+            send_mail(render_to_string(template_name='email/checkout_subject.txt', context={'dog':pedido.idDog.nome,'pedido':pedido}).strip(),
+                render_to_string(template_name='email/checkout_plain.txt', context={'pedido':pedido}).strip(),
+                None,
+                [pedido.idClient.email],
+                html_message = render_to_string(template_name='email/checkout.html')
+            )
             return redirect('clientflow_fimDoFlow', carrinho)
-            # redirect('clientflow_Pedido_detail', carrinho)
         if request.user.cliente.cpf=="":
             return redirect('user-profile-update', carrinho)
 
@@ -323,7 +329,7 @@ def PedidoFlow(request, plano, dog):
         dog = models.Cachorro.objects.get(pk=dog)
         instance.idPlano = plano
         instance.idDog = dog
-        precoKgRacao = calculaDescontoProgressivo(dog.calculomes)
+        precoKgRacao = calculaDescontoProgressivo(  float(dog.calculomes)  * float(plano.refeicoes/28) )
         instance.valor = max((precoKgRacao * plano.refeicoes * float(dog.calculomes)/28)*0.9 + 15,70)
         savedInstance = instance.save()
         return redirect('clientflow_EntregaFlow', pedido = instance)

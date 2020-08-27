@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Realidade AUmentada</title>
+    <script src="{% static '/js/model3d.js' %}"></script>
+</head>
+<body>
+    <model-3d background-color="#ffffff" src="{% static 'models/android.glb' %}"></model-3d>
+    <a href='/models/apple.usdz' rel='ar'>
+      <img src='/path_to_asset/cup.jpeg'/>
+    </a>
+</body>
+</html>
