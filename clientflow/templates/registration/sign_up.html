@@ -1,6 +1,7 @@
 
 {% extends "base_flow.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/registration.css' %}">
 <style>
@@ -22,14 +23,14 @@ $(document).ready(function () {
 </script>
 {% endblock %}
 {% block content %}
-<div class="row d-flex middle">
-  <div class="col-10 mx-auto m-2 d-flex ">
+<div class="row d-flex flex-column middle">
+  <div class="col-12 col-lg-6 mx-auto m-2 d-flex ">
     <p class="dash-title" style="font-weight:600">Humano, agora preencha suas informações.</p>
   </div>
-  <div class="col-12 flex-column d-flex text-center first-description mx-auto m-2 ">
+  <div class="col-8 col-lg-6 flex-column d-flex text-center first-description mx-auto m-2 ">
     <form method="post" style="display: contents;">
       {% csrf_token %}
-      {{form.as_table}}
+      {{ form }}
     </form>
   </div>
 </div>

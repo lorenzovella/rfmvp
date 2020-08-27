@@ -42,7 +42,7 @@ class Carrinho(models.Model):
 class Cliente(models.Model):
     phone_regex = RegexValidator(regex=r'^\+?1?\d{8,9}$', message="Digite apenas o número do seu telefone")
     # Fields
-    user = models.OneToOneField(User, related_name='cliente', on_delete=models.CASCADE)
+    user = models.OneToOneField(User, related_name='cliente', on_delete=models.CASCADE, blank=True, null=True)
     nome = models.CharField('Nome', max_length=150, default="")
     sobrenome = models.CharField('Sobrenome', max_length=150, default="")
     email = models.EmailField('E-mail', default="")
@@ -73,12 +73,12 @@ class Cliente(models.Model):
 
     def get_update_url(self):
         return reverse("clientflow_Cliente_update", args=(self.pk,))
-@receiver(post_save, sender=User)
-def update_profile_signal(sender, instance, created, **kwargs):
-    if created:
-        Cliente.objects.create(user=instance)
-    instance.cliente.save()
-
+# @receiver(post_save, sender=User)
+# def update_profile_signal(sender, instance, created, **kwargs):
+#     if created:
+#         Cliente.objects.create(user=instance)
+#     instance.cliente.save()
+#
 
 class CachorroEspecial(models.Model):
 

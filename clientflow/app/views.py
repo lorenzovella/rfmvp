@@ -64,7 +64,10 @@ def profile_view(request):
     return render(request, 'registration/profile.html', {'user':cliente})
 
 def profile_update_view(request,carrinho=0):
-    clienteInstance = models.User.objects.get(pk=request.user.id).cliente
+    if request.user.is_authenticated:
+        clienteInstance = request.user.cliente
+    else:
+        clienteInstance = models.Cliente.objects.get(pk = request.session['cliente'])
     if request.method == "POST":
         form = forms.ClienteForm(request.POST, instance=clienteInstance)
         if form.is_valid():
@@ -78,32 +81,21 @@ def profile_update_view(request,carrinho=0):
 
 def profile_simple_view(request, pedido, dog):
     if request.method == "POST":
-        form = forms.ClienteNovoForm(request.POST)
+        form = forms.ClienteFormLead(request.POST)
         if form.is_valid():
             email = form.cleaned_data.get('email')
-            randPass = User.objects.make_random_password()
-            user = form.save(commit=False)
-            user.username = email
-            user.set_password( randPass )
-            user.save()
-            user.refresh_from_db()
-            user.cliente.email = email
-            user.cliente.nome = form.cleaned_data['first_name']
-            user.save()
+            nome = form.cleaned_data.get('nome')
+            savedInstance = form.save()
+            request.session['cliente'] = savedInstance.pk
             dogInstance = models.Cachorro.objects.get(pk = dog)
-            dogInstance.idCliente = user.cliente
+            dogInstance.idCliente = savedInstance
             dogInstance.save()
             pedidoInstance = models.Pedido.objects.get(pk = pedido)
-            pedidoInstance.idClient = user.cliente
+            pedidoInstance.idClient = savedInstance
             pedidoInstance.save()
-            user = authenticate(username=email, password=randPass)
-            login(request, user)
-            passReset = newPasswordResetForm({'email': email})
-            if passReset.is_valid():
-                passReset.save(request=request, use_https=True, email_template_name='email/boas_vindas_plain.html', html_email_template_name='email/boas_vindas.html')
             return redirect('clientflow_Carrinho_list')
     elif request.user.is_authenticated == False:
-        form = forms.ClienteNovoForm()
+        form = forms.ClienteFormLead()
     elif request.user.is_authenticated == True:
         return redirect('clientflow_Cachorro_list')
     return render(request,'registration/sign_up.html',{'form':form,'dog':dog})
@@ -139,12 +131,16 @@ def checkout(request,carrinho):
     valor = "{:.2f}".format( cart.get_valor_carrinho() )
     pedido = cart.item.first()
     pedidos = cart.item.all()
-    if request.user.cliente == pedido.idClient:
+    if request.user.is_authenticated:
+        cliente = request.user.cliente
+    else:
+        cliente = models.Cliente.objects.get(pk = request.session['cliente'])
+    if cliente == pedido.idClient:
         if request.method == "POST":
             card = request.POST
             session = pagseguro.criarSession()
             hash = pagseguro.criarHash(session,valor,card['number'].replace(" ",""),card['brand'],card['cvc'],card['expm'],card['expy'])
-            cart.pagseguro_adesao = pagseguro.aderirPlano(cart.pagseguro_plano, carrinho, hash, card['name'], request.user.cliente, get_client_ip(request)[0])
+            cart.pagseguro_adesao = pagseguro.aderirPlano(cart.pagseguro_plano, carrinho, hash, card['name'], cliente, get_client_ip(request)[0])
             if type(cart.pagseguro_adesao) is dict:
                 for pedido in pedidos:
                     pedido.status= 'Pedido em aberto'
@@ -162,19 +158,37 @@ def checkout(request,carrinho):
                 [pedido.idClient.email],
                 html_message = render_to_string(template_name='email/checkout.html')
             )
+            saveuser(request, cliente, pedido, pedido.idDog)
             return redirect('clientflow_fimDoFlow', carrinho)
-        if request.user.cliente.cpf=="":
+        if cliente.cpf=="":
             return redirect('user-profile-update', carrinho)
 
         return render(request,"app/checkout_cartao.html",{'plano':cart.plano, 'valor': "{:.2f}".format(cart.get_valor_carrinho()) })
     else:
         return handler500(request)
 
+def saveuser(request, cliente, pedido, dog):
+    randPass = User.objects.make_random_password()
+    user = User.objects.create_user(cliente.email,cliente.email, randPass)
+    user.save()
+    cliente.user = user
+    cliente.save()
+    user = authenticate(username=cliente.email, password=randPass)
+    login(request, user)
+    passReset = newPasswordResetForm({'email': cliente.email})
+    if passReset.is_valid():
+        passReset.save(request=request, use_https=True, email_template_name='email/boas_vindas_plain.html', html_email_template_name='email/boas_vindas.html')
+
 def adicionarAoCarrinho(request):
-    pedidos = models.Pedido.objects.filter(status ='Pedido em aberto', idClient = request.user.cliente)
+    if request.user.is_authenticated:
+        cliente = request.user.cliente
+        pedidos = models.Pedido.objects.filter(status ='Pedido em aberto', idClient = cliente)
+    else:
+        cliente = models.Cliente.objects.get(pk = request.session['cliente'])
+        pedidos = models.Pedido.objects.filter(idClient = cliente).filter(status ='Pedido em aberto')
     if pedidos.count() == 0:
         try:
-            lastCarrinho = models.Carrinho.objects.filter(item__idClient = request.user.cliente).last()
+            lastCarrinho = models.Carrinho.objects.filter(item__idClient = cliente).last()
             return redirect('clientflow_checkout', lastCarrinho)
         except models.Carrinho.DoesNotExist:
             return errorView(request, "não foram encontrados pedidos em aberto")
@@ -200,7 +214,7 @@ def adicionarAoCarrinho(request):
     newCarrinho.pagseguro_plano = codigoPlano['pg']
     savedCarrinho = newCarrinho.save()
 
-    if request.user.cliente.cpf==0:
+    if cliente.cpf == "":
         return redirect('user-profile-update', newCarrinho)
     return redirect('clientflow_checkout', newCarrinho)
 
@@ -261,12 +275,15 @@ class CarrinhoListView(generic.ListView):
     template_name = "app/carrinho_list.html"
     def get(self, request, *args, **kwargs):
         queryset = self.get_queryset()
-        if queryset.count() == 0:
-            return redirect('dogdash')
         return super().get(request, *args, **kwargs)
     def get_queryset(self):
-        return models.Pedido.objects.filter(status ='Pedido em aberto', idClient = self.request.user.cliente)
-
+        if self.request.user.is_authenticated:
+            client = self.request.user.cliente
+            return models.Pedido.objects.filter(idClient = client).filter(status ='Pedido em aberto')
+        elif 'cliente' in self.request.session:
+            return models.Pedido.objects.filter(idClient = self.request.session['cliente']).filter(status ='Pedido em aberto')
+        else:
+            return redirect('index')
     model = models.Pedido
     form_class = forms.PedidoForm
 
@@ -274,12 +291,15 @@ class CarrinhoListView2(generic.ListView):
     template_name = "app/carrinho_list2.html"
     def get(self, request, *args, **kwargs):
         queryset = self.get_queryset()
-        if queryset.count() == 0:
-            return redirect('dogdash')
         return super().get(request, *args, **kwargs)
     def get_queryset(self):
-        return models.Pedido.objects.filter(status ='Pedido em aberto', idClient = self.request.user.cliente)
-
+        if self.request.user.is_authenticated:
+            client = self.request.user.cliente
+            return models.Pedido.objects.filter(idClient = client).filter(status ='Pedido em aberto')
+        elif 'cliente' in self.request.session:
+            return models.Pedido.objects.filter(idClient = self.request.session['cliente']).filter(status ='Pedido em aberto')
+        else:
+            return redirect('index')
     model = models.Pedido
     form_class = forms.PedidoForm
 
@@ -377,8 +397,11 @@ class entregaWizard(SessionWizardView):
             # salva pedido
             savedPedido = pedidoInstance.save()
             return redirect('clientflow_Carrinho_list')
+        elif 'cliente' in self.request.session:
+            pedidoInstance.idClient = models.Cliente.objects.get(pk = self.request.session['cliente'])
+            savedPedido = pedidoInstance.save()
+            return redirect('clientflow_Carrinho_list')
         savedPedido = pedidoInstance.save()
-
         return redirect('user-profile-simple', pedido = pedidoInstance, dog = pedidoInstance.idDog)
 
 
@@ -563,12 +586,12 @@ class cachorroWizard(SessionWizardView):
         if cachorroInstance.calculate_age() < 1:
             kcalpordia = round( 416*(float(cachorroInstance.peso)**0.75)*(2.718**(-0.87*float(cachorroInstance.peso/cachorroInstance.pesoideal))-0.1) )
             gramaspordia = float(kcalpordia) / float(1.5859)
-            kgpormes = ceil( gramaspordia * 0.028 )
+            kgpormes = max(1,ceil( gramaspordia * 0.028 ))
         # calculo dog adulto
         else:
             fator = calcularFator(cachorroInstance.atividade, cachorroInstance.nascimento, cachorroInstance.fisico, cachorroInstance.castrado)
             gramaspordia = round(fator * 0.63 * (float(cachorroInstance.peso) ** 0.75  ) )
-            kgpormes = ceil( gramaspordia * 0.028 )
+            kgpormes = max(1,ceil( gramaspordia * 0.028 ))
         cachorroInstance.calculodia = Decimal.from_float(gramaspordia)
         cachorroInstance.calculomes = Decimal(kgpormes)
         # salva sabores
@@ -577,6 +600,8 @@ class cachorroWizard(SessionWizardView):
         # salva cliente
         if self.request.user.is_authenticated:
             cachorroInstance.idCliente = self.request.user.cliente
+        elif 'cliente' in self.request.session:
+            cachorroInstance.idCliente = self.request.session['cliente']
         savedCachorro = cachorroInstance.save()
         return redirect('clientflow_PlanoFlow', cachorroInstance)
 

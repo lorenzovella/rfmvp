@@ -29,12 +29,10 @@ class ClienteFormLead(forms.ModelForm):
         fields = ["nome","email"]
     def __init__(self, *args, **kwargs):
         super(ClienteFormLead, self).__init__(*args, **kwargs)
-        self.helper = FormHelper(self)
-        self.helper.layout = Layout(
-            HTML("<p class='dash-title text-center'>Humano, agora preencha suas informações.</p>"),
-            Field('nome', template="app/custom_components/textinput.html"),
-            Field('email', template="app/custom_components/textinput.html"),
-            )
+        self.fields['nome'].widget.attrs.update({'class' : 'form-control'})
+        self.fields['email'].widget.attrs.update({'class' : 'form-control'})
+
+
 class ClienteForm(forms.ModelForm):
     class Meta:
         model = models.Cliente

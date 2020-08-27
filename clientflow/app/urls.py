@@ -23,7 +23,7 @@ urlpatterns = (
     path("PlanoFlow/<int:dog>/", views.PlanoFlow, name="clientflow_PlanoFlow"),
     path("PedidoFlow/<int:plano>/<int:dog>", views.PedidoFlow, name="clientflow_PedidoFlow"),
     path("EntregaFlow/<int:pedido>", views.entregaWizard.as_view(FORMS_ENTREGA), name="clientflow_EntregaFlow"),
-    path("Carrinho/", login_required(views.CarrinhoListView.as_view()), name="clientflow_Carrinho_list"),
+    path("Carrinho/", views.CarrinhoListView.as_view(), name="clientflow_Carrinho_list"),
     path("NewCarrinho/", views.adicionarAoCarrinho, name="adicionar_ao_carrinho"),
     path("CheckOut/<int:carrinho>", views.checkout, name="clientflow_checkout"),
     path("CompraConcluida/<int:carrinho>", views.fimDoFlow, name="clientflow_fimDoFlow"),
@@ -39,7 +39,7 @@ urlpatterns = (
     path("Entrega/detail/<int:pk>/", views.EntregaDetailView.as_view(), name="clientflow_Entrega_detail"),
     path("Entrega/update/<int:pk>/", views.EntregaUpdateView.as_view(), name="clientflow_Entrega_update"),
 
-    path("CarrinhoDetail/", login_required(views.CarrinhoListView2.as_view()), name="clientflow_Carrinho_2"),
+    path("CarrinhoDetail/", views.CarrinhoListView2.as_view(), name="clientflow_Carrinho_2"),
     path("Pedido/", login_required(views.PedidoListView.as_view()), name="clientflow_Pedido_list"),
     path("Plano/", login_required(views.PlanoListView.as_view()), name="clientflow_Plano_list"),
 
