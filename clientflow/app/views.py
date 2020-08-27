@@ -162,15 +162,20 @@ def checkout(request,carrinho):
             return redirect('clientflow_fimDoFlow', carrinho)
         if cliente.cpf=="":
             return redirect('user-profile-update', carrinho)
-
         return render(request,"app/checkout_cartao.html",{'plano':cart.plano, 'valor': "{:.2f}".format(cart.get_valor_carrinho()) })
     else:
         return handler500(request)
 
 def saveuser(request, cliente, pedido, dog):
     randPass = User.objects.make_random_password()
-    user = User.objects.create_user(cliente.email,cliente.email, randPass)
-    user.save()
+    try:
+        user = User.objects.create_user(cliente.email,cliente.email, randPass)
+        user.save()
+    except IntegrityError as e:
+        passReset = newPasswordResetForm({'email': cliente.email})
+        if passReset.is_valid():
+            passReset.save(request=request, use_https=True, email_template_name='email/boas_vindas_plain.html', html_email_template_name='email/boas_vindas.html')
+        return redirect('clientflow_fimDoFlow', carrinho)
     cliente.user = user
     cliente.save()
     user = authenticate(username=cliente.email, password=randPass)
@@ -601,7 +606,7 @@ class cachorroWizard(SessionWizardView):
         if self.request.user.is_authenticated:
             cachorroInstance.idCliente = self.request.user.cliente
         elif 'cliente' in self.request.session:
-            cachorroInstance.idCliente = self.request.session['cliente']
+            cachorroInstance.idCliente = clienteInstance = models.Cliente.objects.get(pk = self.request.session['cliente'])
         savedCachorro = cachorroInstance.save()
         return redirect('clientflow_PlanoFlow', cachorroInstance)
 
