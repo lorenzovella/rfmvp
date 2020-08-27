@@ -1,0 +1,29 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class='row info-bg'>
+  <div class='col-10 info-bar-text'>
+    <p>Erro!</p>
+  </div>
+</div>
+<div class="row d-flex middle">
+  <div class="col-12 text-center control-label mx-auto m-4 p-4">
+    <h3>Erro {{erro}}!</h3>
+  </div>
+  <div style="height:auto!important;" class="col-10 col-md-7 m-4 mx-auto text-decoration-none dash-btn">
+    <p class="card-dash-title dash-btn-text">Quer ajustar informações da sua conta?</p>
+    <div class="col">
+      <div class="d-flex radio-toolbar">
+        <a class="first-description mx-auto" style="color: #00FB5C!important;" href="{% url 'user-profile-update' carrinho %}">Clique aqui</a>
+      </div>
+    </div>
+    <span class="dog-card-img-2 mt-2"></span>
+  </div>
+</div>
+<div class="endofcontent"></div>
+<div class="footer margin-footer">
+  <p class="footer-text ">
+  </p>
+</div>
+{% endblock %}

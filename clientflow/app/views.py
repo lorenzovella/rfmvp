@@ -1,6 +1,7 @@
 from . import forms
 from . import models
 from django import forms as djangoforms
+from django.db import IntegrityError
 from django.views import generic
 from django.http import HttpRequest
 from django.shortcuts import redirect, render
@@ -17,7 +18,6 @@ from math import ceil
 from ipware import get_client_ip
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
-
 class newPasswordResetForm(PasswordResetForm):
     def send_mail(self, *args, **kwargs):
         super().send_mail(*args, **kwargs)
@@ -56,6 +56,8 @@ def handler500(request):
     return response
 def errorView(request,e):
     return render(request,"error.html",{'erro':e})
+def errorViewCarrinho(request,e,carrinho):
+    return render(request,"error_carrinho.html",{'erro':e, 'carrinho':carrinho})
 
 def profile_view(request):
     username = None
@@ -121,7 +123,13 @@ def pedidosDash(request):
 
 def fimDoFlow(request,carrinho):
     cart = models.Carrinho.objects.get(pk=carrinho)
-    if cart.item.first().idClient == request.user.cliente:
+    if request.user.is_authenticated:
+        cliente = request.user.cliente
+    else:
+        cliente = models.Cliente.objects.get(pk = request.session['cliente'])
+        if cart.item.first().idClient == cliente:
+            return render(request, 'app/checkout_fimdoflow_conflict.html',{'pedido':cart.item.first().pk})
+    if cart.item.first().idClient == cliente:
         #pedidos = cart.item.all()
         return render(request, 'app/checkout_fimdoflow.html',{'pedido':cart.item.first().pk})
     return handler500(request)
@@ -146,7 +154,7 @@ def checkout(request,carrinho):
                     pedido.status= 'Pedido em aberto'
                     pedido.observacoes = cart.pagseguro_adesao
                     pedido.save()
-                return errorView(request, cart.pagseguro_adesao)
+                return errorViewCarrinho(request, cart.pagseguro_adesao, carrinho)
             else:
                 for pedido in pedidos:
                     pedido.status = 'Pedido finalizado pelo cliente'
@@ -158,7 +166,7 @@ def checkout(request,carrinho):
                 [pedido.idClient.email],
                 html_message = render_to_string(template_name='email/checkout.html')
             )
-            saveuser(request, cliente, pedido, pedido.idDog)
+            saveuser(request, cliente, pedido, pedido.idDog, carrinho)
             return redirect('clientflow_fimDoFlow', carrinho)
         if cliente.cpf=="":
             return redirect('user-profile-update', carrinho)
@@ -166,12 +174,18 @@ def checkout(request,carrinho):
     else:
         return handler500(request)
 
-def saveuser(request, cliente, pedido, dog):
+def saveuser(request, cliente, pedido, dog, carrinho):
     randPass = User.objects.make_random_password()
     try:
         user = User.objects.create_user(cliente.email,cliente.email, randPass)
         user.save()
     except IntegrityError as e:
+        doubledUser = models.User.objects.get(username=cliente.email)
+        oldClient = models.Cliente.objects.get(user=doubledUser)
+        oldClient.user = None
+        oldClient.save()
+        cliente.user = doubledUser
+        cliente.save()
         passReset = newPasswordResetForm({'email': cliente.email})
         if passReset.is_valid():
             passReset.save(request=request, use_https=True, email_template_name='email/boas_vindas_plain.html', html_email_template_name='email/boas_vindas.html')

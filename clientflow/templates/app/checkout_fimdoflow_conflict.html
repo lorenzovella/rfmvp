@@ -1,0 +1,36 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class='row info-bg'>
+  <div class='col-10 info-bar-text'>
+    <p>Compra concluída!</p>
+  </div>
+</div>
+<div class='row middle mt-3'>
+  <div class='col-11 mx-auto mt-1'>
+    <div class="card flex-row col-12">
+      <div class="card-body">
+        <div class="d-flex">
+          <div class="col-8 mx-auto ">
+            <p class="control-label text-center mt-3">Parábens! Você deu um passo em direção à um futuro melhor para o seu e muitos outros cachorros.</p>
+            <p class="dash-subtitle text-center mt-3">Verificamos que o email informado estava listado em nossa Base de dados Beta</p>
+            <p class="dash-subtitle text-center mt-3">Por isso, lhe enviamos um email para redefinir sua senha em nossa plataforma! Verifique o spam.</p>
+          </div>
+        </div>
+        <div class="d-flex">
+          <a
+          class="round-btn p-4 text-white text-decoration-none mx-auto mt-2"
+          href="{% url 'clientflow_Pedido_detail' pedido %}">
+            Detalhes do seu pedido
+          </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class='endofcontent'></div>
+  </div>
+</div>
+{% endblock %}
