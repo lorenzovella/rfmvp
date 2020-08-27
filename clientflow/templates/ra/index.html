@@ -11,10 +11,7 @@
 </head>
 <body>
 <!-- Use it like any other HTML element -->
-<model-viewer src="{% static '/models/android.glb' %}" alt="A 3D model of an astronaut" auto-rotate camera-controls>
+<model-viewer src="{% static '/models/android.glb' %}" auto-rotate camera-controls ar ios-src="{% static '/models/apple.usdz' %}">
 </model-viewer>
-<a href="{% static '/models/apple.usdz' %}" rel='ar'>
-  <span>Usúario de iPhone? Clique aqui</span>
-</a>
 </body>
 </html>
