@@ -17,7 +17,7 @@ body{
 {% block content %}
 <div>
   <div class="detail-page">
-    <img class="logo" src="{% static 'css/images/dog-logo-2.png' %}" alt="logo" />
+    <img alt="Logo Ração do futuro" class="logo" src="{% static 'css/images/dog-logo-2.png' %}" alt="logo" />
     <h1 class="detail-page-title">O que você quer fazer?</h1>
     <h2 class="detail-page-subtitle">Escolha uma das opções abaixo:</h2>
     <button class="detail-page-simple-button"><a class="blue" href="{% url 'clientflow_dogflow'%}"> Adicionar novo cão</a></button>
@@ -49,11 +49,11 @@ body{
         </div>
         <div class="finish-order-last-line">
           <p class="finish-order-last-description">
-            <img class="mr-4 cart-img" src="{% static 'css/images/shopping-cart.png' %}"/>Valor total
+            <img alt="Carrinho" class="mr-4 cart-img" src="{% static 'css/images/shopping-cart.png' %}"/>Valor total
           </p>
           <p class="finish-order-last-description">R$ {{object.get_valor_carrinho}}</p>
         </div>
-        <button class="finish-order-button"><a class="green" href="{% url 'adicionar_ao_carrinho'  %}"> Finalizar Compra</a><img class="ml-4" src="{% static 'css/images/right-arrow.png' %}"/></button>
+        <button class="finish-order-button"><a class="green" href="{% url 'adicionar_ao_carrinho'  %}"> Finalizar Compra</a><img alt="Seta para direita" class="ml-4" src="{% static 'css/images/right-arrow.png' %}"/></button>
       </div>
     </div>
     {% endif %}
