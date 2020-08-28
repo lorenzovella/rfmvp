@@ -47,6 +47,22 @@
 }
 </style>
 <script>
+function setInputFilter(textbox, inputFilter) {
+  ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function(event) {
+    textbox.addEventListener(event, function() {
+      if (inputFilter(this.value)) {
+        this.oldValue = this.value;
+        this.oldSelectionStart = this.selectionStart;
+        this.oldSelectionEnd = this.selectionEnd;
+      } else if (this.hasOwnProperty("oldValue")) {
+        this.value = this.oldValue;
+        this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+      } else {
+        this.value = "";
+      }
+    });
+  });
+}
 $(document).ready(function () {
   $('#id_CachorroForm3-peso').one('keydown', function() {
     $('#div_id_CachorroForm3-peso').toggleClass('special');
@@ -82,12 +98,19 @@ $(document).ready(function () {
     $('.progress-bar.disabled-bar').css("width","100%");
   }
   if($('#id_cachorro_wizard-current_step').val() == "CachorroForm3"){
+
     $('.pageMenu .active').toggleClass('changed');
     $("#div_id_CachorroForm3-pesoideal").hide();
 
     $('.progress-bar.icon-bar').css("width","13%");
     $('.progress-bar.disabled-bar').css("width","87%");
 
+    setInputFilter(document.getElementById("id_CachorroForm3-peso"), function(value) {
+      return /^\d*\.?\d*$/.test(value);
+    });
+    setInputFilter(document.getElementById("id_CachorroForm3-pesoideal"), function(value) {
+      return /^\d*\.?\d*$/.test(value);
+    });
     $('#div_id_CachorroForm3-nascimento .controls').datepicker(
       {
         altField: "#id_CachorroForm3-nascimento",
