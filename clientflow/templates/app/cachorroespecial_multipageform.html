@@ -8,8 +8,16 @@
 <script>
 $(document).ready(function () {
   $("#openForm").click(function (){
-    $("#optionalForm").show();
     $("#optionalText").hide();
+    $("#optionalText2").show();
+  });
+  $("#openForm2").click(function (){
+    $("#optionalForm").show();
+    $("#optionalText2").hide();
+  });
+  $("#nextStep2").click(function (){
+    $("#optionalText").show();
+    $("#optionalText2").hide();
   });
   $('.progress-bar.icon-bar').css("width","28%");
   $('.progress-bar.disabled-bar').css("width","72%");
@@ -35,6 +43,14 @@ $(document).ready(function () {
       <span class="control-label col-11 mx-auto">Algum problema de Saúde?</span>
       <div class="radio-toolbar">
         <div class="row flex-column flex-sm-row">
+          <div class="col">
+            <div class="d-flex">
+              <input type="radio" id="nextStep" name="CachorroForm-especial" value="Não">
+              <label class="first-description mx-auto" for="nextStep">
+                Não
+              </label>
+            </div>
+          </div>
           <div class="col"> <div class="d-flex">
             <input type="radio" id="openForm" name="CachorroForm-especial" value="Sim">
             <label class="first-description mx-auto" for="openForm">
@@ -42,14 +58,29 @@ $(document).ready(function () {
             </label>
           </div>
         </div>
-        <div class="col">
-          <div class="d-flex">
-            <input type="radio" id="nextStep" name="CachorroForm-especial" value="Não">
-            <label class="first-description mx-auto" for="nextStep">
+       </div>
+     </div>
+    </div>
+    <div id="optionalText2" class="col-12 flex-column mx-auto my-3" style="display:none;">
+      <span class="control-label col-11 mx-auto">Caso seu dog tenha algum problema de saúde, montaremos sua dieta junto à nossa veterinária.</span>
+      <span class="control-label col-11 mx-auto">Deseja continuar?</span>
+      <div class="radio-toolbar">
+        <div class="row flex-column flex-sm-row">
+          <div class="col">
+            <div class="d-flex">
+              <input type="radio" id="nextStep2" name="CachorroForm-especial" value="Não">
+              <label class="first-description mx-auto" for="nextStep2">
                 Não
+              </label>
+            </div>
+          </div>
+          <div class="col"> <div class="d-flex">
+            <input type="radio" id="openForm2" name="CachorroForm-especial" value="Sim">
+            <label class="first-description mx-auto" for="openForm2">
+                Sim
             </label>
           </div>
-         </div>
+        </div>
        </div>
      </div>
     </div>
