@@ -21,6 +21,9 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth import views as auth_views
 from clientflow.app.views import IndexView
 
+from django.http import HttpResponse
+from django.conf.urls import url
+
 handler404 = 'clientflow.app.views.handler404'
 handler404 = 'clientflow.app.views.handler404'
 urlpatterns = [
@@ -36,6 +39,6 @@ urlpatterns = [
     path('',  IndexView, name='index'),
     path('', include('clientflow.app.urls')),
     # path('accounts/', include('django.contrib.auth.urls')),
-
+    url(r'^robots.txt', lambda x: HttpResponse("User-Agent: *\nDisallow:", content_type="text/plain"), name="robots_file"),
 
 ]
