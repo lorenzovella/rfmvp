@@ -41,6 +41,7 @@ class PedidoAdminForm(forms.ModelForm):
 class ClienteAdmin(admin.ModelAdmin):
     form = ClienteAdminForm
     list_display = [
+    "id",
     "user",
     "nome",
     "sobrenome",
@@ -109,6 +110,7 @@ class CachorroEspecialAdmin(admin.ModelAdmin):
 class CachorroAdmin(admin.ModelAdmin):
     form = CachorroAdminForm
     list_display = [
+    "id",
     "idCliente",
     "nome",
     "sabores",
@@ -123,6 +125,7 @@ class CachorroAdmin(admin.ModelAdmin):
 class CarrinhoAdmin(admin.ModelAdmin):
     form = CarrinhoAdminForm
     list_display = [
+    "id",
     "plano",
     "status_adesao",
     "pagseguro_plano",
@@ -139,6 +142,7 @@ class CarrinhoAdmin(admin.ModelAdmin):
 class PedidoAdmin(admin.ModelAdmin):
     form = PedidoAdminForm
     list_display = [
+        "id",
         "idClient",
         "valor",
         "status",
