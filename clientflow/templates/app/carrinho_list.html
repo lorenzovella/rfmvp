@@ -2,6 +2,18 @@
 {% load static %}
 {% load mathfilters %}
 {% block head %}
+<script>
+function openTermos() {
+  document.getElementById('termosdeuso').style.display = "";
+  document.getElementsByClassName('detail-page')[0].style.display = "none";
+  document.getElementById('termosdeusoframe').src = "{% static 'termos.html'%}";
+  window.scrollTo(0,0);
+}
+function closeTermos(){
+  document.getElementById('termosdeuso').style.display = "none";
+  document.getElementsByClassName('detail-page')[0].style.display = "";
+}
+</script>
 <style>
 body{
   padding-top: 0px!important;
@@ -12,10 +24,23 @@ body{
 .green{
   color: #00FB5C!important;
 }
+#termosdeuso{
+  margin-top:45px;
+}
 </style>
 {% endblock %}
 {% block content %}
 <div>
+  <div id="termosdeuso" style="display:none;">
+    <a onclick="closeTermos()">
+      <svg style="margin-top: 20px;" class="delete-icon" width="33px" height="33px" viewBox="0 0 33 33" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+          <g class="icon_trash">
+            <path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z" id="Combined-Shape" fill="#FF2650" fill-rule="evenodd" stroke="none"></path>
+          </g>
+      </svg>
+    </a>
+    <iframe id="termosdeusoframe" style="width: 100%; height: 100vw; border:0;"></iframe>
+  </div>
   <div class="detail-page">
     <img alt="Logo Ração do futuro" class="logo" src="{% static 'css/images/dog-logo-2.png' %}" alt="logo" />
     <h1 class="detail-page-title">O que você quer fazer?</h1>
@@ -28,7 +53,7 @@ body{
     <div class="detail-page-footer">
       <div class="terms-container">
         <label class="terms-checkbox">
-          <span class="col-10 float-right">Eu li e concordo com os termos de uso e politica de privacidade.
+          <span class="col-10 float-right">Eu li e concordo com os <a onclick="openTermos()">termos de uso</a> e politica de privacidade.
           </span>
           <input type="checkbox" checked="checked">
           <span class="checkmark"></span>
