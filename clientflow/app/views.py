@@ -4,6 +4,7 @@ from django import forms as djangoforms
 from django.db import IntegrityError
 from django.views import generic
 from django.http import HttpRequest
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.forms.models import construct_instance
 from django.core.files.storage import FileSystemStorage
@@ -18,6 +19,9 @@ from math import ceil
 from ipware import get_client_ip
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
+from django_simple_coupons.validations import validate_coupon
+from django_simple_coupons.models import Coupon
+
 class newPasswordResetForm(PasswordResetForm):
     def send_mail(self, *args, **kwargs):
         super().send_mail(*args, **kwargs)
@@ -170,7 +174,7 @@ def checkout(request,carrinho):
             return redirect('clientflow_fimDoFlow', carrinho)
         if cliente.cpf=="":
             return redirect('user-profile-update', carrinho)
-        return render(request,"app/checkout_cartao.html",{'plano':cart.plano, 'valor': "{:.2f}".format(cart.get_valor_carrinho()) })
+        return render(request,"app/checkout_cartao.html",{'plano':cart.plano, 'carrinho':cart,'valor': "{:.2f}".format(cart.get_valor_carrinho()), 'desconto': "{:.2f}".format(cart.get_valor_desconto()) })
     else:
         return handler500(request)
 
@@ -236,6 +240,35 @@ def adicionarAoCarrinho(request):
     if cliente.cpf == "":
         return redirect('user-profile-update', newCarrinho)
     return redirect('clientflow_checkout', newCarrinho)
+
+def testaCupom(request):
+    if request.user.is_authenticated:
+        user = request.user.cliente
+    else:
+        user = models.Cliente.objects.get(pk = request.session['cliente'])
+    if request.method == 'GET':
+            cupom = request.GET['cupom']
+            carrinho = request.GET['carrinho']
+            status = validate_coupon(coupon_code=cupom, user=user)
+            if status['valid']:
+                coupon = Coupon.objects.get(code=cupom)
+                descontoResponse = aplicaDesconto(coupon, carrinho, user)
+                return HttpResponse(descontoResponse) # Sending an success response
+            return HttpResponse(status['message'])
+    else:
+            return HttpResponse("Request method is not a GET")
+
+def aplicaDesconto(coupon, carrinho, user):
+    instance = models.Carrinho.objects.get(pk = carrinho)
+    instance.cupom = coupon.code
+    instance.save()
+    novoValor = "{:.2f}".format( instance.get_valor_carrinho() )
+    try:
+        pagseguro.descontoPlano(instance.pagseguro_plano,novoValor)
+    except:
+        return "Erro ao aplicar desconto!"
+    coupon.use_coupon(user=user)
+    return "{:.2f}".format( instance.get_valor_desconto() )
 
 
 class CachorroEspecialListView(generic.ListView):
@@ -516,8 +549,11 @@ def CarrinhoDeleteConfirmView(request, pk):
 
 def CarrinhoDeleteView(request, pk):
     try:
-        instance = models.Carrinho.objects.filter(item__idClient = request.user.cliente).get(pk=pk)
-        info = instance.delete()
+        instance = models.Carrinho.objects.get(pk=pk)
+        if(instance.item.first().idClient == request.user.cliente):
+            info = instance.delete()
+        else:
+            return handler500(request)
     except models.Carrinho.DoesNotExist:
         return handler500(request)
     return render(request,'app/carrinho_delete.html',{'info':info })

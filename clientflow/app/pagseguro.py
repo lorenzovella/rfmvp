@@ -185,22 +185,22 @@ def cancelaPlano(codigoAdesao):
     }
 
     response = requests.request("PUT", url, headers=headers, data = payload)
-    print(response.text)
     if response.status_code == 204:
         return "Pronto! seu plano foi Cancelado."
     else:
         jsonResponse = json.loads(response.text)
         return "Houve um erro!" + str(jsonResponse['errors'])
 
-def descontoPlano(codigoAdesao, p):
-    url = pgUrl + "/pre-approvals/"+codigoAdesao+"/discount?email="+email+"&token="+token
+def descontoPlano(codigoAdesao, novoValor):
+    url = pgUrl + "/pre-approvals/request/"+codigoAdesao+"/payment?email="+email+"&token="+token
 
-    payload = "{\"type\":\"DISCOUNT_PERCENT\",\"value\":"+p+"}"
+    payload = "{\r\n  \"amountPerPayment\": \""+novoValor+"\",\r\n  \"updateSubscriptions\": false\r\n}"
     headers = {
       'Content-Type': 'application/json',
       'Accept': 'application/vnd.pagseguro.com.br.v3+json;charset=ISO-8859-1'
     }
 
     response = requests.request("PUT", url, headers=headers, data = payload)
-
-    print(response.text.encode('utf8'))
+    if response.status_code != 204:
+        raise Exception("Erro ao aplicar cupom")
+    return True

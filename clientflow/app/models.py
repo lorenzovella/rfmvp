@@ -9,24 +9,36 @@ from django.dispatch import receiver
 from django.utils.safestring import mark_safe
 from clientflow.app.pagseguro import consultaAssinatura, listaPagamentos
 from datetime import date
+from django_simple_coupons.models import Coupon
 
 class Carrinho(models.Model):
     # Fields
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
     plano = models.CharField(max_length=200, blank=True, default="")
+    cupom = models.CharField(max_length=200, blank=True, default="")
     pagseguro_plano = models.CharField(max_length=250, blank=True, default="")
     pagseguro_adesao = models.CharField(max_length=250, blank=True, default="")
-    status_adesao = models.CharField(max_length=200, blank=True, default="")
     class Meta:
         pass
 
     def __str__(self):
         return str(self.pk)
+    def get_valor_desconto(self):
+        sum = 0
+        for i in self.item.all():
+            sum += i.valor
+        if self.cupom:
+            instance = Coupon.objects.get(code=self.cupom)
+            return sum - instance.get_discounted_value(initial_value = sum)
+        return 0
     def get_valor_carrinho(self):
         sum = 0
         for i in self.item.all():
             sum += i.valor
+        if self.cupom:
+            instance = Coupon.objects.get(code=self.cupom)
+            sum = instance.get_discounted_value(initial_value = sum)
         return sum
     def get_status(self):
         return consultaAssinatura(self.pagseguro_adesao)
@@ -233,6 +245,9 @@ class Pedido(models.Model):
         for i in Pedido.objects.filter(idClient = self.idClient).filter(status="Pedido em aberto"):
             sum += i.valor
         return sum
+        if self.idCarrinho.cupom:
+            instance = Coupon.objects.get(code=self.idCarrinho.cupom)
+            sum = instance.get_discounted_value(initial_value = sum)
     def __str__(self):
         return str(self.pk)
 

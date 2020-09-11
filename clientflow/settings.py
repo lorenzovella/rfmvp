@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'clientflow.app',
     'requests',
     'mathfilters',
+    'django_simple_coupons',
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')

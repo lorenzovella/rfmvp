@@ -1021,7 +1021,6 @@ text-transform: none;
   bottom: 0;
   left: 0;
 }
-
 .info-container {
   width: 100%;
 
@@ -1070,7 +1069,7 @@ text-transform: none;
 .finish-order-last-description {
   font-family: 'Roboto';
   font-size: 18px;
-  color: #004094;
+  color: #0033b2;
   text-align: right;
   vertical-align: top;
   font-weight: 700;
@@ -1404,4 +1403,8 @@ text-transform: none;
 .badge-content {
   width: 45%;
   margin: auto;
+}
+
+.custom-card{
+  padding: 2em 0px;
 }

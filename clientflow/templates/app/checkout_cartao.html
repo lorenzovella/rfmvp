@@ -1,23 +1,101 @@
 {% extends "base_flow.html" %}
 {% load static %}
+{% load mathfilters %}
 {% block head %}
-  <style>
-  .rounded-lg {
-  border-radius: 1rem;
-  }
+<style>
+.rounded-lg {
+border-radius: 1rem;
+}
+.green{
+  color: #00FB5C!important;
+}
+.nav-pills .nav-link {
+color: #555;
+}
 
-  .nav-pills .nav-link {
-  color: #555;
-  }
+.nav-pills .nav-link.active {
+color: #000000;
+}
+.acc-header{
+  height: 77px;
+  background: #F2F8FF;
+  padding-left: 15px;
+  margin-left: -15px;
+  padding-right: 15px;
+  margin-right: -15px;
+}
+.acc-header.collapsed{
+  background: #FFF!important;
+}
+.full-hr{
+  border: 1px solid #D3D3D3;
+  border-left: 0px;
+  border-right: 0px;
+  margin: 0px -15px 0px -15px;
 
-  .nav-pills .nav-link.active {
-  color: #fff;
-  }
+}
+.accordion .acc-header:after {
+  content: ">";
+  transform: rotate(270deg);
+  float: right;
+  color:#0033b2;
+}
+.accordion .acc-header.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "<";
+}
+#termosdeuso{
+  margin-top:45px;
+}
+#main-page{
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 198px);
+}
 </style>
 <script src="{% static 'js/jquery.card.js' %}"></script>
 <script src="{% static 'js/jquery.creditCardValidator.js' %}"></script>
 <script>
+  function openTermos() {
+    document.getElementById('termosdeuso').style.display = "";
+    document.getElementById('main-page').style.display = "none";
+    document.getElementById('termosdeusoframe').src = "{% static 'termos.html'%}";
+    window.scrollTo(0,0);
+  }
+  function closeTermos(){
+    document.getElementById('termosdeuso').style.display = "none";
+    document.getElementById('main-page').style.display = "";
+  }
   $(document).ready(function () {
+
+    $('#cupomsubmit').click(function(){
+      cupomValue = $(this).parent().children()[0].value
+      $( '#cupomMessage' ).text("Processando...");
+      $( '#cupomMessage' ).show()
+      $.ajax({
+        type:"GET",
+        url: "/cupom",
+        data:{
+          cupom: cupomValue,
+          carrinho: {{carrinho}},
+        },
+        success: function( data )
+        {
+          var patt = new RegExp("[0-9]");
+          var res = patt.test(data);
+          if(res){
+            $( '#cupomMessage' ).text("🐶 Você obteve um desconto de "+data+" reais!");
+            $( '#cupomMessageValor' ).text("R$"+data);
+            var oldValor = parseFloat( $( '#valorTotal' ).text() ).toFixed(2)
+            $( '#valorTotal' ).text( ( oldValor - parseFloat(data) ).toFixed(2));
+          }
+          else{
+            $( '#cupomMessage' ).text(data);
+          }
+        }
+      })
+    });
+
     $('form').submit(function(){
       $('.footer a').text("Processando...")
       $('.footer a').removeAttr("onclick");
@@ -59,67 +137,122 @@
 </script>
 {%endblock%}
 {% block content %}
-<div class='row info-bg'>
-  <div class='col-10 info-bar-text'>
-    <p>Checkout</p>
-  </div>
+<div id="termosdeuso" style="display:none;">
+  <a onclick="closeTermos()">
+    <svg style="margin-top: 20px;" class="delete-icon" width="33px" height="33px" viewBox="0 0 33 33" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+      <g class="icon_trash">
+        <path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z" id="Combined-Shape" fill="#FF2650" fill-rule="evenodd" stroke="none"></path>
+      </g>
+    </svg>
+  </a>
+  <iframe id="termosdeusoframe" style="width: 100%; height: 100vw; border:0;"></iframe>
 </div>
-<div class="row d-flex middle">
-  <div class="col-12 flex-column text-center control-label mx-auto m-2">
-    <p>{{plano}} no valor de R${{valor}}</p>
-    <p>Insira os dados do seu cartão</p>
-  </div>
-  <div class="col-md-8 mx-auto">
-    <div class="card-body mb-2" id="card-container">
+<div id="main-page">
+  <div class='row'>
+    <div class='col-10 mx-auto'>
+      <h1 class="dash-title">Checkout</h1>
+      <h2 class="dash-subtitle">Finalize agora seu {{plano|lower}}</h2>
     </div>
-    <div class="card">
-      <div class="card-body">
-        <form method="post" role="form">
-          {% csrf_token %}
-          <div class="form-group">
-            <label for="username">Nome Completo</label>
-            <input type="text" name="name" placeholder="Nome no cartão" required class="form-control">
+  </div>
+  <div class="row">
+    <div class="col-md-10 mx-auto d-flex">
+      <div id="accordion" class="flex-grow-1 accordion">
+        <hr class="full-hr">
+          <div class="acc-header collapsed pt-4" data-toggle="collapse" href="#collapseOne">
+              <a class="card-dash-subtitle"> Cupom de Desconto </a>
           </div>
-          <div class="form-group">
-            <label for="cardNumber">Número do cartão</label>
-            <div class="input-group">
-              <input type="text" name="number" placeholder="•••• •••• •••• ••••" class="form-control" required>
-              <div class="input-group-append">
-              </div>
+          <hr class="full-hr">
+          <div id="collapseOne" class="custom-card collapse" data-parent="#accordion">
+            <div class="col-md-10 d-flex mx-auto">
+              <input type="text" style="width:auto;" name="cupominput" maxlength="150" placeholder="Insira seu cupom" class="textinput mr-2" id="cupominput">
+              <input type="submit" style="width:auto;" name="cupomsubmit" value="Aplicar" class="textinput flex-grow-1 ml-2" id="cupomsubmit">
+            </div>
+            <div class="col-md-10 d-flex mx-auto">
+              <p class="dash-subtitle mx-auto" id="cupomMessage" style="display:none"></p>
             </div>
           </div>
-          <div class="row">
-            <div class="col-sm-6">
-              <div class="form-group">
-                <label><span class="hidden-xs">Data de vencimento</span></label>
-                <div class="input-group d-inline-flex">
-                  <input type="text" placeholder="MM" name="expm" class="form-control" required>
-                  <input type="text" placeholder="YYYY" name="expy" minlength=4 class="form-control" required>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="form-group mb-4">
-                <label data-toggle="tooltip" title="Últimos 3 números no verso do seu cartão">Código de Segurança
-                  <i class="fa fa-question-circle"></i>
-                </label>
-                <input type="text" name="cvc" required class="form-control">
-              </div>
-            </div>
+          <div class="acc-header collapsed pt-4" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+              <a class="card-dash-subtitle"> Dados do Cartão </a>
           </div>
-          <input type="hidden" name="brand">
-          <button type="submit" id="submit-btn"></button>
-        </form>
+          <hr class="full-hr">
+          <div id="collapseTwo" class="custom-card collapse" data-parent="#accordion">
+            <div class="mb-2" id="card-container" style="max-width:80vw;">
+            </div>
+            <div class="card">
+              <div class="custom-card">
+                <form method="post" role="form">
+                  {% csrf_token %}
+                  <div class="form-group">
+                    <label for="username">Nome Completo</label>
+                    <input type="text" name="name" placeholder="Nome no cartão" required class="form-control">
+                  </div>
+                  <div class="form-group">
+                    <label for="cardNumber">Número do cartão</label>
+                    <div class="input-group">
+                      <input type="text" name="number" placeholder="•••• •••• •••• ••••" class="form-control" required>
+                      <div class="input-group-append">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label><span class="hidden-xs">Data de vencimento</span></label>
+                        <div class="input-group d-inline-flex">
+                          <input type="text" placeholder="MM" name="expm" class="form-control" required>
+                          <input type="text" placeholder="YYYY" name="expy" minlength=4 class="form-control" required>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group mb-4">
+                        <label data-toggle="tooltip" title="Últimos 3 números no verso do seu cartão">Código de Segurança
+                          <i class="fa fa-question-circle"></i>
+                        </label>
+                        <input type="text" name="cvc" required class="form-control">
+                      </div>
+                    </div>
+                  </div>
+                  <input type="hidden" name="brand">
+                  <button type="submit" id="submit-btn"></button>
+                </form>
+              </div>
+            </div>
+            <div class="d-flex"><img alt="icone pagseguro" class="img-fluid mx-auto" src="{% static 'ico/icone_pagseguro.png' %}"></div>
+          </div>
       </div>
     </div>
-    <!-- End -->
-    <div class="d-flex"><img alt="icone pagseguro" class="img-fluid mx-auto" src="{% static 'ico/icone_pagseguro.png' %}"></div>
   </div>
-</div>
-<div class="endofcontent"></div>
-<div class="footer margin-footer">
-  <a onclick="submitform()" class="footer-text btn-next">
-  Concluir compra
-  </a>
+  <div class="row mt-auto">
+    <div class="terms-container">
+      <label class="terms-checkbox">
+        <span class="col-10 float-right">Eu li e concordo com os <a onclick="openTermos()">termos de uso</a> e politica de privacidade.
+        </span>
+        <input type="checkbox">
+        <span class="checkmark"></span>
+      </label>
+    </div>
+    <div class="info-container">
+      <div class="finish-order-line">
+        <p class="finish-order-description">Assinatura <span class="bold-text">x{{forloop.revcounter}}</span> Cão</p>
+        <p class="finish-order-description text-line-through">R${{valor|addition:desconto|mul:10|div:9|floatformat:-2}}</p>
+      </div>
+      <div class="finish-order-line">
+        <p class="finish-order-description">Desconto primeiros assinantes:</p>
+        <p class="finish-order-description">R${{valor|addition:desconto|div:9|floatformat:-2}}</p>
+      </div>
+      <div class="finish-order-line">
+        <p class="finish-order-description">Cupom de desconto:</p>
+        <p class="finish-order-description" id="cupomMessageValor">{% if desconto != 0 %}R${{desconto}}{% else %}Não informado{% endif%}</p>
+      </div>
+      <div class="finish-order-last-line">
+        <p class="finish-order-last-description">
+          <img alt="Carrinho" class="mr-4 cart-img" src="{% static 'css/images/shopping-cart.png' %}"/>Valor total
+        </p>
+        <p class="finish-order-last-description">R$ <span id="valorTotal">{{valor}}</span></p>
+      </div>
+      <button class="finish-order-button"><a class="green" onclick="submitform()" > Finalizar Compra</a><img alt="Seta para direita" class="ml-4" src="{% static 'css/images/right-arrow.png' %}"/></button>
+    </div>
+  </div>
 </div>
 {% endblock %}

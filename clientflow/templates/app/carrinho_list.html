@@ -51,14 +51,6 @@ body{
 
     {% if forloop.first %}
     <div class="detail-page-footer">
-      <div class="terms-container">
-        <label class="terms-checkbox">
-          <span class="col-10 float-right">Eu li e concordo com os <a onclick="openTermos()">termos de uso</a> e politica de privacidade.
-          </span>
-          <input type="checkbox" checked="checked">
-          <span class="checkmark"></span>
-        </label>
-      </div>
       <div class="info-container">
         <div class="finish-order-line">
           <p class="finish-order-description">Assinatura <span class="bold-text">x{{forloop.revcounter}}</span> Cão</p>
@@ -67,10 +59,6 @@ body{
         <div class="finish-order-line">
           <p class="finish-order-description">Desconto primeiros assinantes:</p>
           <p class="finish-order-description">R${{object.get_valor_carrinho|div:9|floatformat:-2}}</p>
-        </div>
-        <div class="finish-order-line">
-          <p class="finish-order-description">Cupom de desconto</p>
-          <p class="finish-order-description">Não informado</p>
         </div>
         <div class="finish-order-last-line">
           <p class="finish-order-last-description">

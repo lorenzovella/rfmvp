@@ -127,7 +127,6 @@ class CarrinhoAdmin(admin.ModelAdmin):
     list_display = [
     "id",
     "plano",
-    "status_adesao",
     "pagseguro_plano",
     "pagseguro_adesao",
     "last_updated",
