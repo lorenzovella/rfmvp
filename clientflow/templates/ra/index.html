@@ -11,7 +11,17 @@
 </head>
 <body>
 <!-- Use it like any other HTML element -->
-<model-viewer src="{% static 'models/android.glb' %}" auto-rotate camera-controls ar quick-look-browsers="safari chrome" ios-src="{% static 'models/apple.usdz' %}">
-</model-viewer>
+<center>
+  <model-viewer
+    src="{% static 'models/android.glb' %}"
+    ios-src="{% static 'models/apple.usdz' %}"
+    auto-rotate
+    camera-controls
+    reveal="interaction"
+    ar
+    quick-look-browsers="safari chrome"
+    style="width: 350px; height: 350px; outline: none;">
+  </model-viewer>
+</center>
 </body>
 </html>

@@ -194,7 +194,7 @@ def cancelaPlano(codigoAdesao):
 def descontoPlano(codigoAdesao, novoValor):
     url = pgUrl + "/pre-approvals/request/"+codigoAdesao+"/payment?email="+email+"&token="+token
 
-    payload = "{\r\n  \"amountPerPayment\": \""+novoValor+"\",\r\n  \"updateSubscriptions\": false\r\n}"
+    payload = "{\r\n  \"amountPerPayment\": \""+novoValor+"\",\r\n  \"updateSubscriptions\": true\r\n}"
     headers = {
       'Content-Type': 'application/json',
       'Accept': 'application/vnd.pagseguro.com.br.v3+json;charset=ISO-8859-1'

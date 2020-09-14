@@ -72,7 +72,7 @@ urlpatterns = (
 
     # path("Cadastro/", views.signup_view, name="sign-up"),
     path("DogDash/", login_required(views.dogdash), name="dogdash"),
-    path("Interno/", staff_member_required(views.pedidosDash), name="pedidosDash",),
+    path("interno/", staff_member_required(views.pedidosDash), name="pedidosDash",),
     path("ra/", views.ra, name="ra",),
     path("ar/", views.ra, name="ar",),
     path("MinhaConta/", login_required(views.profile_view), name="user-profile"),
