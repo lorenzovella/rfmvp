@@ -97,8 +97,8 @@ color: #000000;
     });
 
     $('form').submit(function(){
-      $('.footer a').text("Processando...")
-      $('.footer a').removeAttr("onclick");
+      $('.info-container button a').text("Processando...")
+      $('.info-container button a').removeAttr("onclick");
     });
     $('#submit-btn').hide()
     $('.progress-bar.icon-bar').css("width","100%");
@@ -154,7 +154,7 @@ color: #000000;
       <h2 class="dash-subtitle">Finalize agora seu {{plano|lower}}</h2>
     </div>
   </div>
-  <div class="row">
+  <div style="margin: 0px -15px">
     <div class="col-md-10 mx-auto d-flex">
       <div id="accordion" class="flex-grow-1 accordion">
         <hr class="full-hr">

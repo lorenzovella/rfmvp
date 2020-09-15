@@ -6,23 +6,21 @@
 <link rel="stylesheet" href="{% static 'css/registration.css' %}">
 {% endblock %}
 {% block content %}
-<div class="row">
-  <div class="col d-flex flex-column mx-auto">
-    <div class="col-12 col-lg-6 mx-auto m-2 d-flex ">
-      <p class="dash-title" style="font-weight:600">Humano, agora preencha suas informações.</p>
-    </div>
-    <div class="col-12 col-lg-6 flex-column d-flex first-description mx-auto">
-      <form method="post" style="display: contents;">
-        {% csrf_token %}
-        {{ form }}
-      </form>
-    </div>
-    <div class="endofcontent"></div>
+<div class="col d-flex flex-column mx-auto">
+  <div class="col-12 col-lg-6 mx-auto m-2 d-flex ">
+    <p class="dash-title" style="font-weight:600">Humano, agora preencha suas informações.</p>
   </div>
-  <div class="footer">
-    <a class="btn-next btn-primary btn" style="color:#FFF!important; padding-top: 30px;" onclick="$('form').submit();">
-      Continuar
-    </a>
+  <div class="col-12 col-lg-6 flex-column d-flex first-description mx-auto">
+    <form method="post" style="display: contents;">
+      {% csrf_token %}
+      {{ form }}
+    </form>
   </div>
+  <div class="endofcontent"></div>
+</div>
+<div class="footer margin-footer">
+  <a class="btn-next btn-primary btn" style="color:#FFF!important; padding-top: 30px;" onclick="$('form').submit();">
+    Continuar
+  </a>
 </div>
 {% endblock %}
