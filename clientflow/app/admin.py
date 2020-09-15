@@ -63,6 +63,7 @@ class ClienteAdmin(admin.ModelAdmin):
 class PlanoAdmin(admin.ModelAdmin):
     form = PlanoAdminForm
     list_display = [
+        "id",
         "nome",
         "refeicoes",
         "descricao",
@@ -79,6 +80,7 @@ class PlanoAdmin(admin.ModelAdmin):
 class EntregaAdmin(admin.ModelAdmin):
     form = EntregaAdminForm
     list_display = [
+        "id",
         "frequencia",
         "periodo",
         "dia",
