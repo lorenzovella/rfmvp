@@ -66,6 +66,16 @@ color: #000000;
     document.getElementById('termosdeuso').style.display = "none";
     document.getElementById('main-page').style.display = "";
   }
+  function openPolitica() {
+    document.getElementById('politica').style.display = "";
+    document.getElementById('main-page').style.display = "none";
+    document.getElementById('politicaframe').src = "{% static 'politica.html'%}";
+    window.scrollTo(0,0);
+  }
+  function closePolitica(){
+    document.getElementById('politica').style.display = "none";
+    document.getElementById('main-page').style.display = "";
+  }
   $(document).ready(function () {
 
     $('#cupomsubmit').click(function(){
@@ -147,6 +157,16 @@ color: #000000;
   </a>
   <iframe id="termosdeusoframe" style="width: 100%; height: 100vw; border:0;"></iframe>
 </div>
+<div id="politica" style="display:none;">
+  <a onclick="closePolitica()">
+    <svg style="margin-top: 20px;" class="delete-icon" width="33px" height="33px" viewBox="0 0 33 33" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+      <g class="icon_trash">
+        <path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z" id="Combined-Shape" fill="#FF2650" fill-rule="evenodd" stroke="none"></path>
+      </g>
+    </svg>
+  </a>
+  <iframe id="politicaframe" style="width: 100%; height: 100vw; border:0;"></iframe>
+</div>
 <div id="main-page">
   <div class='row'>
     <div class='col-10 mx-auto'>
@@ -226,7 +246,7 @@ color: #000000;
   <div class="row mt-auto">
     <div class="terms-container">
       <label class="terms-checkbox">
-        <span class="col-10 float-right">Eu li e concordo com os <a onclick="openTermos()"><u>termos de uso</u></a> e <u>politica de privacidade</u>.
+        <span class="col-10 float-right">Eu li e concordo com os <a onclick="openTermos()"><u>termos de uso</u></a> e <a onclick="openPolitica()"><u>politica de privacidade</u></a>.
         </span>
         <input type="checkbox">
         <span class="checkmark"></span>

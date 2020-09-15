@@ -2,18 +2,6 @@
 {% load static %}
 {% load mathfilters %}
 {% block head %}
-<script>
-function openTermos() {
-  document.getElementById('termosdeuso').style.display = "";
-  document.getElementsByClassName('detail-page')[0].style.display = "none";
-  document.getElementById('termosdeusoframe').src = "{% static 'termos.html'%}";
-  window.scrollTo(0,0);
-}
-function closeTermos(){
-  document.getElementById('termosdeuso').style.display = "none";
-  document.getElementsByClassName('detail-page')[0].style.display = "";
-}
-</script>
 <style>
 body{
   padding-top: 0px!important;
