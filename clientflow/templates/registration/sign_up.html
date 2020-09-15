@@ -4,13 +4,6 @@
 {% load crispy_forms_tags %}
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/registration.css' %}">
-<script>
-$(document).ready(function () {
-  $('.progress-bar.icon-bar').css("width","50%");
-  $('.progress-bar.disabled-bar').css("width","50%");
-  $('.two').removeClass('disabled-bar');
-  });
-</script>
 {% endblock %}
 {% block content %}
 <div class="row mx-auto">
@@ -24,8 +17,8 @@ $(document).ready(function () {
         {{ form }}
       </form>
     </div>
+    <div class="endofcontent"></div>
   </div>
-  <div class="endofcontent"></div>
   <div class="footer margin-footer">
     <a class="btn-next btn-primary btn" style="color:#FFF!important; padding-top: 30px;" onclick="$('form').submit();">
       Continuar

@@ -78,7 +78,7 @@ def profile_update_view(request,carrinho=0):
         form = forms.ClienteForm(request.POST, instance=clienteInstance)
         if form.is_valid():
             form.save()
-            if carrinho is not 0:
+            if carrinho != 0:
                 return redirect('clientflow_checkout', carrinho)
             return redirect('user-profile')
     else:
@@ -174,7 +174,7 @@ def checkout(request,carrinho):
             return redirect('clientflow_fimDoFlow', carrinho)
         if cliente.cpf=="":
             return redirect('user-profile-update', carrinho)
-        return render(request,"app/checkout_cartao.html",{'plano':cart.plano, 'carrinho':cart,'valor': "{:.2f}".format(cart.get_valor_carrinho()), 'desconto': "{:.2f}".format(cart.get_valor_desconto()) })
+        return render(request,"app/checkout_cartao.html",{'plano':cart.plano, 'carrinho':cart,'valor': "{:.2f}".format(cart.get_valor_carrinho()), 'desconto': "{:.2f}".format(cart.get_valor_desconto()), 'pedidos':pedidos.count() })
     else:
         return handler500(request)
 
@@ -185,15 +185,17 @@ def saveuser(request, cliente, pedido, dog, carrinho):
         user.save()
     except IntegrityError as e:
         doubledUser = models.User.objects.get(username=cliente.email)
-        oldClient = models.Cliente.objects.get(user=doubledUser)
-        oldClient.user = None
-        oldClient.save()
-        cliente.user = doubledUser
-        cliente.save()
-        passReset = newPasswordResetForm({'email': cliente.email})
-        if passReset.is_valid():
-            passReset.save(request=request, use_https=True, email_template_name='email/boas_vindas_plain.html', html_email_template_name='email/boas_vindas.html')
-        return redirect('clientflow_fimDoFlow', carrinho)
+        try:
+            oldClient = models.Cliente.objects.get(user=doubledUser)
+            oldClient.user = None
+            oldClient.save()
+        finally:
+            cliente.user = doubledUser
+            cliente.save()
+            passReset = newPasswordResetForm({'email': cliente.email})
+            if passReset.is_valid():
+                passReset.save(request=request, use_https=True, email_template_name='email/boas_vindas_plain.html', html_email_template_name='email/boas_vindas.html')
+            return redirect('clientflow_fimDoFlow', carrinho)
     cliente.user = user
     cliente.save()
     user = authenticate(username=cliente.email, password=randPass)

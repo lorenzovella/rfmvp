@@ -226,7 +226,7 @@ color: #000000;
   <div class="row mt-auto">
     <div class="terms-container">
       <label class="terms-checkbox">
-        <span class="col-10 float-right">Eu li e concordo com os <a onclick="openTermos()">termos de uso</a> e politica de privacidade.
+        <span class="col-10 float-right">Eu li e concordo com os <a onclick="openTermos()"><u>termos de uso</u></a> e <u>politica de privacidade</u>.
         </span>
         <input type="checkbox">
         <span class="checkmark"></span>
@@ -234,7 +234,7 @@ color: #000000;
     </div>
     <div class="info-container">
       <div class="finish-order-line">
-        <p class="finish-order-description">Assinatura <span class="bold-text">x{{forloop.revcounter}}</span> Cão</p>
+        <p class="finish-order-description">Assinatura <span class="bold-text">x{{pedidos}}</span> Cão</p>
         <p class="finish-order-description text-line-through">R${{valor|addition:desconto|mul:10|div:9|floatformat:-2}}</p>
       </div>
       <div class="finish-order-line">
