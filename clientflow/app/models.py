@@ -10,6 +10,7 @@ from django.utils.safestring import mark_safe
 from clientflow.app.pagseguro import consultaAssinatura, listaPagamentos
 from datetime import date
 from django_simple_coupons.models import Coupon
+from decimal import Decimal
 
 class Carrinho(models.Model):
     # Fields
@@ -24,6 +25,7 @@ class Carrinho(models.Model):
 
     def __str__(self):
         return str(self.pk)
+
     def get_valor_desconto(self):
         sum = 0
         for i in self.item.all():
@@ -32,6 +34,7 @@ class Carrinho(models.Model):
             instance = Coupon.objects.get(code=self.cupom)
             return sum - instance.get_discounted_value(initial_value = sum)
         return 0
+
     def get_valor_carrinho(self):
         sum = 0
         for i in self.item.all():
@@ -39,11 +42,21 @@ class Carrinho(models.Model):
         if self.cupom:
             instance = Coupon.objects.get(code=self.cupom)
             sum = instance.get_discounted_value(initial_value = sum)
+        sum += Decimal(self.get_valor_frete())
         return sum
+
+    def get_valor_frete(self):
+        for i in self.item.all():
+            if i.idEntrega.frequencia == 2:
+                return 9.90
+        return 0
+
     def get_status(self):
         return consultaAssinatura(self.pagseguro_adesao)
+
     def lista_pagamentos(self):
         return listaPagamentos(self.pagseguro_adesao)
+
     def get_absolute_url(self):
         return reverse("clientflow_carrinho_detail", args=(self.pk,))
 
@@ -240,16 +253,18 @@ class Pedido(models.Model):
         ordering = ['-last_updated']
         pass
 
+    def __str__(self):
+        return str(self.pk)
+
     def get_valor_carrinho(self):
         sum = 0
         for i in Pedido.objects.filter(idClient = self.idClient).filter(status="Pedido em aberto"):
             sum += i.valor
+        sum += Decimal(self.get_valor_frete())
         return sum
-        if self.idCarrinho.cupom:
-            instance = Coupon.objects.get(code=self.idCarrinho.cupom)
-            sum = instance.get_discounted_value(initial_value = sum)
-    def __str__(self):
-        return str(self.pk)
+
+    def get_valor_frete(self):
+        return Decimal(9.90) if self.idEntrega.frequencia == 2 else 0
 
     def get_absolute_url(self):
         return reverse("clientflow_Pedido_detail", args=(self.pk,))

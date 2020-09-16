@@ -174,7 +174,7 @@ def checkout(request,carrinho):
             return redirect('clientflow_fimDoFlow', carrinho)
         if cliente.cpf=="":
             return redirect('user-profile-update', carrinho)
-        return render(request,"app/checkout_cartao.html",{'plano':cart.plano, 'carrinho':cart,'valor': "{:.2f}".format(cart.get_valor_carrinho()), 'desconto': "{:.2f}".format(cart.get_valor_desconto()), 'pedidos':pedidos.count() })
+        return render(request,"app/checkout_cartao.html",{'plano':cart.plano, 'carrinho':cart,'valor': "{:.2f}".format(cart.get_valor_carrinho()), 'desconto': "{:.2f}".format(cart.get_valor_desconto()), 'frete': "{:.2f}".format(cart.get_valor_frete()), 'pedidos':pedidos.count() })
     else:
         return handler500(request)
 

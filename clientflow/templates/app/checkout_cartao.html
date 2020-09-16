@@ -255,11 +255,15 @@ color: #000000;
     <div class="info-container">
       <div class="finish-order-line">
         <p class="finish-order-description">Assinatura <span class="bold-text">x{{pedidos}}</span> Cão</p>
-        <p class="finish-order-description text-line-through">R${{valor|addition:desconto|mul:10|div:9|floatformat:-2}}</p>
+        <p class="finish-order-description text-line-through">R${{valor|sub:frete|addition:desconto|mul:10|div:9|floatformat:-2}}</p>
       </div>
       <div class="finish-order-line">
         <p class="finish-order-description">Desconto primeiros assinantes:</p>
-        <p class="finish-order-description">R${{valor|addition:desconto|div:9|floatformat:-2}}</p>
+        <p class="finish-order-description">R${{valor|sub:frete|addition:desconto|div:9|floatformat:-2}}</p>
+      </div>
+      <div class="finish-order-line">
+        <p class="finish-order-description">Frete:</p>
+        <p class="finish-order-description">R${{frete|floatformat:-2}}</p>
       </div>
       <div class="finish-order-line">
         <p class="finish-order-description">Cupom de desconto:</p>
