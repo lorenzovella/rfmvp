@@ -23,5 +23,6 @@ sentry-sdk
 django-ipware
 django-mathfilters
 django-session-timeout
+pendulum
 git+https://github.com/lorenzovella/django-simple-coupons.git
-django-scheduler
+git+https://github.com/lorenzovella/django-scheduler.git

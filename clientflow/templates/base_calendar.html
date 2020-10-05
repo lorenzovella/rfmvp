@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <title>Ração do Futuro</title>
+
+  <script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}" async></script>
+  <script src="{% static 'js/extra.js' %}" async></script>
+  <script type="text/javascript" src="{% static 'js/schedule.js' %}"></script>
+  {% block head %}
+  {% endblock %}
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@200;400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/extra.css' %}">
+  <link rel="stylesheet" href="{% static 'css/schedule.css' %}">
+  <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/jquery-ui.theme.css' %}">
+  {% block extra_head %}
+  {% endblock %}
+</head>
+
+
+<body>
+  <div class="dog-container col-lg-6 dog-background">
+    <a href="{% url 'index' %}">
+    <img alt="cachorro racao do futuro" class="dog-bg-img" src="{% static 'ico/dog-dash-bg.png'%} "/>
+    </a>
+  </div>
+  <div id="content" class="container-fluid">
+    {% block content %}{% endblock %}
+  </div>
+  </div>
+</body>
+</html>

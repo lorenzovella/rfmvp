@@ -25,7 +25,7 @@ from django.http import HttpResponse
 from django.conf.urls import url
 
 handler404 = 'clientflow.app.views.handler404'
-handler404 = 'clientflow.app.views.handler404'
+
 urlpatterns = [
     path('accounts/login/', auth_views.LoginView.as_view(template_name='registration/login.html', authentication_form=CustomAuthForm), name='login'),
     path('logout/', auth_views.LogoutView.as_view(),name='logout'),
@@ -39,6 +39,7 @@ urlpatterns = [
     path('',  IndexView, name='index'),
     path('', include('clientflow.app.urls')),
     # path('accounts/', include('django.contrib.auth.urls')),
+    url(r'^schedule/', include('schedule.urls')),
     url(r'^robots.txt', lambda x: HttpResponse("User-Agent: *\nDisallow:", content_type="text/plain"), name="robots_file"),
 
 ]

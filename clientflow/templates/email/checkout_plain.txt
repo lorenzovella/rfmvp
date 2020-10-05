@@ -1,7 +1,7 @@
 Obrigado por comprar no ração do futuro!
 
 Seu pedido foi recebido e estamos aguardando a confirmação do pagamento pela operadora do cartão de crédito.
-Confira os itens do seu pedido, e caso identifique alguma anormalidade entre em contato conosco pelo whatssapp, e-mail ou chat.
+Confira os itens do seu pedido, e caso identifique alguma anormalidade entre em contato conosco pelo WhatsApp, e-mail ou chat.
 
 Sua Assinatura número {{pedido}}:
 

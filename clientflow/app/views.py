@@ -1,3 +1,5 @@
+import datetime
+import pendulum
 from . import forms
 from . import models
 from django import forms as djangoforms
@@ -21,7 +23,9 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django_simple_coupons.validations import validate_coupon
 from django_simple_coupons.models import Coupon
-
+from schedule.models.events import Event
+from schedule.models.rules import Rule
+from schedule.models.calendars import Calendar
 class newPasswordResetForm(PasswordResetForm):
     def send_mail(self, *args, **kwargs):
         super().send_mail(*args, **kwargs)
@@ -114,15 +118,20 @@ def IndexView(request):
 def ra(request):
     return render(request, 'ra/index.html')
 
+def calendar(request):
+    return render(request, 'app/fullcalendar.html')
+
+def entregaInterna(request, pedido):
+    pedido = models.Pedido.objects.get(pk=pedido)
+    return render(request, 'app/entrega_interna.html', {'object':pedido} )
+
 def dogdash(request):
     dogCount = models.Cachorro.objects.filter(idCliente = request.user.cliente).count()
     carrinho = models.Carrinho.objects.filter(item__idClient = request.user.cliente).filter(pagseguro_adesao__exact='').last()
     return render(request,'app/dogdash.html',{'user':request.user.cliente,'dogcount':dogCount, 'carrinho':carrinho})
 
-
 def pedidosDash(request):
     pedidos = models.Pedido.objects.filter(status ='Pedido finalizado pelo cliente')
-    carrinho = models.Carrinho.objects.filter(item__idClient = request.user.cliente).last()
     return render(request,'app/listagem_interna.html',{'pedidos':pedidos})
 
 def fimDoFlow(request,carrinho):
@@ -171,6 +180,7 @@ def checkout(request,carrinho):
                 html_message = render_to_string(template_name='email/checkout.html')
             )
             saveuser(request, cliente, pedido, pedido.idDog, carrinho)
+            saveentrega(pedidos)
             return redirect('clientflow_fimDoFlow', carrinho)
         if cliente.cpf=="":
             return redirect('user-profile-update', carrinho)
@@ -203,6 +213,38 @@ def saveuser(request, cliente, pedido, dog, carrinho):
     passReset = newPasswordResetForm({'email': cliente.email})
     if passReset.is_valid():
         passReset.save(request=request, use_https=True, email_template_name='email/boas_vindas_plain.html', html_email_template_name='email/boas_vindas.html')
+
+def saveentrega(pedidos):
+    for pedido in pedidos:
+        weekdayDict = {'Segunda':pendulum.MONDAY,'Terça':pendulum.TUESDAY,'Quarta':pendulum.WEDNESDAY,'Quinta':pendulum.THURSDAY,'Sexta':pendulum.FRIDAY,'Sábado':pendulum.SATURDAY}
+
+        entrega = pedido.idEntrega
+
+        periodo = str(entrega.periodo).split(', ')[-1]
+        dia = str(entrega.dia).split(', ')
+        diaMap = list(map(lambda x: weekdayDict[x], dia))
+
+        firstEntrega = None
+        dt = pendulum.tomorrow()
+        while firstEntrega == None:
+            if dt.day_of_week in diaMap:
+                firstEntrega = dt
+            else:
+                dt = dt.add(days=1)
+
+        startDict = {"Matutino":8,"Vespertino":12,"Noturno":18}
+        start = firstEntrega.replace(hour=startDict[periodo], minute=0)
+
+        endDict = {"Matutino":12,"Vespertino":18,"Noturno":22}
+        end = firstEntrega.replace(hour=endDict[periodo], minute=0)
+
+        title = "Pedido "+str(pedido)
+        calendar = Calendar.objects.get(pk=1)
+        rule = Rule.objects.get(pk = entrega.frequencia)
+
+        event = Event(start=start, end=end, title=title, rule=rule, calendar=calendar, url=str(pedido))
+        event.save()
+
 
 def adicionarAoCarrinho(request):
     if request.user.is_authenticated:

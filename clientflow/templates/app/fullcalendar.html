@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load  static %}
+{% block head %}
+<link rel='stylesheet' type='text/css' href="{% static 'css/fullcalendar.css' %}" />
+<script type='text/javascript' src="{% static 'js/moment.js' %}"></script>
+<script type='text/javascript' src="{% static 'js/fullcalendar.js' %}"></script>
+<script type='text/javascript'>
+document.addEventListener('DOMContentLoaded', function() {
+  var calendarEl = document.getElementById('calendar');
+  var calendar = new FullCalendar.Calendar(calendarEl,{
+    events: '/schedule/api/occurrences?calendar_slug=entregas',
+    headerToolbar: {
+      left: 'dayGridMonth,timeGridWeek,listYear',
+      center: 'title',
+      end: 'today prev,next'
+    }
+  });
+  calendar.render();
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<div id="calendar"></div>
+
+{% endblock %}

@@ -2,14 +2,6 @@
 {% load static %}
 {% load mathfilters %}
 {% block head %}
-<style>
-span > a, span > a:hover{
-  color:#00FB5C!important;
-}
-p > a, p > a:hover{
-  color:#0033b2!important;
-}
-</style>
 <script>
   function PrintElem(elem)
   {
@@ -28,18 +20,26 @@ p > a, p > a:hover{
       return true;
   }
 </script>
+
+<style>
+span > a, span > a:hover{
+  color:#00FB5C!important;
+}
+p > a, p > a:hover{
+  color:#0033b2!important;
+}
+</style>
 {% endblock %}
 
 {% block content %}
+
 <div class="row">
   <div class="col-lg-10 d-flex-column">
     <div class='pt-5 pl-1 mt-4 col-12 col-md-7 mx-auto'>
-      <p class="pl-3 dash-title"><span style="font-weight:600">Entregas</span> a realizar.</p>
+      <p class="pl-3 dash-title"><span style="font-weight:600">Entrega</span>.</p>
     </div>
   </div>
-</div>
-
-  {% for object in pedidos %}
+</div> 
   <div class="row">
     <div style="height:auto!important;" id="pageElem-{{obj}}" class="col-10 col-md-7 m-4 mx-auto text-decoration-none dash-btn">
       <div class="d-flex justify-content-end">
@@ -105,7 +105,6 @@ p > a, p > a:hover{
       </p>
     </div>
   </div>
-  {% endfor %}
 </div>
 <div class="endofcontent"></div>
 {% endblock %}
