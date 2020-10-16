@@ -32,6 +32,16 @@ class ClienteFormLead(forms.ModelForm):
         self.fields['nome'].widget.attrs.update({'class' : 'form-control'})
         self.fields['email'].widget.attrs.update({'class' : 'form-control'})
 
+class ClienteFormEspecial(forms.ModelForm):
+    class Meta:
+        model = models.Cliente
+        fields = ["nome","areatelefone","telefone"]
+    def __init__(self, *args, **kwargs):
+        super(ClienteFormEspecial, self).__init__(*args, **kwargs)
+        self.fields['nome'].widget.attrs.update({'class' : 'form-control'})
+        self.fields['areatelefone'].widget.attrs.update({'class' : 'form-control'})
+        self.fields['telefone'].widget.attrs.update({'class' : 'form-control'})
+
 
 class ClienteForm(forms.ModelForm):
     class Meta:

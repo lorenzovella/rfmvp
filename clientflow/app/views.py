@@ -26,6 +26,8 @@ from django_simple_coupons.models import Coupon
 from schedule.models.events import Event
 from schedule.models.rules import Rule
 from schedule.models.calendars import Calendar
+from . import messagingHandler
+from . import rd
 class newPasswordResetForm(PasswordResetForm):
     def send_mail(self, *args, **kwargs):
         super().send_mail(*args, **kwargs)
@@ -110,6 +112,21 @@ def profile_simple_view(request, pedido, dog):
         return redirect('clientflow_Cachorro_list')
     return render(request,'registration/sign_up.html',{'form':form,'dog':dog})
 
+def profile_cliente_especial(request, dog):
+    if request.method == "POST":
+        form = forms.ClienteFormEspecial(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data.get('email')
+            nome = form.cleaned_data.get('nome')
+            savedInstance = form.save()
+            request.session['cliente'] = savedInstance.pk
+            dogInstance = models.Cachorro.objects.get(pk = dog)
+            dogInstance.idCliente = savedInstance
+            dogInstance.save()
+            return redirect('clientflow_dogespecial', dogInstance)
+    form = forms.ClienteFormEspecial()
+    return render(request,'registration/sign_up.html',{'form':form,'dog':dog})
+
 def IndexView(request):
     if request.user.is_authenticated:
         return redirect('dogdash')
@@ -147,6 +164,15 @@ def fimDoFlow(request,carrinho):
         return render(request, 'app/checkout_fimdoflow.html',{'pedido':cart.item.first().pk})
     return handler500(request)
 
+def fimDoFlowEspecial(request,dog):
+    cachorro = models.Cachorro.objects.get(pk=dog)
+    cliente = cachorro.idCliente
+    number = str(cliente.areatelefone)+str(cliente.telefone)
+    msg = str("Olá! Agradecemos seu interesse no Ração do Futuro! Já estamos com os dados do seu doguinho, "+cachorro.nome+". Como você nos contou que ele é um dog especial, para garantir que ele poderá consumir a Ração do Futuro com segurança, precisamos antes consultar nossos especialistas caninos! Em até dois dias úteis voltaremos a entrar em contato com sua dieta. 🐶")
+    messagingHandler.sendMessageT("Um novo dog especial foi cadastrado na platafoma.")
+    messagingHandler.sendMessageW(msg, number)
+    return render(request, 'app/dogespecial.html')
+
 def checkout(request,carrinho):
     cart = models.Carrinho.objects.get(pk=carrinho)
     valor = "{:.2f}".format( cart.get_valor_carrinho() )
@@ -181,6 +207,7 @@ def checkout(request,carrinho):
             )
             saveuser(request, cliente, pedido, pedido.idDog, carrinho)
             saveentrega(pedidos)
+            rd.criarLead(cliente, cart.pagseguro_plano)
             return redirect('clientflow_fimDoFlow', carrinho)
         if cliente.cpf=="":
             return redirect('user-profile-update', carrinho)
@@ -244,7 +271,6 @@ def saveentrega(pedidos):
 
         event = Event(start=start, end=end, title=title, rule=rule, calendar=calendar, url=str(pedido))
         event.save()
-
 
 def adicionarAoCarrinho(request):
     if request.user.is_authenticated:
@@ -314,47 +340,9 @@ def aplicaDesconto(coupon, carrinho, user):
     coupon.use_coupon(user=user)
     return "{:.2f}".format( instance.get_valor_desconto() )
 
-
-class CachorroEspecialListView(generic.ListView):
-    model = models.CachorroEspecial
-    form_class = forms.CachorroEspecialForm
-
-
-class CachorroEspecialCreateView(generic.CreateView):
-    model = models.CachorroEspecial
-    form_class = forms.CachorroEspecialForm
-
-
-class CachorroEspecialDetailView(generic.DetailView):
-    model = models.CachorroEspecial
-    form_class = forms.CachorroEspecialForm
-
-
-class CachorroEspecialUpdateView(generic.UpdateView):
-    model = models.CachorroEspecial
-    form_class = forms.CachorroEspecialForm
-    pk_url_kwarg = "pk"
-
-
-class EntregaListView(generic.ListView):
-    model = models.Entrega
-    form_class = forms.EntregaForm
-
-
-class EntregaCreateView(generic.CreateView):
-    model = models.Entrega
-    form_class = forms.EntregaForm
-
-
-class EntregaDetailView(generic.DetailView):
-    model = models.Entrega
-    form_class = forms.EntregaForm
-
-
-class EntregaUpdateView(generic.UpdateView):
-    model = models.Entrega
-    form_class = forms.EntregaForm
-    pk_url_kwarg = "pk"
+class PlanoListView(generic.ListView):
+    model = models.Plano
+    form_class = forms.PlanoForm
 
 class PedidoListView(generic.ListView):
     def get(self, request, *args, **kwargs):
@@ -400,29 +388,10 @@ class CarrinhoListView2(generic.ListView):
     form_class = forms.PedidoForm
 
 
-
-
-class PedidoCreateView(generic.CreateView):
-    model = models.Pedido
-    form_class = forms.PedidoForm
-
-
-class PedidoDetailView(generic.DetailView):
-    model = models.Pedido
-    form_class = forms.PedidoForm
-
 class PagtoDetailView(generic.DetailView):
     template_name = "app/pagto_detail.html"
     model = models.Pedido
     form_class = forms.PedidoForm
-
-
-
-class PedidoUpdateView(generic.UpdateView):
-    model = models.Pedido
-    form_class = forms.PedidoForm
-    pk_url_kwarg = "pk"
-
 
 def PlanoFlow(request, dog):
     try:
@@ -500,56 +469,12 @@ class entregaWizard(SessionWizardView):
         savedPedido = pedidoInstance.save()
         return redirect('user-profile-simple', pedido = pedidoInstance, dog = pedidoInstance.idDog)
 
-
-class PlanoListView(generic.ListView):
-    model = models.Plano
-    form_class = forms.PlanoForm
-
-
-class PlanoCreateView(generic.CreateView):
-    model = models.Plano
-    form_class = forms.PlanoForm
-
-
-class PlanoDetailView(generic.DetailView):
-    model = models.Plano
-    form_class = forms.PlanoForm
-
-
-class PlanoUpdateView(generic.UpdateView):
-    model = models.Plano
-    form_class = forms.PlanoForm
-    pk_url_kwarg = "pk"
-
-
 class CachorroListView(generic.ListView):
     def get_queryset(self):
         return self.model.objects.filter(idCliente = self.request.user.cliente)
     model = models.Cachorro
     form_class = forms.CachorroForm
 
-class CachorroListFlowView(generic.ListView):
-    def get_queryset(self):
-        return self.model.objects.filter(idCliente = self.request.user.cliente)
-    template_name = "app/cachorroflow_list.html"
-    model = models.Cachorro
-    form_class = forms.CachorroForm
-
-
-class CachorroCreateView(generic.CreateView):
-    model = models.Cachorro
-    form_class = forms.CachorroForm
-
-
-class CachorroDetailView(generic.DetailView):
-    model = models.Cachorro
-    form_class = forms.CachorroForm
-
-
-class CachorroUpdateView(generic.UpdateView):
-    model = models.Cachorro
-    form_class = forms.CachorroForm
-    pk_url_kwarg = "pk"
 
 def CachorroDeleteConfirmView(request, pk):
     try:
@@ -679,7 +604,7 @@ class cachorroWizard(SessionWizardView):
             saboresForm = form_dict['Sabores'].cleaned_data
             cachorroInstance.sabores = saboresForm['sabores']
             savedCachorro = cachorroInstance.save()
-            return render(None, 'app/dogespecial.html')
+            return redirect('user-profile-especial', cachorroInstance)
 
         # calculo filhote
         if cachorroInstance.calculate_age() < 1:
@@ -703,24 +628,3 @@ class cachorroWizard(SessionWizardView):
             cachorroInstance.idCliente = clienteInstance = models.Cliente.objects.get(pk = self.request.session['cliente'])
         savedCachorro = cachorroInstance.save()
         return redirect('clientflow_PlanoFlow', cachorroInstance)
-
-
-class ClienteListView(generic.ListView):
-    model = models.Cliente
-    form_class = forms.ClienteForm
-
-
-class ClienteCreateView(generic.CreateView):
-    model = models.Cliente
-    form_class = forms.ClienteForm
-
-
-class ClienteDetailView(generic.DetailView):
-    model = models.Cliente
-    form_class = forms.ClienteForm
-
-
-class ClienteUpdateView(generic.UpdateView):
-    model = models.Cliente
-    form_class = forms.ClienteForm
-    pk_url_kwarg = "pk"

@@ -26,3 +26,5 @@ django-session-timeout
 pendulum
 git+https://github.com/lorenzovella/django-simple-coupons.git
 git+https://github.com/lorenzovella/django-scheduler.git
+twilio
+telegram-send
