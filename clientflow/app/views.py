@@ -183,9 +183,8 @@ def fimDoFlowEspecial(request,dog):
 
 def listagemteste(request):
     eventosAtivos = Event.objects.values_list('url', flat=True)
-    pedidosAtivos = models.Pedido.objects.filter(pk__in = eventosAtivos).values_list('idDog', flat=True)
-    dogsAtivos = models.Cachorro.objects.filter(pk__in = pedidosAtivos)
-    return render(request, 'app/listagem_teste.html',{'lista':dogsAtivos})
+    pedidosAtivos = models.Pedido.objects.filter(pk__in = eventosAtivos)
+    return render(request, 'app/listagem_teste.html',{'lista':pedidosAtivos})
 
 def checkout(request,carrinho):
     cart = models.Carrinho.objects.get(pk=carrinho)

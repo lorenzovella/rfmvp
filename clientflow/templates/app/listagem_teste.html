@@ -18,8 +18,8 @@ p > a, p > a:hover{
   <div style="height:auto!important;" id="pageElem-{{obj}}" class="col-10 col-md-7 m-4 mx-auto text-decoration-none dash-btn">
     <p class="card-dash-centered-text text-left">
       {% for item in lista %}
-      {{item.nome}}<br>
-      {{item.nascimento}}<br>
+      {{item.idDog.nome}}<br>
+      {{item.idDog.nascimento}}<br>
       <br>
       {% endfor %}
     </p>
