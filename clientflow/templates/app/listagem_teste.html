@@ -1,0 +1,30 @@
+{% extends "base_client_2.html" %}
+{% load static %}
+{% load mathfilters %}
+{% block head %}
+<style>
+span > a, span > a:hover{
+  color:#00FB5C!important;
+}
+p > a, p > a:hover{
+  color:#0033b2!important;
+}
+</style>
+
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div style="height:auto!important;" id="pageElem-{{obj}}" class="col-10 col-md-7 m-4 mx-auto text-decoration-none dash-btn">
+    <p class="card-dash-centered-text text-left">
+      {% for item in lista %}
+      {{item.nome}}<br>
+      {{item.nascimento}}<br>
+      <br>
+      {% endfor %}
+    </p>
+    <hr class="custom-hr" style="margin: -80px -15px 50px -15px;">
+  </div>
+</div>
+<div class="endofcontent"></div>
+{% endblock %}

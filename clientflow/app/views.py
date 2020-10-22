@@ -1,3 +1,4 @@
+import pytz
 import datetime
 import pendulum
 from . import forms
@@ -147,10 +148,11 @@ def dogdash(request):
     carrinho = models.Carrinho.objects.filter(item__idClient = request.user.cliente).filter(pagseguro_adesao__exact='').last()
     pedido = models.Pedido.objects.filter(status ='Pedido finalizado pelo cliente').last()
     if pedido:
-        entrega = Event.objects.get(url = pedido.pk)
+        entrega = Event.objects.get(url = pedido.pk).occurrences_after(datetime.datetime(Pendulum.now(), pytz.timezone('America/Sao_Paulo') ), 1)
     else:
         entrega = ""
     hora = "14:00"
+    # return render(request,'app/dogdash.html',{'user':request.user.cliente,'dogcount':dogCount, 'carrinho':carrinho, 'entrega':entrega.__next__(), 'hora':hora})
     return render(request,'app/dogdash.html',{'user':request.user.cliente,'dogcount':dogCount, 'carrinho':carrinho, 'entrega':entrega.start.date, 'hora':str(entrega.start.time().hour-3) +"h e "+str(entrega.end.time().hour-3)+"h" })
 
 def pedidosDash(request):
@@ -178,6 +180,12 @@ def fimDoFlowEspecial(request,dog):
     messagingHandler.sendMessageT("Um novo dog especial foi cadastrado na platafoma.")
     messagingHandler.sendMessageW(msg, number)
     return render(request, 'app/dogespecial.html')
+
+def listagemteste(request):
+    eventosAtivos = Event.objects.values_list('url', flat=True)
+    pedidosAtivos = models.Pedido.objects.filter(pk__in = eventosAtivos).values('idDog')
+    dogsAtivos = models.Cachorro.objects.filter(pk__in = pedidosAtivos)
+    return render(request, 'app/listagem_teste.html',{'lista':dogsAtivos})
 
 def checkout(request,carrinho):
     cart = models.Carrinho.objects.get(pk=carrinho)
