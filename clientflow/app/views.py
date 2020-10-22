@@ -183,7 +183,7 @@ def fimDoFlowEspecial(request,dog):
 
 def listagemteste(request):
     eventosAtivos = Event.objects.values_list('url', flat=True)
-    pedidosAtivos = models.Pedido.objects.filter(pk__in = eventosAtivos).values('idDog')
+    pedidosAtivos = models.Pedido.objects.filter(pk__in = eventosAtivos).values_list('idDog', flat=True)
     dogsAtivos = models.Cachorro.objects.filter(pk__in = pedidosAtivos)
     return render(request, 'app/listagem_teste.html',{'lista':dogsAtivos})
 
