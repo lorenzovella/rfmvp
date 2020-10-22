@@ -148,7 +148,7 @@ def dogdash(request):
     carrinho = models.Carrinho.objects.filter(item__idClient = request.user.cliente).filter(pagseguro_adesao__exact='').last()
     pedido = models.Pedido.objects.filter(status ='Pedido finalizado pelo cliente').last()
     if pedido:
-        entrega = Event.objects.get(url = pedido.pk).occurrences_after(datetime.datetime(Pendulum.now(), pytz.timezone('America/Sao_Paulo') ), 1)
+        entrega = Event.objects.get(url = pedido.pk).occurrences_after(datetime.datetime.now(), pytz.timezone('America/Sao_Paulo'), 1)
     else:
         entrega = ""
     hora = "14:00"
@@ -182,7 +182,7 @@ def fimDoFlowEspecial(request,dog):
     return render(request, 'app/dogespecial.html')
 
 def listagemteste(request):
-    eventosAtivos = Event.objects.values_list('url', flat=True)
+    eventosAtivos = Event.objects.values('url')
     pedidosAtivos = models.Pedido.objects.filter(pk__in = eventosAtivos)
     return render(request, 'app/listagem_teste.html',{'lista':pedidosAtivos})
 

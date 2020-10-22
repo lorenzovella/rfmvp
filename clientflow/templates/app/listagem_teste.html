@@ -17,9 +17,11 @@ p > a, p > a:hover{
 <div class="row">
   <div style="height:auto!important;" id="pageElem-{{obj}}" class="col-10 col-md-7 m-4 mx-auto text-decoration-none dash-btn">
     <p class="card-dash-centered-text text-left">
+      {{lista}}
       {% for item in lista %}
       {{item.idDog.nome}}<br>
       {{item.idDog.nascimento}}<br>
+      {{item.idDog.calculomes}}kg<br>
       <br>
       {% endfor %}
     </p>
