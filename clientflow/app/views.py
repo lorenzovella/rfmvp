@@ -149,14 +149,14 @@ def entregaInterna(request, pedido):
 def dogdash(request):
     dogCount = models.Cachorro.objects.filter(idCliente = request.user.cliente).count()
     carrinho = models.Carrinho.objects.filter(item__idClient = request.user.cliente).filter(pagseguro_adesao__exact='').last()
-    pedido = models.Pedido.objects.filter(status ='Pedido finalizado pelo cliente').last()
+    pedido = models.Pedido.objects.filter(status ='Pedido finalizado pelo cliente').filter(idClient=request.user.cliente).last()
     if pedido:
-        entrega = Event.objects.get(url = pedido.pk).occurrences_after(datetime.datetime.now(), pytz.timezone('America/Sao_Paulo'), 1)
+        yesterday = datetime.datetime.now() - datetime.timedelta(days=1)
+        entrega = Event.objects.get(url = pedido.pk).occurrences_after(yesterday.replace( tzinfo= pytz.timezone('America/Sao_Paulo') ), 1)
+        entrega = next(entrega)
     else:
-        entrega = ""
-    hora = "14:00"
-    # return render(request,'app/dogdash.html',{'user':request.user.cliente,'dogcount':dogCount, 'carrinho':carrinho, 'entrega':entrega.__next__(), 'hora':hora})
-    return render(request,'app/dogdash.html',{'user':request.user.cliente,'dogcount':dogCount, 'carrinho':carrinho, 'entrega':entrega.start.date, 'hora':str(entrega.start.time().hour-3) +"h e "+str(entrega.end.time().hour-3)+"h" })
+        return render(request,'app/dogdash.html',{'user':request.user.cliente,'dogcount':dogCount, 'carrinho':carrinho})
+    return render(request,'app/dogdash.html',{'user':request.user.cliente,'dogcount':dogCount, 'carrinho':carrinho, 'entrega':entrega.start.date, 'hora':str(entrega.start.time().hour) +"h e "+str(entrega.end.time().hour)+"h"})
 
 def pedidosDash(request):
     pedidos = models.Pedido.objects.filter(status ='Pedido finalizado pelo cliente')
