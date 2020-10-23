@@ -5,6 +5,8 @@ from . import forms
 from . import models
 from django import forms as djangoforms
 from django.db import IntegrityError
+from django.db.models.functions import Cast
+from django.db.models import IntegerField
 from django.views import generic
 from django.http import HttpRequest
 from django.http import HttpResponse
@@ -29,6 +31,7 @@ from schedule.models.rules import Rule
 from schedule.models.calendars import Calendar
 from . import messagingHandler
 from . import rd
+
 class newPasswordResetForm(PasswordResetForm):
     def send_mail(self, *args, **kwargs):
         super().send_mail(*args, **kwargs)
@@ -182,8 +185,8 @@ def fimDoFlowEspecial(request,dog):
     return render(request, 'app/dogespecial.html')
 
 def listagemteste(request):
-    eventosAtivos = Event.objects.values('url')
-    pedidosAtivos = models.Pedido.objects.filter(pk__in = eventosAtivos)
+    eventosAtivos = Event.objects.values('url').annotate(urlint=Cast('url', output_field=IntegerField() ) ).values('urlint')
+    pedidosAtivos = models.Pedido.objects.filter(pk__in=eventosAtivos).order_by('-created')
     return render(request, 'app/listagem_teste.html',{'lista':pedidosAtivos})
 
 def checkout(request,carrinho):

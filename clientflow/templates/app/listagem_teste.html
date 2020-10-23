@@ -1,29 +1,37 @@
 {% extends "base_client_2.html" %}
 {% load static %}
 {% load mathfilters %}
-{% block head %}
-<style>
-span > a, span > a:hover{
-  color:#00FB5C!important;
-}
-p > a, p > a:hover{
-  color:#0033b2!important;
-}
-</style>
 
-{% endblock %}
 
 {% block content %}
 <div class="row">
-  <div style="height:auto!important;" id="pageElem-{{obj}}" class="col-10 col-md-7 m-4 mx-auto text-decoration-none dash-btn">
+  <div style="height:auto!important;" class="col-10 col-md-7 m-4 mx-auto text-decoration-none dash-btn">
     <p class="card-dash-centered-text text-left">
-      {{lista}}
-      {% for item in lista %}
-      {{item.idDog.nome}}<br>
-      {{item.idDog.nascimento}}<br>
-      {{item.idDog.calculomes}}kg<br>
-      <br>
-      {% endfor %}
+      <table>
+        <tbody>
+          <tr>
+            <th>Nome</th>
+            <th>Nascimento</th>
+            <th>Calculo mensal</th>
+            <th>Plano</th>
+            <th>Adesao em</th>
+          </tr>
+          {% for item in lista %}
+          <tr>
+          <th>{{item.idDog.nome}}</th>
+          <th>{{item.idDog.nascimento}}</th>
+          {% with refeicoes=item.idPlano.refeicoes calculomes=item.idDog.calculomes %}
+          <th>{{calculomes|mul:refeicoes|div:28}}</th>
+            <th>{{item.idPlano.nome}}</th>
+            <th>{{item.created}}</th>
+            {% for key in item.idDog.sabores %}
+            <th>{{key}}</th>
+            {% endfor %}
+          {% endwith %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </p>
     <hr class="custom-hr" style="margin: -80px -15px 50px -15px;">
   </div>
