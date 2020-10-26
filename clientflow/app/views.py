@@ -164,6 +164,7 @@ def pedidosDash(request):
 
 def fimDoFlow(request,carrinho):
     cart = models.Carrinho.objects.get(pk=carrinho)
+    messagingHandler.sendMessageT("Um novo Pedido foi finalizado! "+cart.plano)
     if request.user.is_authenticated:
         cliente = request.user.cliente
     else:
@@ -180,8 +181,8 @@ def fimDoFlowEspecial(request,dog):
     cliente = cachorro.idCliente
     number = str(cliente.areatelefone)+str(cliente.telefone)
     msg = str("Olá! Agradecemos seu interesse no Ração do Futuro! Já estamos com os dados do seu doguinho, "+cachorro.nome+". Como você nos contou que ele é um dog especial, para garantir que ele poderá consumir a Ração do Futuro com segurança, precisamos antes consultar nossos especialistas caninos! Em até dois dias úteis voltaremos a entrar em contato com sua dieta. 🐶")
-    messagingHandler.sendMessageT("Um novo dog especial foi cadastrado na platafoma.")
-    messagingHandler.sendMessageW(msg, number)
+    messagingHandler.sendMessageT("Um novo dog especial foi cadastrado na platafoma: "+cachorro.nome+", um "+cachorro.raca+". Cliente: "+cliente.nome+" "+cliente.sobrenome+"("+cliente.areatelefone+")"+cliente.telefone)
+    # messagingHandler.sendMessageW(msg, number)
     return render(request, 'app/dogespecial.html')
 
 def listagemteste(request):
