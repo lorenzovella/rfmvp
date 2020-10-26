@@ -68,5 +68,6 @@ urlpatterns = (
     path("ar/", views.ra, name="ar",),
 
 
-    path("listateste/", views.listagemteste, name="listateste",),    
+    path("listateste/", views.listagemteste, name="listateste",),
+    path("listateste2/", views.listagemteste2, name="listateste2",),    
 )
