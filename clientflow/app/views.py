@@ -160,7 +160,7 @@ def dogdash(request):
         entrega = next(entrega)
     else:
         return render(request,'app/dogdash.html',{'user':request.user.cliente,'dogcount':dogCount, 'carrinho':carrinho})
-    return render(request,'app/dogdash.html',{'user':request.user.cliente,'dogcount':dogCount, 'carrinho':carrinho, 'entrega':entrega.start.date, 'hora':str(entrega.start.time().hour-3) +"h e "+str(entrega.end.time().hour-3)+"h"})
+    return render(request,'app/dogdash.html',{'user':request.user.cliente,'dogcount':dogCount, 'carrinho':carrinho, 'entrega':entrega.start.date, 'hora':str(entrega.start.time().hour) +"h e "+str(entrega.end.time().hour)+"h"})
 
 def pedidosDash(request):
     pedidos = models.Pedido.objects.filter(status ='Pedido finalizado pelo cliente')
