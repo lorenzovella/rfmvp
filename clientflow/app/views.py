@@ -127,6 +127,10 @@ def profile_cliente_especial(request, dog):
             dogInstance = models.Cachorro.objects.get(pk = dog)
             dogInstance.idCliente = savedInstance
             dogInstance.save()
+            # number = str(savedInstance.areatelefone)+str(savedInstance.telefone)
+            # msg = str("Olá! Agradecemos seu interesse no Ração do Futuro! Já estamos com os dados do seu doguinho, "+cachorro.nome+". Como você nos contou que ele é um dog especial, para garantir que ele poderá consumir a Ração do Futuro com segurança, precisamos antes consultar nossos especialistas caninos! Em até dois dias úteis voltaremos a entrar em contato com sua dieta. 🐶")
+            # messagingHandler.sendMessageW(msg, number)
+            messagingHandler.sendMessageT("Um novo dog especial foi cadastrado na platafoma: "+dogInstance.nome+", um "+dogInstance.raca+". Cliente: "+savedInstance.nome+" "+savedInstance.sobrenome+"("+savedInstance.areatelefone+")"+savedInstance.telefone)
             return redirect('clientflow_dogespecial', dogInstance)
     form = forms.ClienteFormEspecial()
     return render(request,'registration/sign_up.html',{'form':form,'dog':dog})
@@ -164,7 +168,6 @@ def pedidosDash(request):
 
 def fimDoFlow(request,carrinho):
     cart = models.Carrinho.objects.get(pk=carrinho)
-    messagingHandler.sendMessageT("Um novo Pedido foi finalizado! "+cart.plano)
     if request.user.is_authenticated:
         cliente = request.user.cliente
     else:
@@ -177,12 +180,6 @@ def fimDoFlow(request,carrinho):
     return handler500(request)
 
 def fimDoFlowEspecial(request,dog):
-    cachorro = models.Cachorro.objects.get(pk=dog)
-    cliente = cachorro.idCliente
-    number = str(cliente.areatelefone)+str(cliente.telefone)
-    msg = str("Olá! Agradecemos seu interesse no Ração do Futuro! Já estamos com os dados do seu doguinho, "+cachorro.nome+". Como você nos contou que ele é um dog especial, para garantir que ele poderá consumir a Ração do Futuro com segurança, precisamos antes consultar nossos especialistas caninos! Em até dois dias úteis voltaremos a entrar em contato com sua dieta. 🐶")
-    messagingHandler.sendMessageT("Um novo dog especial foi cadastrado na platafoma: "+cachorro.nome+", um "+cachorro.raca+". Cliente: "+cliente.nome+" "+cliente.sobrenome+"("+cliente.areatelefone+")"+cliente.telefone)
-    # messagingHandler.sendMessageW(msg, number)
     return render(request, 'app/dogespecial.html')
 
 def listagemteste(request):
@@ -209,6 +206,7 @@ def checkout(request,carrinho):
             session = pagseguro.criarSession()
             hash = pagseguro.criarHash(session,valor,card['number'].replace(" ",""),card['brand'],card['cvc'],card['expm'],card['expy'])
             cart.pagseguro_adesao = pagseguro.aderirPlano(cart.pagseguro_plano, carrinho, hash, card['name'], cliente, get_client_ip(request)[0])
+
             if type(cart.pagseguro_adesao) is dict:
                 for pedido in pedidos:
                     pedido.status= 'Pedido em aberto'
@@ -220,15 +218,19 @@ def checkout(request,carrinho):
                     pedido.status = 'Pedido finalizado pelo cliente'
                     pedido.save()
             cart.save()
+
             send_mail(render_to_string(template_name='email/checkout_subject.txt', context={'dog':pedido.idDog.nome,'pedido':pedido}).strip(),
                 render_to_string(template_name='email/checkout_plain.txt', context={'pedido':pedido}).strip(),
                 None,
                 [pedido.idClient.email],
                 html_message = render_to_string(template_name='email/checkout.html')
             )
+
             saveuser(request, cliente, pedido, pedido.idDog, carrinho)
             saveentrega(pedidos)
             rd.criarLead(cliente, cart.pagseguro_plano)
+            messagingHandler.sendMessageT("Um novo Pedido foi finalizado! "+cart.plano+", R$"+"{:.2f}".format(cart.get_valor_carrinho()) )
+
             return redirect('clientflow_fimDoFlow', carrinho)
         if cliente.cpf=="":
             return redirect('user-profile-update', carrinho)
