@@ -12,11 +12,24 @@
           <tr>
             <th>Nome</th>
             <th>Email</th>
+            <th>Plano</th>
+            <th>Calculo mensal</th>
+            <th>Carne de Panela</th>
+            <th>Frango Xadrez</th>
+            <th>Risoto Suino</th>
+
           </tr>
           {% for item in lista %}
           <tr>
             <th>{{item.idClient.nome}} {{item.idClient.sobrenome}} </th>
             <th>{{item.idClient.email}} </th>
+            <th>{{item.idPlano.nome}}</th>
+            {% with refeicoes=item.idPlano.refeicoes calculomes=item.idDog.calculomes s=item.idDog.sabores|length %}
+            <th>{{calculomes|mul:refeicoes|div:28}}</th>
+            <th>{% if "Carne de panela" in item.idDog.sabores %} {{calculomes|mul:refeicoes|div:28|div:s|floatformat}} {% endif %}</th>
+            <th>{% if "Frango Xadrez" in item.idDog.sabores %} {{calculomes|mul:refeicoes|div:28|div:s|floatformat}} {% endif %}</th>
+            <th>{% if "Risoto Suíno" in item.idDog.sabores %} {{calculomes|mul:refeicoes|div:28|div:s|floatformat}} {% endif %}</th>
+            {% endwith %}
           </tr>
           {% endfor %}
         </tbody>

@@ -230,6 +230,9 @@ def checkout(request,carrinho):
             saveentrega(pedidos)
             rd.criarLead(cliente, cart.pagseguro_plano)
             messagingHandler.sendMessageT("Um novo Pedido foi finalizado! "+cart.plano+", R$"+"{:.2f}".format(cart.get_valor_carrinho()) )
+            number = str(cliente.areatelefone)+str(cliente.telefone)
+            msg = str("Olá! Seja muito bem-vindo ao Ração do Futuro.\nRecebemos seu pedido para "+("o " if pedido.idDog.sexo == "Macho" else "a ")+pedido.idDog.nome+" e estamos processando seu pagamento.\nNossa equipe de suporte canino entrará em contato em breve para combinar os detalhes de sua primeira entrega.\nEssa é uma mensagem automática, qualquer dúvida pode nos chamar no (48)996793978 aqui no WhatsApp!")
+            messagingHandler.sendMessageW(msg, number)
 
             return redirect('clientflow_fimDoFlow', carrinho)
         if cliente.cpf=="":
