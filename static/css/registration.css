@@ -1,7 +1,7 @@
 label{
   font-family: Montserrat;
   font-size: 15px;
-  color: #0033b2;
+  color: #203976;
   text-align: left;
   vertical-align: top;
   font-weight: 600;
@@ -9,19 +9,19 @@ label{
 }
 input{
   font-family: Montserrat!important;
-  color: #0033b2!important;
+  color: #203976!important;
   margin-bottom: 28px;
   outline:none!important;
   border:none!important;
-  border-bottom:1px solid #0033b2!important;
+  border-bottom:1px solid #203976!important;
 }
 input:focus{
   border:none!important;
   outline:none!important;
-  box-shadow: 0 2px 0px -1px #00FB5C!important;
+  box-shadow: 0 2px 0px -1px #1db954!important;
 }
 a, a:hover{
-  color:#0033b2!important;
+  color:#203976!important;
 }
 .helptext{
   display:none;

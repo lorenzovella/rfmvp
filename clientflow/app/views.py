@@ -18,6 +18,7 @@ from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth import login, authenticate
 from clientflow.app.calculadora import calcularFator
 from clientflow.app import pagseguro
+from clientflow.app import vindi
 from formtools.wizard.views import SessionWizardView
 from decimal import Decimal
 from math import ceil
@@ -182,6 +183,10 @@ def fimDoFlow(request,carrinho):
 def fimDoFlowEspecial(request,dog):
     return render(request, 'app/dogespecial.html')
 
+def viewteste(request):
+    cliente = request.user.cliente
+    chamada = vindi.criarCliente(cliente)
+    return render(request, 'app/teste.html', {'info': chamada})
 def listagemteste(request):
     eventosAtivos = Event.objects.values('url').annotate(urlint=Cast('url', output_field=IntegerField() ) ).values('urlint')
     pedidosAtivos = models.Pedido.objects.filter(pk__in=eventosAtivos).order_by('-created')

@@ -9,7 +9,7 @@
 }
 .popoverbar {
   min-height: 40px;
-  background-color: #0033b2;
+  background-color: #203976;
   color: #fff !important;
 }
 body {
@@ -31,12 +31,12 @@ body {
 }
 .progress-bar {
   height: 4px;
-  background-color: #00FB5C;
+  background-color: #1db954;
   overflow: visible;
   margin-top: 26px;
 }
 .disabled-bar {
-  background-color: #0033b2  !important;
+  background-color: #203976  !important;
 }
 .progress-bar.icon-bar::after{
 position: relative;
@@ -70,7 +70,7 @@ z-index:2;
     object-fit: scale-down;
 }
 .one, .two, .three, .four{
-background-color: #00FB5C;
+background-color: #1db954;
 position:absolute;
 z-index:1;
 height:14px;
@@ -80,7 +80,7 @@ margin-top: 21px;
 }
 .progress-bar-text {
   font-family: 'Roboto', sans-serif;
-  color: #0033b2;
+  color: #203976;
   padding-top: 3em;
   letter-spacing: 0.3px;
   font-weight: 400;
@@ -111,7 +111,7 @@ margin-top: 21px;
   max-width:141px;
 }
 .info-bar-text{
-  color: #0033b2;
+  color: #203976;
   font-family: Roboto;
   font-size: 14px;
   font-weight: 700;
@@ -126,7 +126,7 @@ margin-top: 21px;
 .control-label{
   font-family: Roboto;
   font-size: 17px;
-  color: #0033b2;
+  color: #203976;
   text-align: left;
   vertical-align: top;
   font-weight: 500;
@@ -156,10 +156,10 @@ margin-top: 21px;
   margin-right: auto;
   text-align: center;
   text-align-last: center;
-  background-color: #0033b2;
+  background-color: #203976;
   border-radius: 20px;
   border: none;
-  color: #03FB5C;
+  color: #1db954;
   height: 72px;
   width: 80vw;
   font-weight: 500;
@@ -178,7 +178,7 @@ margin-top: 21px;
   background-color: #fff;
   font-family: Roboto;
   font-size: 16px;
-  color: #0033b2;
+  color: #203976;
   vertical-align: top;
   font-weight: 500;
   line-height: 21px;
@@ -192,11 +192,11 @@ margin-top: 21px;
 
 .textarea:focus {
   outline: none !important;
-  box-shadow: 0 0 10px #0033b2;
+  box-shadow: 0 0 10px #203976;
 }
 
 .numberinput::placeholder, .textinput::placeholder, .dateinput::placeholder {
-  color: #00FB5C;
+  color: #1db954;
 }
 
 .radio-toolbar-description {
@@ -212,14 +212,14 @@ input[type=radio],input[type=checkbox]{
 }
 
 input[type="checkbox"]:checked + label {
-  background-color: #00FB5C;
-  color: #0033b2;
+  background-color: #1db954;
+  color: #203976;
   box-shadow: inset 0px 1px 15px 0 #0000004A;
 }
 
 .radio-toolbar input[type="radio"]:checked + label {
-  background-color: #00FB5C;
-  color: #0033b2;
+  background-color: #1db954;
+  color: #203976;
   box-shadow: inset 0px 1px 15px 0 #0000004A;
 }
 
@@ -232,7 +232,7 @@ input[type="checkbox"]:checked + label {
   height: 72px;
   border-radius: 3em;
   background: #ffffff;
-  box-shadow: inset 2px 3px 2px #0033b235;
+  box-shadow: inset 2px 3px 2px #20397635;
   position: relative;
   margin: 4px auto;
   overflow: hidden;
@@ -250,7 +250,7 @@ input[type="checkbox"]:checked + label {
 .multi-select-flavor-title {
   font-family: 'Montserrat';
   font-size: 13px;
-  color: #0033b2;
+  color: #203976;
   text-align: left;
   vertical-align: top;
   font-weight: 400;
@@ -263,7 +263,7 @@ input[type="checkbox"]:checked + label {
 .multi-select-title-description {
   font-family: 'Roboto';
   font-size: 16px;
-  color: #0033b2;
+  color: #203976;
   text-align: left;
   vertical-align: top;
   font-weight: 500;
@@ -275,7 +275,7 @@ input[type="checkbox"]:checked + label {
 .multi-select-flavor {
   font-family: 'Roboto';
   font-size: 14px;
-  color: #0033b2;
+  color: #203976;
   text-align: left;
   vertical-align: top;
   font-weight: 200;
@@ -285,12 +285,12 @@ input[type="checkbox"]:checked + label {
 }
 
 .add-flavor {
-  background-color: #0033b2;
+  background-color: #203976;
   border-radius: 17px;
   font-family: 'Roboto';
   padding: 16px 26px;
   font-size: 16px;
-  color: #00FB5C;
+  color: #1db954;
   text-align: center;
   vertical-align: top;
   font-weight: 700;
@@ -307,8 +307,8 @@ input[type="checkbox"]:checked + label {
 }
 
 .multi-select-image input[type="checkbox"]:checked + label {
-  background-color: #00FB5C;
-  color: #0033b2;
+  background-color: #1db954;
+  color: #203976;
   box-shadow: inset 0px 1px 15px 0 #0000004A;
 }
 
@@ -317,7 +317,7 @@ input[type="checkbox"]:checked + label {
   top: 480px;
   font-family: Roboto;
   border-radius: 20px;
-  background: #0033b2;
+  background: #203976;
   color: #fff;
 }
 .ui-menu-item:hover {
@@ -336,10 +336,10 @@ input[type="checkbox"]:checked + label {
   padding: 24px 40px;
   box-shadow: inset 0px 1px 15px 0 #0000004A;
   border-radius: 20px;
-  background-color: #0033b2;
+  background-color: #203976;
   font-family: 'Roboto';
   font-size: 16px;
-  color: #00FB5C;
+  color: #1db954;
   text-align: center;
   vertical-align: top;
   font-weight: 500;
@@ -352,7 +352,7 @@ input[type="checkbox"]:checked + label {
   font-family: 'Roboto';
   box-shadow: none!important;
   font-size: 14px;
-  color: #0033b2;
+  color: #203976;
   text-align: center;
   vertical-align: top;
   font-weight: 400;
@@ -361,21 +361,21 @@ input[type="checkbox"]:checked + label {
   letter-spacing: 0.0003938px;
 }
 .radio-toolbar label:hover {
-  background-color: #00FB5C;
-  color: #0033b2;
+  background-color: #1db954;
+  color: #203976;
   cursor: pointer;
 }
 @media (hover:none) {
   .radio-toolbar label:hover {
-    background-color: #0033b2;
-    color: #00FB5C;
+    background-color: #203976;
+    color: #1db954;
     box-shadow: inset 1px 0px 8px 0 #A4A4A4C0;  }
 }
 
 .field-title {
   font-family: Roboto;
   font-size: 17px;
-  color: #0033b2;
+  color: #203976;
   text-align: left;
   vertical-align: top;
   font-weight: 500;
@@ -390,7 +390,7 @@ input[type="checkbox"]:checked + label {
   font-family: 'Roboto';
   font-size: 17px;
   margin-bottom: 25px;
-  color: #0033b2;
+  color: #203976;
   text-align: left;
   vertical-align: top;
   font-weight: 500;
@@ -467,11 +467,11 @@ input[type="checkbox"]:checked + label {
   margin-right:auto;
 }
 .btn-next:hover{
-  color: #00FB5C!important;
+  color: #1db954!important;
 }
 
 .footer{
-  background: #0033b2;
+  background: #203976;
   position: fixed;
   display: flex;
   width:100%;
@@ -482,7 +482,7 @@ input[type="checkbox"]:checked + label {
   width: 100%;
 }
 .footer *{
-  background: #0033b2 !important;
+  background: #203976 !important;
   box-shadow: none!important;
   border:0;
 }
@@ -506,7 +506,7 @@ input[type="checkbox"]:checked + label {
 }
 .card {
   border-radius: 10px;
-  color: #0033b2;
+  color: #203976;
   background: #ffffff;
   margin-top: 0.7em;
   margin-right: 0.3em;
@@ -538,7 +538,7 @@ input[type="checkbox"]:checked + label {
 }
 .card-subheading {
   margin-top: 0.7em;
-  color: #0033b2;
+  color: #203976;
   font-family: Roboto;
   font-size: 22px;
   font-weight: 700;
@@ -547,7 +547,7 @@ input[type="checkbox"]:checked + label {
 }
 .card-new{
   border-radius: 10px;
-  color: #0033b2;
+  color: #203976;
   border: dashed 4px #d5e8f4;
   background: #ffffff;
   margin-top: 0.7em;
@@ -563,8 +563,8 @@ input[type="checkbox"]:checked + label {
 }
 .round-btn{
   border-radius: 14px;
-  border: solid 4px #0033b2d9;
-  background: #0033b2;
+  border: solid 4px #203976d9;
+  background: #203976;
   box-shadow: 0px 0px 25px #0033b340;
   color: #f4f7f9;
   font-size: 20px;
@@ -576,16 +576,16 @@ input[type="checkbox"]:checked + label {
   padding-right: 2em;
 }
 .active {
-  box-shadow: 0px 15px 30px 0 #03FB5C5D !important;
+  box-shadow: 0px 15px 30px 0 #1db9545D !important;
 }
 .link-no-decoration {
   text-decoration: none !important;
-  color: #0033b2 !important;
+  color: #203976 !important;
 }
 .dash-title{
   font-family: Montserrat;
   font-size: 33px;
-  color: #0033b2;
+  color: #203976;
   text-align: left;
   vertical-align: top;
   font-weight: 800;
@@ -594,7 +594,7 @@ input[type="checkbox"]:checked + label {
 }
 .dash-subtitle{
   font-family: Montserrat;
-  color: #0033b2;
+  color: #203976;
   font-size: 13px;
   font-weight: 400;
   line-height: 30px;
@@ -611,11 +611,11 @@ input[type="checkbox"]:checked + label {
 }
 .dash-big-btn{
  height: 69px;
- background-color: #0033b2;
+ background-color: #203976;
  box-shadow: 0px 15px 30px 0 #0000000D;
  border-radius: 20px;
  font-family: Roboto;
- color: #00FB5C!important;
+ color: #1db954!important;
  text-align: center;
  font-weight: 700;
  font-size: 18px;
@@ -631,12 +631,12 @@ input[type="checkbox"]:checked + label {
 .dash-card-btn{
   height: 61px;
   min-width: 230px;
-  background-color: #0033b2;
+  background-color: #203976;
   box-shadow: 0px 15px 30px 0 #0000000D;
   border-radius: 20px;
   font-family: Roboto;
   font-size: 18px;
-  color: #00FB5C;
+  color: #1db954;
   font-weight: 700;
   text-transform: none;
   border-width: 0px;
@@ -647,7 +647,7 @@ input[type="checkbox"]:checked + label {
 }
 .card-dash-title{
   font-family: Montserrat;
-  color: #0033b2;
+  color: #203976;
   font-size: 18px;
   font-weight: 600;
   line-height: 22px;
@@ -656,7 +656,7 @@ input[type="checkbox"]:checked + label {
 .card-dash-subtitle, .card-dash-subtitle a{
   font-family: Roboto;
   font-size: 16px;
-  color: #0033b2!important;
+  color: #203976!important;
   text-align: left;
   vertical-align: top;
   font-weight: 400;
@@ -666,7 +666,7 @@ input[type="checkbox"]:checked + label {
 .index-blue-text{
 font-family: Roboto;
 font-size: 18px;
-color: #0033b2;
+color: #203976;
 text-align: center;
 vertical-align: top;
 font-weight: 600;
@@ -675,28 +675,28 @@ text-transform: none;
 .card-dash-centered-text{
   font-family: Roboto;
   font-size: 14px;
-  color: #0033b2;
+  color: #203976;
   text-align: center;
   font-weight: 200;
 }
 .card-faq-text{
   font-family: Roboto;
   font-size: 16px;
-  color: #0033b2;
+  color: #203976;
   font-weight: 400;
 }
 
 .card-dash-blue-button{
   max-width: 90px;
   max-height: 83px;
-  background-color: #0033b2;
+  background-color: #203976;
   box-shadow: inset 1px 2px 3px 0 #0E3B5280;
   border-radius: 20px;
 }
 .card-dash-thin-text{
   font-family: Roboto;
   font-size: 13px;
-  color: #0033b2;
+  color: #203976;
   text-align: left;
   vertical-align: top;
   font-weight: 200;
@@ -704,7 +704,7 @@ text-transform: none;
 .card-footer-text{
   font-family: Montserrat;
   font-size: 11px;
-  color: #0033b2;
+  color: #203976;
   text-align: left;
   vertical-align: top;
   font-weight: 500;
@@ -712,7 +712,7 @@ text-transform: none;
 .card-footer-link{
   font-family: Roboto;
   font-size: 10px;
-  color: #0033b2;
+  color: #203976;
   text-align: left;
   vertical-align: top;
   font-weight: 500;
@@ -743,7 +743,7 @@ text-transform: none;
   border-top:1.5px solid #E5EAF7;
 }
 .dog-card-title{
-  color: #0033b2;
+  color: #203976;
   font-family: Roboto;
   font-size: 33px;
   font-weight: 700;
@@ -769,7 +769,7 @@ text-transform: none;
 .plano-bold{
   font-family: Montserrat;
   font-size: 12px;
-  color: #0033B2;
+  color: #203976;
   text-align: left;
   vertical-align: top;
   font-weight: 600;
@@ -778,7 +778,7 @@ text-transform: none;
 .plano-thin{
   font-family: Montserrat;
   font-size: 12px;
-  color: #0033B2;
+  color: #203976;
   text-align: left;
   vertical-align: top;
   font-weight: 400;
@@ -797,7 +797,7 @@ text-transform: none;
   width: 125px;
   font-family: Montserrat;
   font-size: 14px;
-  color: #0033B2;
+  color: #203976;
   text-align: right;
   vertical-align: top;
   font-weight: 700;
@@ -821,7 +821,7 @@ text-transform: none;
   font-weight: 600;
   box-shadow: -3px -2px 5px 0 #0000002E;
   border-radius: 5px 0px 0px 5px;
-  background: #0033B2;
+  background: #203976;
   position: absolute;
   right: -32px;
   top: 106px;
@@ -870,7 +870,7 @@ text-transform: none;
 .flavor-title {
   font-family: 'Montserrat';
   font-size: 33px;
-  color: #0033B2;
+  color: #203976;
   text-align: center;
   vertical-align: top;
   font-weight: 500;
@@ -886,7 +886,7 @@ text-transform: none;
 .flavor-description {
   font-family: 'Montserrat';
   font-size: 13px;
-  color: #0033B2;
+  color: #203976;
   text-align: center;
   vertical-align: top;
   font-weight: 400;
@@ -913,7 +913,7 @@ text-transform: none;
 .saving-dog-title {
   font-family: 'Montserrat';
   font-size: 33px;
-  color: #0033B2;
+  color: #203976;
   text-align: center;
   vertical-align: top;
   font-weight: 700;
@@ -923,7 +923,7 @@ text-transform: none;
 .saving-dog-owner {
   font-family: 'Montserrat';
   font-size: 24px;
-  color: #0033B2;
+  color: #203976;
   text-align: left;
   vertical-align: top;
   font-weight: 800;
@@ -937,7 +937,7 @@ text-transform: none;
 .saving-dog-description {
   font-family: 'Montserrat';
   font-size: 13px;
-  color: #0033B2;
+  color: #203976;
   text-align: left;
   vertical-align: top;
   font-weight: 400;
@@ -949,7 +949,7 @@ text-transform: none;
 .saving-dog-description-2 {
   font-family: 'Montserrat';
   font-size: 13px;
-  color: #0033B2;
+  color: #203976;
   text-align: left;
   vertical-align: top;
   font-style: italic;
@@ -968,7 +968,7 @@ text-transform: none;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #0033B2;
+  background-color: #203976;
 }
 
 .detail-page .logo {
@@ -1028,14 +1028,14 @@ text-transform: none;
   margin: auto;
   padding-top: 30px;
   padding-bottom: 30px;
-  background-color: #00FB5C;
+  background-color: #1db954;
   border-radius: 35px 35px 0px 0px;
 }
 
 .finish-order-description {
   font-family: 'Roboto';
   font-size: 16px;
-  color: #0033B2;
+  color: #203976;
   text-align: left;
   vertical-align: top;
   font-weight: 400;
@@ -1069,7 +1069,7 @@ text-transform: none;
 .finish-order-last-description {
   font-family: 'Roboto';
   font-size: 18px;
-  color: #0033b2;
+  color: #203976;
   text-align: right;
   vertical-align: top;
   font-weight: 700;
@@ -1082,14 +1082,14 @@ text-transform: none;
 
   font-family: 'Roboto';
   font-size: 24px;
-  color: #00FB5C;
+  color: #1db954;
   vertical-align: top;
   font-weight: 700;
   text-transform: none;
   letter-spacing: 1.2px;
   border: none;
 
-  background-color: #0033B2;
+  background-color: #203976;
   box-shadow: 0px 15px 30px 0 #0000000D;
   border-radius: 10px;
   padding: 21px;
@@ -1159,7 +1159,7 @@ text-transform: none;
   top: 16px;
   width: 10px;
   height: 20px;
-  border: solid #0033B2;
+  border: solid #203976;
   border-width: 0 4px 4px 0;
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
@@ -1170,7 +1170,7 @@ text-transform: none;
 .terms-container {
   width: 100%;
   padding: 25px 28px 0px 28px;
-  background-color: #0033B2;
+  background-color: #203976;
   margin-bottom: -31px;
   height: 110px;
   text-align: center;
@@ -1212,7 +1212,7 @@ text-transform: none;
 .signed-page-title {
   font-family: 'Montserrat';
   font-size: 33px;
-  color: #0033B2;
+  color: #203976;
   text-align: center;
   vertical-align: top;
   font-weight: 800;
@@ -1223,7 +1223,7 @@ text-transform: none;
 .signed-page-subtitle {
   font-family: 'Montserrat';
   font-size: 20px;
-  color: #0033B2;
+  color: #203976;
   text-align: center;
   vertical-align: top;
   font-weight: 700;
@@ -1234,7 +1234,7 @@ text-transform: none;
 .signed-page-description {
   font-family: 'Montserrat';
   font-size: 13px;
-  color: #0033B2;
+  color: #203976;
   text-align: center;
   vertical-align: top;
   font-weight: 400;
@@ -1263,7 +1263,7 @@ text-transform: none;
 .delivery-info-container > h1 {
   font-family: 'Montserrat';
   font-size: 20px;
-  color: #0033B2;
+  color: #203976;
   text-align: left;
   vertical-align: top;
   font-weight: 700;
@@ -1273,7 +1273,7 @@ text-transform: none;
 .delivery-info-container > h2 {
   font-family: 'Montserrat';
   font-size: 14px;
-  color: #0033B2;
+  color: #203976;
   text-align: left;
   vertical-align: top;
   font-weight: 600;
@@ -1286,7 +1286,7 @@ text-transform: none;
 .delivery-info-container > p {
   font-family: 'Montserrat';
   font-size: 14px;
-  color: #0033B2;
+  color: #203976;
   text-align: left;
   vertical-align: top;
   font-weight: 500;
@@ -1308,7 +1308,7 @@ text-transform: none;
   font-family: 'Roboto';
   font-size: 24px;
   color: #00FF39;
-  background-color: #0033B2;
+  background-color: #203976;
   text-align: center;
   vertical-align: top;
   font-weight: 700;
@@ -1328,7 +1328,7 @@ text-transform: none;
 /* free dog badge */
 
 .free-dog-badge-container {
-  background-color: #0033B2;
+  background-color: #203976;
   width: 100%;
   min-height: 100vh;
 }
