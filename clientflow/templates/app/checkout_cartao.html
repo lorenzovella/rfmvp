@@ -50,7 +50,7 @@ color: #000000;
 #main-page{
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 198px);
+  /* height: calc(100vh - 198px); */
 }
 </style>
 <script src="{% static 'js/jquery.card.js' %}"></script>
@@ -168,21 +168,21 @@ color: #000000;
   <iframe id="politicaframe" style="width: 100%; height: 100vw; border:0;"></iframe>
 </div>
 <div id="main-page">
-  <div class='row'>
+  <div class='row' style="height: 96px;">
     <div class='col-10 mx-auto'>
       <h1 class="dash-title">Checkout</h1>
-      <h2 class="dash-subtitle">Finalize agora seu {{plano|lower}}</h2>
+      <h2 class="dash-subtitle m-2">Finalize agora seu {{plano|lower}}</h2>
     </div>
   </div>
   <div style="margin: 0px -15px">
     <div class="col-md-10 mx-auto d-flex">
       <div id="accordion" class="flex-grow-1 accordion">
         <hr class="full-hr">
-          <div class="acc-header collapsed pt-4" data-toggle="collapse" href="#collapseOne">
+          <!-- <div class="acc-header collapsed pt-4" data-toggle="collapse" href="#collapseOne">
               <a class="card-dash-subtitle"> Cupom de Desconto </a>
           </div>
-          <hr class="full-hr">
-          <div id="collapseOne" class="custom-card collapse" data-parent="#accordion">
+          <hr class="full-hr"> -->
+          <!-- <div id="collapseOne" class="custom-card collapse" data-parent="#accordion">
             <div class="col-md-10 d-flex mx-auto">
               <input type="text" style="width:auto;" name="cupominput" maxlength="150" placeholder="Insira seu cupom" class="textinput mr-2" id="cupominput">
               <input type="submit" style="width:auto;" name="cupomsubmit" value="Aplicar" class="textinput flex-grow-1 ml-2" id="cupomsubmit">
@@ -190,12 +190,12 @@ color: #000000;
             <div class="col-md-10 d-flex mx-auto">
               <p class="dash-subtitle mx-auto" id="cupomMessage" style="display:none"></p>
             </div>
-          </div>
-          <div class="acc-header collapsed pt-4" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+          </div> -->
+          <div class="acc-header pt-4" data-toggle="collapse" aria-expanded="true" data-parent="#accordion" href="#collapseTwo">
               <a class="card-dash-subtitle"> Dados do Cartão </a>
           </div>
           <hr class="full-hr">
-          <div id="collapseTwo" class="custom-card collapse" data-parent="#accordion">
+          <div id="collapseTwo" class="custom-card collapse show" data-parent="#accordion">
             <div class="mb-2" id="card-container" style="max-width:80vw;">
             </div>
             <div class="card">
@@ -255,11 +255,11 @@ color: #000000;
     <div class="info-container">
       <div class="finish-order-line">
         <p class="finish-order-description">Assinatura <span class="bold-text">x{{pedidos}}</span> Cão</p>
-        <p class="finish-order-description text-line-through">R${{valor|sub:frete|addition:desconto|mul:10|div:9|floatformat:-2}}</p>
+        <p class="finish-order-description text-line-through">R${{valor|sub:frete|addition:desconto|mul:2|floatformat:-2}}</p>
       </div>
       <div class="finish-order-line">
-        <p class="finish-order-description">Desconto primeiros assinantes:</p>
-        <p class="finish-order-description">R${{valor|sub:frete|addition:desconto|div:9|floatformat:-2}}</p>
+        <p class="finish-order-description">Desconto Black Friday:</p>
+        <p class="finish-order-description">R${{valor|sub:frete|addition:desconto|floatformat:-2}}</p>
       </div>
       <div class="finish-order-line">
         <p class="finish-order-description">Frete:</p>

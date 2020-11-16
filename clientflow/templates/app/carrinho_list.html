@@ -42,11 +42,11 @@ body{
       <div class="info-container">
         <div class="finish-order-line">
           <p class="finish-order-description">Assinatura <span class="bold-text">x{{forloop.revcounter}}</span> Cão</p>
-          <p class="finish-order-description text-line-through">R${{object.get_valor_carrinho|sub:object.get_valor_frete|mul:10|div:9|floatformat:-2}}</p>
+          <p class="finish-order-description text-line-through">R${{object.get_valor_carrinho|sub:object.get_valor_frete|mul:2|floatformat:-2}}</p>
         </div>
         <div class="finish-order-line">
-          <p class="finish-order-description">Desconto primeiros assinantes:</p>
-          <p class="finish-order-description">R${{object.get_valor_carrinho|sub:object.get_valor_frete|div:9|floatformat:-2}}</p>
+          <p class="finish-order-description">Desconto Black Friday:</p>
+          <p class="finish-order-description">R${{object.get_valor_carrinho|sub:object.get_valor_frete|floatformat:-2}}</p>
         </div>
         <div class="finish-order-line">
           <p class="finish-order-description">Frete:</p>

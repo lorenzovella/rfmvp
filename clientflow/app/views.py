@@ -211,7 +211,6 @@ def checkout(request,carrinho):
             session = pagseguro.criarSession()
             hash = pagseguro.criarHash(session,valor,card['number'].replace(" ",""),card['brand'],card['cvc'],card['expm'],card['expy'])
             cart.pagseguro_adesao = pagseguro.aderirPlano(cart.pagseguro_plano, carrinho, hash, card['name'], cliente, get_client_ip(request)[0])
-
             if type(cart.pagseguro_adesao) is dict:
                 for pedido in pedidos:
                     pedido.status= 'Pedido em aberto'
@@ -224,20 +223,23 @@ def checkout(request,carrinho):
                     pedido.save()
             cart.save()
 
-            send_mail(render_to_string(template_name='email/checkout_subject.txt', context={'dog':pedido.idDog.nome,'pedido':pedido}).strip(),
-                render_to_string(template_name='email/checkout_plain.txt', context={'pedido':pedido}).strip(),
-                None,
-                [pedido.idClient.email],
-                html_message = render_to_string(template_name='email/checkout.html')
-            )
+            pagseguro.descontoUnico(cart.pagseguro_adesao,"50.00")
 
             saveuser(request, cliente, pedido, pedido.idDog, carrinho)
             saveentrega(pedidos)
-            rd.criarLead(cliente, cart.pagseguro_plano)
-            messagingHandler.sendMessageT("Um novo Pedido foi finalizado! "+cart.plano+", R$"+"{:.2f}".format(cart.get_valor_carrinho()) )
-            number = str(cliente.areatelefone)+str(cliente.telefone)
-            msg = str("Olá! Seja muito bem-vindo ao Ração do Futuro.\nRecebemos seu pedido para "+("o " if pedido.idDog.sexo == "Macho" else "a ")+pedido.idDog.nome+" e estamos processando seu pagamento.\nNossa equipe de suporte canino entrará em contato em breve para combinar os detalhes de sua primeira entrega.\nEssa é uma mensagem automática, qualquer dúvida pode nos chamar no (48)996793978 aqui no WhatsApp!")
-            messagingHandler.sendMessageW(msg, number)
+
+            # send_mail(render_to_string(template_name='email/checkout_subject.txt', context={'dog':pedido.idDog.nome,'pedido':pedido}).strip(),
+            #     render_to_string(template_name='email/checkout_plain.txt', context={'pedido':pedido}).strip(),
+            #     None,
+            #     [pedido.idClient.email],
+            #     html_message = render_to_string(template_name='email/checkout.html')
+            # )
+
+            # rd.criarLead(cliente, cart.pagseguro_plano)
+            # messagingHandler.sendMessageT("Um novo Pedido foi finalizado! "+cart.plano+", R$"+"{:.2f}".format(cart.get_valor_carrinho()) )
+            # number = str(cliente.areatelefone)+str(cliente.telefone)
+            # msg = str("Olá! Seja muito bem-vindo ao Ração do Futuro.\nRecebemos seu pedido para "+("o " if pedido.idDog.sexo == "Macho" else "a ")+pedido.idDog.nome+" e estamos processando seu pagamento.\nNossa equipe de suporte canino entrará em contato em breve para combinar os detalhes de sua primeira entrega.\nEssa é uma mensagem automática, qualquer dúvida pode nos chamar no (48)996793978 aqui no WhatsApp!")
+            # messagingHandler.sendMessageW(msg, number)
 
             return redirect('clientflow_fimDoFlow', carrinho)
         if cliente.cpf=="":
@@ -338,6 +340,7 @@ def adicionarAoCarrinho(request):
     newCarrinho.pagseguro_plano = codigoPlano['pg']
     savedCarrinho = newCarrinho.save()
 
+
     if cliente.cpf == "":
         return redirect('user-profile-update', newCarrinho)
     return redirect('clientflow_checkout', newCarrinho)
@@ -432,7 +435,7 @@ def PlanoFlow(request, dog):
     planos = models.Plano.objects.all()
     for obj in planos:
         precoKgRacao = calculaDescontoProgressivo( float(instance.calculomes) * float(obj.refeicoes/28) )
-        valorPlano = max((precoKgRacao * obj.refeicoes * float(instance.calculomes)/28)*0.9 + 15,70)
+        valorPlano = max((precoKgRacao * obj.refeicoes * float(instance.calculomes)/28)*0.5 + 15,35)
         setattr(obj, "valor", "{:.2f}".format( valorPlano )  )
         setattr(obj, "valordia", "{:.2f}".format( float(valorPlano)/float(obj.refeicoes) ) )
 
@@ -446,7 +449,7 @@ def PedidoFlow(request, plano, dog):
         instance.idPlano = plano
         instance.idDog = dog
         precoKgRacao = calculaDescontoProgressivo(  float(dog.calculomes)  * float(plano.refeicoes/28) )
-        instance.valor = max((precoKgRacao * plano.refeicoes * float(dog.calculomes)/28)*0.9 + 15,70)
+        instance.valor = max((precoKgRacao * plano.refeicoes * float(dog.calculomes)/28)*0.5 + 15,35)
         savedInstance = instance.save()
         return redirect('clientflow_EntregaFlow', pedido = instance)
     except Exception as e:

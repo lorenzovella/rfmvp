@@ -32,6 +32,24 @@
   height: auto;
   margin-top: 15px;
 }
+.valoresp{
+  height: 30px;
+  width: 125px;
+  font-family: Montserrat;
+  font-size: 14px;
+  color: #1db954;
+  text-align: right;
+  vertical-align: top;
+  font-weight: 700;
+  box-shadow: -3px -2px 5px 0 #0000002E;
+  border-radius: 5px 0px 0px 5px;
+  background: #203976;
+  position: absolute;
+  right: -32px;
+  top: 39px;
+  padding-top: 5px;
+}
+
 </style>
 <script>
 $(document).ready(function () {
@@ -58,7 +76,7 @@ $(document).ready(function () {
 </script>
 
 {% endblock %}
-
+{% load mathfilters %}
 {% block content %}
 
 <div class="row">
@@ -70,7 +88,8 @@ $(document).ready(function () {
         <div class="m-2 pt-4 pl-3 pr-1 text-decoration-none mx-auto plano-card position-relative" name="{{object}}">
           <div class="d-flex plano-img">
             <span class="plano-{{forloop.counter}} pl-4 mt-3" style="min-height: 50px;"></span>
-            <span class="valormes text-center">R${{object.valor}}/mês</span>
+            <span class="valoresp text-center" style="top: 39px!important;" >R${{object.valor}} 1º mês</span>
+            <span class="valormes text-center"><del>R${{object.valor|mul:2|floatformat:-2}}/mês</del></span>
             <span class="valordia text-center">R${{object.valordia}}/dia</span>
           </div>
           <div class="col mx-auto radio-toolbar" style="padding-top: 70px;">

@@ -4,7 +4,7 @@ import json
 import os
 token = os.environ.get('pgtoken')
 email = os.environ.get('pgemail')
-pgUrl = "https://ws.pagseguro.uol.com.br"
+pgUrl = "https://ws.sandbox.pagseguro.uol.com.br"
 
 def criarPlano(name,reference,valor):
     name = name[:min(len(name), 99)]
@@ -195,6 +195,20 @@ def descontoPlano(codigoAdesao, novoValor):
     url = pgUrl + "/pre-approvals/request/"+codigoAdesao+"/payment?email="+email+"&token="+token
 
     payload = "{\r\n  \"amountPerPayment\": \""+novoValor+"\",\r\n  \"updateSubscriptions\": true\r\n}"
+    headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/vnd.pagseguro.com.br.v3+json;charset=ISO-8859-1'
+    }
+
+    response = requests.request("PUT", url, headers=headers, data = payload)
+    if response.status_code != 204:
+        raise Exception("Erro ao aplicar cupom")
+    return True
+
+def descontoUnico(codigoAdesao, porcentagem):
+    url = pgUrl + "/pre-approvals/"+codigoAdesao+"/discount?email="+email+"&token="+token
+
+    payload = "{\"type\":\"DISCOUNT_PERCENT\",\"value\":"+porcentagem+"}"
     headers = {
       'Content-Type': 'application/json',
       'Accept': 'application/vnd.pagseguro.com.br.v3+json;charset=ISO-8859-1'
