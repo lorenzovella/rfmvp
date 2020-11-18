@@ -100,7 +100,7 @@ def criarAssinatura(clientVindi, hashVindi, planoVindi, produtosVindi):
 def buscarAssinatura(param):
     url = vindiUrl + "subscriptions?query="+param['attribute']+":"+param['value']
     headers = {
-      'Authorization': 'Basic SkR4WmVSMHJrMzdoTVRqTlpYWlZfeGtrdU4wRjVxRUs1elc0V2NaVXk2RTo='
+      'Authorization': 'Basic '+tokenPrivate
     }
     response = requests.request("GET", url, headers=headers)
     return json.loads(response.text)['subscriptions'][0]
