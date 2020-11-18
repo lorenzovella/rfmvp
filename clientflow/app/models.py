@@ -8,6 +8,7 @@ from django.core.validators import RegexValidator
 from django.dispatch import receiver
 from django.utils.safestring import mark_safe
 from clientflow.app.pagseguro import consultaAssinatura, listaPagamentos
+from clientflow.app.vindi import buscarAssinatura
 from datetime import date
 from django_simple_coupons.models import Coupon
 from decimal import Decimal
@@ -20,6 +21,7 @@ class Carrinho(models.Model):
     cupom = models.CharField(max_length=200, blank=True, default="")
     pagseguro_plano = models.CharField(max_length=250, blank=True, default="")
     pagseguro_adesao = models.CharField(max_length=250, blank=True, default="")
+    assinatura_vindi = models.CharField(max_length=250, blank=True, default="")
     class Meta:
         pass
 
@@ -51,11 +53,11 @@ class Carrinho(models.Model):
                 return 9.90
         return 0
 
-    def get_status(self):
-        return consultaAssinatura(self.pagseguro_adesao)
-
-    def lista_pagamentos(self):
+    def lista_pagamentos_pg(self):
         return listaPagamentos(self.pagseguro_adesao)
+
+    def lista_pagamentos_vindi(self):
+        return buscarAssinatura({'attribute':'id','value':self.assinatura_vindi})
 
     def get_absolute_url(self):
         return reverse("clientflow_carrinho_detail", args=(self.pk,))

@@ -27,7 +27,7 @@
     <span class="card-dash-title">Sabores:</span><br><span class="card-dash-subtitle">{{object.idDog.sabores_name}}</span><br>
     <span class="card-dash-title">Entrega:</span><br><span class="card-dash-subtitle">{{object.idEntrega.get_frequencia_display}}</span><br>
     {% with refeicoes=object.idPlano.refeicoes calculomes=object.idDog.calculomes %}
-    <span class="card-dash-title">A receber:</span><br><span class="card-dash-subtitle">{{calculomes|mul:refeicoes|div:28}} kg de ração por mês</span><br>
+    <span class="card-dash-title">A receber:</span><br><span class="card-dash-subtitle">{{calculomes|mul:refeicoes|div:28|floatformat:-2}} kg de ração por mês</span><br>
     {% endwith %}
     <span class="card-dash-title">Dieta cão:</span><br><span class="card-dash-subtitle">{{object.idDog.calculodia}} gramas por dia</span><br>
     <hr>
