@@ -254,7 +254,12 @@ def checkout(request,carrinho):
 
             cart.save()
 
-            pagseguro.descontoUnico(cart.pagseguro_adesao,"50.00")
+            send_mail(render_to_string(template_name='email/checkout_subject.txt', context={'dog':pedido.idDog.nome,'pedido':pedido}).strip(),
+                render_to_string(template_name='email/checkout_plain.txt', context={'pedido':pedido}).strip(),
+                None,
+                [pedido.idClient.email],
+                html_message = render_to_string(template_name='email/checkout.html')
+            )
 
             saveuser(request, cliente, pedido, pedido.idDog, carrinho)
             saveentrega(pedidos)
@@ -452,7 +457,7 @@ def PlanoFlow(request, dog):
     planos = models.Plano.objects.all()
     for obj in planos:
         precoKgRacao = calculaDescontoProgressivo( float(instance.calculomes) * float(obj.refeicoes/28) )
-        valorPlano = max((precoKgRacao * obj.refeicoes * float(instance.calculomes)/28)*0.5 + 15,35)
+        valorPlano = max((precoKgRacao * obj.refeicoes * float(instance.calculomes)/28)*0.9 + 15,35)
         setattr(obj, "valor", "{:.2f}".format( valorPlano )  )
         setattr(obj, "valordia", "{:.2f}".format( float(valorPlano)/float(obj.refeicoes) ) )
 
@@ -466,7 +471,7 @@ def PedidoFlow(request, plano, dog):
         instance.idPlano = plano
         instance.idDog = dog
         precoKgRacao = calculaDescontoProgressivo(  float(dog.calculomes)  * float(plano.refeicoes/28) )
-        instance.valor = max((precoKgRacao * plano.refeicoes * float(dog.calculomes)/28)*0.5 + 15,35)
+        instance.valor = max((precoKgRacao * plano.refeicoes * float(dog.calculomes)/28)*0.9 + 15,35)
         savedInstance = instance.save()
         return redirect('clientflow_EntregaFlow', pedido = instance)
     except Exception as e:
