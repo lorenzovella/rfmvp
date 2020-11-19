@@ -76,7 +76,15 @@ def criarAssinatura(clientVindi, hashVindi, planoVindi, produtosVindi):
                 "pricing_schema": {
                     "price": produto['valor'],
                     "schema_type": "per_unit"
+                },
+                "discounts": [
+                {
+                    "discount_type": "percentage",
+                    "percentage": 50,
+                    "quantity": 0,
+                    "cycles": 1
                 }
+              ]
             })
     tempObject = {
         "plan_id": planoVindi,
