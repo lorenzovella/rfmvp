@@ -12,24 +12,27 @@
           <tr>
             <th>Nome</th>
             <th>Email</th>
+            <th>Valor</th>
             <th>Plano</th>
             <th>Calculo mensal</th>
             <th>Carne de Panela</th>
             <th>Frango Xadrez</th>
             <th>Risoto Suino</th>
-
+            <th>Criado em</th>
           </tr>
           {% for item in lista %}
           <tr>
             <th>{{item.idClient.nome}} {{item.idClient.sobrenome}} </th>
             <th>{{item.idClient.email}} </th>
+            <th>{{item.valor}} </th>
             <th>{{item.idPlano.nome}}</th>
             {% with refeicoes=item.idPlano.refeicoes calculomes=item.idDog.calculomes s=item.idDog.sabores|length %}
-            <th>{{calculomes|mul:refeicoes|div:28}}</th>
+            <th>{{calculomes|mul:refeicoes|div:28|floatformat}}</th>
             <th>{% if "Carne de panela" in item.idDog.sabores %} {{calculomes|mul:refeicoes|div:28|div:s|floatformat}} {% endif %}</th>
             <th>{% if "Frango Xadrez" in item.idDog.sabores %} {{calculomes|mul:refeicoes|div:28|div:s|floatformat}} {% endif %}</th>
             <th>{% if "Risoto Suíno" in item.idDog.sabores %} {{calculomes|mul:refeicoes|div:28|div:s|floatformat}} {% endif %}</th>
             {% endwith %}
+            <th>{{item.created}}</th>
           </tr>
           {% endfor %}
         </tbody>

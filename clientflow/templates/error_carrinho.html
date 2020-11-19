@@ -9,13 +9,21 @@
 </div>
 <div class="row d-flex middle">
   <div class="col-12 text-center control-label mx-auto m-4 p-4">
-    <h3>Erro {{erro}}!</h3>
+    {% if erro.errors %}
+      {% for error in erro.errors %}
+      <span class='control-label mx-auto'>Parámetro inválido: {{error.parameter}} - Mensagem: {{error.message}}</span>
+      {% endfor %}
+    {% endif %}
   </div>
   <div style="height:auto!important;" class="col-10 col-md-7 m-4 mx-auto text-decoration-none dash-btn">
-    <p class="card-dash-title dash-btn-text">Quer ajustar informações da sua conta?</p>
     <div class="col">
-      <div class="d-flex radio-toolbar">
-        <a class="first-description mx-auto" style="color: #1db954!important;" href="{% url 'user-profile-update' carrinho %}">Clique aqui</a>
+      <div class="d-flex radio-toolbar mt-2 mb-2">
+        <a class="first-description mx-auto" style="color: #1db954!important;" href="{% url 'clientflow_checkout' carrinho %}">Deseja alterar os dados do pagamento?</a>
+      </div>
+    </div>
+    <div class="col">
+      <div class="d-flex radio-toolbar mt-2 mb-2">
+        <a class="first-description mx-auto" style="color: #1db954!important;" href="{% url 'user-profile-update' carrinho %}">Quer ajustar informações da sua conta?</a>
       </div>
     </div>
     <span class="dog-card-img-2 mt-2"></span>

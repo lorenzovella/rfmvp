@@ -88,7 +88,8 @@ def profile_update_view(request,carrinho=0):
     if request.method == "POST":
         form = forms.ClienteForm(request.POST, instance=clienteInstance)
         if form.is_valid():
-            form.save()
+            clienteInstance = form.save()
+            request.session['cliente'] = clienteInstance.pk
             if carrinho != 0:
                 return redirect('clientflow_checkout', carrinho)
             return redirect('user-profile')
@@ -153,7 +154,7 @@ def entregaInterna(request, pedido):
 
 def dogdash(request):
     dogCount = models.Cachorro.objects.filter(idCliente = request.user.cliente).count()
-    carrinho = models.Carrinho.objects.filter(item__idClient = request.user.cliente).filter(pagseguro_adesao__exact='').last()
+    carrinho = models.Carrinho.objects.filter(item__idClient = request.user.cliente).filter(assinatura_vindi__exact='').last()
     pedido = models.Pedido.objects.filter(status ='Pedido finalizado pelo cliente').filter(idClient=request.user.cliente).last()
     if pedido:
         yesterday = datetime.datetime.now() - datetime.timedelta(days=1)
@@ -183,10 +184,10 @@ def fimDoFlow(request,carrinho):
 def fimDoFlowEspecial(request,dog):
     return render(request, 'app/dogespecial.html')
 
-def viewteste(request):
-    cliente = request.user.cliente
-    chamada = vindi.criarCliente(cliente)
-    return render(request, 'app/teste.html', {'info': chamada})
+def viewteste(request, teste):
+    # cliente = request.user.cliente
+    # chamada = vindi.criarCliente(cliente)
+    return render(request, 'app/teste.html', {'info': teste})
 def listagemteste(request):
     eventosAtivos = Event.objects.values('url').annotate(urlint=Cast('url', output_field=IntegerField() ) ).values('urlint')
     pedidosAtivos = models.Pedido.objects.filter(pk__in=eventosAtivos).order_by('-created')
@@ -198,7 +199,8 @@ def listagemteste2(request):
 
 def checkout(request,carrinho):
     cart = models.Carrinho.objects.get(pk=carrinho)
-    valor = "{:.2f}".format( cart.get_valor_carrinho() )
+    floatValor = float(cart.get_valor_carrinho())
+    valor = "{:.2f}".format( floatValor )
     pedido = cart.item.first()
     pedidos = cart.item.all()
     if request.user.is_authenticated:
@@ -208,43 +210,64 @@ def checkout(request,carrinho):
     if cliente == pedido.idClient:
         if request.method == "POST":
             card = request.POST
-            session = pagseguro.criarSession()
-            hash = pagseguro.criarHash(session,valor,card['number'].replace(" ",""),card['brand'],card['cvc'],card['expm'],card['expy'])
-            cart.pagseguro_adesao = pagseguro.aderirPlano(cart.pagseguro_plano, carrinho, hash, card['name'], cliente, get_client_ip(request)[0])
-            if type(cart.pagseguro_adesao) is dict:
-                for pedido in pedidos:
-                    pedido.status= 'Pedido em aberto'
-                    pedido.observacoes = cart.pagseguro_adesao
-                    pedido.save()
-                return errorViewCarrinho(request, cart.pagseguro_adesao, carrinho)
+            clientExists = vindi.buscarCliente({'attribute':'registry_code','value':cliente.cpf })
+            if bool(clientExists):
+                clientVindi = clientExists[-1]['id']
             else:
-                for pedido in pedidos:
-                    pedido.status = 'Pedido finalizado pelo cliente'
-                    pedido.save()
+                clientVindi = vindi.criarCliente(cliente)
+                if 'errors' in clientVindi:
+                    return errorViewCarrinho(request, clientVindi, carrinho)
+                clientVindi = clientVindi['customer']['id']
+
+            hashVindi = vindi.criarHash(card['name'],cliente.cpf,card['number'].replace(" ",""),card['brand'],card['cvc'],card['expm'],card['expy'])
+            if 'errors' in hashVindi:
+                return errorViewCarrinho(request, hashVindi, carrinho)
+            hashVindi = hashVindi['payment_profile']['gateway_token']
+
+            if pedidos.count() > 1:
+                planoVindi = 193689
+                # planoVindi = 24196
+            else:
+                # mapaPlanos = {'Full':24196, 'Suplementação':24196, 'Degustação':24196}
+                mapaPlanos = {'Full':190598, 'Suplementação':190601, 'Degustação':190600}
+                planoVindi = mapaPlanos[pedido.idPlano.nome]
+            # mapaProdutos = {'Carne de panela':90331, 'Frango Xadrez':89777, 'Risoto Suíno':89777}
+            mapaProdutos = {'Carne de panela':700336, 'Frango Xadrez':700337, 'Risoto Suíno':700341}
+            produtosVindi = []
+            for ord in pedidos:
+                sabores = ord.idDog.sabores_name().split(', ')
+                qntTotal = (float(ord.idDog.calculomes) * (ord.idPlano.refeicoes / 28) ) * 4
+                for sabor in sabores:
+                    tempQtd = ( (float(ord.idDog.calculomes) * (ord.idPlano.refeicoes / 28) ) / len(sabores) ) * 4
+                    tempValor = ( floatValor / (ord.idPlano.refeicoes / 28) ) / 4
+                    produtosVindi.append( {'id':mapaProdutos[sabor], 'qtd':int(tempQtd), 'valor':round((float(ord.valor)+(cart.get_valor_frete()/pedidos.count()) )/qntTotal, 2)} )
+
+            assinatura = vindi.criarAssinatura(clientVindi, hashVindi, planoVindi, produtosVindi)
+            if 'errors' in assinatura:
+                return errorViewCarrinho(request, assinatura, carrinho)
+            assinatura = assinatura['subscription']['id']
+            cart.assinatura_vindi = assinatura
+
+            for uniquePedido in pedidos:
+                uniquePedido.status = 'Pedido finalizado pelo cliente'
+                uniquePedido.save()
+
             cart.save()
 
             pagseguro.descontoUnico(cart.pagseguro_adesao,"50.00")
 
             saveuser(request, cliente, pedido, pedido.idDog, carrinho)
             saveentrega(pedidos)
-
-            # send_mail(render_to_string(template_name='email/checkout_subject.txt', context={'dog':pedido.idDog.nome,'pedido':pedido}).strip(),
-            #     render_to_string(template_name='email/checkout_plain.txt', context={'pedido':pedido}).strip(),
-            #     None,
-            #     [pedido.idClient.email],
-            #     html_message = render_to_string(template_name='email/checkout.html')
-            # )
-
-            # rd.criarLead(cliente, cart.pagseguro_plano)
-            # messagingHandler.sendMessageT("Um novo Pedido foi finalizado! "+cart.plano+", R$"+"{:.2f}".format(cart.get_valor_carrinho()) )
-            # number = str(cliente.areatelefone)+str(cliente.telefone)
-            # msg = str("Olá! Seja muito bem-vindo ao Ração do Futuro.\nRecebemos seu pedido para "+("o " if pedido.idDog.sexo == "Macho" else "a ")+pedido.idDog.nome+" e estamos processando seu pagamento.\nNossa equipe de suporte canino entrará em contato em breve para combinar os detalhes de sua primeira entrega.\nEssa é uma mensagem automática, qualquer dúvida pode nos chamar no (48)996793978 aqui no WhatsApp!")
+            rd.criarLead(cliente, cart.assinatura_vindi)
+            messagingHandler.sendMessageT("Um novo Pedido foi finalizado! "+cart.plano+", R$"+"{:.2f}".format(cart.get_valor_carrinho()) )
+            number = str(cliente.areatelefone)+str(cliente.telefone)
+            msg = str("Olá! Seja muito bem-vindo ao Ração do Futuro.\nRecebemos seu pedido para  "+("o " if pedido.idDog.sexo == "Macho" else "a ")+pedido.idDog.nome+" e estamos processando seu pagamento.\nNossa equipe de suporte canino entrará em contato em breve para combinar os detalhes de sua primeira entrega.\nEssa é uma mensagem automática, qualquer dúvida pode nos chamar no (48)996793978 aqui no WhatsApp!")
             # messagingHandler.sendMessageW(msg, number)
 
             return redirect('clientflow_fimDoFlow', carrinho)
         if cliente.cpf=="":
             return redirect('user-profile-update', carrinho)
-        return render(request,"app/checkout_cartao.html",{'plano':cart.plano, 'carrinho':cart,'valor': "{:.2f}".format(cart.get_valor_carrinho()), 'desconto': "{:.2f}".format(cart.get_valor_desconto()), 'frete': "{:.2f}".format(cart.get_valor_frete()), 'pedidos':pedidos.count() })
+        return render(request,"app/checkout_cartao.html",{'plano':cart.plano, 'carrinho':cart,'valor': valor, 'desconto': "{:.2f}".format(cart.get_valor_desconto()), 'frete': "{:.2f}".format(cart.get_valor_frete()), 'pedidos':pedidos.count() })
     else:
         return handler500(request)
 
@@ -334,12 +357,6 @@ def adicionarAoCarrinho(request):
     for pedido in pedidos:
         pedido.idCarrinho = newCarrinho
         pedido.save()
-
-    valor = "{:.2f}".format( newCarrinho.get_valor_carrinho() )
-    codigoPlano = pagseguro.criarPlano(strPlano,str(newCarrinho.pk),str(valor))
-    newCarrinho.pagseguro_plano = codigoPlano['pg']
-    savedCarrinho = newCarrinho.save()
-
 
     if cliente.cpf == "":
         return redirect('user-profile-update', newCarrinho)

@@ -33,36 +33,57 @@
 <div class='row middle'>
   <div class='col-10 mx-auto mt-1'>
     <div class="row">
-      {% for obj, val in object.idCarrinho.lista_pagamentos.items %}
-      {% if forloop.first %}
       <strong class="card-dash-title text-center">{{object.idCarrinho.plano}} <br> </strong>
-      </div>
-      <div class="row">
-      {% endif %}
+    </div>
+    {% if object.idCarrinho.assinatura_vindi %}
+    {% with fatura=object.idCarrinho.lista_pagamentos_vindi %}
+    <div class="row">
       <div class="dogdash-card m-2 col-sm" style="height:auto">
         <div class="card-body">
           <div class='row'>
             <div class='col-12 m-1 card-dash-title'>
-              Data de cobrança: <br>
-              <span class='card-dash-subtitle'>{{val.schedulingDate|slice:10}}<br> </span>
-              Status: <br>
-              <select class="card-dash-subtitle" disabled value="{{val.status}}">
-                <option {% if val.status == 1 %} selected="selected" {% endif %} value="1">Aguardando pagamento</option>
-                <option {% if val.status == 2 %} selected="selected" {% endif %} value="2">Em análise</option>
-                <option {% if val.status == 3 %} selected="selected" {% endif %} value="3">Paga</option>
-                <option {% if val.status == 4 %} selected="selected" {% endif %} value="4">Disponível</option>
-                <option {% if val.status == 5 %} selected="selected" {% endif %} value="5">Em disputa</option>
-                <option {% if val.status == 6 %} selected="selected" {% endif %} value="6">Devolvida</option>
-                <option {% if val.status == 7 %} selected="selected" {% endif %} value="7">Cancelada</option>
-              </select>
-              Valor da cobrança: <br>
-              <span class='card-dash-subtitle'>R${{val.amount}} <br> </span>
+              Status da Assinatura: <br>
+              <span class='card-dash-subtitle'>{{fatura.status}}<br> </span>
+              Data da adesão: <br>
+              <span class='card-dash-subtitle'>{{fatura.created_at|slice:10}}<br> </span>
+              Próxima cobrança: <br>
+              <span class='card-dash-subtitle'>{{fatura.next_billing_at|slice:10}}<br> </span>
+              Valor da assinatura: <br>
+              <span class='card-dash-subtitle'>R${{object.idCarrinho.get_valor_carrinho|floatformat:-2}}<br> </span>
             </div>
           </div>
         </div>
       </div>
-      {% endfor %}
     </div>
+    {% endwith %}
+    {% elif object.idCarrinho.pagseguro_adesao %}
+    {% for obj, val in object.idCarrinho.lista_pagamentos.items %}
+    <div class="dogdash-card m-2 col-sm" style="height:auto">
+      <div class='row'>
+       <div class="card-body">
+         <div class='row'>
+           <div class='col-12 m-1 card-dash-title'>
+             Data de cobrança: <br>
+             <span class='card-dash-subtitle'>{{val.schedulingDate|slice:10}}<br> </span>
+             Status: <br>
+             <select class="card-dash-subtitle" disabled value="{{val.status}}">
+               <option {% if val.status == 1 %} selected="selected" {% endif %} value="1">Aguardando pagamento</option>
+               <option {% if val.status == 2 %} selected="selected" {% endif %} value="2">Em análise</option>
+               <option {% if val.status == 3 %} selected="selected" {% endif %} value="3">Paga</option>
+               <option {% if val.status == 4 %} selected="selected" {% endif %} value="4">Disponível</option>
+               <option {% if val.status == 5 %} selected="selected" {% endif %} value="5">Em disputa</option>
+               <option {% if val.status == 6 %} selected="selected" {% endif %} value="6">Devolvida</option>
+               <option {% if val.status == 7 %} selected="selected" {% endif %} value="7">Cancelada</option>
+             </select>
+             Valor da cobrança: <br>
+             <span class='card-dash-subtitle'>R${{val.amount}} <br> </span>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+  {% endfor %}
+  {% endif %}
   </div>
 </div>
 <div class="footer" style="margin-left:-15px;">
