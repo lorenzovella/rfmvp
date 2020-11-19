@@ -775,6 +775,15 @@ text-transform: none;
   font-weight: 600;
   text-transform: none;
 }
+.plano-highlight{
+  background: #1db954!important;
+  font-weight: 700;
+  padding: 5px 0px;
+  font-family: Montserrat;
+  font-size: 12px;
+  color: #203976;
+  text-align: center;
+}
 .plano-thin{
   font-family: Montserrat;
   font-size: 12px;

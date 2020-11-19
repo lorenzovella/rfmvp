@@ -219,7 +219,7 @@ def checkout(request,carrinho):
                     return errorViewCarrinho(request, clientVindi, carrinho)
                 clientVindi = clientVindi['customer']['id']
 
-            hashVindi = vindi.criarHash(card['name'],cliente.cpf,card['number'].replace(" ",""),card['brand'],card['cvc'],card['expm'],card['expy'])
+            hashVindi = vindi.criarHash(card['name'],cliente.cpf,card['number'].replace(" ",""),card['cvc'],card['expm'],card['expy'])
             if 'errors' in hashVindi:
                 return errorViewCarrinho(request, hashVindi, carrinho)
             hashVindi = hashVindi['payment_profile']['gateway_token']

@@ -40,7 +40,7 @@ body {
 }
 .progress-bar.icon-bar::after{
 position: relative;
-content: url("/static/ico/Dog-Symbol.a4955162ec08.png");
+content: url("/static/ico/Dog-Symbol.c4cb48e4f300.png");
 max-width:64px;
 transform: scale(0.3);
 display: block;
@@ -51,7 +51,7 @@ z-index:2;
 }
 
 .logo-header{
-  content: url("/static/ico/logo.6092181b6360.png");
+  content: url("/static/ico/logo.9030055dc927.png");
   position: relative;
   display: flex;
   align-self: center;
@@ -60,12 +60,12 @@ z-index:2;
 
 .dog-card-img{
   position: relative;
-  content: url("/static/ico/new-dog.5fb865ce1b8c.png");
+  content: url("/static/ico/new-dog.44b307b21109.png");
   margin-top: -47px;
   object-fit: scale-down;
 }
 .dog-card-img-2{
-    content: url("/static/ico/new-dog.5fb865ce1b8c.png");
+    content: url("/static/ico/new-dog.44b307b21109.png");
     margin-left: -15px;
     object-fit: scale-down;
 }
@@ -774,6 +774,15 @@ text-transform: none;
   vertical-align: top;
   font-weight: 600;
   text-transform: none;
+}
+.plano-highlight{
+  background: #1db954!important;
+  font-weight: 700;
+  padding: 5px 0px;
+  font-family: Montserrat;
+  font-size: 12px;
+  color: #203976;
+  text-align: center;
 }
 .plano-thin{
   font-family: Montserrat;

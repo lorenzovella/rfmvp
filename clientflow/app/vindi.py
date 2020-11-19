@@ -46,7 +46,7 @@ def criarCliente(user):
     response = requests.request("POST", url, headers=headers, data = payload)
     return json.loads(response.text)
 
-def criarHash(nome,cpf,cn,cb,cvv,cem,cey):
+def criarHash(nome,cpf,cn,cvv,cem,cey):
     url = vindiUrl + "public/payment_profiles"
     payload = json.dumps({
       "holder_name": nome,
@@ -55,8 +55,7 @@ def criarHash(nome,cpf,cn,cb,cvv,cem,cey):
       "allow_as_fallback": True,
       "card_number": cn,
       "card_cvv": cvv,
-      "payment_method_code": "credit_card",
-      "payment_company_code": "mastercard"
+      "payment_method_code": "credit_card"
     })
     headers = {
       'Authorization': 'Basic '+tokenPublic,
