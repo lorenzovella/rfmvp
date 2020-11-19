@@ -55,8 +55,7 @@ def criarHash(nome,cpf,cn,cb,cvv,cem,cey):
       "allow_as_fallback": True,
       "card_number": cn,
       "card_cvv": cvv,
-      "payment_method_code": "credit_card",
-      "payment_company_code": "mastercard"
+      "payment_method_code": "credit_card"
     })
     headers = {
       'Authorization': 'Basic '+tokenPublic,
