@@ -286,7 +286,7 @@ class Pedido(models.Model):
         sum = 0
         for i in Pedido.objects.filter(idClient = self.idClient).filter(status="Pedido em aberto"):
             sum += float(i.valor)*mapaDescontos[i.idPlano.nome]
-        return sum
+        return Decimal(sum)
 
 class Lead(models.Model):
 

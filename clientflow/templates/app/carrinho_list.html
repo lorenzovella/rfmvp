@@ -56,7 +56,7 @@ body{
           <p class="finish-order-last-description">
             <img alt="Carrinho" class="mr-4 cart-img" src="{% static 'css/images/shopping-cart.png' %}"/>Valor total
           </p>
-          <p class="finish-order-last-description">R$ {{object.get_valor_carrinho_desc|floatformat:-2}}</p>
+          <p class="finish-order-last-description">R$ {{object.get_valor_carrinho_desc|add:object.get_valor_frete}}</p>
         </div>
         <button class="finish-order-button"><a class="green" href="{% url 'adicionar_ao_carrinho'  %}"> Finalizar Compra</a><img alt="Seta para direita" class="ml-4" src="{% static 'css/images/right-arrow.png' %}"/></button>
       </div>
