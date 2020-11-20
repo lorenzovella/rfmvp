@@ -251,25 +251,25 @@ color: #000000;
     <div class="info-container">
       <div class="finish-order-line">
         <p class="finish-order-description">Assinatura <span class="bold-text">x{{pedidos}}</span> Cão</p>
-        <p class="finish-order-description text-line-through">R${{valor|sub:frete|addition:desconto|mul:2|floatformat:-2}}</p>
+        <p class="finish-order-description text-line-through">R${{valor|sub:frete|floatformat:-2}}</p>
       </div>
       <div class="finish-order-line">
         <p class="finish-order-description">Desconto Black Friday:</p>
-        <p class="finish-order-description">R${{valor|sub:frete|addition:desconto|floatformat:-2}}</p>
+        <p class="finish-order-description">R${{valor|sub:frete|sub:desconto|floatformat:-2}}</p>
       </div>
       <div class="finish-order-line">
         <p class="finish-order-description">Frete:</p>
         <p class="finish-order-description">R${{frete|floatformat:-2}}</p>
       </div>
-      <div class="finish-order-line">
+      <!-- <div class="finish-order-line">
         <p class="finish-order-description">Cupom de desconto:</p>
         <p class="finish-order-description" id="cupomMessageValor">{% if desconto != 0 %}R${{desconto}}{% else %}Não informado{% endif%}</p>
-      </div>
+      </div> -->
       <div class="finish-order-last-line">
         <p class="finish-order-last-description">
           <img alt="Carrinho" class="mr-4 cart-img" src="{% static 'css/images/shopping-cart.png' %}"/>Valor total
         </p>
-        <p class="finish-order-last-description">R$ <span id="valorTotal">{{valor}}</span></p>
+        <p class="finish-order-last-description">R$ <span id="valorTotal">{{desconto}}</span></p>
       </div>
       <button class="finish-order-button"><a class="green" onclick="submitform()" > Finalizar Compra</a><img alt="Seta para direita" class="ml-4" src="{% static 'css/images/right-arrow.png' %}"/></button>
     </div>

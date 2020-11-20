@@ -224,23 +224,31 @@ def checkout(request,carrinho):
                 return errorViewCarrinho(request, hashVindi, carrinho)
             hashVindi = hashVindi['payment_profile']['gateway_token']
 
+            # mapaPlanos = {'Full':24196, 'Suplementação':24196, 'Degustação':24196}
+            mapaPlanos = {'Full':190598, 'Suplementação':190601, 'Degustação':190600}
+            # mapaProdutos = {'Carne de panela':90331, 'Frango Xadrez':89777, 'Risoto Suíno':89777}
+            mapaProdutos = {'Carne de panela':700336, 'Frango Xadrez':700337, 'Risoto Suíno':700341}
+            mapaDescontos = {'Full':80, 'Suplementação':60, 'Degustação':40}
+            produtosVindi = []
+
             if pedidos.count() > 1:
                 planoVindi = 193689
                 # planoVindi = 24196
             else:
-                # mapaPlanos = {'Full':24196, 'Suplementação':24196, 'Degustação':24196}
-                mapaPlanos = {'Full':190598, 'Suplementação':190601, 'Degustação':190600}
                 planoVindi = mapaPlanos[pedido.idPlano.nome]
-            # mapaProdutos = {'Carne de panela':90331, 'Frango Xadrez':89777, 'Risoto Suíno':89777}
-            mapaProdutos = {'Carne de panela':700336, 'Frango Xadrez':700337, 'Risoto Suíno':700341}
-            produtosVindi = []
+
             for ord in pedidos:
                 sabores = ord.idDog.sabores_name().split(', ')
                 qntTotal = (float(ord.idDog.calculomes) * (ord.idPlano.refeicoes / 28) ) * 4
                 for sabor in sabores:
                     tempQtd = ( (float(ord.idDog.calculomes) * (ord.idPlano.refeicoes / 28) ) / len(sabores) ) * 4
                     tempValor = ( floatValor / (ord.idPlano.refeicoes / 28) ) / 4
-                    produtosVindi.append( {'id':mapaProdutos[sabor], 'qtd':int(tempQtd), 'valor':round((float(ord.valor)+(cart.get_valor_frete()/pedidos.count()) )/qntTotal, 2)} )
+                    produtosVindi.append({
+                        'id': mapaProdutos[sabor],
+                        'qtd': int(tempQtd),
+                        'valor': round((float(ord.valor)+(cart.get_valor_frete()/pedidos.count()) )/qntTotal, 2),
+                        'desconto': mapaDescontos[ord.idPlano.nome]
+                    })
 
             assinatura = vindi.criarAssinatura(clientVindi, hashVindi, planoVindi, produtosVindi)
             if 'errors' in assinatura:
@@ -272,7 +280,7 @@ def checkout(request,carrinho):
             return redirect('clientflow_fimDoFlow', carrinho)
         if cliente.cpf=="":
             return redirect('user-profile-update', carrinho)
-        return render(request,"app/checkout_cartao.html",{'plano':cart.plano, 'carrinho':cart,'valor': valor, 'desconto': "{:.2f}".format(cart.get_valor_desconto()), 'frete': "{:.2f}".format(cart.get_valor_frete()), 'pedidos':pedidos.count() })
+        return render(request,"app/checkout_cartao.html",{'plano':cart.plano, 'carrinho':cart,'valor': valor, 'desconto': "{:.2f}".format(cart.get_valor_carrinho_desc()), 'frete': "{:.2f}".format(cart.get_valor_frete()), 'pedidos':pedidos.count() })
     else:
         return handler500(request)
 
@@ -457,9 +465,11 @@ def PlanoFlow(request, dog):
     planos = models.Plano.objects.all()
     for obj in planos:
         precoKgRacao = calculaDescontoProgressivo( float(instance.calculomes) * float(obj.refeicoes/28) )
-        valorPlano = max((precoKgRacao * obj.refeicoes * float(instance.calculomes)/28)*0.9 + 15,35)
-        setattr(obj, "valor", "{:.2f}".format( valorPlano )  )
-        setattr(obj, "valordia", "{:.2f}".format( float(valorPlano)/float(obj.refeicoes) ) )
+        mapaDescontos = {'Full':0.2, 'Suplementação':0.4, 'Degustação':0.6}
+        valorPlano = max((precoKgRacao * obj.refeicoes * float(instance.calculomes)/28) + 15,70)
+        setattr(obj, "valor", "{:.2f}".format( valorPlano)  )
+        setattr(obj, "valorcomdesconto", "{:.2f}".format( valorPlano*mapaDescontos[obj.nome] )  )
+        setattr(obj, "valordia", "{:.2f}".format( float(valorPlano*mapaDescontos[obj.nome])/float(obj.refeicoes) ) )
 
     return render(request,'app/plano_list.html',{'planos':planos,'dog':instance})
 
@@ -471,7 +481,7 @@ def PedidoFlow(request, plano, dog):
         instance.idPlano = plano
         instance.idDog = dog
         precoKgRacao = calculaDescontoProgressivo(  float(dog.calculomes)  * float(plano.refeicoes/28) )
-        instance.valor = max((precoKgRacao * plano.refeicoes * float(dog.calculomes)/28)*0.9 + 15,35)
+        instance.valor = max((precoKgRacao * plano.refeicoes * float(dog.calculomes)/28) + 15,70)
         savedInstance = instance.save()
         return redirect('clientflow_EntregaFlow', pedido = instance)
     except Exception as e:

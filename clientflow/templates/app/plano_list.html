@@ -49,6 +49,82 @@
   top: 39px;
   padding-top: 5px;
 }
+@keyframes AniSub1{
+  from{transform:rotate(0deg);}
+  to{transform:rotate(360deg);}
+}
+
+#Star1{
+    width: 36px;
+    height: 36px;
+    background-color:#203976;
+    position:absolute;
+}
+
+#Star2{
+    width: 36px;
+    height: 36px;
+    background-color:#203976;
+    transform:rotate(45deg);
+    position:absolute;
+}
+#Star3{
+    width: 36px;
+    height: 36px;
+    background-color:#203976;
+    transform:rotate(22.5deg);
+    position:absolute;
+}
+
+#Star4{
+    width: 36px;
+    height: 36px;
+    background-color:#203976;
+    transform:rotate(67.5deg);
+    position:absolute;
+}
+
+#Star5{
+    width: 36px;
+    height: 36px;
+    background-color:#203976;
+    transform:rotate(11.25deg);
+    position:absolute;
+}
+
+#Star6{
+    width: 36px;
+    height: 36px;
+    background-color:#203976;
+    transform:rotate(33.75deg);
+    position:absolute;
+}
+
+#Star7{
+    width: 36px;
+    height: 36px;
+    background-color:#203976;
+    transform:rotate(56.25deg);
+    position:absolute;
+}
+
+#Star8{
+    width: 36px;
+    height: 36px;
+    background-color:#203976;
+    transform:rotate(78.75deg);
+    position:absolute;
+}
+
+#Sub1{
+    width: 36px;
+    height: 36px;
+    position:absolute;
+    animation-name:AniSub1;
+    animation-duration:5s;
+    animation-iteration-count:infinite;
+    animation-timing-function:linear;
+}
 
 </style>
 <script>
@@ -86,10 +162,23 @@ $(document).ready(function () {
     <div class="siema pl-4">
       {% for object in planos %}
         <div class="m-2 pt-4 pl-3 pr-1 text-decoration-none mx-auto plano-card position-relative" name="{{object}}">
+          <div style="position: absolute;top: -76px;">
+            <span style="top: 43px;position: relative;z-index: 4;color: white;left: 2px;">{%if object.nome == "Full"%}80%{%elif object.nome == "Suplementação"%}60%{%else%}40%{%endif%}<br>OFF</span>
+            <div id="Sub1">
+              <div id="Star1"></div>
+              <div id="Star2"></div>
+              <div id="Star3"></div>
+              <div id="Star4"></div>
+              <div id="Star5"></div>
+              <div id="Star6"></div>
+              <div id="Star7"></div>
+              <div id="Star8"></div>
+            </div>
+          </div>
           <div class="d-flex plano-img">
             <span class="plano-{{forloop.counter}} pl-4 mt-3" style="min-height: 50px;"></span>
-            <span class="valoresp text-center" style="top: 39px!important;" >R${{object.valor}} 1º mês</span>
-            <span class="valormes text-center"><del>R${{object.valor|mul:2|floatformat:-2}}/mês</del></span>
+            <span class="valoresp text-center" style="top: 39px!important;" >R${{object.valorcomdesconto}} 1º mês</span>
+            <span class="valormes text-center"><del>R${{object.valor}}/mês</del></span>
             <span class="valordia text-center">R${{object.valordia}}/dia</span>
           </div>
           <div class="col mx-auto radio-toolbar" style="padding-top: 70px;">

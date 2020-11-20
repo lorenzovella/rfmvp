@@ -47,6 +47,13 @@ class Carrinho(models.Model):
         sum += Decimal(self.get_valor_frete())
         return sum
 
+    def get_valor_carrinho_desc(self):
+        mapaDescontos = {'Full':0.2, 'Suplementação':0.4, 'Degustação':0.6}
+        sum = 0
+        for i in self.item.all():
+            sum += float(i.valor)*mapaDescontos[i.idPlano.nome]
+        return sum
+
     def get_valor_frete(self):
         for i in self.item.all():
             if i.idEntrega.frequencia == 2:
@@ -274,6 +281,12 @@ class Pedido(models.Model):
     def get_update_url(self):
         return reverse("clientflow_Pedido_update", args=(self.pk,))
 
+    def get_valor_carrinho_desc(self):
+        mapaDescontos = {'Full':0.2, 'Suplementação':0.4, 'Degustação':0.6}
+        sum = 0
+        for i in Pedido.objects.filter(idClient = self.idClient).filter(status="Pedido em aberto"):
+            sum += float(i.valor)*mapaDescontos[i.idPlano.nome]
+        return sum
 
 class Lead(models.Model):
 

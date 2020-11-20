@@ -79,7 +79,7 @@ def criarAssinatura(clientVindi, hashVindi, planoVindi, produtosVindi):
                 "discounts": [
                 {
                     "discount_type": "percentage",
-                    "percentage": 50,
+                    "percentage": produto['desconto'],
                     "cycles": 1
                 }
                 ]
