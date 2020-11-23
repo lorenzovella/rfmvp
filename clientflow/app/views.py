@@ -241,8 +241,13 @@ def checkout(request,carrinho):
                     tempQtd = ( (float(ord.idDog.calculomes) * (ord.idPlano.refeicoes / 28) ) / len(sabores) ) * 4
                     tempValor = ( floatValor / (ord.idPlano.refeicoes / 28) ) / 4
                     produtosVindi.append( {'id':mapaProdutos[sabor], 'qtd':int(tempQtd), 'valor':round((float(ord.valor)+(cart.get_valor_frete()/pedidos.count()) )/qntTotal, 2)} )
+            if cart.cupom:
+                cupom = Coupon.objects.get(code = cart.cupom)
+                discount = cupom.get_discount()
+                assinatura = vindi.criarAssinatura(clientVindi, hashVindi, planoVindi, produtosVindi, discount)
+            else:
+                assinatura = vindi.criarAssinatura(clientVindi, hashVindi, planoVindi, produtosVindi)
 
-            assinatura = vindi.criarAssinatura(clientVindi, hashVindi, planoVindi, produtosVindi)
             if 'errors' in assinatura:
                 return errorViewCarrinho(request, assinatura, carrinho)
             assinatura = assinatura['subscription']['id']
@@ -267,7 +272,7 @@ def checkout(request,carrinho):
             messagingHandler.sendMessageT("Um novo Pedido foi finalizado! "+cart.plano+", R$"+"{:.2f}".format(cart.get_valor_carrinho()) )
             number = str(cliente.areatelefone)+str(cliente.telefone)
             msg = str("Olá! Seja muito bem-vindo ao Ração do Futuro.\nRecebemos seu pedido para  "+("o " if pedido.idDog.sexo == "Macho" else "a ")+pedido.idDog.nome+" e estamos processando seu pagamento.\nNossa equipe de suporte canino entrará em contato em breve para combinar os detalhes de sua primeira entrega.\nEssa é uma mensagem automática, qualquer dúvida pode nos chamar no (48)996793978 aqui no WhatsApp!")
-            # messagingHandler.sendMessageW(msg, number)
+            messagingHandler.sendMessageW(msg, number)
 
             return redirect('clientflow_fimDoFlow', carrinho)
         if cliente.cpf=="":
@@ -389,10 +394,6 @@ def aplicaDesconto(coupon, carrinho, user):
     instance.cupom = coupon.code
     instance.save()
     novoValor = "{:.2f}".format( instance.get_valor_carrinho() )
-    try:
-        pagseguro.descontoPlano(instance.pagseguro_plano,novoValor)
-    except:
-        return "Erro ao aplicar desconto!"
     coupon.use_coupon(user=user)
     return "{:.2f}".format( instance.get_valor_desconto() )
 

@@ -64,8 +64,17 @@ def criarHash(nome,cpf,cn,cvv,cem,cey):
     response = requests.request("POST", url, headers=headers, data = payload)
     return json.loads(response.text)
 
-def criarAssinatura(clientVindi, hashVindi, planoVindi, produtosVindi):
+def criarAssinatura(clientVindi, hashVindi, planoVindi, produtosVindi, discount=None):
     url = vindiUrl + "subscriptions"
+
+    discountObj = ""
+    if discount:
+        discountType = 'percentage' if discount['is_percentage'] else 'amount'
+        discountObj = [{
+          "discount_type": discountType,
+          discountType: discount['value'],
+        }]
+
     produtosArray = []
     for produto in produtosVindi:
         produtosArray.append(
@@ -75,7 +84,8 @@ def criarAssinatura(clientVindi, hashVindi, planoVindi, produtosVindi):
                 "pricing_schema": {
                     "price": produto['valor'],
                     "schema_type": "per_unit"
-                }
+                },
+                "discounts": discountObj
             })
     tempObject = {
         "plan_id": planoVindi,
