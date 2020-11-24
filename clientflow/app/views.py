@@ -232,15 +232,20 @@ def checkout(request,carrinho):
                 mapaPlanos = {'Full':190598, 'Suplementação':190601, 'Degustação':190600}
                 planoVindi = mapaPlanos[pedido.idPlano.nome]
             # mapaProdutos = {'Carne de panela':90331, 'Frango Xadrez':89777, 'Risoto Suíno':89777}
-            mapaProdutos = {'Carne de panela':700336, 'Frango Xadrez':700337, 'Risoto Suíno':700341}
+            mapaProdutos = {'Carne de panela':700336, 'Frango Xadrez':700337, 'Risoto Suíno':700338}
             produtosVindi = []
             for ord in pedidos:
                 sabores = ord.idDog.sabores_name().split(', ')
-                qntTotal = (float(ord.idDog.calculomes) * (ord.idPlano.refeicoes / 28) ) * 4
+                totalQtd = (float(ord.idDog.calculomes) * (ord.idPlano.refeicoes / 28) ) * 4
+
+                somaQtd = 0
                 for sabor in sabores:
-                    tempQtd = ( (float(ord.idDog.calculomes) * (ord.idPlano.refeicoes / 28) ) / len(sabores) ) * 4
-                    tempValor = ( floatValor / (ord.idPlano.refeicoes / 28) ) / 4
-                    produtosVindi.append( {'id':mapaProdutos[sabor], 'qtd':int(tempQtd), 'valor':round((float(ord.valor)+(cart.get_valor_frete()/pedidos.count()) )/qntTotal, 2)} )
+                    tempQtd = int( ( (float(ord.idDog.calculomes) * (ord.idPlano.refeicoes / 28) ) / len(sabores) ) * 4)
+                    tempValor = round((float(ord.valor)+(cart.get_valor_frete()/pedidos.count()) )/totalQtd, 2)
+                    somaQtd += tempQtd
+                    if(sabor == sabores[-1] and somaQtd < totalQtd):
+                        tempQtd += int(totalQtd - somaQtd)
+                    produtosVindi.append( {'id':mapaProdutos[sabor], 'qtd':tempQtd, 'valor':tempValor} )
             if cart.cupom:
                 cupom = Coupon.objects.get(code = cart.cupom)
                 discount = cupom.get_discount()
