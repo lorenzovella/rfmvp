@@ -227,7 +227,7 @@ def checkout(request,carrinho):
             # mapaPlanos = {'Full':24196, 'Suplementação':24196, 'Degustação':24196}
             mapaPlanos = {'Full':190598, 'Suplementação':190601, 'Degustação':190600}
             # mapaProdutos = {'Carne de panela':90331, 'Frango Xadrez':89777, 'Risoto Suíno':89777}
-            mapaProdutos = {'Carne de panela':700336, 'Frango Xadrez':700337, 'Risoto Suíno':700341}
+            mapaProdutos = {'Carne de panela':700336, 'Frango Xadrez':700337, 'Risoto Suíno':700338}
             mapaDescontos = {'Full':80, 'Suplementação':60, 'Degustação':40}
             produtosVindi = []
 
@@ -239,18 +239,23 @@ def checkout(request,carrinho):
 
             for ord in pedidos:
                 sabores = ord.idDog.sabores_name().split(', ')
-                qntTotal = (float(ord.idDog.calculomes) * (ord.idPlano.refeicoes / 28) ) * 4
-                for sabor in sabores:
-                    tempQtd = ( (float(ord.idDog.calculomes) * (ord.idPlano.refeicoes / 28) ) / len(sabores) ) * 4
-                    tempValor = ( floatValor / (ord.idPlano.refeicoes / 28) ) / 4
-                    produtosVindi.append({
-                        'id': mapaProdutos[sabor],
-                        'qtd': int(tempQtd),
-                        'valor': round((float(ord.valor)+(cart.get_valor_frete()/pedidos.count()) )/qntTotal, 2),
-                        'desconto': mapaDescontos[ord.idPlano.nome]
-                    })
+                totalQtd = (float(ord.idDog.calculomes) * (ord.idPlano.refeicoes / 28) ) * 4
 
-            assinatura = vindi.criarAssinatura(clientVindi, hashVindi, planoVindi, produtosVindi)
+                somaQtd = 0
+                for sabor in sabores:
+                    tempQtd = int( ( (float(ord.idDog.calculomes) * (ord.idPlano.refeicoes / 28) ) / len(sabores) ) * 4)
+                    tempValor = round((float(ord.valor)+(cart.get_valor_frete()/pedidos.count()) )/totalQtd, 2)
+                    somaQtd += tempQtd
+                    if(sabor == sabores[-1] and somaQtd < totalQtd):
+                        tempQtd += int(totalQtd - somaQtd)
+                    produtosVindi.append( {'id':mapaProdutos[sabor], 'qtd':tempQtd, 'valor':tempValor, 'desconto': mapaDescontos[ord.idPlano.nome]} )
+            if cart.cupom:
+                cupom = Coupon.objects.get(code = cart.cupom)
+                discount = cupom.get_discount()
+                assinatura = vindi.criarAssinatura(clientVindi, hashVindi, planoVindi, produtosVindi, discount)
+            else:
+                assinatura = vindi.criarAssinatura(clientVindi, hashVindi, planoVindi, produtosVindi)
+
             if 'errors' in assinatura:
                 return errorViewCarrinho(request, assinatura, carrinho)
             assinatura = assinatura['subscription']['id']
@@ -275,7 +280,7 @@ def checkout(request,carrinho):
             messagingHandler.sendMessageT("Um novo Pedido foi finalizado! "+cart.plano+", R$"+"{:.2f}".format(cart.get_valor_carrinho()) )
             number = str(cliente.areatelefone)+str(cliente.telefone)
             msg = str("Olá! Seja muito bem-vindo ao Ração do Futuro.\nRecebemos seu pedido para  "+("o " if pedido.idDog.sexo == "Macho" else "a ")+pedido.idDog.nome+" e estamos processando seu pagamento.\nNossa equipe de suporte canino entrará em contato em breve para combinar os detalhes de sua primeira entrega.\nEssa é uma mensagem automática, qualquer dúvida pode nos chamar no (48)996793978 aqui no WhatsApp!")
-            # messagingHandler.sendMessageW(msg, number)
+            messagingHandler.sendMessageW(msg, number)
 
             return redirect('clientflow_fimDoFlow', carrinho)
         if cliente.cpf=="":
@@ -397,10 +402,6 @@ def aplicaDesconto(coupon, carrinho, user):
     instance.cupom = coupon.code
     instance.save()
     novoValor = "{:.2f}".format( instance.get_valor_carrinho() )
-    try:
-        pagseguro.descontoPlano(instance.pagseguro_plano,novoValor)
-    except:
-        return "Erro ao aplicar desconto!"
     coupon.use_coupon(user=user)
     return "{:.2f}".format( instance.get_valor_desconto() )
 
