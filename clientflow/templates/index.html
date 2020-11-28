@@ -1,31 +1,68 @@
 {% extends "base_client.html" %}
 {% block head %}
 <script type="text/javascript" async src="https://d335luupugsy2.cloudfront.net/js/loader-scripts/01d6893b-2510-4a2d-b18e-d510cff92899-loader.js" ></script>
+<script type="text/javascript">
+function openTermos() {
+  document.getElementById('termosdeuso').style.display = "";
+  document.getElementById('main-page').style.display = "none";
+  window.scrollTo(0,0);
+}
+function closeTermos(){
+  document.getElementById('termosdeuso').style.display = "none";
+  document.getElementById('main-page').style.display = "";
+}
+
+</script>
+<style>
+li::marker {
+  color: white;
+}
+</style>
 {% endblock %}
 {% block content %}
-<div class="row d-flex-column middle">
-  <div style="padding-top: 121px;" class='col-lg-6 col-10 mx-auto'>
-  <span class="index-blue-text"><del>Black</del> <span style=" background: #1db954; padding: 5px 5px 5px 5px; color: #203976; width: fit-content; ">Color Friday do Futuro!</span> Até 80% off.</span>
-    <br>
-    <p class="dash-title">Olá Humano,</p>
-    <p class="card-dash-subtitle" style="margin-top:-20px;">
-      Escolha uma das opções abaixo.
-    </p>
-    <a
-    class="dash-big-btn p-4 m-3 d-block text-decoration-none mx-auto"
-    href="{% url 'clientflow_dogflow' %}">
-    Assinar a Ração do Futuro
-    </a>
-    <a
-    class="p-4 m-3 d-block index-blue-text text-decoration-none mx-auto"
-    href="{% url 'clientflow_dogflow' %}">
-    Simular plano
-    </a>
+<div id="main-page">
+  <div class="row d-flex-column middle">
+    <div style="padding-top: 121px;" class='col-lg-6 col-10 mx-auto'>
+    <span class="index-blue-text"><del>Black</del> <span style=" background: #1db954; padding: 5px 5px 5px 5px; color: #203976; width: fit-content; ">Color Friday do Futuro!</span> Até 80% off.</span>
+      <br>
+      <p class="dash-title">Olá Humano,</p>
+      <p class="card-dash-subtitle" style="margin-top:-20px;">
+        Escolha uma das opções abaixo.
+      </p>
+      <a
+      class="dash-big-btn p-4 m-3 d-block text-decoration-none mx-auto"
+      href="{% url 'clientflow_dogflow' %}">
+      Assinar a Ração do Futuro
+      </a>
+      <a
+      class="p-4 m-3 d-block index-blue-text text-decoration-none mx-auto"
+      href="{% url 'clientflow_dogflow' %}">
+      Simular plano
+      </a>
+      <a
+      class="dash-big-btn p-4 m-3 d-block text-decoration-none mx-auto"
+      onclick="openTermos()">
+      Áreas de Entrega
+      </a>
+    </div>
   </div>
-  <p class="card-dash-subtitle text-center col-12"
-  style="margin-top:150px;">
+  <div>
+    <p class="card-dash-subtitle text-center col-12"
+    style="margin-top:150px;">
     Já é cadastrado? <a href="{% url 'login' %}"><strong>Clique aqui</strong></a>.
   </p>
+</div>
+</div>
+<div id="termosdeuso" style="display:none;">
+<a onclick="closeTermos()">
+  <svg style="margin-top: 20px;" class="delete-icon" width="50px" height="50px" viewBox="0 0 33 33" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+    <g class="icon_trash">
+      <path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z" id="Combined-Shape" fill="#FF2650" fill-rule="evenodd" stroke="none"></path>
+    </g>
+  </svg>
+</a>
+<div id="termosdeusoframe" style="width: 100%; height: 100vw; margin-top: 70px; border:0;"><div class="mx-auto index-blue-text style="max-width:600px ;padding:20px"><h6 class="index-blue-text">Sua cidade não está na lista abaixo? Entre em contato.</h6><h1><span style="font-size: 140%;">Cidades atendidas <br><span style="background: #01a052; padding: 0px 10px 0px 10px; color: #fff;">Ração do Futuro</span></span></h1><p></p><h1 style=" font-size: 110%; ">Santa Catarina:</h1><ul style=" color: #203976; padding-left: 1.3em; "><li>Florianópolis
+</li><li>São José</li><li>Palhoça</li><li>Balneário Camboriú</li><li>Itapema</li><li>Itajaí</li></ul></div>
 </div>
 </div>
 <div class="endofcontent"></div>
