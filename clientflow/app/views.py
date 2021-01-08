@@ -192,8 +192,8 @@ def viewteste(request, teste):
     return render(request, 'app/teste.html', {'info': teste})
 def listagemteste(request):
     eventosAtivos = Event.objects.values('url').annotate(urlint=Cast('url', output_field=IntegerField() ) ).values('urlint')
-    pedidosAtivos = models.Pedido.objects.filter(pk__in=eventosAtivos).order_by('-created')
-    return render(request, 'app/listagem_teste.html',{'lista':pedidosAtivos})
+    pedidosAtivos = models.Pedido.objects.filter(pk__in=eventosAtivos).order_by('-idDog__nascimento')
+    return render(request, 'app/listagem_teste2.html',{'lista':pedidosAtivos})
 def listagemteste2(request):
     eventosAtivos = Event.objects.values('url').annotate(urlint=Cast('url', output_field=IntegerField() ) ).values('urlint')
     pedidosAtivos = models.Pedido.objects.filter(pk__in=eventosAtivos).order_by('-created')
