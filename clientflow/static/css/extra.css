@@ -672,6 +672,14 @@ vertical-align: top;
 font-weight: 600;
 text-transform: none;
 }
+.index-blue-text-2{
+font-family: Roboto;
+font-size: 18px;
+color: #203976;
+vertical-align: top;
+font-weight: 600;
+text-transform: none;
+}
 .card-dash-centered-text{
   font-family: Roboto;
   font-size: 14px;

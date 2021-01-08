@@ -159,7 +159,6 @@ class Plano(models.Model):
     def get_update_url(self):
         return reverse("clientflow_Plano_update", args=(self.pk,))
 
-
 class Entrega(models.Model):
     diadasemana_choices = (('Segunda','Segunda'),('Terça','Terça'),('Quarta','Quarta'),('Quinta','Quinta'),('Sexta','Sexta'),('Sábado','Sábado'))
     periodo_choices = (('Matutino','Matutino'),('Vespertino','Vespertino'),('Noturno','Noturno'))
@@ -193,7 +192,7 @@ class Cachorro(models.Model):
     dogEspecial = models.OneToOneField("app.CachorroEspecial", on_delete=models.CASCADE, related_name="Cachorro", null=True, blank=True)
 
     sexo_choices = (('Macho','Macho'),('Femea','Fêmea'))
-    castrado_choices = ((1,'Sim'), (0,'Não'))
+    castrado_choices = ((True,'Sim'), (False,'Não'))
     atividade_choices = (('Caminhadas Diárias','De 30 min até 1:30 de caminhadas diárias.'),('Super Ativo','1:30 até 2:30 de caminhadas diárias.'), ('Nivel Olímpico','2:30 até 3:30 de caminhadas diárias.'))
     fisico_choices =( ('Magro','Magro'),  ('Na Medida','Na Medida'), ('Gordinho','Gordinho'), ('Obeso','Obeso') )
     sabores_choices = (

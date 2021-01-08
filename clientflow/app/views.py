@@ -142,6 +142,8 @@ def IndexView(request):
         return redirect('dogdash')
     return render(request,'index.html')
 
+def SingleBuy(request):
+    return render(request,'app/single_buy.html')
 def ra(request):
     return render(request, 'ra/index.html')
 
@@ -671,12 +673,12 @@ class cachorroWizard(SessionWizardView):
         # calculo filhote
         if cachorroInstance.calculate_age() < 1:
             kcalpordia = round( 416*(float(cachorroInstance.peso)**0.75)*(2.718**(-0.87*float(cachorroInstance.peso/cachorroInstance.pesoideal))-0.1) )
-            gramaspordia = float(kcalpordia) / float(1.5859)
+            gramaspordia = float(kcalpordia) / float(1.18)
             kgpormes = max(1,ceil( gramaspordia * 0.028 ))
         # calculo dog adulto
         else:
             fator = calcularFator(cachorroInstance.atividade, cachorroInstance.nascimento, cachorroInstance.fisico, cachorroInstance.castrado)
-            gramaspordia = round(fator * 0.63 * (float(cachorroInstance.peso) ** 0.75  ) )
+            gramaspordia = round(fator * 0.847 * (float(cachorroInstance.peso) ** 0.75  ) )
             kgpormes = max(1,ceil( gramaspordia * 0.028 ))
         cachorroInstance.calculodia = Decimal.from_float(gramaspordia)
         cachorroInstance.calculomes = Decimal(kgpormes)

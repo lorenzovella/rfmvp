@@ -46,6 +46,8 @@ urlpatterns = (
 
     path("cupom/", views.testaCupom, name="cupom"),
 
+    path("experimentar/", views.SingleBuy, name="clientflow_singlebuy"),
+
     # path("Cadastro/", views.signup_view, name="sign-up"),
     path("DogDash/", login_required(views.dogdash), name="dogdash"),
     path("interno/", staff_member_required(views.pedidosDash), name="pedidosDash",),

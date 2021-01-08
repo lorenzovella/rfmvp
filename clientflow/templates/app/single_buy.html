@@ -1,0 +1,83 @@
+{% extends "base_flow.html" %}
+{% load static %}
+{% block head %}
+<script src="{% static 'js/siema.min.js' %}"></script>
+<style>
+
+.plano-1 {
+  content: url('/static/ico/plano_recomendado.png');
+  max-height: 115px;
+}
+.plano-2 {
+  content: url('/static/ico/plano_metade.png');
+  max-height: 115px;
+}
+.plano-3 {
+  content: url('/static/ico/plano_quarto.png');
+  max-height: 115px;
+}
+.dogdash-card{
+  height: auto;
+  margin-top: 15px;
+}
+</style>
+<script>
+$(document).ready(function () {
+  $('.progress-bar.icon-bar').css("width","66%");
+  $('.progress-bar.disabled-bar').css("width","34%");
+  $('.two').removeClass('disabled-bar');
+  $('.three').removeClass('disabled-bar');
+
+  $('input[type="radio"]').on('change', function() {
+    $('.footer-text').attr("href", "/PedidoFlow/");
+    $('.footer-text').text("Continuar");
+  });
+});
+</script>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+  <div class="mx-auto">
+    <p class="dog-card-title col-10 mx-auto">Experimente o futuro!</p>
+    <p class="multi-select-flavor-title col-10 mx-auto" style="margin-top:-2em;">Nossa box do futuro é feita especialmente para você que deseja <span style="font-weight:600;">conhecer</span> o produto.</p>
+    <div class="pl-4">
+      <div class="m-2 pt-4 pl-3 pr-1 text-decoration-none mx-auto plano-card position-relative" name="{{object}}">
+        <div class="d-flex plano-img">
+          <span class="plano-{{forloop.counter}} pl-4 mt-3" style="min-height: 50px;"></span>
+          <span class="valormes text-center">R${{object.valor}}/mês</span>
+          <span class="valordia text-center">R${{object.valordia}}/dia</span>
+        </div>
+        <div class="col mx-auto radio-toolbar" style="padding-top: 70px;">
+          <div class="d-flex" style="justify-content: center;">
+            <input type="radio" name="planoChoice" id="planoChoices_{{object}}" value="{{object}}">
+            <label class="first-description mx-auto" style="height:50px;white-space:nowrap;padding: 16px 25px;" for="planoChoices_{{object}}">
+                Escolher plano
+            </label>
+          </div>
+         </div>
+        <p class="second-description text-left">Plano</p>
+        <p class="card-subheading text-left less-spacing">{{object.nome}}</p>
+        <p class="plano-highlight">{{object.subdescricao}}</p>
+        <p class="card-footer-text less-spacing">{{ object.descricao}}</p>
+        <div class="plano-card-footer">
+          <hr class="custom-hr-2">
+          <p class="plano-thin">{{object.condicaofrete}}</p>
+          <hr class="custom-hr-2">
+          <p class="plano-bold">Reembolso garantido</p>
+          <hr class="custom-hr-2">
+          <p class="plano-thin">Cancele a hora que quiser</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="endofcontent"></div>
+<div class="footer margin-footer" style="z-index:3;">
+    <a class="footer-text btn-next">
+      Escolha um plano
+    </a>
+</div>
+{% endblock %}
