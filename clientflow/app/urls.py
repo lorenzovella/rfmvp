@@ -70,7 +70,7 @@ urlpatterns = (
     path("ar/", views.ra, name="ar",),
 
 
-    path("listateste/", views.listagemteste, name="listateste",),
-    path("listateste2/", views.listagemteste2, name="listateste2",),
+    path("listateste/", staff_member_required(views.listagemteste), name="listateste",),
+    path("listateste2/", staff_member_required(views.listagemteste2), name="listateste2",),
     path("teste/", views.viewteste, name="teste",),
 )
