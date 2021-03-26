@@ -151,9 +151,9 @@ send_default_pii=True
 )
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp-relay.gmail.com'
+EMAIL_HOST = 'racaodofuturo.com.br'
 EMAIL_HOST_USER = os.environ.get('mailaddress')
 EMAIL_HOST_PASSWORD = os.environ.get('mailtoken')
-EMAIL_PORT = 587
+EMAIL_PORT = 465
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'Ração do Futuro <empresa@racaodofuturo.com.br>'
