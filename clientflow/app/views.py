@@ -40,22 +40,22 @@ class newPasswordResetForm(PasswordResetForm):
 
 def calculaDescontoProgressivo(consumoKg):
     consumoKg = float(consumoKg)
-    precoKg = 55
+    precoKg = 39.9
     if consumoKg < 4 :
         #         #número de vezes a    # % de desconto
         #         #aplicar o desconto   # a cada 100g
-        desconto = ( consumoKg - 1 ) * 0.07
+        desconto = ( consumoKg - 1 ) * 0.03
     if consumoKg >= 4 and consumoKg < 5:
-        desconto = 0.203 + (( consumoKg - 4 ) * 0.055)
+        desconto = 0.10 + (( consumoKg - 4 ) * 0.025)
     if consumoKg >= 5 and consumoKg < 5.5:
-        desconto = 0.26 + (( consumoKg - 5 ) * 0.04)
+        desconto = 0.13 + (( consumoKg - 5 ) * 0.02)
     if consumoKg >= 5.5 and consumoKg < 9.5:
-        desconto = 0.29 + (( consumoKg - 5.5 ) * 0.03)
+        desconto = 0.15 + (( consumoKg - 5.5 ) * 0.015)
     if consumoKg >= 9.5 and consumoKg < 12.5:
-        desconto = 0.41 + (( consumoKg - 9.5 ) * 0.02)
+        desconto = 0.25 + (( consumoKg - 9.5 ) * 0.01)
     if consumoKg >= 12.5:
-        desconto = 0.47 + (( consumoKg - 12.5 ) * 0.01)
-    desconto = min(desconto,0.5)
+        desconto = 0.28 + (( consumoKg - 12.5 ) * 0.005)
+    desconto = min(desconto,0.3)
     # retorna valor do Kg com desconto aplicado
     return (precoKg*(1-desconto))
 
@@ -465,7 +465,7 @@ def PlanoFlow(request, dog):
     planos = models.Plano.objects.all()
     for obj in planos:
         precoKgRacao = calculaDescontoProgressivo( float(instance.calculomes) * float(obj.refeicoes/28) )
-        valorPlano = max((precoKgRacao * obj.refeicoes * float(instance.calculomes)/28) + 15,70)
+        valorPlano = max((precoKgRacao * obj.refeicoes * float(instance.calculomes)/28) + 15,65)
         setattr(obj, "valor", "{:.2f}".format( valorPlano )  )
         setattr(obj, "valordia", "{:.2f}".format( float(valorPlano)/float(obj.refeicoes) ) )
 
@@ -479,7 +479,7 @@ def PedidoFlow(request, plano, dog):
         instance.idPlano = plano
         instance.idDog = dog
         precoKgRacao = calculaDescontoProgressivo(  float(dog.calculomes)  * float(plano.refeicoes/28) )
-        instance.valor = max((precoKgRacao * plano.refeicoes * float(dog.calculomes)/28) + 15,70)
+        instance.valor = max((precoKgRacao * plano.refeicoes * float(dog.calculomes)/28) + 15,65)
         savedInstance = instance.save()
         return redirect('clientflow_EntregaFlow', pedido = instance)
     except Exception as e:
